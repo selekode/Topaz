@@ -22,7 +22,7 @@ import com.selekode.topaz.model.JournalEntry;
 public class JournalEditEntryController {
     private static final String DB_URL = "jdbc:sqlite:src/main/resources/database/topazdatabase.db";
 
-	@GetMapping("/editJournalEntry/{id}")
+	@GetMapping("/editEntry/{id}")
 	public String editJournalEntry(@PathVariable("id") Long id, Model model) {
 	    // Fetch the journal entry by ID
 	    JournalEntry journalEntry = loadJournalEntry(id);
