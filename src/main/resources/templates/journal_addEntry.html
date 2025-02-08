@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topaz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
+
+        body {
+            font-family: 'Ubuntu', sans-serif !important;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+        }
+
+        .modal-content {
+            background-color: #172E38;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Fix the sidebar to stay in place */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh; /* Full viewport height */
+            overflow-y: auto;
+        }
+
+        /* Adjust the main content to avoid being hidden under the sidebar */
+        .main-content {
+            margin-left: 16rem; /* This matches the sidebar width */
+        }
+    </style>
+    
+    <script>
+        window.onload = function () {
+            const dateInput = document.getElementById('title');
+            const currentDate = new Date();
+            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            dateInput.placeholder = currentDate.toLocaleDateString('es-ES', options).replace(/ /g, '-');
+
+            const saveButton = document.getElementById('saveButton');
+            const modal = document.getElementById('saveModal');
+            const closeModal = document.getElementById('closeModal');
+            const form = document.getElementById('journalForm');
+        };
+    </script>
+</head>
+<body class="bg-[#0F2529] font-sans leading-normal tracking-normal flex min-h-screen">
+
+    <!-- Sidebar -->
+    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
+        <!-- Logo Section -->
+        <div class="flex items-center mb-6 mt-2 flex-col">
+            <img th:src="@{/images/topaz-logo-text.png}" alt="Logo" class="w-[120px] select-none">
+        </div>
+        
+        <!-- Horizontal Rule -->
+        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+
+        <div class="space-y-4 w-full flex flex-col items-center">
+            <button class="w-12 h-12 rounded-full bg-[#1A7C84] text-white flex items-center justify-center hover:bg-[#1A7C84] mb-4 transition-colors duration-300 font-bold">
+                +
+            </button>
+            <!-- Rounded buttons for other actions -->
+            <button class="w-full text-left py-2 px-4 bg-[#1A7C84] rounded-full transition-colors duration-300 hover:bg-[#1A7C84]">
+                Diario
+            </button>
+            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                Revisión
+            </button>
+            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                Stats
+            </button>
+            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                Sobre Topaz
+            </button>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="flex-grow bg-[#0F2529] p-6 main-content" >
+        <main class="container mx-auto mt-6 p-4">
+            <div class="bg-[#172E38] p-6 rounded-lg shadow-2xl flex flex-col justify-between">
+                <div class="mb-4 flex items-center justify-between">
+                    <a href="/journal/load" class="text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Atrás</a>
+                    <h2 class="text-xl text-white font-bold select-none">Añadir Entrada al Diario</h2>
+                </div>                
+
+                <!-- Form to handle the journal entry -->
+                <form id="journalForm" action="#" method="POST" th:action="@{/journal/saveEntry}" th:object="${journalEntry}">
+                    <input type="text" name="title" id="title" class="text-xl font-bold mb-4 w-full bg-[#0F2529] text-white p-2 rounded-lg" placeholder="Title" th:value="${journalEntry.title}" />
+                    <textarea name="content" id="content" class="w-full h-96 resize-y p-4 rounded-lg bg-[#0F2529] text-white" style="min-height: 400px;" placeholder="¿Qué has hecho hoy?" th:value="${journalEntry.content}"></textarea>
+
+                    <input type="hidden" th:field="*{id}" value="2" />
+                    <input type="hidden" th:field="*{date}" value="2" />
+
+                    <div class="mt-4 flex item">
+                        <button type="submit" id="saveButton" class="ml-auto text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Guardar</button>
+                    </div>
+
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div id="saveModal" class="modal">
+        <div class="modal-content">
+            <p>Se ha guardado correctamente</p>
+            <button id="closeModal" class="mt-4 text-white bg-[#1A7C84] hover:bg-[#1A8F9A] py-2 px-4 rounded-lg">Cerrar</button>
+        </div>
+    </div>
+</body>
+</html>
