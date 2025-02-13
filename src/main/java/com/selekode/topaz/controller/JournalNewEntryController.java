@@ -7,9 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.selekode.topaz.model.JournalEntry;
 
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

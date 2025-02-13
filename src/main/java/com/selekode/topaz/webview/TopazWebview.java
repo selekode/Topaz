@@ -4,24 +4,9 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-import javafx.scene.web.PopupFeatures;
-import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import javax.imageio.ImageIO;
-
-import org.springframework.core.io.ClassPathResource;
-
 import javafx.application.Application;
-import javafx.fxml.FXML;
 
 public class TopazWebview extends Application {
 

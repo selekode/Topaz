@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topaz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
+
+        body {
+            font-family: 'Ubuntu', sans-serif !important;
+        }
+
+        /* Fix the sidebar to stay in place */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh; /* Full viewport height */
+            overflow-y: auto;
+        }
+
+        /* Adjust the main content to avoid being hidden under the sidebar */
+        .main-content {
+            margin-left: 16rem; /* This matches the sidebar width */
+        }
+
+        /* Modal background color */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            justify-content: center;
+            align-items: center;
+            background-color: #172E38; /* Updated background */
+            opacity: 0.9; /* Slight transparency */
+        }
+
+        .modal-content {
+            background-color: #1E3D48;
+            margin: auto;
+            z-index: 1001;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Modal hidden class */
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        function openModal(id) {
+            console.log("Opening modal for entry with ID: " + id);  // Debug log
+            document.getElementById('journalId').value = id;
+            document.getElementById('confirmModal').classList.remove('hidden');
+            console.log("Modal should now be visible");
+        }
+
+        function closeModal() {
+            console.log("Closing modal");  // Debug log
+            document.getElementById('confirmModal').classList.add('hidden');
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+
+<body class="bg-[#0F2529] font-sans leading-normal tracking-normal flex min-h-screen">
+
+    <!-- Sidebar -->
+    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
+        <!-- Logo Section -->
+        <div class="flex items-center mb-6 mt-2 flex-col">
+            <img th:src="@{/images/topaz-logo-text.png}" alt="Logo" class="w-[120px] select-none">
+        </div>
+        
+        <!-- Horizontal Rule -->
+        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+
+        <!-- Buttons Section -->
+        <div class="space-y-4 w-full flex flex-col items-center">
+            <a href="/revision/addEntry">
+                <button class="w-12 h-12 rounded-full bg-[#23A3BB] font-bold text-white flex items-center justify-center hover:bg-[#1A8F9A] mb-4 transition-colors duration-300">
+                    +
+                </button>
+            </a>
+
+            <!-- Rounded buttons for other actions -->
+            <a href="/journal/load" class="block w-full">
+                <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Diario
+                </button>
+            </a>
+            
+            <a href="/revision/load" class="block w-full">
+                <button class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Revisión
+                </button>
+            </a>
+            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                Stats
+            </button>
+            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                Sobre Topaz
+            </button>
+        </div>
+    </div>
+
+
+    <!-- Main content -->
+    <div class="main-content  flex-grow bg-[#0F2529] p-6">
+        <main class="container mx-auto mt-6 p-4">
+        <h1 class="text-2xl font-bold mb-4 text-white">Revisión</h1>
+        <!-- Iterate over journal entries -->
+        <div th:each="revisionEntry : ${revisionEntries}" x-data="{ open: false }" class="relative bg-[#172E38] p-6 rounded-lg shadow-2xl mb-6">
+            <!-- Buttons Positioned in the Top Right -->
+            <div class="absolute top-4 right-4 flex space-x-2">
+                <!-- Show/Hide Button -->
+                <button @click="open = !open" 
+                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                    <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
+                </button>
+
+                <!-- Edit button -->
+                <a th:href="@{/revision/editEntry/{id}(id=${revisionEntry.id})}" 
+                   class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                    Editar
+                </a>
+                
+                <!-- Delete button -->
+                <button th:attr="onclick='openModal(' + ${revisionEntry.id} + ')'" 
+                        class="px-4 py-2 rounded-full bg-[#E74C3C] text-white text-sm transition hover:bg-[#D63C2D]">
+                    Eliminar
+                </button>
+            </div>
+        
+            <div class="mr-4 w-full">
+                <!-- Date -->
+                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;" th:text="${revisionEntry.date}"></p>
+        
+                <!-- Content to Show/Hide -->
+                <div x-show="open" x-collapse>
+                    <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+
+                    <p class="text-base text-white" style="color: #23A3BB;">Estado emocional:</p>
+                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.estadoEmocional}"></p>
+        
+                    <p class="text-base text-white" style="color: #23A3BB;">Por qué de mi estado emocional:</p>
+                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.estadoEmocionalWhy}"></p>
+        
+                    <p class="text-base text-white" style="color: #23A3BB;">Lo más importante para mi ha sido:</p>
+                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.importanteParaMi}"></p>
+        
+                    <p class="text-base text-white" style="color: #23A3BB;">He aprendido sobre mi:</p>
+                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.aprendidoSobreMi}"></p>
+        
+                    <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+        
+                    <p class="text-lg mb-4 mt-4 text-white text-bold" style="color: #23A3BB;">Valoración acerca de:</p>
+                    <p class="text-basev text-white" style="color: #23A3BB;">Disciplina:</p>
+                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionDisciplina}"></p>
+        
+                    <p class="text-base text-white" style="color: #23A3BB;">Orden:</p>
+                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionOrden}"></p>
+        
+                    <p class="text-base text-white" style="color: #23A3BB;">Impulsividad:</p>
+                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionImpulsividad}"></p>
+        
+                    <p class="text-base text-white" style="color: #23A3BB;">Constancia:</p>
+                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionConstancia}"></p>
+        
+                    <p class="text-base text-white" style="color: #23A3BB;">Tolerancia a la frustación:</p>
+                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionTolerancia}"></p>
+        
+                    <p class="text-base text-white" style="color: #23A3BB;">Prepotencia (Pedir ayuda):</p>
+                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionControlPrepotencia}"></p>
+        
+                    <p class="text-base text-white" style="color: #23A3BB;">Honestidad:</p>
+                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionHonestidad}"></p>
+        
+                    <p class="text-base text-white" style="color: #23A3BB;">Aceptación:</p>
+                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionAceptacion}"></p>
+        
+                    <p class="text-base text-white" style="color: #23A3BB;">Consecución Objetivos:</p>
+                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionConsecucionObjetivos}"></p>
+        
+                    <p class="text-base text-white" style="color: #23A3BB;">Explicación de la valoración:</p>
+                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.explicacionValoracion}"></p>
+        
+                    <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+        
+                    <p class="text-base mt-4 text-white" style="color: #23A3BB;">Objetivos personales:</p>
+                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.objetivosPersonales}"></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal HTML -->
+        <div id="confirmModal" class="modal hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+            <div class="modal-content rounded-lg p-6">
+                <h3 class="text-lg text-justify text-white font-bold mb-4 select-none">¿Seguro que quieres eliminar está revisión?</h3>
+                <form id="deleteForm" method="post" action="deleteEntry">
+                    <input type="hidden" id="journalId" name="id" />
+                    <button type="submit" class="w-28 h-10 bg-[#23A3BB] text-white rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">Si, Eliminar</button>
+                    <button type="button" class="ml-4 w-28 h-10 bg-gray-500 text-white rounded-full transition-colors duration-300 hover:bg-gray-600 select-none" onclick="closeModal()">Cancelar</button>
+                </form>
+            </div>
+        </div>
+        
+        </main>
+    </div>
+</body>
+
+</html>

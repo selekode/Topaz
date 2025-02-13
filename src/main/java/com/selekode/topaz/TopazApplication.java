@@ -1,11 +1,7 @@
 package com.selekode.topaz;
 
-import javax.sql.DataSource;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
 import com.selekode.topaz.webview.*;
 /**
  * Topaz | Journal, ToDo List and Habit Tracker

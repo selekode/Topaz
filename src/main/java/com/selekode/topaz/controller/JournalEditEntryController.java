@@ -5,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +19,43 @@ import com.selekode.topaz.model.JournalEntry;
 @Controller
 public class JournalEditEntryController {
     private static final String DB_URL = "jdbc:sqlite:src/main/resources/database/topazdatabase.db";
+    
+	public JournalEntry loadEntry(Long id) {
+		JournalEntry journalEntry = null;
+        String query = "SELECT id, date, title, content FROM journal WHERE id = ?";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            // Set the ID parameter
+            statement.setLong(1, id);
+
+            // Execute the query
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                	// Create a journalEntry object and load it with the data from the DB
+                    journalEntry = new JournalEntry(0, "", "", "");
+                    journalEntry.setId(resultSet.getInt("id"));
+                    journalEntry.setDate(resultSet.getString("date"));
+                    journalEntry.setTitle(resultSet.getString("title"));
+                    journalEntry.setContent(resultSet.getString("content"));
+                    
+                    System.out.println(journalEntry.getContent());
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return journalEntry;
+		
+	}
 
 	@GetMapping("/editEntry/{id}")
-	public String editJournalEntry(@PathVariable("id") Long id, Model model) {
+	public String loadPage(@PathVariable("id") Long id, Model model) {
 	    // Fetch the journal entry by ID
-	    JournalEntry journalEntry = loadJournalEntry(id);
+	    JournalEntry journalEntry = loadEntry(id);
 
 	    // Add the journal entry to the model
 	    model.addAttribute("journalEntry", journalEntry);
@@ -62,36 +92,5 @@ public class JournalEditEntryController {
 
 		return "redirect_journal";
     }
-
-	public JournalEntry loadJournalEntry(Long id) {
-		JournalEntry journalEntry = null;
-        String query = "SELECT id, date, title, content FROM journal WHERE id = ?";
-
-        try (Connection connection = DriverManager.getConnection(DB_URL);
-             PreparedStatement statement = connection.prepareStatement(query)) {
-
-            // Set the ID parameter
-            statement.setLong(1, id);
-
-            // Execute the query
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    journalEntry = new JournalEntry(0, "", "", "");
-                    journalEntry.setId(resultSet.getInt("id"));
-                    journalEntry.setDate(resultSet.getString("date"));
-                    journalEntry.setTitle(resultSet.getString("title"));
-                    journalEntry.setContent(resultSet.getString("content"));
-                    
-                    System.out.println(journalEntry.getContent());
-                }
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return journalEntry;
-		
-	}
 
 }
