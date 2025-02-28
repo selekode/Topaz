@@ -30,7 +30,16 @@ public class RevisionController {
 
 	public List<RevisionEntry> loadAllEntries() {
 		// SQL query to retrieve data from the table, ordered by date descending
-		String sql = "SELECT id, date, estadoEmocional, estadoEmocionalWhy, importanteParaMi, aprendidoSobreMi, valoracionDisciplina, valoracionOrden, valoracionImpulsividad, valoracionConstancia, valoracionTolerancia, valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion, valoracionConsecucionObjetivos, explicacionValoracion, objetivosPersonales FROM revision ORDER BY date DESC";
+		String sql = "SELECT id, date, estadoEmocional, estadoEmocionalWhy, importanteParaMi, "
+				+ "aprendidoSobreMi, valoracionDisciplina, valoracionOrden, valoracionImpulsividad, "
+				+ "valoracionConstancia, valoracionTolerancia, valoracionControlPrepotencia, "
+				+ "valoracionHonestidad, valoracionAceptacion, valoracionConsecucionObjetivos, "
+				+ "explicacionValoracion, objetivosPersonales, "
+				+ "emocionAlegria, emocionTristeza, emocionIra, emocionMiedo, "
+				+ "emocionAnsiedad, emocionAmor, emocionSorpresa, emocionVerguenza, "
+				+ "emocionFrustracion, emocionSatisfaccion, emocionAburrimiento, "
+				+ "emocionAmado, emocionConfianza, emocionAbrumado, emocionEsperanza "
+				+ "FROM revision ORDER BY date DESC";
 
 		List<RevisionEntry> revisionEntries = new ArrayList<>();
 
@@ -59,6 +68,23 @@ public class RevisionController {
 				String explicacionValoracion = rs.getString("explicacionValoracion");
 				String objetivosPersonales = rs.getString("objetivosPersonales");
 
+				// Retrieve the emotion booleans
+				boolean emocionAlegria = rs.getBoolean("emocionAlegria");
+				boolean emocionTristeza = rs.getBoolean("emocionTristeza");
+				boolean emocionIra = rs.getBoolean("emocionIra");
+				boolean emocionMiedo = rs.getBoolean("emocionMiedo");
+				boolean emocionAnsiedad = rs.getBoolean("emocionAnsiedad");
+				boolean emocionAmor = rs.getBoolean("emocionAmor");
+				boolean emocionSorpresa = rs.getBoolean("emocionSorpresa");
+				boolean emocionVerguenza = rs.getBoolean("emocionVerguenza");
+				boolean emocionFrustracion = rs.getBoolean("emocionFrustracion");
+				boolean emocionSatisfaccion = rs.getBoolean("emocionSatisfaccion");
+				boolean emocionAburrimiento = rs.getBoolean("emocionAburrimiento");
+				boolean emocionAmado = rs.getBoolean("emocionAmado");
+				boolean emocionConfianza = rs.getBoolean("emocionConfianza");
+				boolean emocionAbrumado = rs.getBoolean("emocionAbrumado");
+				boolean emocionEsperanza = rs.getBoolean("emocionEsperanza");
+
 				// Convert date from UNIX time to String
 				String dateStr = convertDateToString(date);
 
@@ -67,7 +93,10 @@ public class RevisionController {
 						importanteParaMi, aprendidoSobreMi, valoracionDisciplina, valoracionOrden,
 						valoracionImpulsividad, valoracionConstancia, valoracionTolerancia,
 						valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion,
-						valoracionConsecucionObjetivos, explicacionValoracion, objetivosPersonales);
+						valoracionConsecucionObjetivos, explicacionValoracion, objetivosPersonales, emocionAlegria,
+						emocionTristeza, emocionIra, emocionMiedo, emocionAnsiedad, emocionAmor,
+						emocionSorpresa, emocionVerguenza, emocionFrustracion, emocionSatisfaccion, emocionAburrimiento,
+						emocionAmado, emocionConfianza, emocionAbrumado, emocionEsperanza);
 				revisionEntries.add(revisionEntry);
 			}
 		} catch (SQLException e) {

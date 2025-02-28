@@ -125,6 +125,74 @@
                         <label for="estadoEmocional" class="text-[#23A3BB] mb-1">Estado Emocional:</label>
                         <textarea id="estadoEmocional" th:field="*{estadoEmocional}" class="w-full resize-y p-4 rounded-lg bg-[#0F2529] text-white" style="min-height: 200px;"></textarea>
                     </div>
+
+                    <!-- Multiple Mood Selection -->
+                    <div class="mb-4">
+                        <label class="text-[#23A3BB] mb-1">Selecciona las emociones que has sentido:</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" th:field="*{emocionAlegria}" class="form-checkbox text-[#23A3BB]">
+                                <span class="text-white">Alegría</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" th:field="*{emocionTristeza}" class="form-checkbox text-[#23A3BB]">
+                                <span class="text-white">Tristeza</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" th:field="*{emocionIra}" class="form-checkbox text-[#23A3BB]">
+                                <span class="text-white">Ira</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" th:field="*{emocionMiedo}" class="form-checkbox text-[#23A3BB]">
+                                <span class="text-white">Miedo</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" th:field="*{emocionAnsiedad}" class="form-checkbox text-[#23A3BB]">
+                                <span class="text-white">Ansiedad</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" th:field="*{emocionAmor}" class="form-checkbox text-[#23A3BB]">
+                                <span class="text-white">Amor</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" th:field="*{emocionSorpresa}" class="form-checkbox text-[#23A3BB]">
+                                <span class="text-white">Sorpresa</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" th:field="*{emocionVerguenza}" class="form-checkbox text-[#23A3BB]">
+                                <span class="text-white">Vergüenza</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" th:field="*{emocionFrustracion}" class="form-checkbox text-[#23A3BB]">
+                                <span class="text-white">Frustración</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" th:field="*{emocionSatisfaccion}" class="form-checkbox text-[#23A3BB]">
+                                <span class="text-white">Satisfacción</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" th:field="*{emocionAburrimiento}" class="form-checkbox text-[#23A3BB]">
+                                <span class="text-white">Aburrimiento</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" th:field="*{emocionAmado}" class="form-checkbox text-[#23A3BB]">
+                                <span class="text-white">Amado</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" th:field="*{emocionConfianza}" class="form-checkbox text-[#23A3BB]">
+                                <span class="text-white">Confianza</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" th:field="*{emocionAbrumado}" class="form-checkbox text-[#23A3BB]">
+                                <span class="text-white">Abrumado</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" th:field="*{emocionEsperanza}" class="form-checkbox text-[#23A3BB]">
+                                <span class="text-white">Esperanza</span>
+                            </label>
+                        </div>
+                        
+                    </div>
                     
                     <div class="mb-4">
                         <label for="estadoEmocionalWhy" class="text-[#23A3BB] mb-1">Estado Emocional Why:</label>
@@ -141,92 +209,85 @@
                         <textarea id="aprendidoSobreMi" th:field="*{aprendidoSobreMi}" class="w-full resize-y p-4 rounded-lg bg-[#0F2529] text-white" style="min-height: 200px;"></textarea>
                     </div>
                     
+                    <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                    
+                    
                     <div class="mb-4">
-                        <label for="valoracionDisciplina" class="text-[#23A3BB] mb-1">Valoración Disciplina:</label>
-                        <div class="flex items-center space-x-2">
-                            <button type="button" id="valoracionDisciplinaMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
-                            <input type="number" id="valoracionDisciplina" th:field="*{valoracionDisciplina}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
-                            <button type="button" id="valoracionDisciplinaPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
+                        <label class="text-[#23A3BB] mb-1 block">Valoraciones:</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div class="flex items-center space-x-2">
+                                <button type="button" id="valoracionDisciplinaMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
+                                <input type="number" id="valoracionDisciplina" th:field="*{valoracionDisciplina}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
+                                <button type="button" id="valoracionDisciplinaPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
+                                <span class="text-white ml-2">Disciplina</span>
+                            </div>
+                    
+                            <div class="flex items-center space-x-2">
+                                <button type="button" id="valoracionOrdenMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
+                                <input type="number" id="valoracionOrden" th:field="*{valoracionOrden}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
+                                <button type="button" id="valoracionOrdenPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
+                                <span class="text-white ml-2">Orden</span>
+                            </div>
+                    
+                            <div class="flex items-center space-x-2">
+                                <button type="button" id="valoracionImpulsividadMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
+                                <input type="number" id="valoracionImpulsividad" th:field="*{valoracionImpulsividad}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
+                                <button type="button" id="valoracionImpulsividadPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
+                                <span class="text-white ml-2">Impulsividad</span>
+                            </div>
+                    
+                            <div class="flex items-center space-x-2">
+                                <button type="button" id="valoracionConstanciaMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
+                                <input type="number" id="valoracionConstancia" th:field="*{valoracionConstancia}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
+                                <button type="button" id="valoracionConstanciaPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
+                                <span class="text-white ml-2">Constancia</span>
+                            </div>
+                    
+                            <div class="flex items-center space-x-2">
+                                <button type="button" id="valoracionToleranciaMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
+                                <input type="number" id="valoracionTolerancia" th:field="*{valoracionTolerancia}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
+                                <button type="button" id="valoracionToleranciaPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
+                                <span class="text-white ml-2">Tolerancia</span>
+                            </div>
+                    
+                            <div class="flex items-center space-x-2">
+                                <button type="button" id="valoracionControlPrepotenciaMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
+                                <input type="number" id="valoracionControlPrepotencia" th:field="*{valoracionControlPrepotencia}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
+                                <button type="button" id="valoracionControlPrepotenciaPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
+                                <span class="text-white ml-2">Control Prepotencia</span>
+                            </div>
+                    
+                            <div class="flex items-center space-x-2">
+                                <button type="button" id="valoracionHonestidadMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
+                                <input type="number" id="valoracionHonestidad" th:field="*{valoracionHonestidad}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
+                                <button type="button" id="valoracionHonestidadPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
+                                <span class="text-white ml-2">Honestidad</span>
+                            </div>
+                    
+                            <div class="flex items-center space-x-2">
+                                <button type="button" id="valoracionAceptacionMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
+                                <input type="number" id="valoracionAceptacion" th:field="*{valoracionAceptacion}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
+                                <button type="button" id="valoracionAceptacionPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
+                                <span class="text-white ml-2">Aceptación</span>
+                            </div>
+                    
+                            <div class="flex items-center space-x-2">
+                                <button type="button" id="valoracionConsecucionObjetivosMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
+                                <input type="number" id="valoracionConsecucionObjetivos" th:field="*{valoracionConsecucionObjetivos}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
+                                <button type="button" id="valoracionConsecucionObjetivosPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
+                                <span class="text-white ml-2">Consecución Objetivos</span>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="mb-4">
-                        <label for="valoracionOrden" class="text-[#23A3BB] mb-1">Valoración Orden:</label>
-                        <div class="flex items-center space-x-2">
-                            <button type="button" id="valoracionOrdenMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
-                            <input type="number" id="valoracionOrden" th:field="*{valoracionOrden}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
-                            <button type="button" id="valoracionOrdenPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="valoracionImpulsividad" class="text-[#23A3BB] mb-1">Valoración Impulsividad:</label>
-                        <div class="flex items-center space-x-2">
-                            <button type="button" id="valoracionImpulsividadMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
-                            <input type="number" id="valoracionImpulsividad" th:field="*{valoracionImpulsividad}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
-                            <button type="button" id="valoracionImpulsividadPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="valoracionConstancia" class="text-[#23A3BB] mb-1">Valoración Constancia:</label>
-                        <div class="flex items-center space-x-2">
-                            <button type="button" id="valoracionConstanciaMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
-                            <input type="number" id="valoracionConstancia" th:field="*{valoracionConstancia}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
-                            <button type="button" id="valoracionConstanciaPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="valoracionTolerancia" class="text-[#23A3BB] mb-1">Valoración Tolerancia:</label>
-                        <div class="flex items-center space-x-2">
-                            <button type="button" id="valoracionToleranciaMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
-                            <input type="number" id="valoracionTolerancia" th:field="*{valoracionTolerancia}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
-                            <button type="button" id="valoracionToleranciaPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="valoracionControlPrepotencia" class="text-[#23A3BB] mb-1">Valoración Control Prepotencia:</label>
-                        <div class="flex items-center space-x-2">
-                            <button type="button" id="valoracionControlPrepotenciaMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
-                            <input type="number" id="valoracionControlPrepotencia" th:field="*{valoracionControlPrepotencia}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
-                            <button type="button" id="valoracionControlPrepotenciaPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="valoracionHonestidad" class="text-[#23A3BB] mb-1">Valoración Honestidad:</label>
-                        <div class="flex items-center space-x-2">
-                            <button type="button" id="valoracionHonestidadMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
-                            <input type="number" id="valoracionHonestidad" th:field="*{valoracionHonestidad}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
-                            <button type="button" id="valoracionHonestidadPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="valoracionAceptacion" class="text-[#23A3BB] mb-1">Valoración Aceptación:</label>
-                        <div class="flex items-center space-x-2">
-                            <button type="button" id="valoracionAceptacionMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
-                            <input type="number" id="valoracionAceptacion" th:field="*{valoracionAceptacion}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
-                            <button type="button" id="valoracionAceptacionPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label for="valoracionConsecucionObjetivos" class="text-[#23A3BB] mb-1">Valoración Consecución Objetivos:</label>
-                        <div class="flex items-center space-x-2">
-                            <button type="button" id="valoracionConsecucionObjetivosMinus" class="px-3 py-1 rounded-l-lg bg-[#0F2529] text-white">-</button>
-                            <input type="number" id="valoracionConsecucionObjetivos" th:field="*{valoracionConsecucionObjetivos}" class="w-20 text-center p-2 rounded-lg bg-[#0F2529] text-white" value="0" readonly />
-                            <button type="button" id="valoracionConsecucionObjetivosPlus" class="px-3 py-1 rounded-r-lg bg-[#0F2529] text-white">+</button>
-                        </div>
-                    </div>
                     
                     <div class="mb-4">
                         <label for="explicacionValoracion" class="text-[#23A3BB] mb-1">Explicación Valoración:</label>
                         <textarea id="explicacionValoracion" th:field="*{explicacionValoracion}" class="w-full resize-y p-4 rounded-lg bg-[#0F2529] text-white" style="min-height: 200px;"></textarea>
                     </div>
-                    
+
+                    <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+
                     <div class="mb-4">
                         <label for="objetivosPersonales" class="text-[#23A3BB] mb-1">Objetivos Personales:</label>
                         <textarea id="objetivosPersonales" th:field="*{objetivosPersonales}" class="w-full resize-y p-4 rounded-lg bg-[#0F2529] text-white" style="min-height: 200px;"></textarea>

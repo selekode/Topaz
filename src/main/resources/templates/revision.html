@@ -156,54 +156,135 @@
 
                     <p class="text-base text-white" style="color: #23A3BB;">Estado emocional:</p>
                     <p class="text-base mb-4 text-white" th:text="${revisionEntry.estadoEmocional}"></p>
-        
+
                     <p class="text-base text-white" style="color: #23A3BB;">Por qué de mi estado emocional:</p>
                     <p class="text-base mb-4 text-white" th:text="${revisionEntry.estadoEmocionalWhy}"></p>
-        
+
                     <p class="text-base text-white" style="color: #23A3BB;">Lo más importante para mi ha sido:</p>
                     <p class="text-base mb-4 text-white" th:text="${revisionEntry.importanteParaMi}"></p>
-        
+
                     <p class="text-base text-white" style="color: #23A3BB;">He aprendido sobre mi:</p>
                     <p class="text-base mb-4 text-white" th:text="${revisionEntry.aprendidoSobreMi}"></p>
-        
+
                     <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
-        
-                    <p class="text-lg mb-4 mt-4 text-white text-bold" style="color: #23A3BB;">Valoración acerca de:</p>
-                    <p class="text-basev text-white" style="color: #23A3BB;">Disciplina:</p>
-                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionDisciplina}"></p>
-        
-                    <p class="text-base text-white" style="color: #23A3BB;">Orden:</p>
-                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionOrden}"></p>
-        
-                    <p class="text-base text-white" style="color: #23A3BB;">Impulsividad:</p>
-                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionImpulsividad}"></p>
-        
-                    <p class="text-base text-white" style="color: #23A3BB;">Constancia:</p>
-                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionConstancia}"></p>
-        
-                    <p class="text-base text-white" style="color: #23A3BB;">Tolerancia a la frustación:</p>
-                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionTolerancia}"></p>
-        
-                    <p class="text-base text-white" style="color: #23A3BB;">Prepotencia (Pedir ayuda):</p>
-                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionControlPrepotencia}"></p>
-        
-                    <p class="text-base text-white" style="color: #23A3BB;">Honestidad:</p>
-                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionHonestidad}"></p>
-        
-                    <p class="text-base text-white" style="color: #23A3BB;">Aceptación:</p>
-                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionAceptacion}"></p>
-        
-                    <p class="text-base text-white" style="color: #23A3BB;">Consecución Objetivos:</p>
-                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionConsecucionObjetivos}"></p>
-        
-                    <p class="text-base text-white" style="color: #23A3BB;">Explicación de la valoración:</p>
-                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.explicacionValoracion}"></p>
-        
-                    <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
-        
-                    <p class="text-base mt-4 text-white" style="color: #23A3BB;">Objetivos personales:</p>
-                    <p class="text-base mb-4 text-white" th:text="${revisionEntry.objetivosPersonales}"></p>
+
+                    <p class="text-lg mb-4 mt-4 text-white text-bold" style="color: #23A3BB;">Emociones Sentidas:</p>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionAlegria}" class="form-checkbox text-[#23A3BB]">
+                            <span class="text-white">Alegría</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionTristeza}" class="form-checkbox text-[#23A3BB]">
+                            <span class="text-white">Tristeza</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionIra}" class="form-checkbox text-[#23A3BB]">
+                            <span class="text-white">Ira</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionMiedo}" class="form-checkbox text-[#23A3BB]">
+                            <span class="text-white">Miedo</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionAnsiedad}" class="form-checkbox text-[#23A3BB]">
+                            <span class="text-white">Ansiedad</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionAmor}" class="form-checkbox text-[#23A3BB]">
+                            <span class="text-white">Amor</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionSorpresa}" class="form-checkbox text-[#23A3BB]">
+                            <span class="text-white">Sorpresa</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionVerguenza}" class="form-checkbox text-[#23A3BB]">
+                            <span class="text-white">Vergüenza</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionFrustracion}" class="form-checkbox text-[#23A3BB]">
+                            <span class="text-white">Frustración</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionSatisfaccion}" class="form-checkbox text-[#23A3BB]">
+                            <span class="text-white">Satisfacción</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionAburrimiento}" class="form-checkbox text-[#23A3BB]">
+                            <span class="text-white">Aburrimiento</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionAmado}" class="form-checkbox text-[#23A3BB]">
+                            <span class="text-white">Amado</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionConfianza}" class="form-checkbox text-[#23A3BB]">
+                            <span class="text-white">Confianza</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionAbrumado}" class="form-checkbox text-[#23A3BB]">
+                            <span class="text-white">Abrumado</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionEsperanza}" class="form-checkbox text-[#23A3BB]">
+                            <span class="text-white">Esperanza</span>
+                        </label>
+                    </div>
+
+                <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6 mt-6">
+
+                <label class="text-[#23A3BB] mb-1 block">Valoraciones:</label>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-base mt-4 text-white" style="color: #23A3BB;">Disciplina:</p>
+                        <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionDisciplina}"></p>
+                    </div>
+                    <div>
+                        <p class="text-base mt-4 text-white" style="color: #23A3BB;">Orden:</p>
+                        <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionOrden}"></p>
+                    </div>
+                    <div>
+                        <p class="text-base mt-4 text-white" style="color: #23A3BB;">Impulsividad:</p>
+                        <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionImpulsividad}"></p>
+                    </div>
+                    <div>
+                        <p class="text-base mt-4 text-white" style="color: #23A3BB;">Constancia:</p>
+                        <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionConstancia}"></p>
+                    </div>
+                    <div>
+                        <p class="text-base mt-4 text-white" style="color: #23A3BB;">Tolerancia:</p>
+                        <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionTolerancia}"></p>
+                    </div>
+                    <div>
+                        <p class="text-base mt-4 text-white" style="color: #23A3BB;">Control Prepotencia:</p>
+                        <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionControlPrepotencia}"></p>
+                    </div>
+                    <div>
+                        <p class="text-base mt-4 text-white" style="color: #23A3BB;">Honestidad:</p>
+                        <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionHonestidad}"></p>
+                    </div>
+                    <div>
+                        <p class="text-base mt-4 text-white" style="color: #23A3BB;">Aceptación:</p>
+                        <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionAceptacion}"></p>
+                    </div>
+                    <div>
+                        <p class="text-base mt-4 text-white" style="color: #23A3BB;">Consecución de Objetivos:</p>
+                        <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionConsecucionObjetivos}"></p>
+                    </div>
                 </div>
+                
+
+                <p class="text-base mt-4 text-white" style="color: #23A3BB;">Explicación Valoración:</p>
+                <p class="text-base mb-4 text-white" th:text="${revisionEntry.explicacionValoracion}"></p>
+
+                <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6 mt-6">
+
+                <p class="text-base mt-4 text-white" style="color: #23A3BB;">Objetivos personales:</p>
+                <p class="text-base mb-4 text-white" th:text="${revisionEntry.objetivosPersonales}"></p>
+            </div>
+
             </div>
         </div>
         

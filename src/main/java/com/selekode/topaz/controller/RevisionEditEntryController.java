@@ -22,7 +22,15 @@ public class RevisionEditEntryController {
     
 	public RevisionEntry loadEntry(Long id) {
 		RevisionEntry revisionEntry = null;
-		String query = "SELECT id, date, estadoEmocional, estadoEmocionalWhy, importanteParaMi, aprendidoSobreMi, valoracionDisciplina, valoracionOrden, valoracionImpulsividad, valoracionConstancia, valoracionTolerancia, valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion, valoracionConsecucionObjetivos, explicacionValoracion, objetivosPersonales FROM revision  WHERE id = ?";
+		String query = "SELECT id, date, estadoEmocional, estadoEmocionalWhy, importanteParaMi, "
+	             + "aprendidoSobreMi, valoracionDisciplina, valoracionOrden, valoracionImpulsividad, "
+	             + "valoracionConstancia, valoracionTolerancia, valoracionControlPrepotencia, "
+	             + "valoracionHonestidad, valoracionAceptacion, valoracionConsecucionObjetivos, "
+	             + "explicacionValoracion, objetivosPersonales, emocionAlegria, emocionTristeza, "
+	             + "emocionIra, emocionMiedo, emocionAnsiedad, emocionAmor, emocionSorpresa, "
+	             + "emocionVerguenza, emocionFrustracion, emocionSatisfaccion, emocionAburrimiento, "
+	             + "emocionAmado, emocionConfianza, emocionAbrumado, emocionEsperanza "
+	             + "FROM revision WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -32,27 +40,48 @@ public class RevisionEditEntryController {
 
             // Execute the query
             try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                	// Create a revisionEntry object and load it with the data from the DB
-                	revisionEntry = new RevisionEntry(0, "", "", "", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, "", "");
-                	revisionEntry.setId(resultSet.getInt("id"));
-                	revisionEntry.setDate(resultSet.getString("date"));   
-                	revisionEntry.setEstadoEmocional(resultSet.getString("estadoEmocional"));   
-                	revisionEntry.setEstadoEmocionalWhy(resultSet.getString("estadoEmocionalWhy"));   
-                	revisionEntry.setImportanteParaMi(resultSet.getString("importanteParaMi"));   
-                	revisionEntry.setAprendidoSobreMi(resultSet.getString("aprendidoSobreMi"));   
-                	revisionEntry.setValoracionDisciplina(resultSet.getInt("valoracionDisciplina"));   
-                	revisionEntry.setValoracionOrden(resultSet.getInt("valoracionOrden"));   
-                	revisionEntry.setValoracionImpulsividad(resultSet.getInt("valoracionImpulsividad"));   
-                	revisionEntry.setValoracionConstancia(resultSet.getInt("valoracionConstancia"));   
-                	revisionEntry.setValoracionTolerancia(resultSet.getInt("valoracionTolerancia"));   
-                	revisionEntry.setValoracionControlPrepotencia(resultSet.getInt("valoracionControlPrepotencia"));   
-                	revisionEntry.setValoracionHonestidad(resultSet.getInt("valoracionHonestidad"));   
-                	revisionEntry.setValoracionAceptacion(resultSet.getInt("valoracionAceptacion"));   
-                	revisionEntry.setValoracionConsecucionObjetivos(resultSet.getInt("valoracionConsecucionObjetivos"));   
-                	revisionEntry.setExplicacionValoracion(resultSet.getString("explicacionValoracion"));   
-                	revisionEntry.setObjetivosPersonales(resultSet.getString("objetivosPersonales"));   
-                }
+            	if (resultSet.next()) {
+            	    // Create a revisionEntry object and load it with the data from the DB
+            	    revisionEntry = new RevisionEntry(0, "", "", "", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, "", "", 
+            	        false, false, false, false, false, false, false, false, false, false, 
+            	        false, false, false, false, false);
+            	    
+            	    revisionEntry.setId(resultSet.getInt("id"));
+            	    revisionEntry.setDate(resultSet.getString("date"));   
+            	    revisionEntry.setEstadoEmocional(resultSet.getString("estadoEmocional"));   
+            	    revisionEntry.setEstadoEmocionalWhy(resultSet.getString("estadoEmocionalWhy"));   
+            	    revisionEntry.setImportanteParaMi(resultSet.getString("importanteParaMi"));   
+            	    revisionEntry.setAprendidoSobreMi(resultSet.getString("aprendidoSobreMi"));   
+            	    revisionEntry.setValoracionDisciplina(resultSet.getInt("valoracionDisciplina"));   
+            	    revisionEntry.setValoracionOrden(resultSet.getInt("valoracionOrden"));   
+            	    revisionEntry.setValoracionImpulsividad(resultSet.getInt("valoracionImpulsividad"));   
+            	    revisionEntry.setValoracionConstancia(resultSet.getInt("valoracionConstancia"));   
+            	    revisionEntry.setValoracionTolerancia(resultSet.getInt("valoracionTolerancia"));   
+            	    revisionEntry.setValoracionControlPrepotencia(resultSet.getInt("valoracionControlPrepotencia"));   
+            	    revisionEntry.setValoracionHonestidad(resultSet.getInt("valoracionHonestidad"));   
+            	    revisionEntry.setValoracionAceptacion(resultSet.getInt("valoracionAceptacion"));   
+            	    revisionEntry.setValoracionConsecucionObjetivos(resultSet.getInt("valoracionConsecucionObjetivos"));   
+            	    revisionEntry.setExplicacionValoracion(resultSet.getString("explicacionValoracion"));   
+            	    revisionEntry.setObjetivosPersonales(resultSet.getString("objetivosPersonales"));   
+
+            	    // Set emotion fields
+            	    revisionEntry.setEmocionAlegria(resultSet.getBoolean("emocionAlegria"));
+            	    revisionEntry.setEmocionTristeza(resultSet.getBoolean("emocionTristeza"));
+            	    revisionEntry.setEmocionIra(resultSet.getBoolean("emocionIra"));
+            	    revisionEntry.setEmocionMiedo(resultSet.getBoolean("emocionMiedo"));
+            	    revisionEntry.setEmocionAnsiedad(resultSet.getBoolean("emocionAnsiedad"));
+            	    revisionEntry.setEmocionAmor(resultSet.getBoolean("emocionAmor"));
+            	    revisionEntry.setEmocionSorpresa(resultSet.getBoolean("emocionSorpresa"));
+            	    revisionEntry.setEmocionVerguenza(resultSet.getBoolean("emocionVerguenza"));
+            	    revisionEntry.setEmocionFrustracion(resultSet.getBoolean("emocionFrustracion"));
+            	    revisionEntry.setEmocionSatisfaccion(resultSet.getBoolean("emocionSatisfaccion"));
+            	    revisionEntry.setEmocionAburrimiento(resultSet.getBoolean("emocionAburrimiento"));
+            	    revisionEntry.setEmocionAmado(resultSet.getBoolean("emocionAmado"));
+            	    revisionEntry.setEmocionConfianza(resultSet.getBoolean("emocionConfianza"));
+            	    revisionEntry.setEmocionAbrumado(resultSet.getBoolean("emocionAbrumado"));
+            	    revisionEntry.setEmocionEsperanza(resultSet.getBoolean("emocionEsperanza"));
+            	}
+
             }
 
         } catch (SQLException e) {
@@ -81,7 +110,16 @@ public class RevisionEditEntryController {
     public String updateEntry(@PathVariable("id") Long id, @ModelAttribute RevisionEntry revisionEntry) {
     	System.out.println("POST request to revision/updateEntry");
     	   	
-        String updateQuery = "UPDATE revision SET estadoEmocional = ?, estadoEmocionalWhy = ?, importanteParaMi = ?, aprendidoSobreMi = ?, valoracionDisciplina = ?, valoracionOrden = ?, valoracionImpulsividad = ?, valoracionConstancia = ?, valoracionTolerancia = ?, valoracionControlPrepotencia = ?, valoracionHonestidad = ?, valoracionAceptacion = ?, valoracionConsecucionObjetivos = ?, explicacionValoracion = ?, objetivosPersonales = ? WHERE id = ?";
+    	String updateQuery = "UPDATE revision SET estadoEmocional = ?, estadoEmocionalWhy = ?, importanteParaMi = ?, "
+    	        + "aprendidoSobreMi = ?, valoracionDisciplina = ?, valoracionOrden = ?, valoracionImpulsividad = ?, "
+    	        + "valoracionConstancia = ?, valoracionTolerancia = ?, valoracionControlPrepotencia = ?, "
+    	        + "valoracionHonestidad = ?, valoracionAceptacion = ?, valoracionConsecucionObjetivos = ?, "
+    	        + "explicacionValoracion = ?, objetivosPersonales = ?, "
+    	        + "emocionAlegria = ?, emocionTristeza = ?, emocionIra = ?, emocionMiedo = ?, "
+    	        + "emocionAnsiedad = ?, emocionAmor = ?, emocionSorpresa = ?, emocionVerguenza = ?, "
+    	        + "emocionFrustracion = ?, emocionSatisfaccion = ?, emocionAburrimiento = ?, "
+    	        + "emocionAmado = ?, emocionConfianza = ?, emocionAbrumado = ?, emocionEsperanza = ? "
+    	        + "WHERE id = ?";
 
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement pstmt = connection.prepareStatement(updateQuery)) {
@@ -102,7 +140,22 @@ public class RevisionEditEntryController {
 			pstmt.setInt(13, revisionEntry.getValoracionConsecucionObjetivos());
 			pstmt.setString(14, revisionEntry.getExplicacionValoracion());
 			pstmt.setString(15, revisionEntry.getObjetivosPersonales());
-			pstmt.setInt(16, revisionEntry.getId());
+		    pstmt.setBoolean(16, revisionEntry.isEmocionAlegria());
+		    pstmt.setBoolean(17, revisionEntry.isEmocionTristeza());
+		    pstmt.setBoolean(18, revisionEntry.isEmocionIra());
+		    pstmt.setBoolean(19, revisionEntry.isEmocionMiedo());
+		    pstmt.setBoolean(20, revisionEntry.isEmocionAnsiedad());
+		    pstmt.setBoolean(21, revisionEntry.isEmocionAmor());
+		    pstmt.setBoolean(22, revisionEntry.isEmocionSorpresa());
+		    pstmt.setBoolean(23, revisionEntry.isEmocionVerguenza());
+		    pstmt.setBoolean(24, revisionEntry.isEmocionFrustracion());
+		    pstmt.setBoolean(25, revisionEntry.isEmocionSatisfaccion());
+		    pstmt.setBoolean(26, revisionEntry.isEmocionAburrimiento());
+		    pstmt.setBoolean(27, revisionEntry.isEmocionAmado());
+		    pstmt.setBoolean(28, revisionEntry.isEmocionConfianza());
+		    pstmt.setBoolean(29, revisionEntry.isEmocionAbrumado());
+		    pstmt.setBoolean(30, revisionEntry.isEmocionEsperanza());
+		    pstmt.setInt(31, revisionEntry.getId()); // Make sure this is the last parameter
 
             // Execute the update and get the number of affected rows
             int affectedRows = pstmt.executeUpdate();
