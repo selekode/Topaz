@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topaz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
+
+        body {
+            font-family: 'Ubuntu', sans-serif !important;
+        }
+    </style>
+    <script type="text/javascript">
+        window.location.href = '/stats/load';
+    </script>
+</head>
+
+<body class="bg-[#0F2529] font-sans leading-normal tracking-normal flex min-h-screen">
+
+    <!-- Sidebar -->
+    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center">
+        <!-- Logo Section -->
+        <div class="flex items-center mb-6 mt-2 flex-col">
+            <img th:src="@{/images/topaz-logo-text.png}" alt="Logo" class="w-[120px]">
+        </div>
+        
+        <!-- Horizontal Rule -->
+        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+
+        <div class="space-y-4 w-full flex flex-col items-center">
+            <!-- Add button (circular) centered -->
+            <button class="w-12 h-12 rounded-full bg-[#1A7C84] text-white flex items-center justify-center hover:bg-[#1A8F9A] mb-4">
+                +
+            </button>
+
+            <!-- Rounded buttons for other actions -->
+            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full hover:bg-[#1A8F9A]">Diario</button>
+            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full hover:bg-[#1A8F9A]">Revisión</button>
+            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full hover:bg-[#1A8F9A]">Stats</button>
+            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full hover:bg-[#1A8F9A]">Sobre Topaz</button>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="flex-grow bg-[#0F2529] p-6">
+        <main class="container mx-auto mt-6 p-4">
+            <div class="bg-[#172E38] p-6 rounded-lg shadow-2xl">
+                    <h1 class="text-gray-700 text-xl mb-2" style="color: #FFFFFF;">Cargando...</h1>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
+</html>

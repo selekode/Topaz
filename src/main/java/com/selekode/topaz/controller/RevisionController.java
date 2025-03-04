@@ -18,7 +18,7 @@ import com.selekode.topaz.model.RevisionEntry;
 @RequestMapping("/revision")
 @Controller
 public class RevisionController {
-	private static final String DB_URL = "jdbc:sqlite:src/main/resources/database/topazdatabase.db";
+    private static final String DB_URL = "jdbc:sqlite:src/main/resources/database/topazdatabase.db";
 
 	@GetMapping("/load")
 	public String loadPage(Model model) {
