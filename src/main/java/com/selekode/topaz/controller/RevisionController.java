@@ -1,166 +1,69 @@
 package com.selekode.topaz.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
-import java.sql.*;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
+
+import com.selekode.service.RevisionService;
 import com.selekode.topaz.model.RevisionEntry;
 
 @RequestMapping("/revision")
 @Controller
 public class RevisionController {
-    private static final String DB_URL = "jdbc:sqlite:src/main/resources/database/topazdatabase.db";
-
+	// LOAD REVISION FEATURE
 	@GetMapping("/load")
-	public String loadPage(Model model) {
-		List<RevisionEntry> revisionEntries = loadAllEntries();
-		model.addAttribute("revisionEntries", revisionEntries); // Add revisionEntries to the model
+	public String loadPageRevision(Model model) {
+		model.addAttribute("revisionEntries", RevisionService.selectAllRevisionEntries()); // Add revisionEntries to the
+																							// model
 
-		return "revision"; // Load revision.html
+		return "revision";
 	}
 
-	public List<RevisionEntry> loadAllEntries() {
-		// SQL query to retrieve data from the table, ordered by date descending
-		String sql = "SELECT id, date, estadoEmocional, estadoEmocionalWhy, importanteParaMi, "
-				+ "aprendidoSobreMi, valoracionDisciplina, valoracionOrden, valoracionImpulsividad, "
-				+ "valoracionConstancia, valoracionTolerancia, valoracionControlPrepotencia, "
-				+ "valoracionHonestidad, valoracionAceptacion, valoracionConsecucionObjetivos, "
-				+ "explicacionValoracion, objetivosPersonales, "
-				+ "emocionAlegria, emocionTristeza, emocionIra, emocionMiedo, "
-				+ "emocionAnsiedad, emocionAmor, emocionSorpresa, emocionVerguenza, "
-				+ "emocionFrustracion, emocionSatisfaccion, emocionAburrimiento, "
-				+ "emocionAmado, emocionConfianza, emocionAbrumado, emocionEsperanza "
-				+ "FROM revision ORDER BY date DESC";
+	// ADD ENTRY FEATURE
+	@GetMapping("/addEntry")
+	public String loadPageAddEntry(Model model) {
+		RevisionEntry revisionEntry = new RevisionEntry(0, "", "", "", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, "", "", false,
+				false, false, false, false, false, false, false, false, false, false, false, false, false, false);
+		model.addAttribute("revisionEntry", revisionEntry);
 
-		List<RevisionEntry> revisionEntries = new ArrayList<>();
-
-		// Connect to Database
-		try (Connection conn = DriverManager.getConnection(DB_URL);
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(sql)) {
-
-			// Loop through the result set and add each row to the list
-			while (rs.next()) {
-				int id = rs.getInt("id");
-				long date = rs.getLong("date");
-				String estadoEmocional = rs.getString("estadoEmocional");
-				String estadoEmocionalWhy = rs.getString("estadoEmocionalWhy");
-				String importanteParaMi = rs.getString("importanteParaMi");
-				String aprendidoSobreMi = rs.getString("aprendidoSobreMi");
-				int valoracionDisciplina = rs.getInt("valoracionDisciplina");
-				int valoracionOrden = rs.getInt("valoracionOrden");
-				int valoracionImpulsividad = rs.getInt("valoracionImpulsividad");
-				int valoracionConstancia = rs.getInt("valoracionConstancia");
-				int valoracionTolerancia = rs.getInt("valoracionTolerancia");
-				int valoracionControlPrepotencia = rs.getInt("valoracionControlPrepotencia");
-				int valoracionHonestidad = rs.getInt("valoracionHonestidad");
-				int valoracionAceptacion = rs.getInt("valoracionAceptacion");
-				int valoracionConsecucionObjetivos = rs.getInt("valoracionConsecucionObjetivos");
-				String explicacionValoracion = rs.getString("explicacionValoracion");
-				String objetivosPersonales = rs.getString("objetivosPersonales");
-
-				// Retrieve the emotion booleans
-				boolean emocionAlegria = rs.getBoolean("emocionAlegria");
-				boolean emocionTristeza = rs.getBoolean("emocionTristeza");
-				boolean emocionIra = rs.getBoolean("emocionIra");
-				boolean emocionMiedo = rs.getBoolean("emocionMiedo");
-				boolean emocionAnsiedad = rs.getBoolean("emocionAnsiedad");
-				boolean emocionAmor = rs.getBoolean("emocionAmor");
-				boolean emocionSorpresa = rs.getBoolean("emocionSorpresa");
-				boolean emocionVerguenza = rs.getBoolean("emocionVerguenza");
-				boolean emocionFrustracion = rs.getBoolean("emocionFrustracion");
-				boolean emocionSatisfaccion = rs.getBoolean("emocionSatisfaccion");
-				boolean emocionAburrimiento = rs.getBoolean("emocionAburrimiento");
-				boolean emocionAmado = rs.getBoolean("emocionAmado");
-				boolean emocionConfianza = rs.getBoolean("emocionConfianza");
-				boolean emocionAbrumado = rs.getBoolean("emocionAbrumado");
-				boolean emocionEsperanza = rs.getBoolean("emocionEsperanza");
-
-				// Convert date from UNIX time to String
-				String dateStr = convertDateToString(date);
-
-				// Create a new RevisionEntry object and add it to the list
-				RevisionEntry revisionEntry = new RevisionEntry(id, dateStr, estadoEmocional, estadoEmocionalWhy,
-						importanteParaMi, aprendidoSobreMi, valoracionDisciplina, valoracionOrden,
-						valoracionImpulsividad, valoracionConstancia, valoracionTolerancia,
-						valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion,
-						valoracionConsecucionObjetivos, explicacionValoracion, objetivosPersonales, emocionAlegria,
-						emocionTristeza, emocionIra, emocionMiedo, emocionAnsiedad, emocionAmor,
-						emocionSorpresa, emocionVerguenza, emocionFrustracion, emocionSatisfaccion, emocionAburrimiento,
-						emocionAmado, emocionConfianza, emocionAbrumado, emocionEsperanza);
-				revisionEntries.add(revisionEntry);
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-
-		System.out.println("Selected all rows from table revision");
-
-		return revisionEntries;
+		return "revision_addEntry";
 	}
 
-	@PostMapping("/deleteEntry")
-	public String deleteEntry(@RequestParam("id") Long id) {
-		System.out.println("About to delete row with id: " + id);
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		try {
-			// Establishing a connection to the database
-			connection = DriverManager.getConnection(DB_URL);
-
-			// SQL query to delete the journal entry by ID
-			String sql = "DELETE FROM revision WHERE id = ?";
-
-			// Create a PreparedStatement to execute the query
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setLong(1, id); // Set the ID parameter
-
-			// Execute the query
-			int rowsAffected = preparedStatement.executeUpdate();
-
-			// Check if the deletion was successful
-			if (rowsAffected > 0) {
-				System.out.println("Revision entry with ID " + id + " was deleted successfully.");
-			} else {
-				System.out.println("No revision entry found with ID " + id);
-			}
-		} catch (SQLException e) {
-			System.err.println("Error deleting revision entry: " + e.getMessage());
-		} finally {
-			// Close resources to avoid memory leaks
-			try {
-				if (preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if (connection != null) {
-					connection.close();
-				}
-			} catch (SQLException e) {
-				System.err.println("Error closing resources: " + e.getMessage());
-			}
-		}
+	// When the save button on the form is clicked, it will send the data here
+	@PostMapping("/saveEntry")
+	public String saveNewEntry(@ModelAttribute RevisionEntry revisionEntry) {
+		RevisionService.insertRevisionEntry(revisionEntry);
 
 		return "redirect_revision";
 	}
 
-	public String convertDateToString(long date) {
-		// Convert the Unix timestamp (milliseconds) to an Instant
-		Instant instant = Instant.ofEpochSecond(date);
+	// EDIT ENTRY
+	@GetMapping("/editEntry/{id}")
+	public String loadPageEditEntry(@PathVariable("id") Long id, Model model) {
+		RevisionEntry revisionEntry = RevisionService.selectRevisionEntry(id);
+		model.addAttribute("revisionEntry", revisionEntry);
 
-		// Define the desired format (DD-MMM-YYYY)
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy").withZone(ZoneId.systemDefault());
-		String dateStr = formatter.format(instant);
+		return "revision_editEntry";
+	}
 
-		return dateStr;
+	// When the edit button on the form is clicked, it will send the data here
+	@PostMapping("/updateEntry/{id}")
+	public String updateEntry(@PathVariable("id") Long id, @ModelAttribute RevisionEntry revisionEntry) {
+		RevisionService.updateRevisionEntry(id, revisionEntry);
+
+		return "redirect_revision";
+	}
+
+	// DELETE ENTRY FEATURE
+	@PostMapping("/deleteEntry")
+	public String deleteEntry(@RequestParam("id") Long id) {
+		RevisionService.deleteRevisionEntry(id);
+
+		return "redirect_revision";
 	}
 }

@@ -88,15 +88,9 @@
 
         <!-- Buttons Section -->
         <div class="space-y-4 w-full flex flex-col items-center">
-            <a href="/journal/addEntry">
-                <button class="w-12 h-12 rounded-full bg-[#23A3BB] font-bold text-white flex items-center justify-center hover:bg-[#1A8F9A] mb-4 transition-colors duration-300">
-                    +
-                </button>
-            </a>
-
             <!-- Rounded buttons for other actions -->
             <a href="/journal/load" class="block w-full">
-                <button class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
+                <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
                     Diario
                 </button>
             </a>
@@ -105,12 +99,16 @@
                     Revisión
                 </button>
             </a>
-            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
-                Stats
-            </button>
-            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
-                Sobre Topaz
-            </button>
+            <a href="/stats/load" class="block w-full">
+                <button class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
+                    Estadísticas
+                </button>
+            </a>
+            <a href="/about" class="block w-full">
+                <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Sobe Topaz
+                </button>
+            </a>
         </div>
     </div>
 
@@ -118,7 +116,7 @@
     <!-- Main content -->
     <div class="main-content  flex-grow bg-[#0F2529] p-6">
         <main class="container mx-auto mt-6 p-4">
-            <h1 class="text-2xl font-bold mb-4 text-white">Diario</h1>
+            <h1 class="text-2xl font-bold mb-4 text-white">Estadísticas</h1>
 
             <!-- Iterate over journal entries -->
             <div th:each="journalEntry : ${journalEntries}" x-data="{ open: false }" class="relative bg-[#172E38] p-6 rounded-lg shadow-2xl mb-6">
