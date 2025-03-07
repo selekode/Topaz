@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topaz</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script th:src="@{/js/tailwind.js}" defer></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
@@ -59,7 +61,7 @@
             <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Estadísticas</h1>
 
             <!-- Iterate over journal entries -->
-            <div data-aos="fade-up" x-data="{ open: false }" class="relative bg-[#172E38] p-6 rounded-lg shadow-2xl mb-6">
+            <div data-aos="fade-up" x-data="{ open: false }" class="relative bg-[#172E38] p-6 rounded-lg shadow-xl mb-6">
                 <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Métricas Generales</p>
 
                 <!-- Buttons Positioned in the Top Right -->
@@ -76,16 +78,8 @@
                     <!-- Content to Show/Hide -->
                     <div x-show="open" x-collapse>
                         <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
-                        <p class="text-lg text-white font-bold mb-2">- Entradas a lo largo del tiempo</p>
-
-                        <p class="text-base text-white">Entradas totales (Diario & Revisiones):</p>
-                        <p class="text-base mb-4 text-white" th:text="${statsEntryCount.totalEntries}"></p>
-
-                        <p class="text-base text-white">Entradas totales diario:</p>
-                        <p class="text-base mb-4 text-white" th:text="${statsEntryCount.totalEntriesJournal}"></p>
-                        
-                        <p class="text-base text-white">Revisiones totales:</p>
-                        <p class="text-base mb-4 text-white" th:text="${statsEntryCount.totalEntriesRevision}"></p>
+                        <p class="text-lg text-white font-bold mb-2">Entradas totales</p>
+                        <canvas id="chartEntradasTotales" width="400" height="200"></canvas>
 
                     </div>
                 </div>
@@ -96,6 +90,45 @@
     <script th:src="@{/js/deleteFeature_openModal.js}" defer></script>
     <script  th:src="@{/js/aos.js}" defer></script>
     <script th:src="@{/js/alpine.js}" defer></script>
+    <script th:src="@{/js/chart.js}" defer></script>
+    <script>
+        var ctx = document.getElementById('chartEntradasTotales').getContext('2d');
+        var myChart = new Chart(ctx, {
+          type: 'bar', // You can change this to 'line' for a line chart
+          data: {
+            labels: ['Entradas Totales', 'Entradas Diario', 'Revisiones'],
+            datasets: [{
+              label: 'Número de Entradas',
+              data: [
+                /* Thymeleaf dynamic data */
+                [[${statsEntryCount.totalEntries}]],
+                [[${statsEntryCount.totalEntriesJournal}]],
+                [[${statsEntryCount.totalEntriesRevision}]]
+              ], // The dynamic values injected from Java
+              backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+              borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            },
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: false,
+                text: 'Entradas totales'
+              }
+            }
+          }
+        });
+      </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             AOS.init();

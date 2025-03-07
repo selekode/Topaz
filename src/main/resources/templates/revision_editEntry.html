@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topaz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script th:src="@{/js/tailwind.js}" defer></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
@@ -66,7 +67,7 @@
         <main class="container mx-auto mt-6 p-4">
             <h1 class="text-2xl font-bold mb-4 text-white">Diario</h1>
 
-            <div data-aos="fade-left" class="bg-[#172E38] p-6 rounded-lg shadow-2xl flex flex-col justify-between">
+            <div data-aos="fade-left" class="bg-[#172E38] p-6 rounded-lg shadow-xl flex flex-col justify-between">
                 <div class="mb-4 flex items-center justify-between">
                     <a href="/revision/load" class="text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Atrás</a>
                     <h2 class="text-xl text-white font-bold select-none">Editar Revision</h2>

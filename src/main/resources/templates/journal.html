@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topaz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script th:src="@{/js/tailwind.js}" defer></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
@@ -118,7 +119,7 @@
             <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Diario</h1>
 
             <!-- Iterate over journal entries -->
-            <div  data-aos="fade-up" th:each="journalEntry : ${journalEntries}" x-data="{ open: false }" class="relative bg-[#172E38] p-6 rounded-lg shadow-2xl mb-6">
+            <div  data-aos="fade-up" th:each="journalEntry : ${journalEntries}" x-data="{ open: false }" class="relative bg-[#172E38] p-6 rounded-lg shadow-xl mb-6">
                 <!-- Buttons Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <!-- Show/Hide Button -->
