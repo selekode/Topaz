@@ -125,7 +125,7 @@
                 </div>
             </div>
 
-            <!-- Card 2: Métricas Generales | Actividad por día --> 
+            <!-- Card 2: Métricas Generales | Actividad por día -->
             <div data-aos="fade-up" x-data="{ open: false }"
                 class="relative bg-[#172E38] p-6 rounded-lg shadow-xl mb-6">
                 <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Métricas Generales</p>
@@ -145,15 +145,27 @@
                     <div x-show="open" x-collapse>
                         <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
 
-                        <p class="text-lg text-white font-bold mb-2">Día más activo (total)</p>
-                        <!--<canvas id="chartActivityPerDay" class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>-->
-                        <p>Día más activo diario</p>
-                        <p class="text-base text-white" th:text="${statsActivityPerDayOfWeekAllTime.journalMostActiveDay}"></p>
-                        <p>Día más activo revision</p>
-                        <p class="text-base text-white" th:text="${statsActivityPerDayOfWeekAllTime.revisionMostActiveDay}"></p>
+                        <p class="text-lg text-white font-bold mb-2">Actividad por día en el Diario (total)</p>
+                        <p class="text-base text-white mb-4"
+                            th:text="'El día en el que más escribes en el diario es el ' + ${statsActivityPerDayOfWeekAllTime.journalMostActiveDay}">
+                        </p>
+                        <p class="text-base text-white mb-4"
+                            th:text="'Has escrito ' + ${statsActivityPerDayOfWeekAllTime.journalMostActiveDay}">
+                        </p>
+                        <canvas id="chartActivityPerDayJournalAllTime"
+                            class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+
+                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+
+                        <p class="text-lg text-white font-bold mb-2">Actividad por día en Revisiones (total)</p>
+                        <p class="text-base text-white mb-4"
+                            th:text="'El día en el que más revisiones escribes el ' + ${statsActivityPerDayOfWeekAllTime.revisionMostActiveDay}">
+                        </p>
+                        <canvas id="chartActivityPerDayRevisionAllTime"
+                            class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+
                     </div>
                 </div>
-            </div>
         </main>
     </div>
 
@@ -161,10 +173,16 @@
     <script th:src="@{/js/aos.js}" defer></script>
     <script th:src="@{/js/alpine.js}" defer></script>
     <script th:src="@{/js/chart.js}" defer></script>
+    <script th:src="@{/js/stats_calculated_charts.js}"></script>
 
     <script>
-        var ctx = document.getElementById('chartEntryCountAllTime').getContext('2d');
-        var myChart = new Chart(ctx, {
+        /* Topaz v0.02 | Charts created using Charts.js
+        */
+
+        // Chart.js | Entradas en diario (total)
+
+        var ctx1 = document.getElementById('chartEntryCountAllTime').getContext('2d');
+        var chartEntryCountAllTime = new Chart(ctx1, {
             type: 'bar',
             data: {
                 labels: ['Entradas Totales', 'Entradas Diario', 'Revisiones'],
@@ -211,10 +229,11 @@
                 }
             }
         });
-    </script>
-    <script>
-        var ctx = document.getElementById('chartEntryCountDateRange').getContext('2d');
-        var myChart = new Chart(ctx, {
+
+
+        // Chart.js | Entradas en diario (daterange)-->
+        var ctx2 = document.getElementById('chartEntryCountDateRange').getContext('2d');
+        var chartEntryCountDateRange = new Chart(ctx2, {
             type: 'bar',
             data: {
                 labels: ['Entradas Totales', 'Entradas Diario', 'Revisiones'],
@@ -261,7 +280,134 @@
                 }
             }
         });
+
+
+        // Chart.js | Actividad por dia Diario(total)-->
+        // Data from Thymeleaf (all days)
+        var journalMondayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.journalMondayEntryCount }]];
+        var journalTuesdayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.journalTuesdayEntryCount }]];
+        var journalWednesdayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.journalWednesdayEntryCount }]];
+        var journalThursdayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.journalThursdayEntryCount }]];
+        var journalFridayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.journalFridayEntryCount }]];
+        var journalSaturdayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.journalSaturdayEntryCount }]];
+        var journalSundayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.journalSundayEntryCount }]];
+
+        var ctx3 = document.getElementById('chartActivityPerDayJournalAllTime').getContext('2d');
+        var chartActivityPerDayJournalAllTime = new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'], // Days of the week in Spanish
+                datasets: [{
+                    label: 'Actividad en el diario por día',
+                    data: [
+                        journalMondayEntryCount,
+                        journalTuesdayEntryCount,
+                        journalWednesdayEntryCount,
+                        journalThursdayEntryCount,
+                        journalFridayEntryCount,
+                        journalSaturdayEntryCount,
+                        journalSundayEntryCount
+                    ], // Data for each day
+                    backgroundColor: 'rgba(35, 163, 187, 0.5)', // Bar color
+                    borderColor: 'rgba(35, 163, 187, 1)', // Border color
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white' // Set Y-axis ticks color to white
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: 'white' // Set X-axis ticks color to white
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white' // Set legend text color to white
+                        }
+                    }
+                },
+                elements: {
+                    bar: {
+                        borderColor: 'white' // Set bar border color to white
+                    }
+                }
+            }
+        });
+
+
+
+        // Chart.js | Actividad por dia Revision (total)-->
+        // Data from Thymeleaf (all days)
+        var journalMondayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.revisionMondayEntryCount }]];
+        var journalTuesdayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.revisionTuesdayEntryCount }]];
+        var journalWednesdayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.revisionWednesdayEntryCount }]];
+        var journalThursdayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.revisionThursdayEntryCount }]];
+        var journalFridayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.revisionFridayEntryCount }]];
+        var journalSaturdayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.revisionSaturdayEntryCount }]];
+        var journalSundayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.revisionSundayEntryCount }]];
+
+        var ctx3 = document.getElementById('chartActivityPerDayRevisionAllTime').getContext('2d');
+        var chartActivityPerDayRevisionAllTime = new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'], // Days of the week in Spanish
+                datasets: [{
+                    label: 'Actividad en el diario por día',
+                    data: [
+                        journalMondayEntryCount,
+                        journalTuesdayEntryCount,
+                        journalWednesdayEntryCount,
+                        journalThursdayEntryCount,
+                        journalFridayEntryCount,
+                        journalSaturdayEntryCount,
+                        journalSundayEntryCount
+                    ], // Data for each day
+                    backgroundColor: 'rgba(35, 163, 187, 0.5)', // Bar color
+                    borderColor: 'rgba(35, 163, 187, 1)', // Border color
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white' // Set Y-axis ticks color to white
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: 'white' // Set X-axis ticks color to white
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white' // Set legend text color to white
+                        }
+                    }
+                },
+                elements: {
+                    bar: {
+                        borderColor: 'white' // Set bar border color to white
+                    }
+                }
+            }
+        });
+
     </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             AOS.init();
