@@ -19,15 +19,9 @@ public class JournalController {
 	// LOAD JOURNAL FEATURE
 	@GetMapping("/load")
 	public String loadPageJournal(Model model) {
-		model.addAttribute("journalEntries", loadAllEntries()); // Add journalEntries to the model
+		model.addAttribute("journalEntries", JournalService.selectAllJournalEntries()); // Add journalEntries to the model
 
-		return "journal"; // Load journal.html
-	}
-
-	public List<JournalEntry> loadAllEntries() {
-		List<JournalEntry> journalEntries = JournalService.selectAllJournalEntries();
-
-		return journalEntries;
+		return "journal";
 	}
 
 	// ADD ENTRY FEATURE

@@ -50,3 +50,14 @@ body {
 .main-content {
     margin-left: 16rem; /* This matches the sidebar width */
 }
+
+
+.chart-container {
+    width: 100%;
+    max-width: 60%;  /* Make sure the container takes up a maximum of 60% of its parent */
+}
+
+canvas {
+    width: 100%;  /* Ensure the canvas expands to the full width of its container */
+    height: auto;
+}

@@ -18,9 +18,8 @@ public class RevisionController {
 	// LOAD REVISION FEATURE
 	@GetMapping("/load")
 	public String loadPageRevision(Model model) {
-		model.addAttribute("revisionEntries", RevisionService.selectAllRevisionEntries()); // Add revisionEntries to the
-																							// model
-
+		model.addAttribute("revisionEntries", RevisionService.selectAllRevisionEntries());
+		
 		return "revision";
 	}
 

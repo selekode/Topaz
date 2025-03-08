@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topaz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script th:src="@{/js/tailwind.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+</head>
+
+<body class="bg-[#0F2529] font-sans leading-normal tracking-normal flex min-h-screen">
+
+    <!-- Sidebar -->
+    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
+        <!-- Logo Section -->
+        <div class="flex items-center mb-6 mt-2 flex-col">
+            <img th:src="@{/images/topaz-logo-text.png}" alt="Logo" class="w-[120px] select-none">
+        </div>
+
+        <!-- Horizontal Rule -->
+        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+
+        <!-- Buttons Section -->
+        <div class="space-y-4 w-full flex flex-col items-center">
+            <!-- Rounded buttons for other actions -->
+            <a href="/journal/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Diario
+                </button>
+            </a>
+            <a href="/revision/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Revisión
+                </button>
+            </a>
+            <a href="/stats/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
+                    Estadísticas
+                </button>
+            </a>
+            <a href="/about" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Sobe Topaz
+                </button>
+            </a>
+
+            <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+
+        </div>
+    </div>
+
+
+    <!-- Main content -->
+    <div class="main-content  flex-grow bg-[#0F2529] p-6">
+        <main class="container mx-auto mt-6 p-4">
+            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Estadísticas</h1>
+            <div class="bg-[#172E38] p-6 rounded-lg shadow-xl mb-4" data-aos="fade-up">
+                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Descubre el data sobre tu diario y
+                    revisiones</p>
+                <p class="text-base text-white">A continuación aparece el data extraido de las entradas en tu diario y
+                    revisiones. Se muestra el data a partir de todos los datos y también el data solo entre las fechas
+                    escogidas:</p>
+
+                <div class="flex justify-between mt-2 mb-4">
+                    <div>
+                        <p class="text-base" style="color: #23A3BB;">Fecha Inicio:</p>
+                        <p class="text-base text-white" th:text="${statsDateRange.startDate}"></p>
+                    </div>
+                    <div>
+                        <p class="text-base" style="color: #23A3BB;">Fecha Final:</p>
+                        <p class="text-base text-white" th:text="${statsDateRange.endDate}"></p>
+                    </div>
+                    <div class="flex justify-end">
+                        <a href="/stats/load">
+                            <button
+                                class="bg-[#23A3BB] transition hover:bg-[#1A8F9A] text-white text-sm py-2 px-6 rounded-full">Cambiar
+                                fecha</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Card 1: Métricas Generales | Numero de entradas -->
+            <div data-aos="fade-up" x-data="{ open: false }"
+                class="relative bg-[#172E38] p-6 rounded-lg shadow-xl mb-6">
+                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Métricas Generales</p>
+                <p class="text-2xl font-bold text-white">Número de entradas</p>
+                <!-- Button Positioned in the Top Right -->
+                <div class="absolute top-4 right-4 flex space-x-2">
+                    <!-- Show/Hide Button -->
+                    <button @click="open = !open"
+                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                        <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
+                    </button>
+                </div>
+
+                <!-- Card Content -->
+                <div class="mr-4">
+                    <!-- Content to Show/Hide -->
+                    <div x-show="open" x-collapse>
+                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+
+                        <p class="text-lg text-white font-bold mb-2">Entradas totales</p>
+                        <canvas id="chartEntryCountAllTime" class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+
+                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+
+                        <p class="text-lg text-white font-bold mb-2"
+                            th:text="'Entradas en el periodo entre ' + ${statsDateRange.startDate} + ' y  ' + ${statsDateRange.endDate}">
+                        </p>
+
+                        <canvas id="chartEntryCountDateRange" class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Métricas Generales | Actividad por día --> 
+            <div data-aos="fade-up" x-data="{ open: false }"
+                class="relative bg-[#172E38] p-6 rounded-lg shadow-xl mb-6">
+                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Métricas Generales</p>
+                <p class="text-2xl font-bold text-white">Actividad por día</p>
+                <!-- Button Positioned in the Top Right -->
+                <div class="absolute top-4 right-4 flex space-x-2">
+                    <!-- Show/Hide Button -->
+                    <button @click="open = !open"
+                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                        <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
+                    </button>
+                </div>
+
+                <!-- Card Content -->
+                <div class="mr-4">
+                    <!-- Content to Show/Hide -->
+                    <div x-show="open" x-collapse>
+                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+
+                        <p class="text-lg text-white font-bold mb-2">Día más activo (total)</p>
+                        <!--<canvas id="chartActivityPerDay" class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>-->
+                        <p>Día más activo diario</p>
+                        <p class="text-base text-white" th:text="${statsActivityPerDayOfWeekAllTime.journalMostActiveDay}"></p>
+                        <p>Día más activo revision</p>
+                        <p class="text-base text-white" th:text="${statsActivityPerDayOfWeekAllTime.revisionMostActiveDay}"></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script th:src="@{/js/deleteFeature_openModal.js}" defer></script>
+    <script th:src="@{/js/aos.js}" defer></script>
+    <script th:src="@{/js/alpine.js}" defer></script>
+    <script th:src="@{/js/chart.js}" defer></script>
+
+    <script>
+        var ctx = document.getElementById('chartEntryCountAllTime').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Entradas Totales', 'Entradas Diario', 'Revisiones'],
+                datasets: [{
+                    label: 'Número de Entradas',
+                    data: [
+                        /* Thymeleaf dynamic data */
+                        [[${ statsEntryCountAlltime.totalEntries }]],
+                        [[${ statsEntryCountAlltime.totalEntriesJournal }]],
+                        [[${ statsEntryCountAlltime.totalEntriesRevision }]]
+                    ],
+                    backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'white' // X-axis labels color
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white' // Y-axis labels color
+                        }
+                    }
+                },
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: 'white' // Legend text color
+                        }
+                    },
+                    title: {
+                        display: false,
+                        text: 'Entradas totales',
+                        color: 'white' // Title color (if enabled)
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        var ctx = document.getElementById('chartEntryCountDateRange').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Entradas Totales', 'Entradas Diario', 'Revisiones'],
+                datasets: [{
+                    label: 'Número de Entradas',
+                    data: [
+                        /* Thymeleaf dynamic data */
+                        [[${ statsEntryCountDateRange.totalEntries }]],
+                        [[${ statsEntryCountDateRange.totalEntriesJournal }]],
+                        [[${ statsEntryCountDateRange.totalEntriesRevision }]]
+                    ],
+                    backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'white' // X-axis labels color
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white' // Y-axis labels color
+                        }
+                    }
+                },
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: 'white' // Legend text color
+                        }
+                    },
+                    title: {
+                        display: false,
+                        text: 'Entradas totales',
+                        color: 'white' // Title color (if enabled)
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            AOS.init();
+        });
+    </script>
+</body>
+
+</html>

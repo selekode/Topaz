@@ -72,24 +72,12 @@
                 <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Sobre Topaz</h1>
 
                 <div class="bg-[#172E38] p-6 rounded-lg shadow-xl" data-aos="fade-up">
-                    <h1 class="text-l mb-2" style="color: #23A3BB;">Versión 0.0.2</h1>
+                    <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Versión 0.0.2</p>
                     <h1 class="text-xl mb-2  text-white">Topaz es un diario y rastreador de emociones</h1>
                 </div>
             </main>
         </div>
-
-        <!-- Modal HTML -->
-        <div id="confirmModal" class="modal hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-            <div class="modal-content rounded-lg p-6">
-                <h3 class="text-lg text-justify text-white font-bold mb-4 select-none">¿Seguro que quieres eliminar está página del diario?</h3>
-                <form id="deleteForm" method="post" action="deleteEntry">
-                    <input type="hidden" id="journalId" name="id" />
-                    <button type="submit" class="w-28 h-10 bg-[#23A3BB] text-white rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">Si, Eliminar</button>
-                    <button type="button" class="ml-4 w-28 h-10 bg-gray-500 text-white rounded-full transition-colors duration-300 hover:bg-gray-600 select-none" onclick="closeModal()">Cancelar</button>
-                </form>
-            </div>
-        </div>
-        
+       
     </div>
     <script th:src="@{/js/deleteFeature_openModal.js}" defer></script>
     <script  th:src="@{/js/aos.js}" defer></script>

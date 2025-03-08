@@ -30,6 +30,11 @@ public class StatsEntryCount {
 	public void setTotalEntriesRevision(int totalEntriesRevision) {
 		this.totalEntriesRevision = totalEntriesRevision;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "StatsEntryCount [totalEntries=" + totalEntries + ", totalEntriesJournal=" + totalEntriesJournal
+				+ ", totalEntriesRevision=" + totalEntriesRevision + "]";
+	}
 	
 }
