@@ -20,12 +20,16 @@ public class StatsActivityPerDayOfWeek {
 	private String journalMostActiveDay;
 	private String revisionMostActiveDay;
 
+	private int journalMostActiveDayN;
+	private int revisionMostActiveDayN;
+
 	public StatsActivityPerDayOfWeek(int journalMondayEntryCount, int journalTuesdayEntryCount,
 			int journalWednesdayEntryCount, int journalThursdayEntryCount, int journalFridayEntryCount,
 			int journalSaturdayEntryCount, int journalSundayEntryCount, int revisionMondayEntryCount,
 			int revisionTuesdayEntryCount, int revisionWednesdayEntryCount, int revisionThursdayEntryCount,
 			int revisionFridayEntryCount, int revisionSaturdayEntryCount, int revisionSundayEntryCount,
-			String journalMostActiveDay, String revisionMostActiveDay) {
+			String journalMostActiveDay, String revisionMostActiveDay, int journalMostActiveDayN,
+			int revisionMostActiveDayN) {
 		super();
 		this.journalMondayEntryCount = journalMondayEntryCount;
 		this.journalTuesdayEntryCount = journalTuesdayEntryCount;
@@ -43,6 +47,24 @@ public class StatsActivityPerDayOfWeek {
 		this.revisionSundayEntryCount = revisionSundayEntryCount;
 		this.journalMostActiveDay = journalMostActiveDay;
 		this.revisionMostActiveDay = revisionMostActiveDay;
+		this.journalMostActiveDayN = journalMostActiveDayN;
+		this.revisionMostActiveDayN = revisionMostActiveDayN;
+	}
+
+	public int getJournalMostActiveDayN() {
+		return journalMostActiveDayN;
+	}
+
+	public void setJournalMostActiveDayN(int journalMostActiveDayN) {
+		this.journalMostActiveDayN = journalMostActiveDayN;
+	}
+
+	public int getRevisionMostActiveDayN() {
+		return revisionMostActiveDayN;
+	}
+
+	public void setRevisionMostActiveDayN(int revisionMostActiveDayN) {
+		this.revisionMostActiveDayN = revisionMostActiveDayN;
 	}
 
 	public int getJournalMondayEntryCount() {
@@ -171,36 +193,6 @@ public class StatsActivityPerDayOfWeek {
 
 	public void setRevisionMostActiveDay(String revisionMostActiveDay) {
 		this.revisionMostActiveDay = revisionMostActiveDay;
-	}
-
-	public String getDayWithHighestJournalCount() {
-		int[] journalCounts = { journalMondayEntryCount, journalTuesdayEntryCount, journalWednesdayEntryCount,
-				journalThursdayEntryCount, journalFridayEntryCount, journalSaturdayEntryCount,
-				journalSundayEntryCount };
-
-		String[] days = { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo" };
-
-		return getMaxDay(journalCounts, days);
-	}
-
-	public String getDayWithHighestRevisionCount() {
-		int[] revisionCounts = { revisionMondayEntryCount, revisionTuesdayEntryCount, revisionWednesdayEntryCount,
-				revisionThursdayEntryCount, revisionFridayEntryCount, revisionSaturdayEntryCount,
-				revisionSundayEntryCount };
-
-		String[] days = { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo" };
-
-		return getMaxDay(revisionCounts, days);
-	}
-
-	private String getMaxDay(int[] counts, String[] days) {
-		int maxIndex = 0;
-		for (int i = 1; i < counts.length; i++) {
-			if (counts[i] > counts[maxIndex]) {
-				maxIndex = i;
-			}
-		}
-		return days[maxIndex]; // Returns the day with the highest count
 	}
 
 	// SETTERS TO CALCULATE MOST ACTIVE DAY

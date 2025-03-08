@@ -212,7 +212,7 @@ public interface StatsRepository {
 				journalWednesdayEntryCount, journalThursdayEntryCount, journalFridayEntryCount,
 				journalSaturdayEntryCount, journalSundayEntryCount, revisionMondayEntryCount, revisionTuesdayEntryCount,
 				revisionWednesdayEntryCount, revisionThursdayEntryCount, revisionFridayEntryCount,
-				revisionSaturdayEntryCount, revisionSundayEntryCount, "", "");
+				revisionSaturdayEntryCount, revisionSundayEntryCount, "", "", 0, 0);
 
 		return entryCountPerDay;
 
