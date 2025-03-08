@@ -27,7 +27,6 @@ public class StatsController {
 	@PostMapping("/calculateStats")
 	public String calculateStats(@ModelAttribute StatsDateRange statsDateRange, Model model) {
 		
-		
 		model.addAttribute("statsDateRange", statsDateRange);
 		model.addAttribute("statsEntryCountDateRange", StatsService.getEntryCountDateRange(statsDateRange));
 		model.addAttribute("statsEntryCountAlltime", StatsService.getEntryCountAllTime());
