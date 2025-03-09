@@ -12,7 +12,7 @@ public class StatsEmotionFrequency {
 	private int emocionFrustracionCount;
 	private int emocionSatisfaccionCount;
 	private int emocionAburrimientoCount;
-	private int emocionAmadoCount;
+	private int emocionSerenidadCount;
 	private int emocionConfianzaCount;
 	private int emocionAbrumadoCount;
 	private int emocionEsperanzaCount;
@@ -93,11 +93,11 @@ public class StatsEmotionFrequency {
 	public void setEmocionAburrimientoCount(int emocionAburrimientoCount) {
 		this.emocionAburrimientoCount = emocionAburrimientoCount;
 	}
-	public int getEmocionAmadoCount() {
-		return emocionAmadoCount;
+	public int getEmocionSerenidadCount() {
+		return emocionSerenidadCount;
 	}
-	public void setEmocionAmadoCount(int emocionAmadoCount) {
-		this.emocionAmadoCount = emocionAmadoCount;
+	public void setEmocionSerenidadCount(int emocionSerenidadCount) {
+		this.emocionSerenidadCount = emocionSerenidadCount;
 	}
 	public int getEmocionConfianzaCount() {
 		return emocionConfianzaCount;
@@ -171,7 +171,7 @@ public class StatsEmotionFrequency {
 	public StatsEmotionFrequency(int emocionAlegriaCount, int emocionTristezaCount, int emocionIraCount,
 			int emocionMiedoCount, int emocionAnsiedadCount, int emocionAmorCount, int emocionSorpresaCount,
 			int emocionVerguenzaCount, int emocionFrustracionCount, int emocionSatisfaccionCount,
-			int emocionAburrimientoCount, int emocionAmadoCount, int emocionConfianzaCount, int emocionAbrumadoCount,
+			int emocionAburrimientoCount, int emocionSerenidadCount, int emocionConfianzaCount, int emocionAbrumadoCount,
 			int emocionEsperanzaCount, String topEmotion1, int topEmotion1Count, String topEmotion2,
 			int topEmotion2Count, String topEmotion3, int topEmotion3Count, String topEmotion4, int topEmotion4Count) {
 		super();
@@ -186,7 +186,7 @@ public class StatsEmotionFrequency {
 		this.emocionFrustracionCount = emocionFrustracionCount;
 		this.emocionSatisfaccionCount = emocionSatisfaccionCount;
 		this.emocionAburrimientoCount = emocionAburrimientoCount;
-		this.emocionAmadoCount = emocionAmadoCount;
+		this.emocionSerenidadCount = emocionSerenidadCount;
 		this.emocionConfianzaCount = emocionConfianzaCount;
 		this.emocionAbrumadoCount = emocionAbrumadoCount;
 		this.emocionEsperanzaCount = emocionEsperanzaCount;

@@ -13,16 +13,13 @@
     <link rel="stylesheet" th:href="@{/css/aos.css}">
 </head>
 
-<body
-    class="bg-[#0F2529] font-sans leading-normal tracking-normal flex min-h-screen">
+<body class="bg-[#0F2529] font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div
-        class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
+    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
-            <img th:src="@{/images/topaz-logo-text.png}" alt="Logo"
-                class="w-[120px] select-none">
+            <img th:src="@{/images/topaz-logo-text.png}" alt="Logo" class="w-[120px] select-none">
         </div>
 
         <!-- Horizontal Rule -->
@@ -67,10 +64,8 @@
         <main class="container mx-auto mt-6 p-4">
             <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">
                 Estadísticas</h1>
-            <div class="bg-[#172E38] p-6 rounded-lg shadow-xl mb-4"
-                data-aos="fade-up">
-                <p class="text-lg italic font-bold mb-2"
-                    style="color: #23A3BB;">Descubre el data sobre tu diario y
+            <div class="bg-[#172E38] p-6 rounded-lg shadow-xl mb-4" data-aos="fade-up">
+                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Descubre el data sobre tu diario y
                     revisiones</p>
                 <p class="text-base text-white">A continuación aparece el data
                     extraido de las entradas en tu diario y
@@ -82,14 +77,12 @@
                     <div>
                         <p class="text-base" style="color: #23A3BB;">Fecha
                             Inicio:</p>
-                        <p class="text-base text-white"
-                            th:text="${statsDateRange.startDate}"></p>
+                        <p class="text-base text-white" th:text="${statsDateRange.startDate}"></p>
                     </div>
                     <div>
                         <p class="text-base" style="color: #23A3BB;">Fecha
                             Final:</p>
-                        <p class="text-base text-white"
-                            th:text="${statsDateRange.endDate}"></p>
+                        <p class="text-base text-white" th:text="${statsDateRange.endDate}"></p>
                     </div>
                     <div class="flex justify-end">
                         <a href="/stats/load">
@@ -105,9 +98,10 @@
             <!-- Card 1: Métricas Generales | Numero de entradas -->
             <div data-aos="fade-up" x-data="{ open: false }"
                 class="relative bg-[#172E38] p-6 rounded-lg shadow-xl mb-6">
-                <p class="text-lg italic font-bold mb-2"
-                    style="color: #23A3BB;">Métricas Generales</p>
-                <p class="text-2xl font-bold text-white">Número de entradas</p>
+                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Métricas Generales</p>
+                <p class="text-2xl font-bold text-white mb-3">Número de entradas
+                </p>
+
                 <!-- Button Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <!-- Show/Hide Button -->
@@ -120,38 +114,53 @@
                 <!-- Card Content -->
                 <div class="mr-4">
                     <!-- Content to Show/Hide -->
-                    <div x-show="open" x-collapse>
-                        <hr
-                            class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                    <div x-show="open" x-collapse x-data="{ tab: 'all' }">
+                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
 
-                        <p class="text-lg text-white font-bold mb-2">Entradas
-                            totales</p>
-                        <canvas id="chartEntryCountAllTime"
-                            class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        <!-- Tab Buttons -->
+                        <div class="flex space-x-2 mb-4">
+                            <button @click="tab = 'all'"
+                                :class="tab === 'all' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-md transition">
+                                Entradas Totales
+                            </button>
+                            <button @click="tab = 'range'"
+                                :class="tab === 'range' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-md transition"
+                                th:text="'Entradas entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
+                            </button>
+                        </div>
 
-                        <hr
-                            class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                        <!-- Entradas Totales Tab -->
+                        <div x-show="tab === 'all'" x-transition>
+                            <p class="text-lg text-white font-bold mb-2">
+                                Entradas Totales</p>
+                            <canvas id="chartEntryCountAllTime"
+                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
 
-                        <p class="text-lg text-white font-bold mb-2"
-                            th:text="'Entradas en el periodo entre ' + ${statsDateRange.startDate} + ' y  ' + ${statsDateRange.endDate}">
-                        </p>
-
-                        <canvas id="chartEntryCountDateRange"
-                            class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
-
+                        <!-- Entradas en el Periodo Tab -->
+                        <div x-show="tab === 'range'" x-transition>
+                            <p class="text-lg text-white font-bold mb-2"
+                                th:text="'Entradas en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
+                            </p>
+                            <canvas id="chartEntryCountDateRange"
+                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
                     </div>
+
                 </div>
             </div>
 
             <!-- Card 2: Métricas Generales | Actividad por día -->
-            <div data-aos="fade-up" x-data="{ open: false }"
+            <div data-aos="fade-up" x-data="{ open: false, tab: 'journalAllTime' }"
                 class="relative bg-[#172E38] p-6 rounded-lg shadow-xl mb-6">
-                <p class="text-lg italic font-bold mb-2"
-                    style="color: #23A3BB;">Métricas Generales</p>
-                <p class="text-2xl font-bold text-white">Actividad por día</p>
+
+                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Métricas Generales</p>
+                <p class="text-2xl font-bold text-white">Actividad por día de la semana</p>
+
                 <!-- Button Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
-                    <!-- Show/Hide Button -->
                     <button @click="open = !open"
                         class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
@@ -160,70 +169,89 @@
 
                 <!-- Card Content -->
                 <div class="mr-4">
-                    <!-- Content to Show/Hide -->
                     <div x-show="open" x-collapse>
-                        <hr
-                            class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
 
-                        <p class="text-lg text-white font-bold mb-2">Actividad
-                            por día en el Diario (total)</p>
-                        <p class="text-base text-white mb-1"
-                            th:text="'- El día en el que más escribes en el diario es el ' + ${statsActivityPerDayOfWeekAllTime.journalMostActiveDay}">
-                        </p>
-                        <p class="text-base text-white mb-4"
-                            th:text="'- Has escrito ' + ${statsActivityPerDayOfWeekAllTime.journalMostActiveDayN} + ' entradas en el diario un ' + ${statsActivityPerDayOfWeekAllTime.journalMostActiveDay}">
-                        </p>
-                        <canvas id="chartActivityPerDayJournalAllTime"
-                            class="max-w-[75%] max-h-[280px] w-full h-auto">
-                        </canvas>
+                        <!-- Tab Navigation -->
+                        <div class="flex space-x-2 mb-4">
+                            <button @click="tab = 'journalAllTime'"
+                                :class="tab === 'journalAllTime' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-md transition">
+                                Diario (Total)
+                            </button>
+                            <button @click="tab = 'revisionAllTime'"
+                                :class="tab === 'revisionAllTime' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-md transition">
+                                Revisiones (Total)
+                            </button>
+                            <button @click="tab = 'journalDateRange'"
+                                :class="tab === 'journalDateRange' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-md transition"
+                                th:text="'Diario (' + ${statsDateRange.startDate} + ' - ' + ${statsDateRange.endDate} + ')'">
+                            </button>
+                            <button @click="tab = 'revisionDateRange'"
+                                :class="tab === 'revisionDateRange' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-md transition"
+                                th:text="'Revisiones (' + ${statsDateRange.startDate} + ' - ' + ${statsDateRange.endDate} + ')'">
+                            </button>
+                        </div>
 
-                        <hr
-                            class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                        <!-- Diario (Total) -->
+                        <div x-show="tab === 'journalAllTime'" x-transition>
+                            <p class="text-lg text-white font-bold mb-2">Actividad por día en el Diario (total)</p>
+                            <p class="text-base text-white mb-1"
+                                th:text="'- El día en el que más escribes en el diario es el ' + ${statsActivityPerDayOfWeekAllTime.journalMostActiveDay}">
+                            </p>
+                            <p class="text-base text-white mb-4"
+                                th:text="'- Has escrito ' + ${statsActivityPerDayOfWeekAllTime.journalMostActiveDayN} + ' entradas en el diario un ' + ${statsActivityPerDayOfWeekAllTime.journalMostActiveDay}">
+                            </p>
+                            <canvas id="chartActivityPerDayJournalAllTime"
+                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
 
-                        <p class="text-lg text-white font-bold mb-2">Actividad
-                            por día en Revisiones (total)</p>
-                        <p class="text-base text-white mb-1"
-                            th:text="'- El día en el que más revisiones escribes es el ' + ${statsActivityPerDayOfWeekAllTime.revisionMostActiveDay}">
-                        </p>
-                        <p class="text-base text-white mb-4"
-                            th:text="'- Has escrito ' + ${statsActivityPerDayOfWeekAllTime.revisionMostActiveDayN} + ' revisiones un ' + ${statsActivityPerDayOfWeekAllTime.revisionMostActiveDay}">
-                        </p>
-                        <canvas id="chartActivityPerDayRevisionAllTime"
-                            class="max-w-[75%] max-h-[280px] w-full h-auto">
-                        </canvas>
+                        <!-- Revisiones (Total) -->
+                        <div x-show="tab === 'revisionAllTime'" x-transition>
+                            <p class="text-lg text-white font-bold mb-2">Actividad por día en Revisiones (total)</p>
+                            <p class="text-base text-white mb-1"
+                                th:text="'- El día en el que más revisiones escribes es el ' + ${statsActivityPerDayOfWeekAllTime.revisionMostActiveDay}">
+                            </p>
+                            <p class="text-base text-white mb-4"
+                                th:text="'- Has escrito ' + ${statsActivityPerDayOfWeekAllTime.revisionMostActiveDayN} + ' revisiones un ' + ${statsActivityPerDayOfWeekAllTime.revisionMostActiveDay}">
+                            </p>
+                            <canvas id="chartActivityPerDayRevisionAllTime"
+                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
 
+                        <!-- Diario (Periodo) -->
+                        <div x-show="tab === 'journalDateRange'" x-transition>
+                            <p class="text-lg text-white font-bold mb-2"
+                                th:text="'Actividad por día en el Diario en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
+                            </p>
+                            <p class="text-base text-white mb-1"
+                                th:text="'- El día en el que más has escrito en el diario es el ' + ${statsActivityPerDayOfWeekDateRange.journalMostActiveDay}">
+                            </p>
+                            <p class="text-base text-white mb-4"
+                                th:text="'- Has escrito ' + ${statsActivityPerDayOfWeekDateRange.journalMostActiveDayN} + ' entradas en el diario un ' + ${statsActivityPerDayOfWeekDateRange.journalMostActiveDay}">
+                            </p>
+                            <canvas id="chartActivityPerDayJournalDateRange"
+                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
 
-                        <hr
-                            class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                        <!-- Revisiones (Periodo) -->
+                        <div x-show="tab === 'revisionDateRange'" x-transition>
+                            <p class="text-lg text-white font-bold mb-2"
+                                th:text="'Actividad por día en Revisiones en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
+                            </p>
+                            <p class="text-base text-white mb-1"
+                                th:text="'- El día en el que más revisiones has escrito es el ' + ${statsActivityPerDayOfWeekDateRange.revisionMostActiveDay}">
+                            </p>
+                            <p class="text-base text-white mb-4"
+                                th:text="'- Has escrito ' + ${statsActivityPerDayOfWeekDateRange.revisionMostActiveDayN} + ' revisiones un ' + ${statsActivityPerDayOfWeekDateRange.revisionMostActiveDay}">
+                            </p>
+                            <canvas id="chartActivityPerDayRevisionDateRange"
+                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
 
-                        <p class="text-lg text-white font-bold mb-2"
-                            th:text="'Actividad por día en el Diario en el periodo entre ' + ${statsDateRange.startDate} + ' y  ' + ${statsDateRange.endDate}">
-                        </p>
-                        <p class="text-base text-white mb-1"
-                            th:text="'- El día en el que más has escrito en el diario es el ' + ${statsActivityPerDayOfWeekDateRange.journalMostActiveDay}">
-                        </p>
-                        <p class="text-base text-white mb-4"
-                            th:text="'- Has escrito ' + ${statsActivityPerDayOfWeekDateRange.journalMostActiveDayN} + ' entradas en el diario un ' + ${statsActivityPerDayOfWeekDateRange.journalMostActiveDay}">
-                        </p>
-                        <canvas id="chartActivityPerDayJournalDateRange"
-                            class="max-w-[75%] max-h-[280px] w-full h-auto">
-                        </canvas>
-
-                        <hr
-                            class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
-
-                        <p class="text-lg text-white font-bold mb-2"
-                            th:text="'Actividad por día en Revisiones en el periodo entre ' + ${statsDateRange.startDate} + ' y  ' + ${statsDateRange.endDate}">
-                        </p>
-                        <p class="text-base text-white mb-1"
-                            th:text="'- El día en el que más revisiones has escrito es el ' + ${statsActivityPerDayOfWeekDateRange.revisionMostActiveDay}">
-                        </p>
-                        <p class="text-base text-white mb-4"
-                            th:text="'- Has escrito ' + ${statsActivityPerDayOfWeekDateRange.revisionMostActiveDayN} + ' revisiones un ' + ${statsActivityPerDayOfWeekDateRange.revisionMostActiveDay}">
-                        </p>
-                        <canvas id="chartActivityPerDayRevisionDateRange"
-                            class="max-w-[75%] max-h-[280px] w-full h-auto">
-                        </canvas>
                     </div>
                 </div>
             </div>
@@ -232,8 +260,7 @@
             <!-- Card 3: Tendencias Emocionales | Frecuencia Emocional -->
             <div data-aos="fade-up" x-data="{ open: false }"
                 class="relative bg-[#172E38] p-6 rounded-lg shadow-xl mb-6">
-                <p class="text-lg italic font-bold mb-2"
-                    style="color: #23A3BB;">Tendencias Emocionales</p>
+                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Tendencias Emocionales</p>
                 <p class="text-2xl font-bold text-white">Frecuencia Emocional
                 </p>
                 <!-- Button Positioned in the Top Right -->
@@ -248,22 +275,49 @@
                 <!-- Card Content -->
                 <div class="mr-4">
                     <!-- Content to Show/Hide -->
-                    <div x-show="open" x-collapse>
-                        <hr
-                            class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                    <!-- Tabs Container -->
+                    <div x-show="open" x-collapse x-data="{ tab: 'total' }" class="w-full">
+                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
 
-                        <p class="text-lg text-white font-bold mb-2">Frecuencia
-                            Emocional Total</p>
-                        <p class="text-base text-whitemb-2"
-                            th:text="'- Tus emociones más frecuentes son ' + ${statsEmotionFrequencyAllTime.topEmotion1} + ',' + ${statsEmotionFrequencyAllTime.topEmotion2} + ',' + ${statsEmotionFrequencyAllTime.topEmotion3} + ' y ' + ${statsEmotionFrequencyAllTime.topEmotion4}">
+                        <!-- Tabs Navigation -->
+                        <div class="flex space-x-2 mb-4">
+                            <button @click="tab = 'total'"
+                                :class="tab === 'total' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-lg transition">Total</button>
+                            <button @click="tab = 'dateRange'"
+                                :class="tab === 'dateRange' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-lg transition">Rango de Fechas</button>
+                        </div>
+
+                        <!-- FREQUENCIAEMOCIONAL_TOTAL -->
+                        <div x-show="tab === 'total'" x-transition>
+                            <p class="text-lg text-white font-bold mb-2">Frecuencia de emociones total</p>
+                            <p class="text-base text-white mb-2"
+                                th:text="'- Tus emociones más frecuentes son ' + ${statsEmotionFrequencyAllTime.topEmotion1} + ', ' + ${statsEmotionFrequencyAllTime.topEmotion2} + ', ' + ${statsEmotionFrequencyAllTime.topEmotion3} + ' y ' + ${statsEmotionFrequencyAllTime.topEmotion4}">
+                            </p>
+                            <p class="text-base text-white mb-4">- Esta gráfica muestra cuantas veces has seleccionado
+                                cada emoción en tus revisiones:</p>
+                            <canvas id="emotionFrequencyPieChartAllTime"
+                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
+
+                        <!-- FREQUENCIAEMOCIONAL_DATERANGE -->
+                        <div x-show="tab === 'dateRange'" x-transition>
+
+                            <p class="text-lg text-white font-bold mb-2"
+                                th:text="'Frecuencia de emociones en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
+                            </p>
+                            <p class="text-base text-white mb-2"
+                            th:text="'- Tus emociones más frecuentes son ' + ${statsEmotionFrequencyDateRange.topEmotion1} + ', ' + ${statsEmotionFrequencyDateRange.topEmotion2} + ', ' + ${statsEmotionFrequencyDateRange.topEmotion3} + ' y ' + ${statsEmotionFrequencyDateRange.topEmotion4}">
                         </p>
-                        <p class="text-base text-white mb-4">- Esta gráfica muestra cuantas veces has seleccionado cada emoción en tus revisiones:</p>
-                        <canvas id="emotionFrequencyPieChartAllTime"
-                            class="max-w-[75%] max-h-[280px] w-full h-auto">
-                        </canvas>
+                            <p class="text-base text-white mb-4">- Esta gráfica muestra cuantas veces has seleccionado
+                                cada emoción en tus revisiones:</p>
+                            <canvas id="emotionFrequencyPieChartDateRange"
+                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
+
                     </div>
                 </div>
-            </div>
         </main>
     </div>
 
@@ -630,7 +684,6 @@
 
         // Chart.js | Frecuencia Emocional (All Time)-->
         // Data from Thymeleaf (all days)
-
         const emotionCounts = [
             [[${ statsEmotionFrequencyAllTime.emocionAlegriaCount }]],
             [[${ statsEmotionFrequencyAllTime.emocionTristezaCount }]],
@@ -643,7 +696,7 @@
             [[${ statsEmotionFrequencyAllTime.emocionFrustracionCount }]],
             [[${ statsEmotionFrequencyAllTime.emocionSatisfaccionCount }]],
             [[${ statsEmotionFrequencyAllTime.emocionAburrimientoCount }]],
-            [[${ statsEmotionFrequencyAllTime.emocionAmadoCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionSerenidadCount }]],
             [[${ statsEmotionFrequencyAllTime.emocionConfianzaCount }]],
             [[${ statsEmotionFrequencyAllTime.emocionAbrumadoCount }]],
             [[${ statsEmotionFrequencyAllTime.emocionEsperanzaCount }]]
@@ -651,7 +704,7 @@
 
         const emotionLabels = [
             "Alegría", "Tristeza", "Ira", "Miedo", "Ansiedad", "Amor", "Sorpresa",
-            "Vergüenza", "Frustración", "Satisfacción", "Aburrimiento", "Amado",
+            "Vergüenza", "Frustración", "Satisfacción", "Aburrimiento", "Serenidad",
             "Confianza", "Abrumado", "Esperanza"
         ];
 
@@ -667,9 +720,9 @@
                     label: 'Emotion Frequency',
                     data: emotionCounts,
                     backgroundColor: [
-                        '#FFEB3B', '#3F51B5', '#F44336', '#9C27B0', '#00B8D4', '#E91E63',
-                        '#FF9800', '#D32F2F', '#FF5722', '#4CAF50', '#9E9E9E', '#FF4081',
-                        '#2196F3', '#B71C1C', '#8BC34A'
+                        '#FFEB3B', '#120966', '#940c3e', '#f77225', '#eb63d2', '#cf44b7', '#1f807c',
+                        '#D32F2F', '#824633', '#4CAF50', '#9E9E9E', '#4dd1e3',
+                        '#146b11', '#330505', '#89d134'
                     ],
                     borderColor: '#fff',
                     borderWidth: 1
@@ -692,6 +745,70 @@
                 }
             }
         });
+        // Chart.js | Frecuencia Emocional (Date Range)-->
+        // Data from Thymeleaf (all days)
+        const emotionFrequencyCountsDateRange = [
+            [[${ statsEmotionFrequencyDateRange.emocionAlegriaCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionTristezaCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionIraCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionMiedoCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionAnsiedadCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionAmorCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionSorpresaCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionVerguenzaCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionFrustracionCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionSatisfaccionCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionAburrimientoCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionSerenidadCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionConfianzaCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionAbrumadoCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionEsperanzaCount }]]
+        ];
+
+        const emotionLabels2 = [
+            "Alegría", "Tristeza", "Ira", "Miedo", "Ansiedad", "Amor", "Sorpresa",
+            "Vergüenza", "Frustración", "Satisfacción", "Aburrimiento", "Serenidad",
+            "Confianza", "Abrumado", "Esperanza"
+        ];
+
+        // Get the context of the canvas element for Chart.js
+        const ctx7 = document.getElementById('emotionFrequencyPieChartDateRange').getContext('2d');
+
+        // Create the Chart.js pie chart
+        const emotionFrequencyPieChartDateRange = new Chart(ctx7, {
+            type: 'pie',
+            data: {
+                labels: emotionLabels2,
+                datasets: [{
+                    label: 'Emotion Frequency',
+                    data: emotionFrequencyCountsDateRange,
+                    backgroundColor: [
+                        '#FFEB3B', '#120966', '#940c3e', '#f77225', '#eb63d2', '#cf44b7', '#1f807c',
+                        '#D32F2F', '#824633', '#4CAF50', '#9E9E9E', '#4dd1e3',
+                        '#146b11', '#330505', '#89d134'
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,  // Hide the legend
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const percentage = tooltipItem.raw / tooltipItem.chart.data.datasets[0].data.reduce((a, b) => a + b, 0) * 100;
+                                return tooltipItem.label + ': ' + tooltipItem.raw + ' (' + percentage.toFixed(2) + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
 
 
     </script>

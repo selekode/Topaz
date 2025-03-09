@@ -31,6 +31,7 @@ public class StatsController {
 		model.addAttribute("statsActivityPerDayOfWeekAllTime", StatsService.getActivityPerDayOfWeekAllTime());
 		model.addAttribute("statsActivityPerDayOfWeekDateRange", StatsService.getActivityPerDayOfWeekDateRange(statsDateRange));
 		model.addAttribute("statsEmotionFrequencyAllTime", StatsService.getEmotionFrequencyAllTime());
+		model.addAttribute("statsEmotionFrequencyDateRange", StatsService.getEmotionFrequencyDateRange(statsDateRange));
 		
 		return "stats_calculated";
 	}

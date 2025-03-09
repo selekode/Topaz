@@ -28,7 +28,7 @@ public interface RevisionRepository {
 				+ "emocionAlegria, emocionTristeza, emocionIra, emocionMiedo, "
 				+ "emocionAnsiedad, emocionAmor, emocionSorpresa, emocionVerguenza, "
 				+ "emocionFrustracion, emocionSatisfaccion, emocionAburrimiento, "
-				+ "emocionAmado, emocionConfianza, emocionAbrumado, emocionEsperanza "
+				+ "emocionSerenidad, emocionConfianza, emocionAbrumado, emocionEsperanza "
 				+ "FROM revision ORDER BY date DESC";
 
 		List<RevisionEntry> revisionEntries = new ArrayList<>();
@@ -70,7 +70,7 @@ public interface RevisionRepository {
 				boolean emocionFrustracion = rs.getBoolean("emocionFrustracion");
 				boolean emocionSatisfaccion = rs.getBoolean("emocionSatisfaccion");
 				boolean emocionAburrimiento = rs.getBoolean("emocionAburrimiento");
-				boolean emocionAmado = rs.getBoolean("emocionAmado");
+				boolean emocionSerenidad = rs.getBoolean("emocionSerenidad");
 				boolean emocionConfianza = rs.getBoolean("emocionConfianza");
 				boolean emocionAbrumado = rs.getBoolean("emocionAbrumado");
 				boolean emocionEsperanza = rs.getBoolean("emocionEsperanza");
@@ -85,7 +85,7 @@ public interface RevisionRepository {
 						valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion,
 						valoracionConsecucionObjetivos, explicacionValoracion, objetivosPersonales, emocionAlegria,
 						emocionTristeza, emocionIra, emocionMiedo, emocionAnsiedad, emocionAmor, emocionSorpresa,
-						emocionVerguenza, emocionFrustracion, emocionSatisfaccion, emocionAburrimiento, emocionAmado,
+						emocionVerguenza, emocionFrustracion, emocionSatisfaccion, emocionAburrimiento, emocionSerenidad,
 						emocionConfianza, emocionAbrumado, emocionEsperanza);
 				revisionEntries.add(revisionEntry);
 			}
@@ -108,7 +108,7 @@ public interface RevisionRepository {
 				+ "explicacionValoracion, objetivosPersonales, emocionAlegria, emocionTristeza, "
 				+ "emocionIra, emocionMiedo, emocionAnsiedad, emocionAmor, emocionSorpresa, "
 				+ "emocionVerguenza, emocionFrustracion, emocionSatisfaccion, emocionAburrimiento, "
-				+ "emocionAmado, emocionConfianza, emocionAbrumado, emocionEsperanza " + "FROM revision WHERE id = ?";
+				+ "emocionSerenidad, emocionConfianza, emocionAbrumado, emocionEsperanza " + "FROM revision WHERE id = ?";
 
 		try (Connection connection = DriverManager.getConnection(DB_URL);
 				PreparedStatement statement = connection.prepareStatement(query)) {
@@ -154,7 +154,7 @@ public interface RevisionRepository {
 					revisionEntry.setEmocionFrustracion(resultSet.getBoolean("emocionFrustracion"));
 					revisionEntry.setEmocionSatisfaccion(resultSet.getBoolean("emocionSatisfaccion"));
 					revisionEntry.setEmocionAburrimiento(resultSet.getBoolean("emocionAburrimiento"));
-					revisionEntry.setEmocionAmado(resultSet.getBoolean("emocionAmado"));
+					revisionEntry.setEmocionSerenidad(resultSet.getBoolean("emocionSerenidad"));
 					revisionEntry.setEmocionConfianza(resultSet.getBoolean("emocionConfianza"));
 					revisionEntry.setEmocionAbrumado(resultSet.getBoolean("emocionAbrumado"));
 					revisionEntry.setEmocionEsperanza(resultSet.getBoolean("emocionEsperanza"));
@@ -172,7 +172,7 @@ public interface RevisionRepository {
 
 	public static void insertRevisionEntry(RevisionEntry revisionEntry, Long unixTime) {
 		try (Connection conn = DriverManager.getConnection(DB_URL)) {
-			String sql = "INSERT INTO revision (date, estadoEmocional, estadoEmocionalWhy, importanteParaMi, aprendidoSobreMi, valoracionDisciplina, valoracionOrden, valoracionImpulsividad, valoracionConstancia, valoracionTolerancia, valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion, valoracionConsecucionObjetivos, explicacionValoracion, objetivosPersonales, emocionAlegria, emocionTristeza, emocionIra, emocionMiedo, emocionAnsiedad, emocionAmor, emocionSorpresa, emocionVerguenza, emocionFrustracion, emocionSatisfaccion, emocionAburrimiento, emocionAmado, emocionConfianza, emocionAbrumado, emocionEsperanza) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO revision (date, estadoEmocional, estadoEmocionalWhy, importanteParaMi, aprendidoSobreMi, valoracionDisciplina, valoracionOrden, valoracionImpulsividad, valoracionConstancia, valoracionTolerancia, valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion, valoracionConsecucionObjetivos, explicacionValoracion, objetivosPersonales, emocionAlegria, emocionTristeza, emocionIra, emocionMiedo, emocionAnsiedad, emocionAmor, emocionSorpresa, emocionVerguenza, emocionFrustracion, emocionSatisfaccion, emocionAburrimiento, emocionSerenidad, emocionConfianza, emocionAbrumado, emocionEsperanza) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
 				pstmt.setLong(1, unixTime);
@@ -204,7 +204,7 @@ public interface RevisionRepository {
 				pstmt.setBoolean(25, revisionEntry.isEmocionFrustracion());
 				pstmt.setBoolean(26, revisionEntry.isEmocionSatisfaccion());
 				pstmt.setBoolean(27, revisionEntry.isEmocionAburrimiento());
-				pstmt.setBoolean(28, revisionEntry.isEmocionAmado());
+				pstmt.setBoolean(28, revisionEntry.isEmocionSerenidad());
 				pstmt.setBoolean(29, revisionEntry.isEmocionConfianza());
 				pstmt.setBoolean(30, revisionEntry.isEmocionAbrumado());
 				pstmt.setBoolean(31, revisionEntry.isEmocionEsperanza());
@@ -228,7 +228,7 @@ public interface RevisionRepository {
 				+ "emocionAlegria = ?, emocionTristeza = ?, emocionIra = ?, emocionMiedo = ?, "
 				+ "emocionAnsiedad = ?, emocionAmor = ?, emocionSorpresa = ?, emocionVerguenza = ?, "
 				+ "emocionFrustracion = ?, emocionSatisfaccion = ?, emocionAburrimiento = ?, "
-				+ "emocionAmado = ?, emocionConfianza = ?, emocionAbrumado = ?, emocionEsperanza = ? " + "WHERE id = ?";
+				+ "emocionSerenidad = ?, emocionConfianza = ?, emocionAbrumado = ?, emocionEsperanza = ? " + "WHERE id = ?";
 
 		try (Connection connection = DriverManager.getConnection(DB_URL);
 				PreparedStatement pstmt = connection.prepareStatement(updateQuery)) {
@@ -260,7 +260,7 @@ public interface RevisionRepository {
 			pstmt.setBoolean(24, revisionEntry.isEmocionFrustracion());
 			pstmt.setBoolean(25, revisionEntry.isEmocionSatisfaccion());
 			pstmt.setBoolean(26, revisionEntry.isEmocionAburrimiento());
-			pstmt.setBoolean(27, revisionEntry.isEmocionAmado());
+			pstmt.setBoolean(27, revisionEntry.isEmocionSerenidad());
 			pstmt.setBoolean(28, revisionEntry.isEmocionConfianza());
 			pstmt.setBoolean(29, revisionEntry.isEmocionAbrumado());
 			pstmt.setBoolean(30, revisionEntry.isEmocionEsperanza());

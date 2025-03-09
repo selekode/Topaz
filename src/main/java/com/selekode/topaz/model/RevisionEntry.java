@@ -31,7 +31,7 @@ public class RevisionEntry {
 	private boolean emocionFrustracion;
 	private boolean emocionSatisfaccion;
 	private boolean emocionAburrimiento;
-	private boolean emocionAmado;
+	private boolean emocionSerenidad;
 	private boolean emocionConfianza;
 	private boolean emocionAbrumado;
 	private boolean emocionEsperanza;
@@ -44,7 +44,7 @@ public class RevisionEntry {
 			boolean emocionAlegria, boolean emocionTristeza, boolean emocionIra, boolean emocionMiedo,
 			boolean emocionAnsiedad, boolean emocionAmor, boolean emocionSorpresa, boolean emocionVerguenza,
 			boolean emocionFrustracion, boolean emocionSatisfaccion, boolean emocionAburrimiento,
-			boolean emocionAmado, boolean emocionConfianza, boolean emocionAbrumado, boolean emocionEsperanza) {
+			boolean emocionSerenidad, boolean emocionConfianza, boolean emocionAbrumado, boolean emocionEsperanza) {
 		this.id = id;
 		this.date = date;
 		this.estadoEmocional = estadoEmocional;
@@ -73,7 +73,7 @@ public class RevisionEntry {
 		this.emocionFrustracion = emocionFrustracion;
 		this.emocionSatisfaccion = emocionSatisfaccion;
 		this.emocionAburrimiento = emocionAburrimiento;
-		this.emocionAmado = emocionAmado;
+		this.emocionSerenidad = emocionSerenidad;
 		this.emocionConfianza = emocionConfianza;
 		this.emocionAbrumado = emocionAbrumado;
 		this.emocionEsperanza = emocionEsperanza;
@@ -303,12 +303,12 @@ public class RevisionEntry {
 		this.emocionAburrimiento = emocionAburrimiento;
 	}
 
-	public boolean isEmocionAmado() {
-		return emocionAmado;
+	public boolean isEmocionSerenidad() {
+		return emocionSerenidad;
 	}
 
-	public void setEmocionAmado(boolean emocionAmado) {
-		this.emocionAmado = emocionAmado;
+	public void setEmocionSerenidad(boolean emocionSerenidad) {
+		this.emocionSerenidad = emocionSerenidad;
 	}
 
 	public boolean isEmocionConfianza() {
