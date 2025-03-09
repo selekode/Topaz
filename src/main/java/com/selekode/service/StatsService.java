@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.selekode.repository.StatsRepository;
 import com.selekode.topaz.model.StatsDateRange;
+import com.selekode.topaz.model.StatsEmotionFrequency;
 import com.selekode.topaz.model.StatsEntryCount;
 import com.selekode.topaz.model.StatsActivityPerDayOfWeek;
 
@@ -72,13 +73,14 @@ public class StatsService {
 		activityPerDayOfWeek.setJournalMostActiveDay(getDayWithHighestJournalCount(activityPerDayOfWeek));
 		activityPerDayOfWeek.setRevisionMostActiveDay(getDayWithHighestRevisionCount(activityPerDayOfWeek));
 
-		// Caluclate the ammount of entries the day of the week with the most ammount of entries has
+		// Caluclate the ammount of entries the day of the week with the most ammount of
+		// entries has
 		activityPerDayOfWeek.setJournalMostActiveDayN(getDayWithHighestJournalCountN(activityPerDayOfWeek));
 		activityPerDayOfWeek.setRevisionMostActiveDayN(getDayWithHighestRevisionCountN(activityPerDayOfWeek));
 
 		return activityPerDayOfWeek;
 	}
-	
+
 	public static StatsActivityPerDayOfWeek getActivityPerDayOfWeekDateRange(StatsDateRange statsDateRange) {
 		// Retreives row count from DB, adds them to activityPerDayOfWeek, leaving two
 		// fields empty (journalMostActiveDayN & revisionMostActiveDayN), which we will
@@ -86,15 +88,16 @@ public class StatsService {
 		// Calculate entryCounts in a date range
 		long dateStart = convertDateStrToLong(statsDateRange.getStartDate());
 		long dateEnd = convertDateStrToLong(statsDateRange.getEndDate());
-		StatsActivityPerDayOfWeek activityPerDayOfWeek = StatsRepository.getEntryCountPerDayDateRange(dateStart,dateEnd);
-		
+		StatsActivityPerDayOfWeek activityPerDayOfWeek = StatsRepository.getEntryCountPerDayDateRange(dateStart,
+				dateEnd);
+
 		// We set the entry counts to this object to help us with the calculation
 		activityPerDayOfWeek.setJournalEntryCounts(activityPerDayOfWeek.getJournalMondayEntryCount(),
 				activityPerDayOfWeek.getJournalTuesdayEntryCount(),
 				activityPerDayOfWeek.getJournalWednesdayEntryCount(),
 				activityPerDayOfWeek.getJournalThursdayEntryCount(), activityPerDayOfWeek.getJournalFridayEntryCount(),
 				activityPerDayOfWeek.getJournalSaturdayEntryCount(), activityPerDayOfWeek.getJournalSundayEntryCount());
-		
+
 		activityPerDayOfWeek.setRevisionEntryCounts(activityPerDayOfWeek.getRevisionMondayEntryCount(),
 				activityPerDayOfWeek.getRevisionTuesdayEntryCount(),
 				activityPerDayOfWeek.getRevisionWednesdayEntryCount(),
@@ -102,15 +105,16 @@ public class StatsService {
 				activityPerDayOfWeek.getRevisionFridayEntryCount(),
 				activityPerDayOfWeek.getRevisionSaturdayEntryCount(),
 				activityPerDayOfWeek.getRevisionSundayEntryCount());
-		
+
 		// Calculate which day of the week has the most ammount of entries
 		activityPerDayOfWeek.setJournalMostActiveDay(getDayWithHighestJournalCount(activityPerDayOfWeek));
 		activityPerDayOfWeek.setRevisionMostActiveDay(getDayWithHighestRevisionCount(activityPerDayOfWeek));
-		
-		// Calculate the ammount of entries the day of the week with the most ammount of entries has
+
+		// Calculate the ammount of entries the day of the week with the most ammount of
+		// entries has
 		activityPerDayOfWeek.setJournalMostActiveDayN(getDayWithHighestJournalCountN(activityPerDayOfWeek));
 		activityPerDayOfWeek.setRevisionMostActiveDayN(getDayWithHighestRevisionCountN(activityPerDayOfWeek));
-		
+
 		return activityPerDayOfWeek;
 	}
 
@@ -191,6 +195,12 @@ public class StatsService {
 			}
 		}
 		return days[maxIndex]; // Returns the day with the highest count
+	}
+
+	public static StatsEmotionFrequency getEmotionFrequencyAllTime() {
+		StatsEmotionFrequency emotionFrequency = StatsRepository.getEmotionCount();
+		
+		return emotionFrequency;
 	}
 
 }

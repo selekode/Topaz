@@ -1,7 +1,5 @@
 package com.selekode.topaz.controller;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,11 +26,12 @@ public class StatsController {
 	public String calculateStats(@ModelAttribute StatsDateRange statsDateRange, Model model) {
 		
 		model.addAttribute("statsDateRange", statsDateRange);
-		model.addAttribute("statsEntryCountDateRange", StatsService.getEntryCountDateRange(statsDateRange));
 		model.addAttribute("statsEntryCountAlltime", StatsService.getEntryCountAllTime());
-		model.addAttribute("statsActivityPerDayOfWeekDateRange", StatsService.getActivityPerDayOfWeekDateRange(statsDateRange));
+		model.addAttribute("statsEntryCountDateRange", StatsService.getEntryCountDateRange(statsDateRange));
 		model.addAttribute("statsActivityPerDayOfWeekAllTime", StatsService.getActivityPerDayOfWeekAllTime());
-
+		model.addAttribute("statsActivityPerDayOfWeekDateRange", StatsService.getActivityPerDayOfWeekDateRange(statsDateRange));
+		model.addAttribute("statsEmotionFrequencyAllTime", StatsService.getEmotionFrequencyAllTime());
+		
 		return "stats_calculated";
 	}
 }

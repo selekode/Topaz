@@ -162,7 +162,8 @@
                 <div class="mr-4">
                     <!-- Content to Show/Hide -->
                     <div x-show="open" x-collapse>
-                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                        <hr
+                            class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
 
                         <p class="text-lg text-white font-bold mb-2">Actividad
                             por día en el Diario (total)</p>
@@ -176,7 +177,8 @@
                             class="max-w-[75%] max-h-[280px] w-full h-auto">
                         </canvas>
 
-                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                        <hr
+                            class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
 
                         <p class="text-lg text-white font-bold mb-2">Actividad
                             por día en Revisiones (total)</p>
@@ -190,11 +192,13 @@
                             class="max-w-[75%] max-h-[280px] w-full h-auto">
                         </canvas>
 
-                        
-                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+
+                        <hr
+                            class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
 
                         <p class="text-lg text-white font-bold mb-2"
-                            th:text="'Actividad por día en el Diario en el periodo entre ' + ${statsDateRange.startDate} + ' y  ' + ${statsDateRange.endDate}"></p>
+                            th:text="'Actividad por día en el Diario en el periodo entre ' + ${statsDateRange.startDate} + ' y  ' + ${statsDateRange.endDate}">
+                        </p>
                         <p class="text-base text-white mb-1"
                             th:text="'- El día en el que más has escrito en el diario es el ' + ${statsActivityPerDayOfWeekDateRange.journalMostActiveDay}">
                         </p>
@@ -205,10 +209,12 @@
                             class="max-w-[75%] max-h-[280px] w-full h-auto">
                         </canvas>
 
-                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                        <hr
+                            class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
 
                         <p class="text-lg text-white font-bold mb-2"
-                            th:text="'Actividad por día en Revisiones en el periodo entre ' + ${statsDateRange.startDate} + ' y  ' + ${statsDateRange.endDate}"></p>
+                            th:text="'Actividad por día en Revisiones en el periodo entre ' + ${statsDateRange.startDate} + ' y  ' + ${statsDateRange.endDate}">
+                        </p>
                         <p class="text-base text-white mb-1"
                             th:text="'- El día en el que más revisiones has escrito es el ' + ${statsActivityPerDayOfWeekDateRange.revisionMostActiveDay}">
                         </p>
@@ -220,6 +226,44 @@
                         </canvas>
                     </div>
                 </div>
+            </div>
+
+
+            <!-- Card 3: Tendencias Emocionales | Frecuencia Emocional -->
+            <div data-aos="fade-up" x-data="{ open: false }"
+                class="relative bg-[#172E38] p-6 rounded-lg shadow-xl mb-6">
+                <p class="text-lg italic font-bold mb-2"
+                    style="color: #23A3BB;">Tendencias Emocionales</p>
+                <p class="text-2xl font-bold text-white">Frecuencia Emocional
+                </p>
+                <!-- Button Positioned in the Top Right -->
+                <div class="absolute top-4 right-4 flex space-x-2">
+                    <!-- Show/Hide Button -->
+                    <button @click="open = !open"
+                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                        <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
+                    </button>
+                </div>
+
+                <!-- Card Content -->
+                <div class="mr-4">
+                    <!-- Content to Show/Hide -->
+                    <div x-show="open" x-collapse>
+                        <hr
+                            class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+
+                        <p class="text-lg text-white font-bold mb-2">Frecuencia
+                            Emocional Total</p>
+                        <p class="text-base text-whitemb-2"
+                            th:text="'- Tus emociones más frecuentes son ' + ${statsEmotionFrequencyAllTime.topEmotion1} + ',' + ${statsEmotionFrequencyAllTime.topEmotion2} + ',' + ${statsEmotionFrequencyAllTime.topEmotion3} + ' y ' + ${statsEmotionFrequencyAllTime.topEmotion4}">
+                        </p>
+                        <p class="text-base text-white mb-4">- Esta gráfica muestra cuantas veces has seleccionado cada emoción en tus revisiones:</p>
+                        <canvas id="emotionFrequencyPieChartAllTime"
+                            class="max-w-[75%] max-h-[280px] w-full h-auto">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 
@@ -583,6 +627,72 @@
                 }
             }
         });
+
+        // Chart.js | Frecuencia Emocional (All Time)-->
+        // Data from Thymeleaf (all days)
+
+        const emotionCounts = [
+            [[${ statsEmotionFrequencyAllTime.emocionAlegriaCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionTristezaCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionIraCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionMiedoCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionAnsiedadCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionAmorCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionSorpresaCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionVerguenzaCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionFrustracionCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionSatisfaccionCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionAburrimientoCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionAmadoCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionConfianzaCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionAbrumadoCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionEsperanzaCount }]]
+        ];
+
+        const emotionLabels = [
+            "Alegría", "Tristeza", "Ira", "Miedo", "Ansiedad", "Amor", "Sorpresa",
+            "Vergüenza", "Frustración", "Satisfacción", "Aburrimiento", "Amado",
+            "Confianza", "Abrumado", "Esperanza"
+        ];
+
+        // Get the context of the canvas element for Chart.js
+        const ctx6 = document.getElementById('emotionFrequencyPieChartAllTime').getContext('2d');
+
+        // Create the Chart.js pie chart
+        const emotionFrequencyPieChartAllTime = new Chart(ctx6, {
+            type: 'pie',
+            data: {
+                labels: emotionLabels,
+                datasets: [{
+                    label: 'Emotion Frequency',
+                    data: emotionCounts,
+                    backgroundColor: [
+                        '#FFEB3B', '#3F51B5', '#F44336', '#9C27B0', '#00B8D4', '#E91E63',
+                        '#FF9800', '#D32F2F', '#FF5722', '#4CAF50', '#9E9E9E', '#FF4081',
+                        '#2196F3', '#B71C1C', '#8BC34A'
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,  // Hide the legend
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const percentage = tooltipItem.raw / tooltipItem.chart.data.datasets[0].data.reduce((a, b) => a + b, 0) * 100;
+                                return tooltipItem.label + ': ' + tooltipItem.raw + ' (' + percentage.toFixed(2) + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
 
     </script>
 
