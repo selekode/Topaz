@@ -30,6 +30,7 @@ public class StatsController {
 		model.addAttribute("statsDateRange", statsDateRange);
 		model.addAttribute("statsEntryCountDateRange", StatsService.getEntryCountDateRange(statsDateRange));
 		model.addAttribute("statsEntryCountAlltime", StatsService.getEntryCountAllTime());
+		model.addAttribute("statsActivityPerDayOfWeekDateRange", StatsService.getActivityPerDayOfWeekDateRange(statsDateRange));
 		model.addAttribute("statsActivityPerDayOfWeekAllTime", StatsService.getActivityPerDayOfWeekAllTime());
 
 		return "stats_calculated";

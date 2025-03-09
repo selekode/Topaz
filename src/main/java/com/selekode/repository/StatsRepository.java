@@ -140,7 +140,7 @@ public interface StatsRepository {
 		return revisionEntryCount;
 	}
 
-	public static StatsActivityPerDayOfWeek getEntryCountPerDay() {
+	public static StatsActivityPerDayOfWeek getEntryCountPerDayAllTime() {
 		int journalMondayEntryCount = 0;
 		int journalTuesdayEntryCount = 0;
 		int journalWednesdayEntryCount = 0;
@@ -156,7 +156,6 @@ public interface StatsRepository {
 		int revisionFridayEntryCount = 0;
 		int revisionSaturdayEntryCount = 0;
 		int revisionSundayEntryCount = 0;
-
 
 		StatsActivityPerDayOfWeek entryCountPerDay = null;
 
@@ -202,6 +201,109 @@ public interface StatsRepository {
 				case 4 -> revisionThursdayEntryCount = count;
 				case 5 -> revisionFridayEntryCount = count;
 				case 6 -> revisionSaturdayEntryCount = count;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		entryCountPerDay = new StatsActivityPerDayOfWeek(journalMondayEntryCount, journalTuesdayEntryCount,
+				journalWednesdayEntryCount, journalThursdayEntryCount, journalFridayEntryCount,
+				journalSaturdayEntryCount, journalSundayEntryCount, revisionMondayEntryCount, revisionTuesdayEntryCount,
+				revisionWednesdayEntryCount, revisionThursdayEntryCount, revisionFridayEntryCount,
+				revisionSaturdayEntryCount, revisionSundayEntryCount, "", "", 0, 0);
+
+		return entryCountPerDay;
+
+	}
+
+	public static StatsActivityPerDayOfWeek getEntryCountPerDayDateRange(long dateStart, long dateEnd) {
+		int journalMondayEntryCount = 0;
+		int journalTuesdayEntryCount = 0;
+		int journalWednesdayEntryCount = 0;
+		int journalThursdayEntryCount = 0;
+		int journalFridayEntryCount = 0;
+		int journalSaturdayEntryCount = 0;
+		int journalSundayEntryCount = 0;
+
+		int revisionMondayEntryCount = 0;
+		int revisionTuesdayEntryCount = 0;
+		int revisionWednesdayEntryCount = 0;
+		int revisionThursdayEntryCount = 0;
+		int revisionFridayEntryCount = 0;
+		int revisionSaturdayEntryCount = 0;
+		int revisionSundayEntryCount = 0;
+
+		StatsActivityPerDayOfWeek entryCountPerDay = null;
+
+		String sql = "SELECT date, strftime('%w', date, 'unixepoch') AS weekday, COUNT(*) AS entry_count "
+				+ "FROM journal " + "WHERE date BETWEEN ? AND ? " + "GROUP BY date, weekday " + // Group by date as well
+																								// to retain individual
+																								// dates
+				"ORDER BY date, weekday;";
+
+		try (Connection conn = DriverManager.getConnection(DB_URL);
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			// Set dateStart and dateEnd parameters (assuming they are in Unix timestamp
+			// format)
+			pstmt.setLong(1, dateStart);
+			pstmt.setLong(2, dateEnd);
+
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					long entryDate = rs.getLong("date"); // Retrieve the date
+					int weekday = rs.getInt("weekday");
+					int count = rs.getInt("entry_count");
+
+					System.out.println("Date: " + entryDate + ", Weekday: " + weekday + ", Count: " + count);
+
+					switch (weekday) {
+					case 0 -> journalSundayEntryCount += count;
+					case 1 -> journalMondayEntryCount += count;
+					case 2 -> journalTuesdayEntryCount += count;
+					case 3 -> journalWednesdayEntryCount += count;
+					case 4 -> journalThursdayEntryCount += count;
+					case 5 -> journalFridayEntryCount += count;
+					case 6 -> journalSaturdayEntryCount += count;
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		String sql2 = "SELECT date, strftime('%w', date, 'unixepoch') AS weekday, COUNT(*) AS entry_count "
+				+ "FROM revision " + "WHERE date BETWEEN ? AND ? " + "GROUP BY date, weekday " + // Grouping by date as
+																									// well to retain
+																									// individual dates
+				"ORDER BY date, weekday;";
+
+		try (Connection conn = DriverManager.getConnection(DB_URL);
+				PreparedStatement pstmt = conn.prepareStatement(sql2)) {
+
+			// Set dateStart and dateEnd parameters (assuming they are in Unix timestamp
+			// format)
+			pstmt.setLong(1, dateStart);
+			pstmt.setLong(2, dateEnd);
+
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					long entryDate = rs.getLong("date"); // Retrieve the date
+					int weekday = rs.getInt("weekday");
+					int count = rs.getInt("entry_count");
+
+					System.out.println("Date: " + entryDate + ", Weekday: " + weekday + ", Count: " + count);
+
+					switch (weekday) {
+					case 0 -> revisionSundayEntryCount += count;
+					case 1 -> revisionMondayEntryCount += count;
+					case 2 -> revisionTuesdayEntryCount += count;
+					case 3 -> revisionWednesdayEntryCount += count;
+					case 4 -> revisionThursdayEntryCount += count;
+					case 5 -> revisionFridayEntryCount += count;
+					case 6 -> revisionSaturdayEntryCount += count;
+					}
 				}
 			}
 		} catch (Exception e) {
