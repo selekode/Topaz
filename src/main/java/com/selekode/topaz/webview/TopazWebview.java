@@ -28,7 +28,7 @@ public class TopazWebview extends Application {
 		VBox vBox = new VBox(webView);
 		VBox.setVgrow(webView, javafx.scene.layout.Priority.ALWAYS);
 
-		Scene scene = new Scene(vBox, 1010, 700, true);
+		Scene scene = new Scene(vBox, 1280, 720, true);
 		scene.setCamera(new PerspectiveCamera(false));
 
 		stage.setScene(scene);
