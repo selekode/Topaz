@@ -24,13 +24,23 @@ public class StatsController {
 
 	@PostMapping("/calculateStats")
 	public String calculateStats(@ModelAttribute StatsDateRange statsDateRange, Model model) {
-		
 		model.addAttribute("statsDateRange", statsDateRange);
+		model.addAttribute("statsDateRangeLastWeek", StatsService.getDateRangeLastWeek());
+		model.addAttribute("statsDateRangeLastMonth", StatsService.getDateRangeLastMonth());
+		
 		model.addAttribute("statsEntryCountAlltime", StatsService.getEntryCountAllTime());
+		model.addAttribute("statsEntryCountWeek", StatsService.getEntryCountWeek());
+		model.addAttribute("statsEntryCountMonth", StatsService.getEntryCountMonth());
 		model.addAttribute("statsEntryCountDateRange", StatsService.getEntryCountDateRange(statsDateRange));
+		
 		model.addAttribute("statsActivityPerDayOfWeekAllTime", StatsService.getActivityPerDayOfWeekAllTime());
+		model.addAttribute("statsActivityPerDayOfWeekWeek", StatsService.getActivityPerDayOfWeekWeek());
+		model.addAttribute("statsActivityPerDayOfWeekMonth", StatsService.getActivityPerDayOfWeekMonth());
 		model.addAttribute("statsActivityPerDayOfWeekDateRange", StatsService.getActivityPerDayOfWeekDateRange(statsDateRange));
+		
 		model.addAttribute("statsEmotionFrequencyAllTime", StatsService.getEmotionFrequencyAllTime());
+		model.addAttribute("statsEmotionFrequencyWeek", StatsService.getEmotionFrequencyWeek());
+		model.addAttribute("statsEmotionFrequencyMonth", StatsService.getEmotionFrequencyMonth());
 		model.addAttribute("statsEmotionFrequencyDateRange", StatsService.getEmotionFrequencyDateRange(statsDateRange));
 		
 		return "stats_calculated";

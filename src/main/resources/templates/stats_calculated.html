@@ -124,10 +124,20 @@
                                 class="px-4 py-2 rounded-md transition">
                                 Entradas Totales
                             </button>
+                            <button @click="tab = 'lastWeek'"
+                                :class="tab === 'lastWeek' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-md transition">
+                                7d
+                            </button>
+                            <button @click="tab = 'lastMonth'"
+                                :class="tab === 'lastMonth' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-md transition">
+                                1m
+                            </button>
                             <button @click="tab = 'range'"
                                 :class="tab === 'range' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
-                                class="px-4 py-2 rounded-md transition"
-                                th:text="'Entradas entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
+                                class="px-4 py-2 rounded-md transition">
+                                Rango de Fechas
                             </button>
                         </div>
 
@@ -139,6 +149,22 @@
                                 class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
                         </div>
 
+                        <!-- Entradas en Última Semana Tab -->
+                        <div x-show="tab === 'lastWeek'" x-transition>
+                            <p class="text-lg text-white font-bold mb-2"
+                                th:text="'Entradas en el periodo entre ' + ${statsDateRangeLastWeek.startDate} + ' y ' + ${statsDateRangeLastWeek.endDate}">
+                            </p>
+                            <canvas id="chartEntryCountWeek" class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
+
+                        <!-- Entradas en Último Mes Tab -->
+                        <div x-show="tab === 'lastMonth'" x-transition>
+                            <p class="text-lg text-white font-bold mb-2"
+                                th:text="'Entradas en el periodo entre ' + ${statsDateRangeLastMonth.startDate} + ' y ' + ${statsDateRangeLastMonth.endDate}">
+                            </p>
+                            <canvas id="chartEntryCountMonth" class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
+
                         <!-- Entradas en el Periodo Tab -->
                         <div x-show="tab === 'range'" x-transition>
                             <p class="text-lg text-white font-bold mb-2"
@@ -147,6 +173,7 @@
                             <canvas id="chartEntryCountDateRange"
                                 class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
                         </div>
+
                     </div>
 
                 </div>
@@ -308,8 +335,8 @@
                                 th:text="'Frecuencia de emociones en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
                             <p class="text-base text-white mb-2"
-                            th:text="'- Tus emociones más frecuentes son ' + ${statsEmotionFrequencyDateRange.topEmotion1} + ', ' + ${statsEmotionFrequencyDateRange.topEmotion2} + ', ' + ${statsEmotionFrequencyDateRange.topEmotion3} + ' y ' + ${statsEmotionFrequencyDateRange.topEmotion4}">
-                        </p>
+                                th:text="'- Tus emociones más frecuentes son ' + ${statsEmotionFrequencyDateRange.topEmotion1} + ', ' + ${statsEmotionFrequencyDateRange.topEmotion2} + ', ' + ${statsEmotionFrequencyDateRange.topEmotion3} + ' y ' + ${statsEmotionFrequencyDateRange.topEmotion4}">
+                            </p>
                             <p class="text-base text-white mb-4">- Esta gráfica muestra cuantas veces has seleccionado
                                 cada emoción en tus revisiones:</p>
                             <canvas id="emotionFrequencyPieChartDateRange"
@@ -332,7 +359,6 @@
         */
 
         // Chart.js | Entradas en diario (total)
-
         var ctx1 = document.getElementById('chartEntryCountAllTime').getContext('2d');
         var chartEntryCountAllTime = new Chart(ctx1, {
             type: 'bar',
@@ -382,10 +408,109 @@
             }
         });
 
+        // Chart.js | Entradas en diario (7w)
+        var ctx1_w = document.getElementById('chartEntryCountWeek').getContext('2d');
+        var chartEntryCountWeek = new Chart(ctx1_w, {
+            type: 'bar',
+            data: {
+                labels: ['Entradas Totales', 'Entradas Diario', 'Revisiones'],
+                datasets: [{
+                    label: 'Número de Entradas',
+                    data: [
+                        /* Thymeleaf dynamic data */
+                        [[${ statsEntryCountWeek.totalEntries }]],
+                        [[${ statsEntryCountWeek.totalEntriesJournal }]],
+                        [[${ statsEntryCountWeek.totalEntriesRevision }]]
+                    ],
+                    backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'white' // X-axis labels color
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white' // Y-axis labels color
+                        }
+                    }
+                },
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: 'white' // Legend text color
+                        }
+                    },
+                    title: {
+                        display: false,
+                        text: 'Entradas totales',
+                        color: 'white' // Title color (if enabled)
+                    }
+                }
+            }
+        });
+
+        // Chart.js | Entradas en diario (1m)
+        var ctx1_m = document.getElementById('chartEntryCountMonth').getContext('2d');
+        var chartEntryCountMonth = new Chart(ctx1_m, {
+            type: 'bar',
+            data: {
+                labels: ['Entradas Totales', 'Entradas Diario', 'Revisiones'],
+                datasets: [{
+                    label: 'Número de Entradas',
+                    data: [
+                        /* Thymeleaf dynamic data */
+                        [[${ statsEntryCountMonth.totalEntries }]],
+                        [[${ statsEntryCountMonth.totalEntriesJournal }]],
+                        [[${ statsEntryCountMonth.totalEntriesRevision }]]
+                    ],
+                    backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
+                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'white' // X-axis labels color
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white' // Y-axis labels color
+                        }
+                    }
+                },
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: 'white' // Legend text color
+                        }
+                    },
+                    title: {
+                        display: false,
+                        text: 'Entradas totales',
+                        color: 'white' // Title color (if enabled)
+                    }
+                }
+            }
+        });
 
         // Chart.js | Entradas en diario (daterange)-->
-        var ctx2 = document.getElementById('chartEntryCountDateRange').getContext('2d');
-        var chartEntryCountDateRange = new Chart(ctx2, {
+        var ctx1_dr = document.getElementById('chartEntryCountDateRange').getContext('2d');
+        var chartEntryCountDateRange = new Chart(ctx1_dr, {
             type: 'bar',
             data: {
                 labels: ['Entradas Totales', 'Entradas Diario', 'Revisiones'],
@@ -432,7 +557,6 @@
                 }
             }
         });
-
 
         // Chart.js | Actividad por dia Diario(total)-->
         // Data from Thymeleaf (all days)

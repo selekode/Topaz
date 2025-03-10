@@ -2,6 +2,7 @@ package com.selekode.service;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -19,6 +20,30 @@ import com.selekode.topaz.model.StatsActivityPerDayOfWeek;
 
 @Service
 public class StatsService {
+	public static StatsDateRange getDateRangeLastWeek() {
+		long unixWeek = 604800; 
+		long dateEnd = Instant.now().getEpochSecond();
+		long dateStart = dateEnd - unixWeek;
+		
+		String dateStartStr = convertDateLongToStr(dateStart);
+		String dateEndStr = convertDateLongToStr(dateEnd);
+		StatsDateRange dateRangeLastWeek = new StatsDateRange(dateStartStr, dateEndStr);
+
+		return dateRangeLastWeek;
+	}
+	
+	public static StatsDateRange getDateRangeLastMonth() {
+		long unixWeek = 2629746; 
+		long dateEnd = Instant.now().getEpochSecond();
+		long dateStart = dateEnd - unixWeek;
+		
+		String dateStartStr = convertDateLongToStr(dateStart);
+		String dateEndStr = convertDateLongToStr(dateEnd);
+		StatsDateRange dateRangeLastWeek = new StatsDateRange(dateStartStr, dateEndStr);
+		
+		return dateRangeLastWeek;
+	}
+
 	public static StatsEntryCount getEntryCountAllTime() {
 		// Calculate entryCounts for all time
 		StatsEntryCount entryCount = null;
@@ -43,6 +68,32 @@ public class StatsService {
 		return entryCount;
 	}
 
+	public static StatsEntryCount getEntryCountWeek() {
+		long unixWeek = 604800;
+		long dateEnd = Instant.now().getEpochSecond();
+		long dateStart = dateEnd - unixWeek;
+		StatsEntryCount entryCount = null;
+		int journalEntryCount = StatsRepository.getJournalEntryCountDateRange(dateStart, dateEnd);
+		int revisionEntryCount = StatsRepository.getRevisionEntryCountDateRange(dateStart, dateEnd);
+		int totalEntryCount = journalEntryCount + revisionEntryCount;
+		entryCount = new StatsEntryCount(totalEntryCount, journalEntryCount, revisionEntryCount);
+
+		return entryCount;
+	}
+
+	public static StatsEntryCount getEntryCountMonth() {
+		long unixMonth = 2629746;
+		long dateEnd = Instant.now().getEpochSecond();
+		long dateStart = dateEnd - unixMonth;
+		StatsEntryCount entryCount = null;
+		int journalEntryCount = StatsRepository.getJournalEntryCountDateRange(dateStart, dateEnd);
+		int revisionEntryCount = StatsRepository.getRevisionEntryCountDateRange(dateStart, dateEnd);
+		int totalEntryCount = journalEntryCount + revisionEntryCount;
+		entryCount = new StatsEntryCount(totalEntryCount, journalEntryCount, revisionEntryCount);
+
+		return entryCount;
+	}
+
 	public static long convertDateStrToLong(String dateStr) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
 		LocalDate date = LocalDate.parse(dateStr, formatter);
@@ -50,6 +101,14 @@ public class StatsService {
 
 		return unixTime;
 	}
+
+	public static String convertDateLongToStr(long dateLong) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy").withZone(ZoneId.systemDefault());
+		String dateStr = Instant.ofEpochSecond(dateLong).atZone(ZoneId.systemDefault()).format(formatter);
+		
+		return dateStr;
+	}
+
 
 	public static StatsActivityPerDayOfWeek getActivityPerDayOfWeekAllTime() {
 		// Retreives row count from DB, adds them to activityPerDayOfWeek, leaving two
@@ -91,6 +150,74 @@ public class StatsService {
 		// Calculate entryCounts in a date range
 		long dateStart = convertDateStrToLong(statsDateRange.getStartDate());
 		long dateEnd = convertDateStrToLong(statsDateRange.getEndDate());
+		StatsActivityPerDayOfWeek activityPerDayOfWeek = StatsRepository.getEntryCountPerDayDateRange(dateStart,
+				dateEnd);
+
+		// We set the entry counts to this object to help us with the calculation
+		activityPerDayOfWeek.setJournalEntryCounts(activityPerDayOfWeek.getJournalMondayEntryCount(),
+				activityPerDayOfWeek.getJournalTuesdayEntryCount(),
+				activityPerDayOfWeek.getJournalWednesdayEntryCount(),
+				activityPerDayOfWeek.getJournalThursdayEntryCount(), activityPerDayOfWeek.getJournalFridayEntryCount(),
+				activityPerDayOfWeek.getJournalSaturdayEntryCount(), activityPerDayOfWeek.getJournalSundayEntryCount());
+
+		activityPerDayOfWeek.setRevisionEntryCounts(activityPerDayOfWeek.getRevisionMondayEntryCount(),
+				activityPerDayOfWeek.getRevisionTuesdayEntryCount(),
+				activityPerDayOfWeek.getRevisionWednesdayEntryCount(),
+				activityPerDayOfWeek.getRevisionThursdayEntryCount(),
+				activityPerDayOfWeek.getRevisionFridayEntryCount(),
+				activityPerDayOfWeek.getRevisionSaturdayEntryCount(),
+				activityPerDayOfWeek.getRevisionSundayEntryCount());
+
+		// Calculate which day of the week has the most ammount of entries
+		activityPerDayOfWeek.setJournalMostActiveDay(getDayWithHighestJournalCount(activityPerDayOfWeek));
+		activityPerDayOfWeek.setRevisionMostActiveDay(getDayWithHighestRevisionCount(activityPerDayOfWeek));
+
+		// Calculate the ammount of entries the day of the week with the most ammount of
+		// entries has
+		activityPerDayOfWeek.setJournalMostActiveDayN(getDayWithHighestJournalCountN(activityPerDayOfWeek));
+		activityPerDayOfWeek.setRevisionMostActiveDayN(getDayWithHighestRevisionCountN(activityPerDayOfWeek));
+
+		return activityPerDayOfWeek;
+	}
+
+	public static StatsActivityPerDayOfWeek getActivityPerDayOfWeekWeek() {
+		long unixWeek = 604800;
+		long dateEnd = Instant.now().getEpochSecond();
+		long dateStart = dateEnd - unixWeek;
+		StatsActivityPerDayOfWeek activityPerDayOfWeek = StatsRepository.getEntryCountPerDayDateRange(dateStart,
+				dateEnd);
+
+		// We set the entry counts to this object to help us with the calculation
+		activityPerDayOfWeek.setJournalEntryCounts(activityPerDayOfWeek.getJournalMondayEntryCount(),
+				activityPerDayOfWeek.getJournalTuesdayEntryCount(),
+				activityPerDayOfWeek.getJournalWednesdayEntryCount(),
+				activityPerDayOfWeek.getJournalThursdayEntryCount(), activityPerDayOfWeek.getJournalFridayEntryCount(),
+				activityPerDayOfWeek.getJournalSaturdayEntryCount(), activityPerDayOfWeek.getJournalSundayEntryCount());
+
+		activityPerDayOfWeek.setRevisionEntryCounts(activityPerDayOfWeek.getRevisionMondayEntryCount(),
+				activityPerDayOfWeek.getRevisionTuesdayEntryCount(),
+				activityPerDayOfWeek.getRevisionWednesdayEntryCount(),
+				activityPerDayOfWeek.getRevisionThursdayEntryCount(),
+				activityPerDayOfWeek.getRevisionFridayEntryCount(),
+				activityPerDayOfWeek.getRevisionSaturdayEntryCount(),
+				activityPerDayOfWeek.getRevisionSundayEntryCount());
+
+		// Calculate which day of the week has the most ammount of entries
+		activityPerDayOfWeek.setJournalMostActiveDay(getDayWithHighestJournalCount(activityPerDayOfWeek));
+		activityPerDayOfWeek.setRevisionMostActiveDay(getDayWithHighestRevisionCount(activityPerDayOfWeek));
+
+		// Calculate the ammount of entries the day of the week with the most ammount of
+		// entries has
+		activityPerDayOfWeek.setJournalMostActiveDayN(getDayWithHighestJournalCountN(activityPerDayOfWeek));
+		activityPerDayOfWeek.setRevisionMostActiveDayN(getDayWithHighestRevisionCountN(activityPerDayOfWeek));
+
+		return activityPerDayOfWeek;
+	}
+
+	public static StatsActivityPerDayOfWeek getActivityPerDayOfWeekMonth() {
+		long unixMonth = 2629746;
+		long dateEnd = Instant.now().getEpochSecond();
+		long dateStart = dateEnd - unixMonth;
 		StatsActivityPerDayOfWeek activityPerDayOfWeek = StatsRepository.getEntryCountPerDayDateRange(dateStart,
 				dateEnd);
 
@@ -253,50 +380,152 @@ public class StatsService {
 	public static StatsEmotionFrequency getEmotionFrequencyDateRange(StatsDateRange statsDateRange) {
 		long dateStart = convertDateStrToLong(statsDateRange.getStartDate());
 		long dateEnd = convertDateStrToLong(statsDateRange.getEndDate());
-		StatsEmotionFrequency emotionFrequency = StatsRepository.getEmotionCountDateRange(dateStart,dateEnd);
-		
+		StatsEmotionFrequency emotionFrequency = StatsRepository.getEmotionCountDateRange(dateStart, dateEnd);
+
 		// Create a map to store emotion counts with their names
-        Map<String, Integer> emotionCounts = new HashMap<>();
-        emotionCounts.put("Alegría", emotionFrequency.getEmocionAlegriaCount());
-        emotionCounts.put("Tristeza", emotionFrequency.getEmocionTristezaCount());
-        emotionCounts.put("Ira", emotionFrequency.getEmocionIraCount());
-        emotionCounts.put("Miedo", emotionFrequency.getEmocionMiedoCount());
-        emotionCounts.put("Ansiedad", emotionFrequency.getEmocionAnsiedadCount());
-        emotionCounts.put("Amor", emotionFrequency.getEmocionAmorCount());
-        emotionCounts.put("Sorpresa", emotionFrequency.getEmocionSorpresaCount());
-        emotionCounts.put("Vergüenza", emotionFrequency.getEmocionVerguenzaCount());
-        emotionCounts.put("Frustración", emotionFrequency.getEmocionFrustracionCount());
-        emotionCounts.put("Satisfacción", emotionFrequency.getEmocionSatisfaccionCount());
-        emotionCounts.put("Aburrimiento", emotionFrequency.getEmocionAburrimientoCount());
-        emotionCounts.put("Serenidad", emotionFrequency.getEmocionSerenidadCount());
-        emotionCounts.put("Confianza", emotionFrequency.getEmocionConfianzaCount());
-        emotionCounts.put("Abrumado", emotionFrequency.getEmocionAbrumadoCount());
-        emotionCounts.put("Esperanza", emotionFrequency.getEmocionEsperanzaCount());
+		Map<String, Integer> emotionCounts = new HashMap<>();
+		emotionCounts.put("Alegría", emotionFrequency.getEmocionAlegriaCount());
+		emotionCounts.put("Tristeza", emotionFrequency.getEmocionTristezaCount());
+		emotionCounts.put("Ira", emotionFrequency.getEmocionIraCount());
+		emotionCounts.put("Miedo", emotionFrequency.getEmocionMiedoCount());
+		emotionCounts.put("Ansiedad", emotionFrequency.getEmocionAnsiedadCount());
+		emotionCounts.put("Amor", emotionFrequency.getEmocionAmorCount());
+		emotionCounts.put("Sorpresa", emotionFrequency.getEmocionSorpresaCount());
+		emotionCounts.put("Vergüenza", emotionFrequency.getEmocionVerguenzaCount());
+		emotionCounts.put("Frustración", emotionFrequency.getEmocionFrustracionCount());
+		emotionCounts.put("Satisfacción", emotionFrequency.getEmocionSatisfaccionCount());
+		emotionCounts.put("Aburrimiento", emotionFrequency.getEmocionAburrimientoCount());
+		emotionCounts.put("Serenidad", emotionFrequency.getEmocionSerenidadCount());
+		emotionCounts.put("Confianza", emotionFrequency.getEmocionConfianzaCount());
+		emotionCounts.put("Abrumado", emotionFrequency.getEmocionAbrumadoCount());
+		emotionCounts.put("Esperanza", emotionFrequency.getEmocionEsperanzaCount());
 
-        List<Map.Entry<String, Integer>> sortedEmotionList = new ArrayList<>(emotionCounts.entrySet());
-        sortedEmotionList.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+		List<Map.Entry<String, Integer>> sortedEmotionList = new ArrayList<>(emotionCounts.entrySet());
+		sortedEmotionList.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
 
-        // Set the top 4 emotions
-        if (!sortedEmotionList.isEmpty()) {
-            emotionFrequency.setTopEmotion1(sortedEmotionList.get(0).getKey());
-            emotionFrequency.setTopEmotion1Count(sortedEmotionList.get(0).getValue());
+		// Set the top 4 emotions
+		if (!sortedEmotionList.isEmpty()) {
+			emotionFrequency.setTopEmotion1(sortedEmotionList.get(0).getKey());
+			emotionFrequency.setTopEmotion1Count(sortedEmotionList.get(0).getValue());
 
-            if (sortedEmotionList.size() > 1) {
-                emotionFrequency.setTopEmotion2(sortedEmotionList.get(1).getKey());
-                emotionFrequency.setTopEmotion2Count(sortedEmotionList.get(1).getValue());
-            }
+			if (sortedEmotionList.size() > 1) {
+				emotionFrequency.setTopEmotion2(sortedEmotionList.get(1).getKey());
+				emotionFrequency.setTopEmotion2Count(sortedEmotionList.get(1).getValue());
+			}
 
-            if (sortedEmotionList.size() > 2) {
-                emotionFrequency.setTopEmotion3(sortedEmotionList.get(2).getKey());
-                emotionFrequency.setTopEmotion3Count(sortedEmotionList.get(2).getValue());
-            }
+			if (sortedEmotionList.size() > 2) {
+				emotionFrequency.setTopEmotion3(sortedEmotionList.get(2).getKey());
+				emotionFrequency.setTopEmotion3Count(sortedEmotionList.get(2).getValue());
+			}
 
-            if (sortedEmotionList.size() > 3) {
-                emotionFrequency.setTopEmotion4(sortedEmotionList.get(3).getKey());
-                emotionFrequency.setTopEmotion4Count(sortedEmotionList.get(3).getValue());
-            }
-        }
-		
+			if (sortedEmotionList.size() > 3) {
+				emotionFrequency.setTopEmotion4(sortedEmotionList.get(3).getKey());
+				emotionFrequency.setTopEmotion4Count(sortedEmotionList.get(3).getValue());
+			}
+		}
+
+		return emotionFrequency;
+	}
+
+	public static StatsEmotionFrequency getEmotionFrequencyWeek() {
+		long unixWeek = 604800;
+		long dateEnd = Instant.now().getEpochSecond();
+		long dateStart = dateEnd - unixWeek;
+		StatsEmotionFrequency emotionFrequency = StatsRepository.getEmotionCountDateRange(dateStart, dateEnd);
+
+		// Create a map to store emotion counts with their names
+		Map<String, Integer> emotionCounts = new HashMap<>();
+		emotionCounts.put("Alegría", emotionFrequency.getEmocionAlegriaCount());
+		emotionCounts.put("Tristeza", emotionFrequency.getEmocionTristezaCount());
+		emotionCounts.put("Ira", emotionFrequency.getEmocionIraCount());
+		emotionCounts.put("Miedo", emotionFrequency.getEmocionMiedoCount());
+		emotionCounts.put("Ansiedad", emotionFrequency.getEmocionAnsiedadCount());
+		emotionCounts.put("Amor", emotionFrequency.getEmocionAmorCount());
+		emotionCounts.put("Sorpresa", emotionFrequency.getEmocionSorpresaCount());
+		emotionCounts.put("Vergüenza", emotionFrequency.getEmocionVerguenzaCount());
+		emotionCounts.put("Frustración", emotionFrequency.getEmocionFrustracionCount());
+		emotionCounts.put("Satisfacción", emotionFrequency.getEmocionSatisfaccionCount());
+		emotionCounts.put("Aburrimiento", emotionFrequency.getEmocionAburrimientoCount());
+		emotionCounts.put("Serenidad", emotionFrequency.getEmocionSerenidadCount());
+		emotionCounts.put("Confianza", emotionFrequency.getEmocionConfianzaCount());
+		emotionCounts.put("Abrumado", emotionFrequency.getEmocionAbrumadoCount());
+		emotionCounts.put("Esperanza", emotionFrequency.getEmocionEsperanzaCount());
+
+		List<Map.Entry<String, Integer>> sortedEmotionList = new ArrayList<>(emotionCounts.entrySet());
+		sortedEmotionList.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+
+		// Set the top 4 emotions
+		if (!sortedEmotionList.isEmpty()) {
+			emotionFrequency.setTopEmotion1(sortedEmotionList.get(0).getKey());
+			emotionFrequency.setTopEmotion1Count(sortedEmotionList.get(0).getValue());
+
+			if (sortedEmotionList.size() > 1) {
+				emotionFrequency.setTopEmotion2(sortedEmotionList.get(1).getKey());
+				emotionFrequency.setTopEmotion2Count(sortedEmotionList.get(1).getValue());
+			}
+
+			if (sortedEmotionList.size() > 2) {
+				emotionFrequency.setTopEmotion3(sortedEmotionList.get(2).getKey());
+				emotionFrequency.setTopEmotion3Count(sortedEmotionList.get(2).getValue());
+			}
+
+			if (sortedEmotionList.size() > 3) {
+				emotionFrequency.setTopEmotion4(sortedEmotionList.get(3).getKey());
+				emotionFrequency.setTopEmotion4Count(sortedEmotionList.get(3).getValue());
+			}
+		}
+
+		return emotionFrequency;
+	}
+
+	public static StatsEmotionFrequency getEmotionFrequencyMonth() {
+		long unixMonth = 2629746;
+		long dateEnd = Instant.now().getEpochSecond();
+		long dateStart = dateEnd - unixMonth;
+		StatsEmotionFrequency emotionFrequency = StatsRepository.getEmotionCountDateRange(dateStart, dateEnd);
+
+		// Create a map to store emotion counts with their names
+		Map<String, Integer> emotionCounts = new HashMap<>();
+		emotionCounts.put("Alegría", emotionFrequency.getEmocionAlegriaCount());
+		emotionCounts.put("Tristeza", emotionFrequency.getEmocionTristezaCount());
+		emotionCounts.put("Ira", emotionFrequency.getEmocionIraCount());
+		emotionCounts.put("Miedo", emotionFrequency.getEmocionMiedoCount());
+		emotionCounts.put("Ansiedad", emotionFrequency.getEmocionAnsiedadCount());
+		emotionCounts.put("Amor", emotionFrequency.getEmocionAmorCount());
+		emotionCounts.put("Sorpresa", emotionFrequency.getEmocionSorpresaCount());
+		emotionCounts.put("Vergüenza", emotionFrequency.getEmocionVerguenzaCount());
+		emotionCounts.put("Frustración", emotionFrequency.getEmocionFrustracionCount());
+		emotionCounts.put("Satisfacción", emotionFrequency.getEmocionSatisfaccionCount());
+		emotionCounts.put("Aburrimiento", emotionFrequency.getEmocionAburrimientoCount());
+		emotionCounts.put("Serenidad", emotionFrequency.getEmocionSerenidadCount());
+		emotionCounts.put("Confianza", emotionFrequency.getEmocionConfianzaCount());
+		emotionCounts.put("Abrumado", emotionFrequency.getEmocionAbrumadoCount());
+		emotionCounts.put("Esperanza", emotionFrequency.getEmocionEsperanzaCount());
+
+		List<Map.Entry<String, Integer>> sortedEmotionList = new ArrayList<>(emotionCounts.entrySet());
+		sortedEmotionList.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+
+		// Set the top 4 emotions
+		if (!sortedEmotionList.isEmpty()) {
+			emotionFrequency.setTopEmotion1(sortedEmotionList.get(0).getKey());
+			emotionFrequency.setTopEmotion1Count(sortedEmotionList.get(0).getValue());
+
+			if (sortedEmotionList.size() > 1) {
+				emotionFrequency.setTopEmotion2(sortedEmotionList.get(1).getKey());
+				emotionFrequency.setTopEmotion2Count(sortedEmotionList.get(1).getValue());
+			}
+
+			if (sortedEmotionList.size() > 2) {
+				emotionFrequency.setTopEmotion3(sortedEmotionList.get(2).getKey());
+				emotionFrequency.setTopEmotion3Count(sortedEmotionList.get(2).getValue());
+			}
+
+			if (sortedEmotionList.size() > 3) {
+				emotionFrequency.setTopEmotion4(sortedEmotionList.get(3).getKey());
+				emotionFrequency.setTopEmotion4Count(sortedEmotionList.get(3).getValue());
+			}
+		}
+
 		return emotionFrequency;
 	}
 
