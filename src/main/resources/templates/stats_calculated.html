@@ -311,6 +311,12 @@
                             <button @click="tab = 'total'"
                                 :class="tab === 'total' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-lg transition">Total</button>
+                            <button @click="tab = 'lastWeek'"
+                                :class="tab === 'lastWeek' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-lg transition">7d</button>
+                            <button @click="tab = 'lastMonth'"
+                                :class="tab === 'lastMonth' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-lg transition">1m</button>
                             <button @click="tab = 'dateRange'"
                                 :class="tab === 'dateRange' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-lg transition">Rango de Fechas</button>
@@ -328,6 +334,37 @@
                                 class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
                         </div>
 
+                        <!-- FREQUENCIAEMOCIONAL_LASTWEEK -->
+                        <div x-show="tab === 'lastWeek'" x-transition>
+
+                            <p class="text-lg text-white font-bold mb-2"
+                                th:text="'Frecuencia de emociones en el periodo entre ' + ${statsDateRangeLastWeek.startDate} + ' y ' + ${statsDateRangeLastWeek.endDate}">
+                            </p>
+                            <p class="text-base text-white mb-2"
+                                th:text="'- Tus emociones más frecuentes han sido ' + ${statsEmotionFrequencyWeek.topEmotion1} + ', ' + ${statsEmotionFrequencyWeek.topEmotion2} + ', ' + ${statsEmotionFrequencyWeek.topEmotion3} + ' y ' + ${statsEmotionFrequencyWeek.topEmotion4}">
+                            </p>
+                            <p class="text-base text-white mb-4">- Esta gráfica muestra cuantas veces has seleccionado
+                                cada emoción en tus revisiones en la última semana:</p>
+                            <canvas id="emotionFrequencyPieChartLastWeek"
+                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
+
+                        <!-- FREQUENCIAEMOCIONAL_LASTMONTH -->
+                        <div x-show="tab === 'lastMonth'" x-transition>
+
+                            <p class="text-lg text-white font-bold mb-2"
+                                th:text="'Frecuencia de emociones en el periodo entre ' + ${statsDateRangeLastMonth.startDate} + ' y ' + ${statsDateRangeLastMonth.endDate}">
+                            </p>
+                            <p class="text-base text-white mb-2"
+                                th:text="'- Tus emociones más frecuentes han sido ' + ${statsEmotionFrequencyMonth.topEmotion1} + ', ' + ${statsEmotionFrequencyMonth.topEmotion2} + ', ' + ${statsEmotionFrequencyMonth.topEmotion3} + ' y ' + ${statsEmotionFrequencyMonth.topEmotion4}">
+                            </p>
+                            <p class="text-base text-white mb-4">- Esta gráfica muestra cuantas veces has seleccionado
+                                cada emoción en tus revisiones en el último mes</p>
+                            <canvas id="emotionFrequencyPieChartLastMonth"
+                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
+
+
                         <!-- FREQUENCIAEMOCIONAL_DATERANGE -->
                         <div x-show="tab === 'dateRange'" x-transition>
 
@@ -335,10 +372,11 @@
                                 th:text="'Frecuencia de emociones en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
                             <p class="text-base text-white mb-2"
-                                th:text="'- Tus emociones más frecuentes son ' + ${statsEmotionFrequencyDateRange.topEmotion1} + ', ' + ${statsEmotionFrequencyDateRange.topEmotion2} + ', ' + ${statsEmotionFrequencyDateRange.topEmotion3} + ' y ' + ${statsEmotionFrequencyDateRange.topEmotion4}">
+                                th:text="'- Tus emociones más frecuentes han sido ' + ${statsEmotionFrequencyDateRange.topEmotion1} + ', ' + ${statsEmotionFrequencyDateRange.topEmotion2} + ', ' + ${statsEmotionFrequencyDateRange.topEmotion3} + ' y ' + ${statsEmotionFrequencyDateRange.topEmotion4}">
                             </p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra cuantas veces has seleccionado
-                                cada emoción en tus revisiones:</p>
+                            <p class="text-base text-white mb-4"
+                                th:text="'- Esta gráfica muestra cuantas veces has seleccionado cada emoción en tus revisiones entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
+                            </p>
                             <canvas id="emotionFrequencyPieChartDateRange"
                                 class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
                         </div>
@@ -568,8 +606,8 @@
         var journalSaturdayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.journalSaturdayEntryCount }]];
         var journalSundayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.journalSundayEntryCount }]];
 
-        var ctx3 = document.getElementById('chartActivityPerDayJournalAllTime').getContext('2d');
-        var chartActivityPerDayJournalAllTime = new Chart(ctx3, {
+        var ctx2_j_1 = document.getElementById('chartActivityPerDayJournalAllTime').getContext('2d');
+        var chartActivityPerDayJournalAllTime = new Chart(ctx2_j_1, {
             type: 'bar',
             data: {
                 labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'], // Days of the week in Spanish
@@ -619,8 +657,6 @@
             }
         });
 
-
-
         // Chart.js | Actividad por dia Revision (total)-->
         // Data from Thymeleaf (all days)
         var journalMondayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.revisionMondayEntryCount }]];
@@ -631,8 +667,8 @@
         var journalSaturdayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.revisionSaturdayEntryCount }]];
         var journalSundayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.revisionSundayEntryCount }]];
 
-        var ctx3 = document.getElementById('chartActivityPerDayRevisionAllTime').getContext('2d');
-        var chartActivityPerDayRevisionAllTime = new Chart(ctx3, {
+        var ctx2_r_1 = document.getElementById('chartActivityPerDayRevisionAllTime').getContext('2d');
+        var chartActivityPerDayRevisionAllTime = new Chart(ctx2_r_1, {
             type: 'bar',
             data: {
                 labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'], // Days of the week in Spanish
@@ -692,8 +728,8 @@
         var journalSaturdayEntryCount = [[${ statsActivityPerDayOfWeekDateRange.journalSaturdayEntryCount }]];
         var journalSundayEntryCount = [[${ statsActivityPerDayOfWeekDateRange.journalSundayEntryCount }]];
 
-        var ctx4 = document.getElementById('chartActivityPerDayJournalDateRange').getContext('2d');
-        var chartActivityPerDayJournalDateRange = new Chart(ctx4, {
+        var ctx2_j_dr = document.getElementById('chartActivityPerDayJournalDateRange').getContext('2d');
+        var chartActivityPerDayJournalDateRange = new Chart(ctx2_j_dr, {
             type: 'bar',
             data: {
                 labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'], // Days of the week in Spanish
@@ -755,8 +791,8 @@
         var journalSaturdayEntryCount = [[${ statsActivityPerDayOfWeekDateRange.revisionSaturdayEntryCount }]];
         var journalSundayEntryCount = [[${ statsActivityPerDayOfWeekDateRange.revisionSundayEntryCount }]];
 
-        var ctx5 = document.getElementById('chartActivityPerDayRevisionDateRange').getContext('2d');
-        var chartActivityPerDayRevisionDateRange = new Chart(ctx5, {
+        var ctx2_r_dr = document.getElementById('chartActivityPerDayRevisionDateRange').getContext('2d');
+        var chartActivityPerDayRevisionDateRange = new Chart(ctx2_r_dr, {
             type: 'bar',
             data: {
                 labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'], // Days of the week in Spanish
@@ -833,10 +869,10 @@
         ];
 
         // Get the context of the canvas element for Chart.js
-        const ctx6 = document.getElementById('emotionFrequencyPieChartAllTime').getContext('2d');
+        const ctx3_1 = document.getElementById('emotionFrequencyPieChartAllTime').getContext('2d');
 
         // Create the Chart.js pie chart
-        const emotionFrequencyPieChartAllTime = new Chart(ctx6, {
+        const emotionFrequencyPieChartAllTime = new Chart(ctx3_1, {
             type: 'pie',
             data: {
                 labels: emotionLabels,
@@ -889,20 +925,20 @@
             [[${ statsEmotionFrequencyDateRange.emocionEsperanzaCount }]]
         ];
 
-        const emotionLabels2 = [
+        const emotionLabels_dr = [
             "Alegría", "Tristeza", "Ira", "Miedo", "Ansiedad", "Amor", "Sorpresa",
             "Vergüenza", "Frustración", "Satisfacción", "Aburrimiento", "Serenidad",
             "Confianza", "Abrumado", "Esperanza"
         ];
 
         // Get the context of the canvas element for Chart.js
-        const ctx7 = document.getElementById('emotionFrequencyPieChartDateRange').getContext('2d');
+        const ctx3_dr = document.getElementById('emotionFrequencyPieChartDateRange').getContext('2d');
 
         // Create the Chart.js pie chart
-        const emotionFrequencyPieChartDateRange = new Chart(ctx7, {
+        const emotionFrequencyPieChartDateRange = new Chart(ctx3_dr, {
             type: 'pie',
             data: {
-                labels: emotionLabels2,
+                labels: emotionLabels_dr,
                 datasets: [{
                     label: 'Emotion Frequency',
                     data: emotionFrequencyCountsDateRange,
@@ -933,7 +969,133 @@
             }
         });
 
+        // Chart.js | Frecuencia Emocional Last Week)-->
+        // Data from Thymeleaf (all days)
+        const emotionFrequencyCountsLastWeek = [
+            [[${ statsEmotionFrequencyWeek.emocionAlegriaCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionTristezaCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionIraCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionMiedoCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionAnsiedadCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionAmorCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionSorpresaCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionVerguenzaCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionFrustracionCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionSatisfaccionCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionAburrimientoCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionSerenidadCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionConfianzaCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionAbrumadoCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionEsperanzaCount }]]
+        ];
 
+        const emotionLabels_w = [
+            "Alegría", "Tristeza", "Ira", "Miedo", "Ansiedad", "Amor", "Sorpresa",
+            "Vergüenza", "Frustración", "Satisfacción", "Aburrimiento", "Serenidad",
+            "Confianza", "Abrumado", "Esperanza"
+        ];
+
+        // Get the context of the canvas element for Chart.js
+        const ctx3_w = document.getElementById('emotionFrequencyPieChartLastWeek').getContext('2d');
+
+        // Create the Chart.js pie chart
+        const emotionFrequencyPieChartLastWeek = new Chart(ctx3_w, {
+            type: 'pie',
+            data: {
+                labels: emotionLabels_w,
+                datasets: [{
+                    label: 'Emotion Frequency',
+                    data: emotionFrequencyCountsLastWeek,
+                    backgroundColor: [
+                        '#FFEB3B', '#120966', '#940c3e', '#f77225', '#eb63d2', '#cf44b7', '#1f807c',
+                        '#D32F2F', '#824633', '#4CAF50', '#9E9E9E', '#4dd1e3',
+                        '#146b11', '#330505', '#89d134'
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,  // Hide the legend
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const percentage = tooltipItem.raw / tooltipItem.chart.data.datasets[0].data.reduce((a, b) => a + b, 0) * 100;
+                                return tooltipItem.label + ': ' + tooltipItem.raw + ' (' + percentage.toFixed(2) + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Chart.js | Frecuencia Emocional Last Week)-->
+        // Data from Thymeleaf (all days)
+        const emotionFrequencyCountsLastMonth = [
+            [[${ statsEmotionFrequencyMonth.emocionAlegriaCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionTristezaCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionIraCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionMiedoCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionAnsiedadCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionAmorCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionSorpresaCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionVerguenzaCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionFrustracionCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionSatisfaccionCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionAburrimientoCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionSerenidadCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionConfianzaCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionAbrumadoCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionEsperanzaCount }]]
+        ];
+
+        const emotionLabels_m = [
+            "Alegría", "Tristeza", "Ira", "Miedo", "Ansiedad", "Amor", "Sorpresa",
+            "Vergüenza", "Frustración", "Satisfacción", "Aburrimiento", "Serenidad",
+            "Confianza", "Abrumado", "Esperanza"
+        ];
+
+        // Get the context of the canvas element for Chart.js
+        const ctx3_m = document.getElementById('emotionFrequencyPieChartLastMonth').getContext('2d');
+
+        // Create the Chart.js pie chart
+        const emotionFrequencyPieChartLastMonth = new Chart(ctx3_m, {
+            type: 'pie',
+            data: {
+                labels: emotionLabels_m,
+                datasets: [{
+                    label: 'Emotion Frequency',
+                    data: emotionFrequencyCountsLastWeek,
+                    backgroundColor: [
+                        '#FFEB3B', '#120966', '#940c3e', '#f77225', '#eb63d2', '#cf44b7', '#1f807c',
+                        '#D32F2F', '#824633', '#4CAF50', '#9E9E9E', '#4dd1e3',
+                        '#146b11', '#330505', '#89d134'
+                    ],
+                    borderColor: '#fff',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false,  // Hide the legend
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const percentage = tooltipItem.raw / tooltipItem.chart.data.datasets[0].data.reduce((a, b) => a + b, 0) * 100;
+                                return tooltipItem.label + ': ' + tooltipItem.raw + ' (' + percentage.toFixed(2) + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
 
     </script>
 
