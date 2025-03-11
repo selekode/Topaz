@@ -177,68 +177,92 @@
                     <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
 
                     <p class="text-base mb-4 mt-4 text-white text-bold" style="color: #23A3BB;">Emociones Sentidas:</p>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionAlegria}" class="form-checkbox text-[#23A3BB]">
-                            <span class="text-white">Alegría</span>
-                        </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionTristeza}" class="form-checkbox text-[#23A3BB]">
-                            <span class="text-white">Tristeza</span>
-                        </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionIra}" class="form-checkbox text-[#23A3BB]">
-                            <span class="text-white">Ira</span>
-                        </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionMiedo}" class="form-checkbox text-[#23A3BB]">
-                            <span class="text-white">Miedo</span>
-                        </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionAnsiedad}" class="form-checkbox text-[#23A3BB]">
-                            <span class="text-white">Ansiedad</span>
-                        </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionAmor}" class="form-checkbox text-[#23A3BB]">
-                            <span class="text-white">Amor</span>
-                        </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionSorpresa}" class="form-checkbox text-[#23A3BB]">
-                            <span class="text-white">Sorpresa</span>
-                        </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionVerguenza}" class="form-checkbox text-[#23A3BB]">
-                            <span class="text-white">Vergüenza</span>
-                        </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionFrustracion}" class="form-checkbox text-[#23A3BB]">
-                            <span class="text-white">Frustración</span>
-                        </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionSatisfaccion}" class="form-checkbox text-[#23A3BB]">
-                            <span class="text-white">Satisfacción</span>
-                        </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionAburrimiento}" class="form-checkbox text-[#23A3BB]">
-                            <span class="text-white">Aburrimiento</span>
-                        </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionSerenidad}" class="form-checkbox text-[#23A3BB]">
-                            <span class="text-white">Serenidad</span>
-                        </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionConfianza}" class="form-checkbox text-[#23A3BB]">
-                            <span class="text-white">Confianza</span>
-                        </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionAbrumado}" class="form-checkbox text-[#23A3BB]">
-                            <span class="text-white">Abrumado</span>
-                        </label>
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" disabled th:checked="${revisionEntry.emocionEsperanza}" class="form-checkbox text-[#23A3BB]">
-                            <span class="text-white">Esperanza</span>
-                        </label>
+                    <div class="grid grid-cols-1 gap-4 w-full">
+                        <div class="grid grid-cols-1 gap-4 w-full">
+
+                            <!-- Positive Emotions -->
+                            <div>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" disabled th:checked="${revisionEntry.emocionAlegria}" class="form-checkbox text-[#23A3BB]">
+                                        <span class="text-white">Alegría</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" disabled th:checked="${revisionEntry.emocionAmor}" class="form-checkbox text-[#23A3BB]">
+                                        <span class="text-white">Amor</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" disabled th:checked="${revisionEntry.emocionSatisfaccion}" class="form-checkbox text-[#23A3BB]">
+                                        <span class="text-white">Satisfacción</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" disabled th:checked="${revisionEntry.emocionSerenidad}" class="form-checkbox text-[#23A3BB]">
+                                        <span class="text-white">Serenidad</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" disabled th:checked="${revisionEntry.emocionConfianza}" class="form-checkbox text-[#23A3BB]">
+                                        <span class="text-white">Confianza</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" disabled th:checked="${revisionEntry.emocionEsperanza}" class="form-checkbox text-[#23A3BB]">
+                                        <span class="text-white">Esperanza</span>
+                                    </label>
+                                </div>
+                            </div>
+                        
+                            <!-- Negative Emotions -->
+                            <div>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" disabled th:checked="${revisionEntry.emocionTristeza}" class="form-checkbox text-[#23A3BB]">
+                                        <span class="text-white">Tristeza</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" disabled th:checked="${revisionEntry.emocionIra}" class="form-checkbox text-[#23A3BB]">
+                                        <span class="text-white">Ira</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" disabled th:checked="${revisionEntry.emocionFrustracion}" class="form-checkbox text-[#23A3BB]">
+                                        <span class="text-white">Frustración</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" disabled th:checked="${revisionEntry.emocionAnsiedad}" class="form-checkbox text-[#23A3BB]">
+                                        <span class="text-white">Ansiedad</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" disabled th:checked="${revisionEntry.emocionVerguenza}" class="form-checkbox text-[#23A3BB]">
+                                        <span class="text-white">Vergüenza</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" disabled th:checked="${revisionEntry.emocionMiedo}" class="form-checkbox text-[#23A3BB]">
+                                        <span class="text-white">Miedo</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" disabled th:checked="${revisionEntry.emocionAbrumado}" class="form-checkbox text-[#23A3BB]">
+                                        <span class="text-white">Abrumado</span>
+                                    </label>
+                                </div>
+                            </div>
+                        
+                            <!-- Neutral/Mixed Emotions -->
+                            <div>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" disabled th:checked="${revisionEntry.emocionSorpresa}" class="form-checkbox text-[#23A3BB]">
+                                        <span class="text-white">Sorpresa</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="checkbox" disabled th:checked="${revisionEntry.emocionAburrimiento}" class="form-checkbox text-[#23A3BB]">
+                                        <span class="text-white">Aburrimiento</span>
+                                    </label>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        
                     </div>
+
+                    
 
                 <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6 mt-6">
 

@@ -88,69 +88,82 @@
                     <!-- Multiple Mood Selection -->
                     <div class="mb-4">
                         <label class="text-[#23A3BB] mb-1">Selecciona las emociones que has sentido:</label>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" th:field="*{emocionAlegria}" class="form-checkbox text-[#23A3BB]">
-                                <span class="text-white">Alegría</span>
-                            </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" th:field="*{emocionTristeza}" class="form-checkbox text-[#23A3BB]">
-                                <span class="text-white">Tristeza</span>
-                            </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" th:field="*{emocionIra}" class="form-checkbox text-[#23A3BB]">
-                                <span class="text-white">Ira</span>
-                            </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" th:field="*{emocionMiedo}" class="form-checkbox text-[#23A3BB]">
-                                <span class="text-white">Miedo</span>
-                            </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" th:field="*{emocionAnsiedad}" class="form-checkbox text-[#23A3BB]">
-                                <span class="text-white">Ansiedad</span>
-                            </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" th:field="*{emocionAmor}" class="form-checkbox text-[#23A3BB]">
-                                <span class="text-white">Amor</span>
-                            </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" th:field="*{emocionSorpresa}" class="form-checkbox text-[#23A3BB]">
-                                <span class="text-white">Sorpresa</span>
-                            </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" th:field="*{emocionVerguenza}" class="form-checkbox text-[#23A3BB]">
-                                <span class="text-white">Vergüenza</span>
-                            </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" th:field="*{emocionFrustracion}" class="form-checkbox text-[#23A3BB]">
-                                <span class="text-white">Frustración</span>
-                            </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" th:field="*{emocionSatisfaccion}" class="form-checkbox text-[#23A3BB]">
-                                <span class="text-white">Satisfacción</span>
-                            </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" th:field="*{emocionAburrimiento}" class="form-checkbox text-[#23A3BB]">
-                                <span class="text-white">Aburrimiento</span>
-                            </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" th:field="*{emocionSerenidad}" class="form-checkbox text-[#23A3BB]">
-                                <span class="text-white">Serenidad</span>
-                            </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" th:field="*{emocionConfianza}" class="form-checkbox text-[#23A3BB]">
-                                <span class="text-white">Confianza</span>
-                            </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" th:field="*{emocionAbrumado}" class="form-checkbox text-[#23A3BB]">
-                                <span class="text-white">Abrumado</span>
-                            </label>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" th:field="*{emocionEsperanza}" class="form-checkbox text-[#23A3BB]">
-                                <span class="text-white">Esperanza</span>
-                            </label>
-                        </div>
+
+                        <div class="grid grid-cols-1 gap-4 w-full">
+
+                            <!-- Positive Emotions -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" th:field="*{emocionAlegria}" class="form-checkbox text-[#23A3BB]">
+                                    <span class="text-white">Alegría</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" th:field="*{emocionAmor}" class="form-checkbox text-[#23A3BB]">
+                                    <span class="text-white">Amor</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" th:field="*{emocionSatisfaccion}" class="form-checkbox text-[#23A3BB]">
+                                    <span class="text-white">Satisfacción</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" th:field="*{emocionSerenidad}" class="form-checkbox text-[#23A3BB]">
+                                    <span class="text-white">Serenidad</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" th:field="*{emocionConfianza}" class="form-checkbox text-[#23A3BB]">
+                                    <span class="text-white">Confianza</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" th:field="*{emocionEsperanza}" class="form-checkbox text-[#23A3BB]">
+                                    <span class="text-white">Esperanza</span>
+                                </label>
+                            </div>
                         
+                            <!-- Negative Emotions -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" th:field="*{emocionTristeza}" class="form-checkbox text-[#23A3BB]">
+                                    <span class="text-white">Tristeza</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" th:field="*{emocionIra}" class="form-checkbox text-[#23A3BB]">
+                                    <span class="text-white">Ira</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" th:field="*{emocionFrustracion}" class="form-checkbox text-[#23A3BB]">
+                                    <span class="text-white">Frustración</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" th:field="*{emocionAnsiedad}" class="form-checkbox text-[#23A3BB]">
+                                    <span class="text-white">Ansiedad</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" th:field="*{emocionVerguenza}" class="form-checkbox text-[#23A3BB]">
+                                    <span class="text-white">Vergüenza</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" th:field="*{emocionMiedo}" class="form-checkbox text-[#23A3BB]">
+                                    <span class="text-white">Miedo</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" th:field="*{emocionAbrumado}" class="form-checkbox text-[#23A3BB]">
+                                    <span class="text-white">Abrumado</span>
+                                </label>
+                            </div>
+                        
+                            <!-- Mixed/Neutral Emotions -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" th:field="*{emocionSorpresa}" class="form-checkbox text-[#23A3BB]">
+                                    <span class="text-white">Sorpresa</span>
+                                </label>
+                                <label class="flex items-center space-x-2">
+                                    <input type="checkbox" th:field="*{emocionAburrimiento}" class="form-checkbox text-[#23A3BB]">
+                                    <span class="text-white">Aburrimiento</span>
+                                </label>
+                            </div>
+                        
+                        </div>                        
                     </div>
                     
                     <div class="mb-4">
