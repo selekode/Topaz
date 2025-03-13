@@ -1,9 +1,9 @@
 /* Topaz v0.02 | Charts created using Charts.js
 */
-
-// Chart.js | Entradas en diario (total)
-var ctx1 = document.getElementById('chartEntryCountAllTime').getContext('2d');
-var chartEntryCountAllTime = new Chart(ctx1, {
+console.log("Script loaded");
+// ENTRADAS EN EL DIARIO Y REVISION (TOTAL)
+var ctx_EntryCountAllTime = document.getElementById('chartEntryCountAllTime').getContext('2d');
+var chartEntryCountAllTime = new Chart(ctx_EntryCountAllTime, {
     type: 'bar',
     data: {
         labels: ['Entradas Totales', 'Entradas Diario', 'Revisiones'],
@@ -51,9 +51,9 @@ var chartEntryCountAllTime = new Chart(ctx1, {
     }
 });
 
-// Chart.js | Entradas en diario (7w)
-var ctx1_w = document.getElementById('chartEntryCountWeek').getContext('2d');
-var chartEntryCountWeek = new Chart(ctx1_w, {
+// ENTRADAS EN EL DIARIO Y REVISION (7d)
+var ctx_EntryCountWeek = document.getElementById('chartEntryCountWeek').getContext('2d');
+var chartEntryCountWeek = new Chart(ctx_EntryCountWeek, {
     type: 'bar',
     data: {
         labels: ['Entradas Totales', 'Entradas Diario', 'Revisiones'],
@@ -101,9 +101,9 @@ var chartEntryCountWeek = new Chart(ctx1_w, {
     }
 });
 
-// Chart.js | Entradas en diario (1m)
-var ctx1_m = document.getElementById('chartEntryCountMonth').getContext('2d');
-var chartEntryCountMonth = new Chart(ctx1_m, {
+// ENTRADAS EN EL DIARIO Y REVISION (1m)
+var ctx_EntryCountMonth = document.getElementById('chartEntryCountMonth').getContext('2d');
+var chartEntryCountMonth = new Chart(ctx_EntryCountMonth, {
     type: 'bar',
     data: {
         labels: ['Entradas Totales', 'Entradas Diario', 'Revisiones'],
@@ -151,9 +151,9 @@ var chartEntryCountMonth = new Chart(ctx1_m, {
     }
 });
 
-// Chart.js | Entradas en diario (daterange)-->
-var ctx1_dr = document.getElementById('chartEntryCountDateRange').getContext('2d');
-var chartEntryCountDateRange = new Chart(ctx1_dr, {
+// ENTRADAS EN EL DIARIO Y REVISION (daterange)
+var ctx_EntryCountDateRange = document.getElementById('chartEntryCountDateRange').getContext('2d');
+var chartEntryCountDateRange = new Chart(ctx_EntryCountDateRange, {
     type: 'bar',
     data: {
         labels: ['Entradas Totales', 'Entradas Diario', 'Revisiones'],
@@ -201,8 +201,7 @@ var chartEntryCountDateRange = new Chart(ctx1_dr, {
     }
 });
 
-// Chart.js | Actividad por dia Diario(total)-->
-// Data from Thymeleaf (all days)
+// ACTIVIDAD POR DIA (DIARIO) (total)
 var journalMondayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.journalMondayEntryCount }]];
 var journalTuesdayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.journalTuesdayEntryCount }]];
 var journalWednesdayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.journalWednesdayEntryCount }]];
@@ -211,8 +210,8 @@ var journalFridayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.journalFrida
 var journalSaturdayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.journalSaturdayEntryCount }]];
 var journalSundayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.journalSundayEntryCount }]];
 
-var ctx2_j_1 = document.getElementById('chartActivityPerDayJournalAllTime').getContext('2d');
-var chartActivityPerDayJournalAllTime = new Chart(ctx2_j_1, {
+var ctx_ActivityPerDayJournalAllTime = document.getElementById('chartActivityPerDayJournalAllTime').getContext('2d');
+var chartActivityPerDayJournalAllTime = new Chart(ctx_ActivityPerDayJournalAllTime, {
     type: 'bar',
     data: {
         labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'], // Days of the week in Spanish
@@ -262,8 +261,7 @@ var chartActivityPerDayJournalAllTime = new Chart(ctx2_j_1, {
     }
 });
 
-// Chart.js | Actividad por dia Revision (total)-->
-// Data from Thymeleaf (all days)
+// ACTIVIDAD POR DIA (REVISION) (total)
 var journalMondayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.revisionMondayEntryCount }]];
 var journalTuesdayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.revisionTuesdayEntryCount }]];
 var journalWednesdayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.revisionWednesdayEntryCount }]];
@@ -272,8 +270,8 @@ var journalFridayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.revisionFrid
 var journalSaturdayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.revisionSaturdayEntryCount }]];
 var journalSundayEntryCount = [[${ statsActivityPerDayOfWeekAllTime.revisionSundayEntryCount }]];
 
-var ctx2_r_1 = document.getElementById('chartActivityPerDayRevisionAllTime').getContext('2d');
-var chartActivityPerDayRevisionAllTime = new Chart(ctx2_r_1, {
+var ctx_ActivityPerDayRevisionAllTime = document.getElementById('chartActivityPerDayRevisionAllTime').getContext('2d');
+var chartActivityPerDayRevisionAllTime = new Chart(ctx_ActivityPerDayRevisionAllTime, {
     type: 'bar',
     data: {
         labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'], // Days of the week in Spanish
@@ -323,8 +321,7 @@ var chartActivityPerDayRevisionAllTime = new Chart(ctx2_r_1, {
     }
 });
 
-// Chart.js | Actividad por dia Diario(7d)-->
-// Data from Thymeleaf (all days)
+// ACTIVIDAD POR DIA (DIARIO) (7d)
 var journalMondayEntryCount = [[${ statsActivityPerDayOfWeekWeek.journalMondayEntryCount }]];
 var journalTuesdayEntryCount = [[${ statsActivityPerDayOfWeekWeek.journalTuesdayEntryCount }]];
 var journalWednesdayEntryCount = [[${ statsActivityPerDayOfWeekWeek.journalWednesdayEntryCount }]];
@@ -333,8 +330,8 @@ var journalFridayEntryCount = [[${ statsActivityPerDayOfWeekWeek.journalFridayEn
 var journalSaturdayEntryCount = [[${ statsActivityPerDayOfWeekWeek.journalSaturdayEntryCount }]];
 var journalSundayEntryCount = [[${ statsActivityPerDayOfWeekWeek.journalSundayEntryCount }]];
 
-var ctx2_j_w = document.getElementById('chartActivityPerDayJournalWeek').getContext('2d');
-var chartActivityPerDayJournalWeek = new Chart(ctx2_j_w, {
+var ctx_ActivityPerDayJournalWeek = document.getElementById('chartActivityPerDayJournalWeek').getContext('2d');
+var chartActivityPerDayJournalWeek = new Chart(ctx_ActivityPerDayJournalWeek, {
     type: 'bar',
     data: {
         labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'], // Days of the week in Spanish
@@ -384,8 +381,7 @@ var chartActivityPerDayJournalWeek = new Chart(ctx2_j_w, {
     }
 });
 
-// Chart.js | Actividad por dia Revision (7d)-->
-// Data from Thymeleaf (all days)
+// ACTIVIDAD POR DIA (REVISION) (7d)
 var journalMondayEntryCount = [[${ statsActivityPerDayOfWeekWeek.revisionMondayEntryCount }]];
 var journalTuesdayEntryCount = [[${ statsActivityPerDayOfWeekWeek.revisionTuesdayEntryCount }]];
 var journalWednesdayEntryCount = [[${ statsActivityPerDayOfWeekWeek.revisionWednesdayEntryCount }]];
@@ -394,8 +390,8 @@ var journalFridayEntryCount = [[${ statsActivityPerDayOfWeekWeek.revisionFridayE
 var journalSaturdayEntryCount = [[${ statsActivityPerDayOfWeekWeek.revisionSaturdayEntryCount }]];
 var journalSundayEntryCount = [[${ statsActivityPerDayOfWeekWeek.revisionSundayEntryCount }]];
 
-var ctx2_r_w = document.getElementById('chartActivityPerDayRevisionWeek').getContext('2d');
-var chartActivityPerDayRevisionDateRange = new Chart(ctx2_r_w, {
+var ctx_ActivityPerDayRevisionWeek = document.getElementById('chartActivityPerDayRevisionWeek').getContext('2d');
+var chartActivityPerDayRevisionDateRange = new Chart(ctx_ActivityPerDayRevisionWeek, {
     type: 'bar',
     data: {
         labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'], // Days of the week in Spanish
@@ -445,8 +441,7 @@ var chartActivityPerDayRevisionDateRange = new Chart(ctx2_r_w, {
     }
 });
 
-// Chart.js | Actividad por dia Diario(1m)-->
-// Data from Thymeleaf (all days)
+// ACTIVIDAD POR DIA (DIARIO) (1m)
 var journalMondayEntryCount = [[${ statsActivityPerDayOfWeekMonth.journalMondayEntryCount }]];
 var journalTuesdayEntryCount = [[${ statsActivityPerDayOfWeekMonth.journalTuesdayEntryCount }]];
 var journalWednesdayEntryCount = [[${ statsActivityPerDayOfWeekMonth.journalWednesdayEntryCount }]];
@@ -455,8 +450,8 @@ var journalFridayEntryCount = [[${ statsActivityPerDayOfWeekMonth.journalFridayE
 var journalSaturdayEntryCount = [[${ statsActivityPerDayOfWeekMonth.journalSaturdayEntryCount }]];
 var journalSundayEntryCount = [[${ statsActivityPerDayOfWeekMonth.journalSundayEntryCount }]];
 
-var ctx2_j_m = document.getElementById('chartActivityPerDayJournalMonth').getContext('2d');
-var chartActivityPerDayJournalMonth = new Chart(ctx2_j_m, {
+var ctx_ActivityPerDayJournalMonth = document.getElementById('chartActivityPerDayJournalMonth').getContext('2d');
+var chartActivityPerDayJournalMonth = new Chart(ctx_ActivityPerDayJournalMonth, {
     type: 'bar',
     data: {
         labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'], // Days of the week in Spanish
@@ -506,8 +501,7 @@ var chartActivityPerDayJournalMonth = new Chart(ctx2_j_m, {
     }
 });
 
-// Chart.js | Actividad por dia Revision (1m)-->
-// Data from Thymeleaf (all days)
+// ACTIVIDAD POR DIA (REVISION) (1m)
 var journalMondayEntryCount = [[${ statsActivityPerDayOfWeekMonth.revisionMondayEntryCount }]];
 var journalTuesdayEntryCount = [[${ statsActivityPerDayOfWeekMonth.revisionTuesdayEntryCount }]];
 var journalWednesdayEntryCount = [[${ statsActivityPerDayOfWeekMonth.revisionWednesdayEntryCount }]];
@@ -516,8 +510,8 @@ var journalFridayEntryCount = [[${ statsActivityPerDayOfWeekMonth.revisionFriday
 var journalSaturdayEntryCount = [[${ statsActivityPerDayOfWeekMonth.revisionSaturdayEntryCount }]];
 var journalSundayEntryCount = [[${ statsActivityPerDayOfWeekMonth.revisionSundayEntryCount }]];
 
-var ctx2_r_m = document.getElementById('chartActivityPerDayRevisionMonth').getContext('2d');
-var chartActivityPerDayRevisionDateRange = new Chart(ctx2_r_m, {
+var ctx_ActivityPerDayRevisionMonth = document.getElementById('chartActivityPerDayRevisionMonth').getContext('2d');
+var chartActivityPerDayRevisionDateRange = new Chart(ctx_ActivityPerDayRevisionMonth, {
     type: 'bar',
     data: {
         labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'], // Days of the week in Spanish
@@ -568,8 +562,7 @@ var chartActivityPerDayRevisionDateRange = new Chart(ctx2_r_m, {
 });
 
 
-// Chart.js | Actividad por dia Diario(DateRange)-->
-// Data from Thymeleaf (all days)
+// ACTIVIDAD POR DIA (DIARIO) (DateRange)
 var journalMondayEntryCount = [[${ statsActivityPerDayOfWeekDateRange.journalMondayEntryCount }]];
 var journalTuesdayEntryCount = [[${ statsActivityPerDayOfWeekDateRange.journalTuesdayEntryCount }]];
 var journalWednesdayEntryCount = [[${ statsActivityPerDayOfWeekDateRange.journalWednesdayEntryCount }]];
@@ -578,8 +571,8 @@ var journalFridayEntryCount = [[${ statsActivityPerDayOfWeekDateRange.journalFri
 var journalSaturdayEntryCount = [[${ statsActivityPerDayOfWeekDateRange.journalSaturdayEntryCount }]];
 var journalSundayEntryCount = [[${ statsActivityPerDayOfWeekDateRange.journalSundayEntryCount }]];
 
-var ctx2_j_dr = document.getElementById('chartActivityPerDayJournalDateRange').getContext('2d');
-var chartActivityPerDayJournalDateRange = new Chart(ctx2_j_dr, {
+var ctx_ActivityPerDayJournalDateRange = document.getElementById('chartActivityPerDayJournalDateRange').getContext('2d');
+var chartActivityPerDayJournalDateRange = new Chart(ctx_ActivityPerDayJournalDateRange, {
     type: 'bar',
     data: {
         labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'], // Days of the week in Spanish
@@ -629,8 +622,7 @@ var chartActivityPerDayJournalDateRange = new Chart(ctx2_j_dr, {
     }
 });
 
-// Chart.js | Actividad por dia Revision (DateRange)-->
-// Data from Thymeleaf (all days)
+// ACTIVIDAD POR DIA (REVISION) (DateRange)
 var journalMondayEntryCount = [[${ statsActivityPerDayOfWeekDateRange.revisionMondayEntryCount }]];
 var journalTuesdayEntryCount = [[${ statsActivityPerDayOfWeekDateRange.revisionTuesdayEntryCount }]];
 var journalWednesdayEntryCount = [[${ statsActivityPerDayOfWeekDateRange.revisionWednesdayEntryCount }]];
@@ -639,8 +631,8 @@ var journalFridayEntryCount = [[${ statsActivityPerDayOfWeekDateRange.revisionFr
 var journalSaturdayEntryCount = [[${ statsActivityPerDayOfWeekDateRange.revisionSaturdayEntryCount }]];
 var journalSundayEntryCount = [[${ statsActivityPerDayOfWeekDateRange.revisionSundayEntryCount }]];
 
-var ctx2_r_dr = document.getElementById('chartActivityPerDayRevisionDateRange').getContext('2d');
-var chartActivityPerDayRevisionDateRange = new Chart(ctx2_r_dr, {
+var chartActivityPerDayRevisionDateRange = document.getElementById('chartActivityPerDayRevisionDateRange').getContext('2d');
+var chartActivityPerDayRevisionDateRange = new Chart(chartActivityPerDayRevisionDateRange, {
     type: 'bar',
     data: {
         labels: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'], // Days of the week in Spanish
@@ -690,8 +682,7 @@ var chartActivityPerDayRevisionDateRange = new Chart(ctx2_r_dr, {
     }
 });
 
-// Chart.js | Frecuencia Emocional (All Time)-->
-// Data from Thymeleaf (all days)
+// FRECUENCIA EMOCIONAL (All Time)
 const emotionCounts = [
     [[${ statsEmotionFrequencyAllTime.emocionAlegriaCount }]],
     [[${ statsEmotionFrequencyAllTime.emocionTristezaCount }]],
@@ -716,11 +707,9 @@ const emotionLabels = [
     "Confianza", "Abrumado", "Esperanza"
 ];
 
-// Get the context of the canvas element for Chart.js
-const ctx3_1 = document.getElementById('emotionFrequencyPieChartAllTime').getContext('2d');
+const ctx_emotionFrequencyPieChartAllTime = document.getElementById('emotionFrequencyPieChartAllTime').getContext('2d');
 
-// Create the Chart.js pie chart
-const emotionFrequencyPieChartAllTime = new Chart(ctx3_1, {
+const emotionFrequencyPieChartAllTime = new Chart(ctx_emotionFrequencyPieChartAllTime, {
     type: 'pie',
     data: {
         labels: emotionLabels,
@@ -753,8 +742,7 @@ const emotionFrequencyPieChartAllTime = new Chart(ctx3_1, {
         }
     }
 });
-// Chart.js | Frecuencia Emocional (Date Range)-->
-// Data from Thymeleaf (all days)
+// FRECUENCIA EMOCIONAL (Date Range)
 const emotionFrequencyCountsDateRange = [
     [[${ statsEmotionFrequencyDateRange.emocionAlegriaCount }]],
     [[${ statsEmotionFrequencyDateRange.emocionTristezaCount }]],
@@ -779,11 +767,9 @@ const emotionLabels_dr = [
     "Confianza", "Abrumado", "Esperanza"
 ];
 
-// Get the context of the canvas element for Chart.js
-const ctx3_dr = document.getElementById('emotionFrequencyPieChartDateRange').getContext('2d');
+const ctx_emotionFrequencyPieChartDateRange = document.getElementById('emotionFrequencyPieChartDateRange').getContext('2d');
 
-// Create the Chart.js pie chart
-const emotionFrequencyPieChartDateRange = new Chart(ctx3_dr, {
+const emotionFrequencyPieChartDateRange = new Chart(ctx_emotionFrequencyPieChartDateRange, {
     type: 'pie',
     data: {
         labels: emotionLabels_dr,
@@ -817,8 +803,7 @@ const emotionFrequencyPieChartDateRange = new Chart(ctx3_dr, {
     }
 });
 
-// Chart.js | Frecuencia Emocional Last Week)-->
-// Data from Thymeleaf (all days)
+// FRECUENCIA EMOCIONAL (7d)
 const emotionFrequencyCountsLastWeek = [
     [[${ statsEmotionFrequencyWeek.emocionAlegriaCount }]],
     [[${ statsEmotionFrequencyWeek.emocionTristezaCount }]],
@@ -843,11 +828,9 @@ const emotionLabels_w = [
     "Confianza", "Abrumado", "Esperanza"
 ];
 
-// Get the context of the canvas element for Chart.js
-const ctx3_w = document.getElementById('emotionFrequencyPieChartLastWeek').getContext('2d');
+const ctx_emotionFrequencyPieChartLastWeek = document.getElementById('emotionFrequencyPieChartLastWeek').getContext('2d');
 
-// Create the Chart.js pie chart
-const emotionFrequencyPieChartLastWeek = new Chart(ctx3_w, {
+const emotionFrequencyPieChartLastWeek = new Chart(ctx_emotionFrequencyPieChartLastWeek, {
     type: 'pie',
     data: {
         labels: emotionLabels_w,
@@ -881,8 +864,7 @@ const emotionFrequencyPieChartLastWeek = new Chart(ctx3_w, {
     }
 });
 
-// Chart.js | Frecuencia Emocional Last Week)-->
-// Data from Thymeleaf (all days)
+// FRECUENCIA EMOCIONAL (1m)
 const emotionFrequencyCountsLastMonth = [
     [[${ statsEmotionFrequencyMonth.emocionAlegriaCount }]],
     [[${ statsEmotionFrequencyMonth.emocionTristezaCount }]],
@@ -907,11 +889,9 @@ const emotionLabels_m = [
     "Confianza", "Abrumado", "Esperanza"
 ];
 
-// Get the context of the canvas element for Chart.js
-const ctx3_m = document.getElementById('emotionFrequencyPieChartLastMonth').getContext('2d');
+const ctx_emotionFrequencyPieChartLastMonth = document.getElementById('emotionFrequencyPieChartLastMonth').getContext('2d');
 
-// Create the Chart.js pie chart
-const emotionFrequencyPieChartLastMonth = new Chart(ctx3_m, {
+const emotionFrequencyPieChartLastMonth = new Chart(ctx_emotionFrequencyPieChartLastMonth, {
     type: 'pie',
     data: {
         labels: emotionLabels_m,
@@ -945,3 +925,245 @@ const emotionFrequencyPieChartLastMonth = new Chart(ctx3_m, {
     }
 });
 
+// ANÁLISIS PERSONAL: MEDIA DE VALORACIONES (AllTime) 
+var averageRatingsAllTime = [
+    [[${ statsRatingsAverageAllTime.valoracionDisciplina } != null ? ${ statsRatingsAverageAllTime.valoracionDisciplina } : 0]],
+    [[${ statsRatingsAverageAllTime.valoracionOrden } != null ? ${ statsRatingsAverageAllTime.valoracionOrden } : 0]],
+    [[${ statsRatingsAverageAllTime.valoracionImpulsividad } != null ? ${ statsRatingsAverageAllTime.valoracionImpulsividad } : 0]],
+    [[${ statsRatingsAverageAllTime.valoracionConstancia } != null ? ${ statsRatingsAverageAllTime.valoracionConstancia } : 0]],
+    [[${ statsRatingsAverageAllTime.valoracionTolerancia } != null ? ${ statsRatingsAverageAllTime.valoracionTolerancia } : 0]],
+    [[${ statsRatingsAverageAllTime.valoracionControlPrepotencia } != null ? ${ statsRatingsAverageAllTime.valoracionControlPrepotencia } : 0]],
+    [[${ statsRatingsAverageAllTime.valoracionHonestidad } != null ? ${ statsRatingsAverageAllTime.valoracionHonestidad } : 0]],
+    [[${ statsRatingsAverageAllTime.valoracionAceptacion } != null ? ${ statsRatingsAverageAllTime.valoracionAceptacion } : 0]],
+    [[${ statsRatingsAverageAllTime.valoracionConsecucionObjetivos } != null ? ${ statsRatingsAverageAllTime.valoracionConsecucionObjetivos } : 0]]
+];
+
+console.log('Average Ratings Data:', averageRatingsAllTime);
+
+var data = {
+    labels: ['Disciplina', 'Orden', 'Impulsividad', 'Constancia', 'Tolerancia', 'Control Prepotencia', 'Honestidad', 'Aceptacion', 'Consecucion Objetivos'],
+    datasets: [{
+        label: '',
+        data: averageRatingsAllTime,  // Use the injected array data here
+        backgroundColor: 'rgba(75, 192, 192, 0.2)', // Light green
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+    }]
+};
+
+var config = {
+    type: 'bar', // Bar chart type
+    data: data,
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 10, // Set max value for Y axis
+                ticks: {
+                    color: 'white', // Make Y-axis labels white
+                }
+            },
+            x: {
+                ticks: {
+                    color: 'white', // Make X-axis labels white
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    display: false,
+                }
+            }
+        }
+    }
+};
+
+var ratingsChart = new Chart(
+    document.getElementById('chartAverageRatingsAllTime'),
+    config
+);
+
+// ANÁLISIS PERSONAL: MEDIA DE VALORACIONES (7d) 
+var averageRatings7d = [
+    [[${ statsRatingsAverageWeek.valoracionDisciplina } != null ? ${ statsRatingsAverageWeek.valoracionDisciplina } : 0]],
+    [[${ statsRatingsAverageWeek.valoracionOrden } != null ? ${ statsRatingsAverageWeek.valoracionOrden } : 0]],
+    [[${ statsRatingsAverageWeek.valoracionImpulsividad } != null ? ${ statsRatingsAverageWeek.valoracionImpulsividad } : 0]],
+    [[${ statsRatingsAverageWeek.valoracionConstancia } != null ? ${ statsRatingsAverageWeek.valoracionConstancia } : 0]],
+    [[${ statsRatingsAverageWeek.valoracionTolerancia } != null ? ${ statsRatingsAverageWeek.valoracionTolerancia } : 0]],
+    [[${ statsRatingsAverageWeek.valoracionControlPrepotencia } != null ? ${ statsRatingsAverageWeek.valoracionControlPrepotencia } : 0]],
+    [[${ statsRatingsAverageWeek.valoracionHonestidad } != null ? ${ statsRatingsAverageWeek.valoracionHonestidad } : 0]],
+    [[${ statsRatingsAverageWeek.valoracionAceptacion } != null ? ${ statsRatingsAverageWeek.valoracionAceptacion } : 0]],
+    [[${ statsRatingsAverageWeek.valoracionConsecucionObjetivos } != null ? ${ statsRatingsAverageWeek.valoracionConsecucionObjetivos } : 0]]
+];
+
+
+console.log('Average Ratings Data:', averageRatings7d);
+
+var data = {
+    labels: ['Disciplina', 'Orden', 'Impulsividad', 'Constancia', 'Tolerancia', 'Control Prepotencia', 'Honestidad', 'Aceptacion', 'Consecucion Objetivos'],
+    datasets: [{
+        label: '',
+        data: averageRatings7d,  // Use the injected array data here
+        backgroundColor: 'rgba(75, 192, 192, 0.2)', // Light green
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+    }]
+};
+
+var config = {
+    type: 'bar', // Bar chart type
+    data: data,
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 10, // Set max value for Y axis
+                ticks: {
+                    color: 'white', // Make Y-axis labels white
+                }
+            },
+            x: {
+                ticks: {
+                    color: 'white', // Make X-axis labels white
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    display: false,
+                }
+            }
+        }
+    }
+};
+
+var ratingsChart = new Chart(
+    document.getElementById('chartAverageRatings7d'),
+    config
+);
+
+// ANÁLISIS PERSONAL: MEDIA DE VALORACIONES (1m) 
+var averageRatings1m = [
+    [[${ statsRatingsAverageMonth.valoracionDisciplina } != null ? ${ statsRatingsAverageMonth.valoracionDisciplina } : 0]],
+    [[${ statsRatingsAverageMonth.valoracionOrden } != null ? ${ statsRatingsAverageMonth.valoracionOrden } : 0]],
+    [[${ statsRatingsAverageMonth.valoracionImpulsividad } != null ? ${ statsRatingsAverageMonth.valoracionImpulsividad } : 0]],
+    [[${ statsRatingsAverageMonth.valoracionConstancia } != null ? ${ statsRatingsAverageMonth.valoracionConstancia } : 0]],
+    [[${ statsRatingsAverageMonth.valoracionTolerancia } != null ? ${ statsRatingsAverageMonth.valoracionTolerancia } : 0]],
+    [[${ statsRatingsAverageMonth.valoracionControlPrepotencia } != null ? ${ statsRatingsAverageMonth.valoracionControlPrepotencia } : 0]],
+    [[${ statsRatingsAverageMonth.valoracionHonestidad } != null ? ${ statsRatingsAverageMonth.valoracionHonestidad } : 0]],
+    [[${ statsRatingsAverageMonth.valoracionAceptacion } != null ? ${ statsRatingsAverageMonth.valoracionAceptacion } : 0]],
+    [[${ statsRatingsAverageMonth.valoracionConsecucionObjetivos } != null ? ${ statsRatingsAverageMonth.valoracionConsecucionObjetivos } : 0]]
+];
+
+
+console.log('Average Ratings Data:', averageRatings1m);
+
+var data = {
+    labels: ['Disciplina', 'Orden', 'Impulsividad', 'Constancia', 'Tolerancia', 'Control Prepotencia', 'Honestidad', 'Aceptacion', 'Consecucion Objetivos'],
+    datasets: [{
+        label: '',
+        data: averageRatings1m,  // Use the injected array data here
+        backgroundColor: 'rgba(75, 192, 192, 0.2)', // Light green
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+    }]
+};
+
+var config = {
+    type: 'bar', // Bar chart type
+    data: data,
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 10, // Set max value for Y axis
+                ticks: {
+                    color: 'white', // Make Y-axis labels white
+                }
+            },
+            x: {
+                ticks: {
+                    color: 'white', // Make X-axis labels white
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    display: false,
+                }
+            }
+        }
+    }
+};
+
+var ratingsChart = new Chart(
+    document.getElementById('chartAverageRatings1m'),
+    config
+);
+
+// ANÁLISIS PERSONAL: MEDIA DE VALORACIONES (1m) 
+var averageRatingsDateRange = [
+    [[${ statsRatingsAverageDateRange.valoracionDisciplina } != null ? ${ statsRatingsAverageDateRange.valoracionDisciplina } : 0]],
+    [[${ statsRatingsAverageDateRange.valoracionOrden } != null ? ${ statsRatingsAverageDateRange.valoracionOrden } : 0]],
+    [[${ statsRatingsAverageDateRange.valoracionImpulsividad } != null ? ${ statsRatingsAverageDateRange.valoracionImpulsividad } : 0]],
+    [[${ statsRatingsAverageDateRange.valoracionConstancia } != null ? ${ statsRatingsAverageDateRange.valoracionConstancia } : 0]],
+    [[${ statsRatingsAverageDateRange.valoracionTolerancia } != null ? ${ statsRatingsAverageDateRange.valoracionTolerancia } : 0]],
+    [[${ statsRatingsAverageDateRange.valoracionControlPrepotencia } != null ? ${ statsRatingsAverageDateRange.valoracionControlPrepotencia } : 0]],
+    [[${ statsRatingsAverageDateRange.valoracionHonestidad } != null ? ${ statsRatingsAverageDateRange.valoracionHonestidad } : 0]],
+    [[${ statsRatingsAverageDateRange.valoracionAceptacion } != null ? ${ statsRatingsAverageDateRange.valoracionAceptacion } : 0]],
+    [[${ statsRatingsAverageDateRange.valoracionConsecucionObjetivos } != null ? ${ statsRatingsAverageDateRange.valoracionConsecucionObjetivos } : 0]]
+];
+
+
+console.log('Average Ratings Data:', averageRatingsDateRange);
+
+var data = {
+    labels: ['Disciplina', 'Orden', 'Impulsividad', 'Constancia', 'Tolerancia', 'Control Prepotencia', 'Honestidad', 'Aceptacion', 'Consecucion Objetivos'],
+    datasets: [{
+        label: '',
+        data: averageRatingsDateRange,  // Use the injected array data here
+        backgroundColor: 'rgba(75, 192, 192, 0.2)', // Light green
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1
+    }]
+};
+
+var config = {
+    type: 'bar', // Bar chart type
+    data: data,
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 10, // Set max value for Y axis
+                ticks: {
+                    color: 'white', // Make Y-axis labels white
+                }
+            },
+            x: {
+                ticks: {
+                    color: 'white', // Make X-axis labels white
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    display: false,
+                }
+            }
+        }
+    }
+};
+
+var ratingsChart = new Chart(
+    document.getElementById('chartAverageRatingsDateRange'),
+    config
+);

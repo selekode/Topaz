@@ -10,13 +10,9 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.selekode.topaz.model.JournalEntry;
-import com.selekode.topaz.model.RevisionEntry;
-import com.selekode.topaz.model.StatsEntryCount;
+import com.selekode.topaz.model.PersonalRatings;
 import com.selekode.topaz.model.StatsActivityPerDayOfWeek;
 import com.selekode.topaz.model.StatsEmotionFrequency;
 
@@ -377,61 +373,143 @@ public interface StatsRepository {
 	}
 
 	public static StatsEmotionFrequency getEmotionCountDateRange(Long startDate, Long endDate) {
-	    String sql = """
-	                SELECT
-	                    SUM(CASE WHEN emocionAlegria = 1 THEN 1 ELSE 0 END) AS emocionAlegriaCount,
-	                    SUM(CASE WHEN emocionTristeza = 1 THEN 1 ELSE 0 END) AS emocionTristezaCount,
-	                    SUM(CASE WHEN emocionIra = 1 THEN 1 ELSE 0 END) AS emocionIraCount,
-	                    SUM(CASE WHEN emocionMiedo = 1 THEN 1 ELSE 0 END) AS emocionMiedoCount,
-	                    SUM(CASE WHEN emocionAnsiedad = 1 THEN 1 ELSE 0 END) AS emocionAnsiedadCount,
-	                    SUM(CASE WHEN emocionAmor = 1 THEN 1 ELSE 0 END) AS emocionAmorCount,
-	                    SUM(CASE WHEN emocionSorpresa = 1 THEN 1 ELSE 0 END) AS emocionSorpresaCount,
-	                    SUM(CASE WHEN emocionVerguenza = 1 THEN 1 ELSE 0 END) AS emocionVerguenzaCount,
-	                    SUM(CASE WHEN emocionFrustracion = 1 THEN 1 ELSE 0 END) AS emocionFrustracionCount,
-	                    SUM(CASE WHEN emocionSatisfaccion = 1 THEN 1 ELSE 0 END) AS emocionSatisfaccionCount,
-	                    SUM(CASE WHEN emocionAburrimiento = 1 THEN 1 ELSE 0 END) AS emocionAburrimientoCount,
-	                    SUM(CASE WHEN emocionSerenidad = 1 THEN 1 ELSE 0 END) AS emocionSerenidadCount,
-	                    SUM(CASE WHEN emocionConfianza = 1 THEN 1 ELSE 0 END) AS emocionConfianzaCount,
-	                    SUM(CASE WHEN emocionAbrumado = 1 THEN 1 ELSE 0 END) AS emocionAbrumadoCount,
-	                    SUM(CASE WHEN emocionEsperanza = 1 THEN 1 ELSE 0 END) AS emocionEsperanzaCount
-	                FROM revision
-	                WHERE date BETWEEN ? AND ?;
-	            """;
+		String sql = """
+				    SELECT
+				        SUM(CASE WHEN emocionAlegria = 1 THEN 1 ELSE 0 END) AS emocionAlegriaCount,
+				        SUM(CASE WHEN emocionTristeza = 1 THEN 1 ELSE 0 END) AS emocionTristezaCount,
+				        SUM(CASE WHEN emocionIra = 1 THEN 1 ELSE 0 END) AS emocionIraCount,
+				        SUM(CASE WHEN emocionMiedo = 1 THEN 1 ELSE 0 END) AS emocionMiedoCount,
+				        SUM(CASE WHEN emocionAnsiedad = 1 THEN 1 ELSE 0 END) AS emocionAnsiedadCount,
+				        SUM(CASE WHEN emocionAmor = 1 THEN 1 ELSE 0 END) AS emocionAmorCount,
+				        SUM(CASE WHEN emocionSorpresa = 1 THEN 1 ELSE 0 END) AS emocionSorpresaCount,
+				        SUM(CASE WHEN emocionVerguenza = 1 THEN 1 ELSE 0 END) AS emocionVerguenzaCount,
+				        SUM(CASE WHEN emocionFrustracion = 1 THEN 1 ELSE 0 END) AS emocionFrustracionCount,
+				        SUM(CASE WHEN emocionSatisfaccion = 1 THEN 1 ELSE 0 END) AS emocionSatisfaccionCount,
+				        SUM(CASE WHEN emocionAburrimiento = 1 THEN 1 ELSE 0 END) AS emocionAburrimientoCount,
+				        SUM(CASE WHEN emocionSerenidad = 1 THEN 1 ELSE 0 END) AS emocionSerenidadCount,
+				        SUM(CASE WHEN emocionConfianza = 1 THEN 1 ELSE 0 END) AS emocionConfianzaCount,
+				        SUM(CASE WHEN emocionAbrumado = 1 THEN 1 ELSE 0 END) AS emocionAbrumadoCount,
+				        SUM(CASE WHEN emocionEsperanza = 1 THEN 1 ELSE 0 END) AS emocionEsperanzaCount
+				    FROM revision
+				    WHERE date BETWEEN ? AND ?;
+				""";
 
-	    StatsEmotionFrequency emotionFrequency = new StatsEmotionFrequency(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	            "", 0, "", 0, "", 0, "", 0);
+		StatsEmotionFrequency emotionFrequency = new StatsEmotionFrequency(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				"", 0, "", 0, "", 0, "", 0);
+
+		try (Connection conn = DriverManager.getConnection(DB_URL);
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			pstmt.setLong(1, startDate);
+			pstmt.setLong(2, endDate);
+
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					emotionFrequency.setEmocionAlegriaCount(rs.getInt("emocionAlegriaCount"));
+					emotionFrequency.setEmocionTristezaCount(rs.getInt("emocionTristezaCount"));
+					emotionFrequency.setEmocionIraCount(rs.getInt("emocionIraCount"));
+					emotionFrequency.setEmocionMiedoCount(rs.getInt("emocionMiedoCount"));
+					emotionFrequency.setEmocionAnsiedadCount(rs.getInt("emocionAnsiedadCount"));
+					emotionFrequency.setEmocionAmorCount(rs.getInt("emocionAmorCount"));
+					emotionFrequency.setEmocionSorpresaCount(rs.getInt("emocionSorpresaCount"));
+					emotionFrequency.setEmocionVerguenzaCount(rs.getInt("emocionVerguenzaCount"));
+					emotionFrequency.setEmocionFrustracionCount(rs.getInt("emocionFrustracionCount"));
+					emotionFrequency.setEmocionSatisfaccionCount(rs.getInt("emocionSatisfaccionCount"));
+					emotionFrequency.setEmocionAburrimientoCount(rs.getInt("emocionAburrimientoCount"));
+					emotionFrequency.setEmocionSerenidadCount(rs.getInt("emocionSerenidadCount"));
+					emotionFrequency.setEmocionConfianzaCount(rs.getInt("emocionConfianzaCount"));
+					emotionFrequency.setEmocionAbrumadoCount(rs.getInt("emocionAbrumadoCount"));
+					emotionFrequency.setEmocionEsperanzaCount(rs.getInt("emocionEsperanzaCount"));
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return emotionFrequency;
+	}
+
+	public static List<PersonalRatings> getPersonalRatingsAllTime() {
+		List<PersonalRatings> personalRatings = new ArrayList<>();
+
+		// SQL query to fetch the required columns
+		String sql = "SELECT valoracionDisciplina, valoracionOrden, valoracionImpulsividad, valoracionConstancia, "
+				+ "valoracionTolerancia, valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion, "
+				+ "valoracionConsecucionObjetivos FROM revision";
+
+		try (Connection conn = DriverManager.getConnection(DB_URL);
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)) {
+
+			while (rs.next()) {
+				int valoracionDisciplina = rs.getInt("valoracionDisciplina");
+				int valoracionOrden = rs.getInt("valoracionOrden");
+				int valoracionImpulsividad = rs.getInt("valoracionImpulsividad");
+				int valoracionConstancia = rs.getInt("valoracionConstancia");
+				int valoracionTolerancia = rs.getInt("valoracionTolerancia");
+				int valoracionControlPrepotencia = rs.getInt("valoracionControlPrepotencia");
+				int valoracionHonestidad = rs.getInt("valoracionHonestidad");
+				int valoracionAceptacion = rs.getInt("valoracionAceptacion");
+				int valoracionConsecucionObjetivos = rs.getInt("valoracionConsecucionObjetivos");
+
+				// Create a new PersonalRatings object and add it to the list
+				PersonalRatings ratings = new PersonalRatings(valoracionDisciplina, valoracionOrden,
+						valoracionImpulsividad, valoracionConstancia, valoracionTolerancia,
+						valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion,
+						valoracionConsecucionObjetivos);
+
+				personalRatings.add(ratings);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return personalRatings;
+	}
+
+	public static List<PersonalRatings> getPersonalRatingsDateRange(long dateStart, long dateEnd) {
+	    List<PersonalRatings> personalRatings = new ArrayList<>();
+
+	    // SQL query to fetch the required columns, using placeholders for the dates
+	    String sql = "SELECT valoracionDisciplina, valoracionOrden, valoracionImpulsividad, valoracionConstancia, "
+	               + "valoracionTolerancia, valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion, "
+	               + "valoracionConsecucionObjetivos "
+	               + "FROM revision "
+	               + "WHERE date >= ? AND date <= ?";
 
 	    try (Connection conn = DriverManager.getConnection(DB_URL);
 	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-	        pstmt.setLong(1, startDate);
-	        pstmt.setLong(2, endDate);
+	        // Set the parameters for the date range
+	        pstmt.setLong(1, dateStart);
+	        pstmt.setLong(2, dateEnd);
 
+	        // Execute the query
 	        try (ResultSet rs = pstmt.executeQuery()) {
-	            if (rs.next()) {
-	                emotionFrequency.setEmocionAlegriaCount(rs.getInt("emocionAlegriaCount"));
-	                emotionFrequency.setEmocionTristezaCount(rs.getInt("emocionTristezaCount"));
-	                emotionFrequency.setEmocionIraCount(rs.getInt("emocionIraCount"));
-	                emotionFrequency.setEmocionMiedoCount(rs.getInt("emocionMiedoCount"));
-	                emotionFrequency.setEmocionAnsiedadCount(rs.getInt("emocionAnsiedadCount"));
-	                emotionFrequency.setEmocionAmorCount(rs.getInt("emocionAmorCount"));
-	                emotionFrequency.setEmocionSorpresaCount(rs.getInt("emocionSorpresaCount"));
-	                emotionFrequency.setEmocionVerguenzaCount(rs.getInt("emocionVerguenzaCount"));
-	                emotionFrequency.setEmocionFrustracionCount(rs.getInt("emocionFrustracionCount"));
-	                emotionFrequency.setEmocionSatisfaccionCount(rs.getInt("emocionSatisfaccionCount"));
-	                emotionFrequency.setEmocionAburrimientoCount(rs.getInt("emocionAburrimientoCount"));
-	                emotionFrequency.setEmocionSerenidadCount(rs.getInt("emocionSerenidadCount"));
-	                emotionFrequency.setEmocionConfianzaCount(rs.getInt("emocionConfianzaCount"));
-	                emotionFrequency.setEmocionAbrumadoCount(rs.getInt("emocionAbrumadoCount"));
-	                emotionFrequency.setEmocionEsperanzaCount(rs.getInt("emocionEsperanzaCount"));
+	            while (rs.next()) {
+	                int valoracionDisciplina = rs.getInt("valoracionDisciplina");
+	                int valoracionOrden = rs.getInt("valoracionOrden");
+	                int valoracionImpulsividad = rs.getInt("valoracionImpulsividad");
+	                int valoracionConstancia = rs.getInt("valoracionConstancia");
+	                int valoracionTolerancia = rs.getInt("valoracionTolerancia");
+	                int valoracionControlPrepotencia = rs.getInt("valoracionControlPrepotencia");
+	                int valoracionHonestidad = rs.getInt("valoracionHonestidad");
+	                int valoracionAceptacion = rs.getInt("valoracionAceptacion");
+	                int valoracionConsecucionObjetivos = rs.getInt("valoracionConsecucionObjetivos");
+
+	                // Create a new PersonalRatings object and add it to the list
+	                PersonalRatings ratings = new PersonalRatings(valoracionDisciplina, valoracionOrden,
+	                        valoracionImpulsividad, valoracionConstancia, valoracionTolerancia,
+	                        valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion,
+	                        valoracionConsecucionObjetivos);
+
+	                personalRatings.add(ratings);
 	            }
 	        }
-
-	    } catch (Exception e) {
+	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
-
-	    return emotionFrequency;
+	    return personalRatings;
 	}
 
 

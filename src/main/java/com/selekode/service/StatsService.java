@@ -1,5 +1,6 @@
 package com.selekode.service;
 
+import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -16,31 +17,32 @@ import com.selekode.repository.StatsRepository;
 import com.selekode.topaz.model.StatsDateRange;
 import com.selekode.topaz.model.StatsEmotionFrequency;
 import com.selekode.topaz.model.StatsEntryCount;
+import com.selekode.topaz.model.PersonalRatings;
 import com.selekode.topaz.model.StatsActivityPerDayOfWeek;
 
 @Service
 public class StatsService {
 	public static StatsDateRange getDateRangeLastWeek() {
-		long unixWeek = 604800; 
+		long unixWeek = 604800;
 		long dateEnd = Instant.now().getEpochSecond();
 		long dateStart = dateEnd - unixWeek;
-		
+
 		String dateStartStr = convertDateLongToStr(dateStart);
 		String dateEndStr = convertDateLongToStr(dateEnd);
 		StatsDateRange dateRangeLastWeek = new StatsDateRange(dateStartStr, dateEndStr);
 
 		return dateRangeLastWeek;
 	}
-	
+
 	public static StatsDateRange getDateRangeLastMonth() {
-		long unixWeek = 2629746; 
+		long unixWeek = 2629746;
 		long dateEnd = Instant.now().getEpochSecond();
 		long dateStart = dateEnd - unixWeek;
-		
+
 		String dateStartStr = convertDateLongToStr(dateStart);
 		String dateEndStr = convertDateLongToStr(dateEnd);
 		StatsDateRange dateRangeLastWeek = new StatsDateRange(dateStartStr, dateEndStr);
-		
+
 		return dateRangeLastWeek;
 	}
 
@@ -105,10 +107,9 @@ public class StatsService {
 	public static String convertDateLongToStr(long dateLong) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy").withZone(ZoneId.systemDefault());
 		String dateStr = Instant.ofEpochSecond(dateLong).atZone(ZoneId.systemDefault()).format(formatter);
-		
+
 		return dateStr;
 	}
-
 
 	public static StatsActivityPerDayOfWeek getActivityPerDayOfWeekAllTime() {
 		// Retreives row count from DB, adds them to activityPerDayOfWeek, leaving two
@@ -529,4 +530,191 @@ public class StatsService {
 		return emotionFrequency;
 	}
 
+	public static PersonalRatings getRatingsAverageAllTime() {
+		List<PersonalRatings> personalRatings = null;
+		personalRatings = StatsRepository.getPersonalRatingsAllTime();
+
+
+		if (personalRatings.isEmpty()) {
+			return new PersonalRatings(0, 0, 0, 0, 0, 0, 0, 0, 0); // Return zeroed object if list is empty
+		}
+
+		int totalEntries = personalRatings.size();
+		int totalDisciplina = 0, totalOrden = 0, totalImpulsividad = 0, totalConstancia = 0;
+		int totalTolerancia = 0, totalControlPrepotencia = 0, totalHonestidad = 0, totalAceptacion = 0;
+		int totalConsecucionObjetivos = 0;
+
+		// Sum all values for each rating field
+		for (PersonalRatings ratings : personalRatings) {
+			totalDisciplina += ratings.getValoracionDisciplina();
+			totalOrden += ratings.getValoracionOrden();
+			totalImpulsividad += ratings.getValoracionImpulsividad();
+			totalConstancia += ratings.getValoracionConstancia();
+			totalTolerancia += ratings.getValoracionTolerancia();
+			totalControlPrepotencia += ratings.getValoracionControlPrepotencia();
+			totalHonestidad += ratings.getValoracionHonestidad();
+			totalAceptacion += ratings.getValoracionAceptacion();
+			totalConsecucionObjetivos += ratings.getValoracionConsecucionObjetivos();
+		}
+
+		// Calculate the averages for each field
+		int avgDisciplina = totalDisciplina / totalEntries;
+		int avgOrden = totalOrden / totalEntries;
+		int avgImpulsividad = totalImpulsividad / totalEntries;
+		int avgConstancia = totalConstancia / totalEntries;
+		int avgTolerancia = totalTolerancia / totalEntries;
+		int avgControlPrepotencia = totalControlPrepotencia / totalEntries;
+		int avgHonestidad = totalHonestidad / totalEntries;
+		int avgAceptacion = totalAceptacion / totalEntries;
+		int avgConsecucionObjetivos = totalConsecucionObjetivos / totalEntries;
+		
+		PersonalRatings ratingsAverage = new PersonalRatings(avgDisciplina, avgOrden, avgImpulsividad, avgConstancia, avgTolerancia,
+				avgControlPrepotencia, avgHonestidad, avgAceptacion, avgConsecucionObjetivos); 
+
+		// Return a new PersonalRatings object containing the averages
+		
+		System.out.println("AverageRatings:" + ratingsAverage.toString());
+		return ratingsAverage;
+	}
+
+	
+	public static PersonalRatings getRatingsAverageWeek() {
+		long unixWeek = 604800;
+		long dateEnd = Instant.now().getEpochSecond();
+		long dateStart = dateEnd - unixWeek;
+		
+		List<PersonalRatings> personalRatings = null;
+		personalRatings = StatsRepository.getPersonalRatingsDateRange(dateStart,dateEnd);
+		
+		if (personalRatings.isEmpty()) {
+			return new PersonalRatings(0, 0, 0, 0, 0, 0, 0, 0, 0); // Return zeroed object if list is empty
+		}
+		
+		int totalEntries = personalRatings.size();
+		int totalDisciplina = 0, totalOrden = 0, totalImpulsividad = 0, totalConstancia = 0;
+		int totalTolerancia = 0, totalControlPrepotencia = 0, totalHonestidad = 0, totalAceptacion = 0;
+		int totalConsecucionObjetivos = 0;
+		
+		// Sum all values for each rating field
+		for (PersonalRatings ratings : personalRatings) {
+			totalDisciplina += ratings.getValoracionDisciplina();
+			totalOrden += ratings.getValoracionOrden();
+			totalImpulsividad += ratings.getValoracionImpulsividad();
+			totalConstancia += ratings.getValoracionConstancia();
+			totalTolerancia += ratings.getValoracionTolerancia();
+			totalControlPrepotencia += ratings.getValoracionControlPrepotencia();
+			totalHonestidad += ratings.getValoracionHonestidad();
+			totalAceptacion += ratings.getValoracionAceptacion();
+			totalConsecucionObjetivos += ratings.getValoracionConsecucionObjetivos();
+		}
+		
+		// Calculate the averages for each field
+		int avgDisciplina = totalDisciplina / totalEntries;
+		int avgOrden = totalOrden / totalEntries;
+		int avgImpulsividad = totalImpulsividad / totalEntries;
+		int avgConstancia = totalConstancia / totalEntries;
+		int avgTolerancia = totalTolerancia / totalEntries;
+		int avgControlPrepotencia = totalControlPrepotencia / totalEntries;
+		int avgHonestidad = totalHonestidad / totalEntries;
+		int avgAceptacion = totalAceptacion / totalEntries;
+		int avgConsecucionObjetivos = totalConsecucionObjetivos / totalEntries;
+		
+		PersonalRatings ratingsAverage = new PersonalRatings(avgDisciplina, avgOrden, avgImpulsividad, avgConstancia, avgTolerancia,
+				avgControlPrepotencia, avgHonestidad, avgAceptacion, avgConsecucionObjetivos); 
+		
+		return ratingsAverage;
+	}
+
+	public static PersonalRatings getRatingsAverageMonth() {
+		long unixMonth = 2629746;
+		long dateEnd = Instant.now().getEpochSecond();
+		long dateStart = dateEnd - unixMonth;
+		
+		List<PersonalRatings> personalRatings = null;
+		personalRatings = StatsRepository.getPersonalRatingsDateRange(dateStart,dateEnd);
+
+		if (personalRatings.isEmpty()) {
+			return new PersonalRatings(0, 0, 0, 0, 0, 0, 0, 0, 0); // Return zeroed object if list is empty
+		}
+
+		int totalEntries = personalRatings.size();
+		int totalDisciplina = 0, totalOrden = 0, totalImpulsividad = 0, totalConstancia = 0;
+		int totalTolerancia = 0, totalControlPrepotencia = 0, totalHonestidad = 0, totalAceptacion = 0;
+		int totalConsecucionObjetivos = 0;
+
+		// Sum all values for each rating field
+		for (PersonalRatings ratings : personalRatings) {
+			totalDisciplina += ratings.getValoracionDisciplina();
+			totalOrden += ratings.getValoracionOrden();
+			totalImpulsividad += ratings.getValoracionImpulsividad();
+			totalConstancia += ratings.getValoracionConstancia();
+			totalTolerancia += ratings.getValoracionTolerancia();
+			totalControlPrepotencia += ratings.getValoracionControlPrepotencia();
+			totalHonestidad += ratings.getValoracionHonestidad();
+			totalAceptacion += ratings.getValoracionAceptacion();
+			totalConsecucionObjetivos += ratings.getValoracionConsecucionObjetivos();
+		}
+
+		// Calculate the averages for each field
+		int avgDisciplina = totalDisciplina / totalEntries;
+		int avgOrden = totalOrden / totalEntries;
+		int avgImpulsividad = totalImpulsividad / totalEntries;
+		int avgConstancia = totalConstancia / totalEntries;
+		int avgTolerancia = totalTolerancia / totalEntries;
+		int avgControlPrepotencia = totalControlPrepotencia / totalEntries;
+		int avgHonestidad = totalHonestidad / totalEntries;
+		int avgAceptacion = totalAceptacion / totalEntries;
+		int avgConsecucionObjetivos = totalConsecucionObjetivos / totalEntries;
+		
+		PersonalRatings ratingsAverage = new PersonalRatings(avgDisciplina, avgOrden, avgImpulsividad, avgConstancia, avgTolerancia,
+				avgControlPrepotencia, avgHonestidad, avgAceptacion, avgConsecucionObjetivos); 
+
+		return ratingsAverage;
+	}
+
+	public static PersonalRatings getRatingsAverageDateRange(StatsDateRange statsDateRange) {
+		long dateStart = convertDateStrToLong(statsDateRange.getStartDate());
+		long dateEnd = convertDateStrToLong(statsDateRange.getEndDate());
+		
+		List<PersonalRatings> personalRatings = null;
+		personalRatings = StatsRepository.getPersonalRatingsDateRange(dateStart,dateEnd);
+
+		if (personalRatings.isEmpty()) {
+			return new PersonalRatings(0, 0, 0, 0, 0, 0, 0, 0, 0); // Return zeroed object if list is empty
+		}
+
+		int totalEntries = personalRatings.size();
+		int totalDisciplina = 0, totalOrden = 0, totalImpulsividad = 0, totalConstancia = 0;
+		int totalTolerancia = 0, totalControlPrepotencia = 0, totalHonestidad = 0, totalAceptacion = 0;
+		int totalConsecucionObjetivos = 0;
+
+		// Sum all values for each rating field
+		for (PersonalRatings ratings : personalRatings) {
+			totalDisciplina += ratings.getValoracionDisciplina();
+			totalOrden += ratings.getValoracionOrden();
+			totalImpulsividad += ratings.getValoracionImpulsividad();
+			totalConstancia += ratings.getValoracionConstancia();
+			totalTolerancia += ratings.getValoracionTolerancia();
+			totalControlPrepotencia += ratings.getValoracionControlPrepotencia();
+			totalHonestidad += ratings.getValoracionHonestidad();
+			totalAceptacion += ratings.getValoracionAceptacion();
+			totalConsecucionObjetivos += ratings.getValoracionConsecucionObjetivos();
+		}
+
+		// Calculate the averages for each field
+		int avgDisciplina = totalDisciplina / totalEntries;
+		int avgOrden = totalOrden / totalEntries;
+		int avgImpulsividad = totalImpulsividad / totalEntries;
+		int avgConstancia = totalConstancia / totalEntries;
+		int avgTolerancia = totalTolerancia / totalEntries;
+		int avgControlPrepotencia = totalControlPrepotencia / totalEntries;
+		int avgHonestidad = totalHonestidad / totalEntries;
+		int avgAceptacion = totalAceptacion / totalEntries;
+		int avgConsecucionObjetivos = totalConsecucionObjetivos / totalEntries;
+		
+		PersonalRatings ratingsAverage = new PersonalRatings(avgDisciplina, avgOrden, avgImpulsividad, avgConstancia, avgTolerancia,
+				avgControlPrepotencia, avgHonestidad, avgAceptacion, avgConsecucionObjetivos); 
+		
+		return ratingsAverage;
+	}
 }

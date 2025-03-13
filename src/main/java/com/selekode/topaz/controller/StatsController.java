@@ -43,6 +43,11 @@ public class StatsController {
 		model.addAttribute("statsEmotionFrequencyMonth", StatsService.getEmotionFrequencyMonth());
 		model.addAttribute("statsEmotionFrequencyDateRange", StatsService.getEmotionFrequencyDateRange(statsDateRange));
 		
+		model.addAttribute("statsRatingsAverageAllTime", StatsService.getRatingsAverageAllTime());
+		model.addAttribute("statsRatingsAverageWeek", StatsService.getRatingsAverageWeek());
+		model.addAttribute("statsRatingsAverageMonth", StatsService.getRatingsAverageMonth());
+		model.addAttribute("statsRatingsAverageDateRange", StatsService.getRatingsAverageDateRange(statsDateRange));
+		
 		return "stats_calculated";
 	}
 }
