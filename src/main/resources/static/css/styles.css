@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
+
+/* Hide AOS elements until they're initialized */
+[data-aos] {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* Show elements once AOS is initialized */
+.aos-animate {
+    opacity: 1;
+}
+
+body {
+    font-family: 'Ubuntu', sans-serif !important;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+}
+
+.modal-content {
+    background-color: #172E38;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Fix the sidebar to stay in place */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh; /* Full viewport height */
+    overflow-y: auto;
+}
+
+/* Adjust the main content to avoid being hidden under the sidebar */
+.main-content {
+    margin-left: 16rem; /* This matches the sidebar width */
+}
+
+
+.chart-container {
+    width: 100%;
+    max-width: 60%;  /* Make sure the container takes up a maximum of 60% of its parent */
+}
+
+canvas {
+    width: 100%;  /* Ensure the canvas expands to the full width of its container */
+    height: auto;
+}

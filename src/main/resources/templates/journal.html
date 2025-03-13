@@ -6,9 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topaz</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script th:src="@{/js/tailwind.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
+
+        html {
+            background-color: #0F2529;
+        }
 
         body {
             font-family: 'Ubuntu', sans-serif !important;
@@ -19,13 +26,15 @@
             position: fixed;
             top: 0;
             left: 0;
-            height: 100vh; /* Full viewport height */
+            height: 100vh;
+            /* Full viewport height */
             overflow-y: auto;
         }
 
         /* Adjust the main content to avoid being hidden under the sidebar */
         .main-content {
-            margin-left: 16rem; /* This matches the sidebar width */
+            margin-left: 16rem;
+            /* This matches the sidebar width */
         }
 
         /* Modal background color */
@@ -40,8 +49,10 @@
             overflow: auto;
             justify-content: center;
             align-items: center;
-            background-color: #172E38; /* Updated background */
-            opacity: 0.9; /* Slight transparency */
+            background-color: #172E38;
+            /* Updated background */
+            opacity: 0.9;
+            /* Slight transparency */
         }
 
         .modal-content {
@@ -59,19 +70,6 @@
             display: none;
         }
     </style>
-    <script>
-        function openModal(id) {
-            console.log("Opening modal for entry with ID: " + id);  // Debug log
-            document.getElementById('journalId').value = id;
-            document.getElementById('confirmModal').classList.remove('hidden');
-            console.log("Modal should now be visible");
-        }
-
-        function closeModal() {
-            console.log("Closing modal");  // Debug log
-            document.getElementById('confirmModal').classList.add('hidden');
-        }
-    </script>
 </head>
 
 <body class="bg-[#0F2529] font-sans leading-normal tracking-normal flex min-h-screen">
@@ -82,31 +80,52 @@
         <div class="flex items-center mb-6 mt-2 flex-col">
             <img th:src="@{/images/topaz-logo-text.png}" alt="Logo" class="w-[120px] select-none">
         </div>
-        
+
         <!-- Horizontal Rule -->
         <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
 
         <!-- Buttons Section -->
         <div class="space-y-4 w-full flex flex-col items-center">
-            <a href="/journal/addEntry">
-                <button class="w-12 h-12 rounded-full bg-[#23A3BB] font-bold text-white flex items-center justify-center hover:bg-[#1A8F9A] mb-4 transition-colors duration-300">
-                    +
+            <!-- Rounded buttons for other actions -->
+            <a href="/journal/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
+                    Diario
+                </button>
+            </a>
+            <a href="/revision/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Revisión
+                </button>
+            </a>
+            <a href="/stats/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Estadísticas
+                </button>
+            </a>
+            <a href="/meditacion/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Meditación
+                </button>
+            </a>
+            <a href="/about" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Sobre Topaz
                 </button>
             </a>
 
-            <!-- Rounded buttons for other actions -->
-            <button class="w-full text-left py-2 px-4 bg-[#1A7C84] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
-                <a href="/journal/load">Diario</a>
-            </button>
-            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
-                Revisión
-            </button>
-            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
-                Stats
-            </button>
-            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
-                Sobre Topaz
-            </button>
+            <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+
+            <a href="/journal/addEntry">
+                <button
+                    class="w-12 h-12 rounded-full bg-[#23A3BB] font-bold text-white flex items-center justify-center hover:bg-[#1A8F9A] mb-4 transition-colors duration-300">
+                    +
+                </button>
+            </a>
         </div>
     </div>
 
@@ -114,39 +133,75 @@
     <!-- Main content -->
     <div class="main-content  flex-grow bg-[#0F2529] p-6">
         <main class="container mx-auto mt-6 p-4">
-        <!-- Iterate over journal entries -->
-        <div th:each="journalEntry : ${journalEntries}" class="bg-[#172E38] p-6 rounded-lg shadow-2xl mb-6 flex items-center justify-between">
-            <div class="mr-4"> <!-- Added margin-right to create space -->
-                <p class="text-lg italic font-bold mb-4" style="color: #23A3BB;" th:text="${journalEntry.date}"></p>
-                <h2 class="text-2xl font-bold mb-4" style="color: #FFFFFF;" th:text="${journalEntry.title}"></h2>
-                <p class="text-base mb-4" th:text="${journalEntry.content}" style="color: #FFFFFF;"></p> <!-- Added margin-bottom here -->
+            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Diario</h1>
+
+            <!-- Iterate over journal entries -->
+            <div data-aos="fade-up" th:each="journalEntry : ${journalEntries}" x-data="{ open: false }"
+                class="relative bg-[#172E38] p-6 rounded-lg shadow-xl mb-6">
+                <!-- Buttons Positioned in the Top Right -->
+                <div class="absolute top-4 right-4 flex space-x-2">
+                    <!-- Show/Hide Button -->
+                    <button @click="open = !open"
+                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                        <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
+                    </button>
+
+                    <!-- Edit button -->
+                    <a th:href="@{/journal/editEntry/{id}(id=${journalEntry.id})}"
+                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                        Editar
+                    </a>
+
+                    <!-- Delete button -->
+                    <button th:attr="onclick='openModal(' + ${journalEntry.id} + ')'"
+                        class="px-4 py-2 rounded-full bg-[#E74C3C] text-white text-sm transition hover:bg-[#D63C2D]">
+                        Eliminar
+                    </button>
+                </div>
+
+                <!-- Journal Entry Content -->
+                <div class="mr-4">
+                    <!-- Date -->
+                    <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;" th:text="${journalEntry.date}"></p>
+
+                    <!-- Content to Show/Hide -->
+                    <div x-show="open" x-collapse>
+                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+
+                        <h2 class="text-2xl font-bold mb-4 text-white" th:text="${journalEntry.title}"></h2>
+                        <p class="text-base mb-4 text-white" th:text="${journalEntry.content}"></p>
+                    </div>
+                </div>
             </div>
-            <div class="space-y-4">
-                <!-- Edit button -->
-                <a th:href="@{/journal/editEntry/{id}(id=${journalEntry.id})}" 
-                class="w-28 h-10 rounded-full bg-[#23A3BB] text-white flex items-center justify-center transition-colors duration-300 hover:bg-[#1A8F9A]">
-                Editar
-                </a>        
-                <!-- Delete button with th:attr to safely add onclick handler -->
-                <button th:attr="onclick='openModal(' + ${journalEntry.id} + ')'" class="w-28 h-10 rounded-full bg-[#E74C3C] text-white flex items-center justify-center transition-colors duration-300 hover:bg-[#D63C2D]">Eliminar</button>
+
+            <!-- Modal HTML -->
+            <div id="confirmModal"
+                class="modal hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
+                <div class="modal-content rounded-lg p-6">
+                    <h3 class="text-lg text-justify text-white font-bold mb-4 select-none">¿Seguro que quieres eliminar
+                        está página del diario?</h3>
+                    <form id="deleteForm" method="post" action="deleteEntry">
+                        <input type="hidden" id="journalId" name="id" />
+                        <button type="submit"
+                            class="w-28 h-10 bg-[#23A3BB] text-white rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">Si,
+                            Eliminar</button>
+                        <button type="button"
+                            class="ml-4 w-28 h-10 bg-gray-500 text-white rounded-full transition-colors duration-300 hover:bg-gray-600 select-none"
+                            onclick="closeModal()">Cancelar</button>
+                    </form>
+                </div>
             </div>
-        </div>
-        
-        
-        <!-- Modal HTML -->
-        <div id="confirmModal" class="modal hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-            <div class="modal-content rounded-lg p-6">
-                <h3 class="text-lg text-justify text-white font-bold mb-4 select-none">¿Seguro que quieres eliminar está página del diario?</h3>
-                <form id="deleteForm" method="post" action="deleteEntry">
-                    <input type="hidden" id="journalId" name="id" />
-                    <button type="submit" class="w-28 h-10 bg-[#23A3BB] text-white rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">Si, Eliminar</button>
-                    <button type="button" class="ml-4 w-28 h-10 bg-gray-500 text-white rounded-full transition-colors duration-300 hover:bg-gray-600 select-none" onclick="closeModal()">Cancelar</button>
-                </form>
-            </div>
-        </div>
-        
+
         </main>
     </div>
+    <script th:src="@{/js/deleteFeature_openModal.js}" defer></script>
+    <script th:src="@{/js/aos.js}" defer></script>
+    <script th:src="@{/js/alpine.js}" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            AOS.init();
+        });
+    </script>
 </body>
 
 </html>

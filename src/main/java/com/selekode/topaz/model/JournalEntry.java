@@ -45,7 +45,4 @@ public class JournalEntry {
 	public void setContent(String content) {
 		this.content = content;
 	}
-
-	// Getters and setters
-
 }

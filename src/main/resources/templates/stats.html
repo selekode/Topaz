@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topaz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+    <script th:src="@{/js/tailwind.js}" defer></script>
+    <script th:src="@{/js/chart.js}" defer></script>
+    <script th:src="@{/js/flatpickr.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <link rel="stylesheet" th:href="@{/css/flatpickr.min.css}">
+</head>
+
+<body class="bg-[#0F2529] font-sans leading-normal tracking-normal flex min-h-screen">
+
+    <!-- Sidebar -->
+    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
+        <!-- Logo Section -->
+        <div class="flex items-center mb-6 mt-2 flex-col">
+            <img th:src="@{/images/topaz-logo-text.png}" alt="Logo" class="w-[120px] select-none">
+        </div>
+        
+        <!-- Horizontal Rule -->
+        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+
+        <!-- Buttons Section -->
+        <div class="space-y-4 w-full flex flex-col items-center">
+            <!-- Rounded buttons for other actions -->
+            <a href="/journal/load" class="block w-full">
+                <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Diario
+                </button>
+            </a>
+            <a href="/revision/load" class="block w-full">
+                <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Revisión
+                </button>
+            </a>
+            <a href="/stats/load" class="block w-full">
+                <button class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
+                    Estadísticas
+                </button>
+            </a>
+            <a href="/meditacion/load" class="block w-full">
+                    <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                        Meditación
+                    </button>
+                </a>
+                <a href="/about" class="block w-full">
+                    <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                        Sobre Topaz
+                    </button>
+                </a>
+
+            <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+
+        </div>
+    </div>
+
+
+    <!-- Main content -->
+    <div class="main-content  flex-grow bg-[#0F2529] p-6">
+        <main class="container mx-auto mt-6 p-4">
+            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Estadísticas</h1>
+
+            <div class="bg-[#172E38] p-6 rounded-lg shadow-xl" data-aos="fade-up">
+                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Descubre el data sobre tu diario y revisiones</p>
+                
+                <form th:action="@{/stats/calculateStats}" th:object="${statsDateRange}" method="POST" class="space-y-4">
+                    <div class="flex space-x-4">
+                        <div class="w-1/2">
+                            <label for="startDate" class="block text-base text-white">Fecha de Inicio</label>
+                            <input th:field="*{startDate}" type="text" name="startDate" id="startDate" required class="date-picker mt-1 block w-full p-2 border border-gray-600 rounded-lg bg-[#0F2529] text-white focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    
+                        <div class="w-1/2">
+                            <label for="endDate" class="block text-base text-white">Fecha de Fin</label>
+                            <input th:field="*{endDate}" type="text" name="endDate" id="endDate" required class="date-picker mt-1 block w-full p-2 border border-gray-600 rounded-lg bg-[#0F2529] text-white focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+                
+                    <div class="flex justify-end mt-4">
+                        <button type="submit" class="bg-[#23A3BB] transition hover:bg-[#1A8F9A] text-white text-sm py-2 px-6 rounded-full">Calcular</button>
+                    </div>
+                </form>
+            </div>
+
+            <script>
+                // Initialize Flatpickr for all date inputs
+                flatpickr(".date-picker", {
+                    enableTime: false,
+                    weekStart: 1, // Start the week on Monday
+                    dateFormat: "d-M-Y", // Format YYYY-MM-DD
+                    defaultDate: "1-Ene-2025",
+                    locale: "es" // Spanish locale
+                });
+            </script>
+
+        </main>
+    </div>
+
+    <script th:src="@{/js/deleteFeature_openModal.js}" defer></script>
+    <script  th:src="@{/js/aos.js}" defer></script>
+    <script th:src="@{/js/alpine.js}" defer></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            AOS.init();
+        });
+    </script>
+</body>
+
+</html>

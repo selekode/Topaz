@@ -9,7 +9,19 @@
     <script th:src="@{/js/tailwind.js}" defer></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        function openModal(id) {
+            console.log("Opening modal for entry with ID: " + id);  // Debug log
+            document.getElementById('journalId').value = id;
+            document.getElementById('confirmModal').classList.remove('hidden');
+            console.log("Modal should now be visible");
+        }
+
+        function closeModal() {
+            console.log("Closing modal");  // Debug log
+            document.getElementById('confirmModal').classList.add('hidden');
+        }
+    </script>
 </head>
 
 <body class="bg-[#0F2529] font-sans leading-normal tracking-normal flex min-h-screen">
@@ -24,12 +36,12 @@
         <!-- Horizontal Rule -->
         <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
 
+        <!-- Buttons Section -->
         <div class="space-y-4 w-full flex flex-col items-center">
-
             <!-- Rounded buttons for other actions -->
             <a href="/journal/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
                     Diario
                 </button>
             </a>
@@ -53,57 +65,33 @@
             </a>
             <a href="/about" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
                     Sobre Topaz
                 </button>
             </a>
 
             <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
 
-            <button
-                class="w-12 h-12 rounded-full bg-[#1A7C84] text-white flex items-center justify-center hover:bg-[#1A7C84] mb-4 transition-colors duration-300 font-bold">
-                +
-            </button>
         </div>
     </div>
 
+
     <!-- Main content -->
-    <div class="flex-grow bg-[#0F2529] p-6 main-content">
+    <div class="main-content  flex-grow bg-[#0F2529] p-6">
         <main class="container mx-auto mt-6 p-4">
-            <h1 class="text-2xl font-bold mb-4 text-white">Diario</h1>
+            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Sobre Topaz</h1>
 
-            <div data-aos="fade-left" class="bg-[#172E38] p-6 rounded-lg shadow-xl flex flex-col justify-between">
-                <div class="mb-4 flex items-center justify-between">
-                    <a href="/journal/load"
-                        class="text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Atrás</a>
-                    <h2 class="text-xl text-white font-bold select-none">Añadir Entrada al Diario</h2>
-                </div>
-
-                <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
-
-                <!-- Form to handle the journal entry -->
-                <form id="journalForm" action="#" method="POST" th:action="@{/journal/saveEntry}"
-                    th:object="${journalEntry}">
-                    <input type="text" name="title" id="title"
-                        class="text-xl font-bold mb-4 w-full bg-[#0F2529] text-white p-2 rounded-lg" placeholder="Title"
-                        th:value="${journalEntry.title}" />
-                    <textarea name="content" id="content"
-                        class="w-full h-96 resize-y p-4 rounded-lg bg-[#0F2529] text-white" style="min-height: 400px;"
-                        placeholder="¿Qué has hecho hoy?" th:value="${journalEntry.content}"></textarea>
-
-                    <input type="hidden" th:field="*{id}" value="2" />
-                    <input type="hidden" th:field="*{date}" value="2" />
-
-                    <div class="mt-4 flex item">
-                        <button type="submit" id="saveButton"
-                            class="ml-auto text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Guardar</button>
-                    </div>
-
-                </form>
+            <div class="bg-[#172E38] p-6 rounded-lg shadow-xl" data-aos="fade-up">
+                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Versión 0.0.2</p>
+                <p class="text-base mb-2 text-white">Topaz es una aplicación diseñada para ayudarte a registrar tus pensamientos, emociones y objetivos personales de manera sencilla. A través de entradas de diario, puedes reflexionar sobre tu día y hacer un seguimiento de tu bienestar.</p>
+                <p class="text-base mb-2 text-white">Además, Topaz ofrece estadísticas que analizan tus entradas de diario, mostrando patrones en tus emociones y productividad, lo que te permite comprender mejor tu progreso y tomar decisiones informadas para tu crecimiento personal.</p>
+                <p class="text-base mb-2 text-white">Finalmente, Topaz incluye una función de meditación con un temporizador ajustable, ayudándote a encontrar momentos de calma y concentración a lo largo del día.</p>
+            </div>
             </div>
         </main>
     </div>
 
+    </div>
     <script th:src="@{/js/deleteFeature_openModal.js}" defer></script>
     <script th:src="@{/js/aos.js}" defer></script>
     <script th:src="@{/js/alpine.js}" defer></script>
