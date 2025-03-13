@@ -26,61 +26,74 @@
 
 <body class="bg-[#0F2529] font-sans leading-normal tracking-normal flex min-h-screen">
 
-        <!-- Sidebar -->
-        <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
-            <!-- Logo Section -->
-            <div class="flex items-center mb-6 mt-2 flex-col">
-                <img th:src="@{/images/topaz-logo-text.png}" alt="Logo" class="w-[120px] select-none">
-            </div>
-            
-            <!-- Horizontal Rule -->
+    <!-- Sidebar -->
+    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
+        <!-- Logo Section -->
+        <div class="flex items-center mb-6 mt-2 flex-col">
+            <img th:src="@{/images/topaz-logo-text.png}" alt="Logo" class="w-[120px] select-none">
+        </div>
+
+        <!-- Horizontal Rule -->
+        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+
+        <!-- Buttons Section -->
+        <div class="space-y-4 w-full flex flex-col items-center">
+            <!-- Rounded buttons for other actions -->
+            <a href="/journal/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Diario
+                </button>
+            </a>
+            <a href="/revision/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Revisión
+                </button>
+            </a>
+            <a href="/stats/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Estadísticas
+                </button>
+            </a>
+            <a href="/meditacion/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Meditación
+                </button>
+            </a>
+            <a href="/about" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
+                    Sobre Topaz
+                </button>
+            </a>
+
             <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
 
-            <!-- Buttons Section -->
-            <div class="space-y-4 w-full flex flex-col items-center">
-                <!-- Rounded buttons for other actions -->
-                <a href="/journal/load" class="block w-full">
-                    <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
-                        Diario
-                    </button>
-                </a>
-                <a href="/revision/load" class="block w-full">
-                    <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
-                        Revisión
-                    </button>
-                </a>
-                <a href="/stats/load" class="block w-full">
-                    <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
-                        Estadísticas
-                    </button>
-                </a>
-                <a href="/about" class="block w-full">
-                    <button class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
-                        Sobre Topaz
-                    </button>
-                </a>
+        </div>
+    </div>
 
-                <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
 
+    <!-- Main content -->
+    <div class="main-content  flex-grow bg-[#0F2529] p-6">
+        <main class="container mx-auto mt-6 p-4">
+            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Sobre Topaz</h1>
+
+            <div class="bg-[#172E38] p-6 rounded-lg shadow-xl" data-aos="fade-up">
+                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Versión 0.0.2</p>
+                <p class="text-base mb-2 text-white">Topaz es una aplicación diseñada para ayudarte a registrar tus pensamientos, emociones y objetivos personales de manera sencilla. A través de entradas de diario, puedes reflexionar sobre tu día y hacer un seguimiento de tu bienestar.</p>
+                <p class="text-base mb-2 text-white">Además, Topaz ofrece estadísticas que analizan tus entradas de diario, mostrando patrones en tus emociones y productividad, lo que te permite comprender mejor tu progreso y tomar decisiones informadas para tu crecimiento personal.</p>
+                <p class="text-base mb-2 text-white">Finalmente, Topaz incluye una función de meditación con un temporizador ajustable, ayudándote a encontrar momentos de calma y concentración a lo largo del día.</p>
             </div>
-        </div>
+            </div>
+        </main>
+    </div>
 
-
-        <!-- Main content -->
-        <div class="main-content  flex-grow bg-[#0F2529] p-6">
-            <main class="container mx-auto mt-6 p-4">
-                <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Sobre Topaz</h1>
-
-                <div class="bg-[#172E38] p-6 rounded-lg shadow-xl" data-aos="fade-up">
-                    <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Versión 0.0.2</p>
-                    <h1 class="text-xl mb-2  text-white">Topaz es un diario y rastreador de emociones</h1>
-                </div>
-            </main>
-        </div>
-       
     </div>
     <script th:src="@{/js/deleteFeature_openModal.js}" defer></script>
-    <script  th:src="@{/js/aos.js}" defer></script>
+    <script th:src="@{/js/aos.js}" defer></script>
     <script th:src="@{/js/alpine.js}" defer></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
