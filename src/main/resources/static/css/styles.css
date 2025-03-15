@@ -15,6 +15,10 @@ body {
     font-family: 'Ubuntu', sans-serif !important;
 }
 
+main {
+    max-width: 1000px !important;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -61,3 +65,6 @@ canvas {
     width: 100%;  /* Ensure the canvas expands to the full width of its container */
     height: auto;
 }
+
+
+/* MOBILE */
