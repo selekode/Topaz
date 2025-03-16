@@ -48,7 +48,6 @@ public class StatsController {
 		model.addAttribute("statsRatingsAverageMonth", StatsService.getRatingsAverageMonth());
 		model.addAttribute("statsRatingsAverageDateRange", StatsService.getRatingsAverageDateRange(statsDateRange));
 		
-		//model.addAttribute("statsRatingsTrendAllTime", StatsService.getRatingsTrendAllTime());
 		model.addAttribute("statsRatingsTrendAllTime", StatsService.getRatingsTrendAllTime());
 		
 		/*

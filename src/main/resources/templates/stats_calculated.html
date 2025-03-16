@@ -1828,70 +1828,60 @@
     </script>
 
     <script>
-        // ANÁLISIS PERSONAL: EVOLUCIÓN DE VALORACIONES (1m) 
         let jsonString = `[[${statsRatingsTrendAllTime}]]`;
-        let decodedString = jsonString.replace(/&quot;/g, '"'); // Thymeleaf doesn't escape the quotes, so we have to replace them
+        let decodedString = jsonString.replace(/&quot;/g, '"'); // Replace escaped quotes
         let statsRatingsTrendAllTimeData = JSON.parse(decodedString);
 
-        const statsRatingsTrendAllTime = statsRatingsTrendAllTimeData;
-        console.log("Data from backend:", statsRatingsTrendAllTime);
+        console.log("Data from backend:", statsRatingsTrendAllTimeData);
 
-        const labels = [];
-        const disciplinaData = [];
-        const ordenData = [];
-        const impulsividadData = [];
-        const constanciaData = [];
-        const toleranciaData = [];
-        const controlPrepotenciaData = [];
-        const honestidadData = [];
-        const aceptacionData = [];
-        const consecucionObjetivosData = [];
+        // Extract labels (dates) and values dynamically
+        const labels = Object.keys(statsRatingsTrendAllTimeData);
 
-        statsRatingsTrendAllTime.forEach(entry => {
-            labels.push(entry.date);
-            disciplinaData.push(entry.valoracionDisciplina);
-            ordenData.push(entry.valoracionOrden);
-            impulsividadData.push(entry.valoracionImpulsividad);
-            constanciaData.push(entry.valoracionConstancia);
-            toleranciaData.push(entry.valoracionTolerancia);
-            controlPrepotenciaData.push(entry.valoracionControlPrepotencia);
-            honestidadData.push(entry.valoracionHonestidad);
-            aceptacionData.push(entry.valoracionAceptacion);
-            consecucionObjetivosData.push(entry.valoracionConsecucionObjetivos);
-        });
+        const datasetsConfig = [
+            { key: "valoracionDisciplina", label: "Disciplina", color: "#FF6384" },
+            { key: "valoracionOrden", label: "Orden", color: "#36A2EB" },
+            { key: "valoracionImpulsividad", label: "Impulsividad", color: "#FFCE56" },
+            { key: "valoracionConstancia", label: "Constancia", color: "#4BC0C0" },
+            { key: "valoracionTolerancia", label: "Tolerancia", color: "#9966FF" },
+            { key: "valoracionControlPrepotencia", label: "Control Prepotencia", color: "#FF9F40" },
+            { key: "valoracionHonestidad", label: "Honestidad", color: "#8BC34A" },
+            { key: "valoracionAceptacion", label: "Aceptación", color: "#00ACC1" },
+            { key: "valoracionConsecucionObjetivos", label: "Consecución Objetivos", color: "#D32F2F" }
+        ];
+
+        // Generate datasets dynamically
+        const datasets = datasetsConfig.map(({ key, label, color }) => ({
+            label,
+            data: labels.map(date => statsRatingsTrendAllTimeData[date][key]), // Extracting the rating for each date
+            borderColor: color,
+            fill: false
+        }));
 
         const ctx_chartRatingsTrendAllTime = document.getElementById('chartRatingsTrendAllTime').getContext('2d');
         new Chart(ctx_chartRatingsTrendAllTime, {
             type: 'line',
-            data: {
-                labels: labels,
-                datasets: [
-                    { label: 'Disciplina', data: disciplinaData, borderColor: '#FF6384', fill: false },
-                    { label: 'Orden', data: ordenData, borderColor: '#36A2EB', fill: false },
-                    { label: 'Impulsividad', data: impulsividadData, borderColor: '#FFCE56', fill: false },
-                    { label: 'Constancia', data: constanciaData, borderColor: '#4BC0C0', fill: false },
-                    { label: 'Tolerancia', data: toleranciaData, borderColor: '#9966FF', fill: false },
-                    { label: 'Control Prepotencia', data: controlPrepotenciaData, borderColor: '#FF9F40', fill: false },
-                    { label: 'Honestidad', data: honestidadData, borderColor: '#8BC34A', fill: false },
-                    { label: 'Aceptación', data: aceptacionData, borderColor: '#00ACC1', fill: false },
-                    { label: 'Consecución Objetivos', data: consecucionObjetivosData, borderColor: '#D32F2F', fill: false }
-                ]
-            },
+            data: { labels, datasets },
             options: {
                 responsive: true,
-                plugins: { legend: { position: 'top' } },
+                plugins: {
+                    legend: { labels: { color: '#FFFFFF' } } // Make legend text white
+                },
                 scales: {
-                    x: { title: { display: true, text: 'Fecha' } },
-                    y: { title: { display: true, text: 'Valoración' }, beginAtZero: true, suggestedMax: 10 }
+                    x: {
+                        title: { display: true, text: 'Fecha', color: '#FFFFFF' },
+                        ticks: { color: '#FFFFFF' } // Make X-axis labels white
+                    },
+                    y: {
+                        title: { display: true, text: 'Valoración', color: '#FFFFFF' },
+                        ticks: { color: '#FFFFFF' }, // Make Y-axis labels white
+                        beginAtZero: true,
+                        suggestedMax: 10
+                    }
                 }
             }
-        });     
+        });
     </script>
-
-
-
-
-
+    
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             AOS.init();

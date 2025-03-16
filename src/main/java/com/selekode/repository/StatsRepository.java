@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.selekode.topaz.model.PersonalRatings;
-import com.selekode.topaz.model.PersonalRatingsDated;
 import com.selekode.topaz.model.StatsActivityPerDayOfWeek;
 import com.selekode.topaz.model.StatsEmotionFrequency;
 
@@ -524,7 +523,7 @@ public interface StatsRepository {
 		return personalRatings;
 	}	
 
-	/*
+	
 	public static Map<String, PersonalRatings> findRatingsDatedAllTime() {
         Map<String, PersonalRatings> personalRatingsMap = new HashMap<>();
 
@@ -562,45 +561,4 @@ public interface StatsRepository {
 		}
 		return personalRatingsMap;
 	}
-	*/
-
-	public static List<PersonalRatingsDated> getPersonalRatingsDatedAllTime() {
-		List<PersonalRatingsDated> personalRatingsDated = new ArrayList<>();
-
-		// SQL query to fetch the required columns
-		String sql = "SELECT date, valoracionDisciplina, valoracionOrden, valoracionImpulsividad, valoracionConstancia, "
-				+ "valoracionTolerancia, valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion, "
-				+ "valoracionConsecucionObjetivos FROM revision";
-
-		try (Connection conn = DriverManager.getConnection(DB_URL);
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(sql)) {
-
-			while (rs.next()) {				
-				String date = convertDateToString_ddMMMyyy(rs.getLong("date"));
-				int valoracionDisciplina = rs.getInt("valoracionDisciplina");
-				int valoracionOrden = rs.getInt("valoracionOrden");
-				int valoracionImpulsividad = rs.getInt("valoracionImpulsividad");
-				int valoracionConstancia = rs.getInt("valoracionConstancia");
-				int valoracionTolerancia = rs.getInt("valoracionTolerancia");
-				int valoracionControlPrepotencia = rs.getInt("valoracionControlPrepotencia");
-				int valoracionHonestidad = rs.getInt("valoracionHonestidad");
-				int valoracionAceptacion = rs.getInt("valoracionAceptacion");
-				int valoracionConsecucionObjetivos = rs.getInt("valoracionConsecucionObjetivos");
-
-				// Create a new PersonalRatings object and add it to the list
-				PersonalRatingsDated ratings = new PersonalRatingsDated(date, valoracionDisciplina, valoracionOrden,
-						valoracionImpulsividad, valoracionConstancia, valoracionTolerancia,
-						valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion,
-						valoracionConsecucionObjetivos);
-
-				personalRatingsDated.add(ratings);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return personalRatingsDated;
-	}
-
-	
 }

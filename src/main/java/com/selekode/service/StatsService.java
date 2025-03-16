@@ -17,13 +17,11 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.selekode.repository.StatsRepository;
 import com.selekode.topaz.model.StatsDateRange;
 import com.selekode.topaz.model.StatsEmotionFrequency;
 import com.selekode.topaz.model.StatsEntryCount;
 import com.selekode.topaz.model.PersonalRatings;
-import com.selekode.topaz.model.PersonalRatingsDated;
 import com.selekode.topaz.model.StatsActivityPerDayOfWeek;
 
 @Service
@@ -721,16 +719,7 @@ public class StatsService {
 
 		return ratingsAverage;
 	}
-	
-	public static String getRatingsTrendAllTime() {
-		List<PersonalRatingsDated> personalRatingsDated = null;
-		personalRatingsDated = StatsRepository.getPersonalRatingsDatedAllTime();
-        String jsonRatings = convertObjectToJSON(personalRatingsDated);
-        System.out.println("JSON: " + jsonRatings);
-		return jsonRatings;
-	}
-	
-	
+		
 	public static String convertObjectToJSON(Object objectToConvert) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -740,15 +729,13 @@ public class StatsService {
             return null;
         }
     }
-	/*
-	  public static String getRatingsTrendAllTimeMap() {
+	
+	  public static String getRatingsTrendAllTime() {
 	  Map<String, PersonalRatings> personalRatingsDated = StatsRepository.findRatingsDatedAllTime();
       String jsonRatings = convertObjectToJSON(personalRatingsDated);
       System.out.println("JSON: " + jsonRatings);
 	  
 	  return jsonRatings;
 	  
-	  }
-	  */
-	 
+	  }	 
 }
