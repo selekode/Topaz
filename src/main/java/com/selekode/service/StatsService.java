@@ -3,21 +3,27 @@ package com.selekode.service;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.selekode.repository.StatsRepository;
 import com.selekode.topaz.model.StatsDateRange;
 import com.selekode.topaz.model.StatsEmotionFrequency;
 import com.selekode.topaz.model.StatsEntryCount;
 import com.selekode.topaz.model.PersonalRatings;
+import com.selekode.topaz.model.PersonalRatingsDated;
 import com.selekode.topaz.model.StatsActivityPerDayOfWeek;
 
 @Service
@@ -534,7 +540,6 @@ public class StatsService {
 		List<PersonalRatings> personalRatings = null;
 		personalRatings = StatsRepository.getPersonalRatingsAllTime();
 
-
 		if (personalRatings.isEmpty()) {
 			return new PersonalRatings(0, 0, 0, 0, 0, 0, 0, 0, 0); // Return zeroed object if list is empty
 		}
@@ -567,34 +572,33 @@ public class StatsService {
 		int avgHonestidad = totalHonestidad / totalEntries;
 		int avgAceptacion = totalAceptacion / totalEntries;
 		int avgConsecucionObjetivos = totalConsecucionObjetivos / totalEntries;
-		
-		PersonalRatings ratingsAverage = new PersonalRatings(avgDisciplina, avgOrden, avgImpulsividad, avgConstancia, avgTolerancia,
-				avgControlPrepotencia, avgHonestidad, avgAceptacion, avgConsecucionObjetivos); 
+
+		PersonalRatings ratingsAverage = new PersonalRatings(avgDisciplina, avgOrden, avgImpulsividad, avgConstancia,
+				avgTolerancia, avgControlPrepotencia, avgHonestidad, avgAceptacion, avgConsecucionObjetivos);
 
 		// Return a new PersonalRatings object containing the averages
-		
+
 		System.out.println("AverageRatings:" + ratingsAverage.toString());
 		return ratingsAverage;
 	}
 
-	
 	public static PersonalRatings getRatingsAverageWeek() {
 		long unixWeek = 604800;
 		long dateEnd = Instant.now().getEpochSecond();
 		long dateStart = dateEnd - unixWeek;
-		
+
 		List<PersonalRatings> personalRatings = null;
-		personalRatings = StatsRepository.getPersonalRatingsDateRange(dateStart,dateEnd);
-		
+		personalRatings = StatsRepository.getPersonalRatingsDateRange(dateStart, dateEnd);
+
 		if (personalRatings.isEmpty()) {
 			return new PersonalRatings(0, 0, 0, 0, 0, 0, 0, 0, 0); // Return zeroed object if list is empty
 		}
-		
+
 		int totalEntries = personalRatings.size();
 		int totalDisciplina = 0, totalOrden = 0, totalImpulsividad = 0, totalConstancia = 0;
 		int totalTolerancia = 0, totalControlPrepotencia = 0, totalHonestidad = 0, totalAceptacion = 0;
 		int totalConsecucionObjetivos = 0;
-		
+
 		// Sum all values for each rating field
 		for (PersonalRatings ratings : personalRatings) {
 			totalDisciplina += ratings.getValoracionDisciplina();
@@ -607,7 +611,7 @@ public class StatsService {
 			totalAceptacion += ratings.getValoracionAceptacion();
 			totalConsecucionObjetivos += ratings.getValoracionConsecucionObjetivos();
 		}
-		
+
 		// Calculate the averages for each field
 		int avgDisciplina = totalDisciplina / totalEntries;
 		int avgOrden = totalOrden / totalEntries;
@@ -618,10 +622,10 @@ public class StatsService {
 		int avgHonestidad = totalHonestidad / totalEntries;
 		int avgAceptacion = totalAceptacion / totalEntries;
 		int avgConsecucionObjetivos = totalConsecucionObjetivos / totalEntries;
-		
-		PersonalRatings ratingsAverage = new PersonalRatings(avgDisciplina, avgOrden, avgImpulsividad, avgConstancia, avgTolerancia,
-				avgControlPrepotencia, avgHonestidad, avgAceptacion, avgConsecucionObjetivos); 
-		
+
+		PersonalRatings ratingsAverage = new PersonalRatings(avgDisciplina, avgOrden, avgImpulsividad, avgConstancia,
+				avgTolerancia, avgControlPrepotencia, avgHonestidad, avgAceptacion, avgConsecucionObjetivos);
+
 		return ratingsAverage;
 	}
 
@@ -629,9 +633,9 @@ public class StatsService {
 		long unixMonth = 2629746;
 		long dateEnd = Instant.now().getEpochSecond();
 		long dateStart = dateEnd - unixMonth;
-		
+
 		List<PersonalRatings> personalRatings = null;
-		personalRatings = StatsRepository.getPersonalRatingsDateRange(dateStart,dateEnd);
+		personalRatings = StatsRepository.getPersonalRatingsDateRange(dateStart, dateEnd);
 
 		if (personalRatings.isEmpty()) {
 			return new PersonalRatings(0, 0, 0, 0, 0, 0, 0, 0, 0); // Return zeroed object if list is empty
@@ -665,9 +669,9 @@ public class StatsService {
 		int avgHonestidad = totalHonestidad / totalEntries;
 		int avgAceptacion = totalAceptacion / totalEntries;
 		int avgConsecucionObjetivos = totalConsecucionObjetivos / totalEntries;
-		
-		PersonalRatings ratingsAverage = new PersonalRatings(avgDisciplina, avgOrden, avgImpulsividad, avgConstancia, avgTolerancia,
-				avgControlPrepotencia, avgHonestidad, avgAceptacion, avgConsecucionObjetivos); 
+
+		PersonalRatings ratingsAverage = new PersonalRatings(avgDisciplina, avgOrden, avgImpulsividad, avgConstancia,
+				avgTolerancia, avgControlPrepotencia, avgHonestidad, avgAceptacion, avgConsecucionObjetivos);
 
 		return ratingsAverage;
 	}
@@ -675,9 +679,9 @@ public class StatsService {
 	public static PersonalRatings getRatingsAverageDateRange(StatsDateRange statsDateRange) {
 		long dateStart = convertDateStrToLong(statsDateRange.getStartDate());
 		long dateEnd = convertDateStrToLong(statsDateRange.getEndDate());
-		
+
 		List<PersonalRatings> personalRatings = null;
-		personalRatings = StatsRepository.getPersonalRatingsDateRange(dateStart,dateEnd);
+		personalRatings = StatsRepository.getPersonalRatingsDateRange(dateStart, dateEnd);
 
 		if (personalRatings.isEmpty()) {
 			return new PersonalRatings(0, 0, 0, 0, 0, 0, 0, 0, 0); // Return zeroed object if list is empty
@@ -711,10 +715,40 @@ public class StatsService {
 		int avgHonestidad = totalHonestidad / totalEntries;
 		int avgAceptacion = totalAceptacion / totalEntries;
 		int avgConsecucionObjetivos = totalConsecucionObjetivos / totalEntries;
-		
-		PersonalRatings ratingsAverage = new PersonalRatings(avgDisciplina, avgOrden, avgImpulsividad, avgConstancia, avgTolerancia,
-				avgControlPrepotencia, avgHonestidad, avgAceptacion, avgConsecucionObjetivos); 
-		
+
+		PersonalRatings ratingsAverage = new PersonalRatings(avgDisciplina, avgOrden, avgImpulsividad, avgConstancia,
+				avgTolerancia, avgControlPrepotencia, avgHonestidad, avgAceptacion, avgConsecucionObjetivos);
+
 		return ratingsAverage;
 	}
+	
+	public static String getRatingsTrendAllTime() {
+		List<PersonalRatingsDated> personalRatingsDated = null;
+		personalRatingsDated = StatsRepository.getPersonalRatingsDatedAllTime();
+        String jsonRatings = convertObjectToJSON(personalRatingsDated);
+        System.out.println("JSON: " + jsonRatings);
+		return jsonRatings;
+	}
+	
+	
+	public static String convertObjectToJSON(Object objectToConvert) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(objectToConvert);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+	/*
+	  public static String getRatingsTrendAllTimeMap() {
+	  Map<String, PersonalRatings> personalRatingsDated = StatsRepository.findRatingsDatedAllTime();
+      String jsonRatings = convertObjectToJSON(personalRatingsDated);
+      System.out.println("JSON: " + jsonRatings);
+	  
+	  return jsonRatings;
+	  
+	  }
+	  */
+	 
 }
