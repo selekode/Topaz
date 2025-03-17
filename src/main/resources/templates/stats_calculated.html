@@ -124,11 +124,6 @@
 
                         <!-- Tab Buttons -->
                         <div class="flex space-x-2 mb-4">
-                            <button @click="tab = 'all'"
-                                :class="tab === 'all' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
-                                class="px-4 py-2 rounded-md transition">
-                                Total
-                            </button>
                             <button @click="tab = 'lastWeek'"
                                 :class="tab === 'lastWeek' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
@@ -144,14 +139,11 @@
                                 class="px-4 py-2 rounded-md transition">
                                 Rango de Fechas
                             </button>
-                        </div>
-
-                        <!-- Entradas Totales Tab -->
-                        <div x-show="tab === 'all'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">
-                                Entradas Totales</p>
-                            <canvas id="chartEntryCountAllTime"
-                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                            <button @click="tab = 'all'"
+                                :class="tab === 'all' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-md transition">
+                                Total
+                            </button>
                         </div>
 
                         <!-- Entradas en Última Semana Tab -->
@@ -178,7 +170,13 @@
                             <canvas id="chartEntryCountDateRange"
                                 class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
                         </div>
-
+                        <!-- Entradas Totales Tab -->
+                        <div x-show="tab === 'all'" x-transition>
+                            <p class="text-lg text-white font-bold mb-2">
+                                Entradas Totales</p>
+                            <canvas id="chartEntryCountAllTime"
+                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
                     </div>
 
                 </div>
@@ -206,16 +204,6 @@
 
                         <!-- Tab Navigation -->
                         <div class="flex space-x-2 mb-4">
-                            <button @click="tab = 'journalAllTime'"
-                                :class="tab === 'journalAllTime' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
-                                class="px-4 py-2 rounded-md transition">
-                                Diario (Total)
-                            </button>
-                            <button @click="tab = 'revisionAllTime'"
-                                :class="tab === 'revisionAllTime' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
-                                class="px-4 py-2 rounded-md transition">
-                                Revisiones (Total)
-                            </button>
                             <button @click="tab = 'journalLastWeek'"
                                 :class="tab === 'journalLastWeek' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
@@ -246,32 +234,16 @@
                                 class="px-4 py-2 rounded-md transition">
                                 Revisiones (Rango)
                             </button>
-                        </div>
-
-                        <!-- Diario (Total) -->
-                        <div x-show="tab === 'journalAllTime'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">Actividad por día en el Diario total</p>
-                            <p class="text-base text-white mb-1"
-                                th:text="'- El día en el que más escribes en el diario es el ' + ${statsActivityPerDayOfWeekAllTime.journalMostActiveDay}">
-                            </p>
-                            <p class="text-base text-white mb-4"
-                                th:text="'- Has escrito ' + ${statsActivityPerDayOfWeekAllTime.journalMostActiveDayN} + ' entradas en el diario un ' + ${statsActivityPerDayOfWeekAllTime.journalMostActiveDay}">
-                            </p>
-                            <canvas id="chartActivityPerDayJournalAllTime"
-                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
-                        </div>
-
-                        <!-- Revisiones (Total) -->
-                        <div x-show="tab === 'revisionAllTime'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">Actividad por día en Revisiones total</p>
-                            <p class="text-base text-white mb-1"
-                                th:text="'- El día en el que más revisiones escribes es el ' + ${statsActivityPerDayOfWeekAllTime.revisionMostActiveDay}">
-                            </p>
-                            <p class="text-base text-white mb-4"
-                                th:text="'- Has escrito ' + ${statsActivityPerDayOfWeekAllTime.revisionMostActiveDayN} + ' revisiones un ' + ${statsActivityPerDayOfWeekAllTime.revisionMostActiveDay}">
-                            </p>
-                            <canvas id="chartActivityPerDayRevisionAllTime"
-                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                            <button @click="tab = 'journalAllTime'"
+                                :class="tab === 'journalAllTime' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-md transition">
+                                Diario (Total)
+                            </button>
+                            <button @click="tab = 'revisionAllTime'"
+                                :class="tab === 'revisionAllTime' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-md transition">
+                                Revisiones (Total)
+                            </button>
                         </div>
 
                         <!-- Diario (7d) -->
@@ -363,6 +335,32 @@
                             <canvas id="chartActivityPerDayRevisionDateRange"
                                 class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
                         </div>
+
+                        <!-- Diario (Total) -->
+                        <div x-show="tab === 'journalAllTime'" x-transition>
+                            <p class="text-lg text-white font-bold mb-2">Actividad por día en el Diario total</p>
+                            <p class="text-base text-white mb-1"
+                                th:text="'- El día en el que más escribes en el diario es el ' + ${statsActivityPerDayOfWeekAllTime.journalMostActiveDay}">
+                            </p>
+                            <p class="text-base text-white mb-4"
+                                th:text="'- Has escrito ' + ${statsActivityPerDayOfWeekAllTime.journalMostActiveDayN} + ' entradas en el diario un ' + ${statsActivityPerDayOfWeekAllTime.journalMostActiveDay}">
+                            </p>
+                            <canvas id="chartActivityPerDayJournalAllTime"
+                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
+
+                        <!-- Revisiones (Total) -->
+                        <div x-show="tab === 'revisionAllTime'" x-transition>
+                            <p class="text-lg text-white font-bold mb-2">Actividad por día en Revisiones total</p>
+                            <p class="text-base text-white mb-1"
+                                th:text="'- El día en el que más revisiones escribes es el ' + ${statsActivityPerDayOfWeekAllTime.revisionMostActiveDay}">
+                            </p>
+                            <p class="text-base text-white mb-4"
+                                th:text="'- Has escrito ' + ${statsActivityPerDayOfWeekAllTime.revisionMostActiveDayN} + ' revisiones un ' + ${statsActivityPerDayOfWeekAllTime.revisionMostActiveDay}">
+                            </p>
+                            <canvas id="chartActivityPerDayRevisionAllTime"
+                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -392,9 +390,6 @@
 
                         <!-- Tabs Navigation -->
                         <div class="flex space-x-2 mb-4">
-                            <button @click="tab = 'total'"
-                                :class="tab === 'total' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
-                                class="px-4 py-2 rounded-lg transition">Total</button>
                             <button @click="tab = 'lastWeek'"
                                 :class="tab === 'lastWeek' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-lg transition">7d</button>
@@ -404,18 +399,9 @@
                             <button @click="tab = 'dateRange'"
                                 :class="tab === 'dateRange' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-lg transition">Rango de Fechas</button>
-                        </div>
-
-                        <!-- FREQUENCIAEMOCIONAL_TOTAL -->
-                        <div x-show="tab === 'total'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">Frecuencia de emociones total</p>
-                            <p class="text-base text-white mb-2"
-                                th:text="'- Tus emociones más frecuentes son ' + ${statsEmotionFrequencyAllTime.topEmotion1} + ', ' + ${statsEmotionFrequencyAllTime.topEmotion2} + ', ' + ${statsEmotionFrequencyAllTime.topEmotion3} + ' y ' + ${statsEmotionFrequencyAllTime.topEmotion4}">
-                            </p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra cuantas veces has seleccionado
-                                cada emoción en tus revisiones:</p>
-                            <canvas id="emotionFrequencyPieChartAllTime"
-                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                            <button @click="tab = 'total'"
+                                :class="tab === 'total' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-lg transition">Total</button>
                         </div>
 
                         <!-- FREQUENCIAEMOCIONAL_LASTWEEK -->
@@ -465,6 +451,17 @@
                                 class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
                         </div>
 
+                        <!-- FREQUENCIAEMOCIONAL_TOTAL -->
+                        <div x-show="tab === 'total'" x-transition>
+                            <p class="text-lg text-white font-bold mb-2">Frecuencia de emociones total</p>
+                            <p class="text-base text-white mb-2"
+                                th:text="'- Tus emociones más frecuentes son ' + ${statsEmotionFrequencyAllTime.topEmotion1} + ', ' + ${statsEmotionFrequencyAllTime.topEmotion2} + ', ' + ${statsEmotionFrequencyAllTime.topEmotion3} + ' y ' + ${statsEmotionFrequencyAllTime.topEmotion4}">
+                            </p>
+                            <p class="text-base text-white mb-4">- Esta gráfica muestra cuantas veces has seleccionado
+                                cada emoción en tus revisiones:</p>
+                            <canvas id="emotionFrequencyPieChartAllTime"
+                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -491,11 +488,6 @@
 
                         <!-- Tab Buttons -->
                         <div class="flex space-x-2 mb-4">
-                            <button @click="tab = 'all'"
-                                :class="tab === 'all' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
-                                class="px-4 py-2 rounded-md transition">
-                                Total
-                            </button>
                             <button @click="tab = '7d'"
                                 :class="tab === '7d' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
@@ -511,17 +503,11 @@
                                 class="px-4 py-2 rounded-md transition">
                                 Rango
                             </button>
-                        </div>
-
-
-                        <!-- Media Valoraciones (Totales) Tab -->
-                        <div x-show="tab === 'all'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">
-                                Media de las valoraciones total</p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra la media de las valoraciones
-                                personales en tus revisiones:</p>
-                            <canvas id="chartAverageRatingsAllTime"
-                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                            <button @click="tab = 'all'"
+                                :class="tab === 'all' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-md transition">
+                                Total
+                            </button>
                         </div>
 
                         <!-- Media Valoraciones (7d) Tab -->
@@ -552,6 +538,17 @@
                             <canvas id="chartAverageRatingsDateRange"
                                 class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
                         </div>
+
+                        <!-- Media Valoraciones (Totales) Tab -->
+                        <div x-show="tab === 'all'" x-transition>
+                            <p class="text-lg text-white font-bold mb-2">
+                                Media de las valoraciones total</p>
+                            <p class="text-base text-white mb-4">- Esta gráfica muestra la media de las valoraciones
+                                personales en tus revisiones:</p>
+                            <canvas id="chartAverageRatingsAllTime"
+                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -578,11 +575,6 @@
 
                         <!-- Tab Buttons -->
                         <div class="flex space-x-2 mb-4">
-                            <button @click="tab = 'all'"
-                                :class="tab === 'all' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
-                                class="px-4 py-2 rounded-md transition">
-                                Total
-                            </button>
                             <button @click="tab = '7d'"
                                 :class="tab === '7d' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
@@ -598,6 +590,41 @@
                                 class="px-4 py-2 rounded-md transition">
                                 Rango
                             </button>
+                            <button @click="tab = 'all'"
+                                :class="tab === 'all' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                class="px-4 py-2 rounded-md transition">
+                                Total
+                            </button>
+                        </div>
+
+                        <!-- Evolución Valoraciones (7d) Tab -->
+                        <div x-show="tab === '7d'" x-transition>
+                            <p class="text-lg text-white font-bold mb-2">
+                                Evolución de las valoraciones en la última semana</p>
+                            <p class="text-base text-white mb-4">- Esta gráfica muestra la evolución de las valoraciones
+                                personales en tus revisiones:</p>
+                            <canvas id="chartRatingsTrendWeek" class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
+
+                        <!-- Evolución Valoraciones (1m) Tab -->
+                        <div x-show="tab === '1m'" x-transition>
+                            <p class="text-lg text-white font-bold mb-2">
+                                Evolución de las valoraciones en el último mes</p>
+                            <p class="text-base text-white mb-4">- Esta gráfica muestra la evolución de las valoraciones
+                                personales en tus revisiones:</p>
+                            <canvas id="chartRatingsTrendMonth"
+                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                        </div>
+
+                        <!-- Evolución Valoraciones (Daterange) Tab -->
+                        <div x-show="tab === 'daterange'" x-transition>
+                            <p class="text-lg text-white font-bold mb-2"
+                                th:text="'Evolución de las valoraciones en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
+                            </p>
+                            <p class="text-base text-white mb-4">- Esta gráfica muestra la evolución de las valoraciones
+                                personales en tus revisiones:</p>
+                            <canvas id="chartRatingsTrendDateRange"
+                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
                         </div>
 
                         <!-- Evolución Valoraciones (Totales) Tab -->
@@ -608,34 +635,6 @@
                                 personales en tus revisiones:</p>
                             <canvas id="chartRatingsTrendAllTime"
                                 class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
-                        </div>
-
-                        <!-- Evolución Valoraciones (7d) Tab -->
-                        <div x-show="tab === '7d'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">
-                                Evolución de las valoraciones en la última semana</p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra la evolución de las valoraciones
-                                personales en tus revisiones:</p>
-                            <canvas id="" class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
-                        </div>
-
-                        <!-- Evolución Valoraciones (1m) Tab -->
-                        <div x-show="tab === '1m'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">
-                                Evolución de las valoraciones en el último mes</p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra la evolución de las valoraciones
-                                personales en tus revisiones:</p>
-                            <canvas id="" class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
-                        </div>
-
-                        <!-- Evolución Valoraciones (Daterange) Tab -->
-                        <div x-show="tab === 'daterange'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2"
-                                th:text="'Evolución de las valoraciones en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
-                            </p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra la evolución de las valoraciones
-                                personales en tus revisiones:</p>
-                            <canvas id="" class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
                         </div>
                     </div>
                 </div>
@@ -1827,17 +1826,18 @@
         );
     </script>
 
+    <!-- ANÁLISIS PERSONAL: EVOLUCIÓN DE VALORACIONES (ALL) -->
     <script>
-        let jsonString = `[[${statsRatingsTrendAllTime}]]`;
-        let decodedString = jsonString.replace(/&quot;/g, '"'); // Replace escaped quotes
-        let statsRatingsTrendAllTimeData = JSON.parse(decodedString);
+        let jsonString_statsRatingsTrendAllTime = `[[${statsRatingsTrendAllTime}]]`;
+        let decodedString_statsRatingsTrendAllTime = jsonString_statsRatingsTrendAllTime.replace(/&quot;/g, '"'); // Replace escaped quotes
+        let statsRatingsTrendAllTimeData = JSON.parse(decodedString_statsRatingsTrendAllTime);
 
         console.log("Data from backend:", statsRatingsTrendAllTimeData);
 
         // Extract labels (dates) and values dynamically
-        const labels = Object.keys(statsRatingsTrendAllTimeData);
+        const labels_statsRatingsTrendAllTime = Object.keys(statsRatingsTrendAllTimeData);
 
-        const datasetsConfig = [
+        const datasetsConfig_statsRatingsTrendAllTime = [
             { key: "valoracionDisciplina", label: "Disciplina", color: "#FF6384" },
             { key: "valoracionOrden", label: "Orden", color: "#36A2EB" },
             { key: "valoracionImpulsividad", label: "Impulsividad", color: "#FFCE56" },
@@ -1850,9 +1850,9 @@
         ];
 
         // Generate datasets dynamically
-        const datasets = datasetsConfig.map(({ key, label, color }) => ({
+        const datasets_statsRatingsTrendAllTime = datasetsConfig_statsRatingsTrendAllTime.map(({ key, label, color }) => ({
             label,
-            data: labels.map(date => statsRatingsTrendAllTimeData[date][key]), // Extracting the rating for each date
+            data: labels_statsRatingsTrendAllTime.map(date => statsRatingsTrendAllTimeData[date][key]), // Extracting the rating for each date
             borderColor: color,
             fill: false
         }));
@@ -1860,7 +1860,7 @@
         const ctx_chartRatingsTrendAllTime = document.getElementById('chartRatingsTrendAllTime').getContext('2d');
         new Chart(ctx_chartRatingsTrendAllTime, {
             type: 'line',
-            data: { labels, datasets },
+            data: { labels: labels_statsRatingsTrendAllTime, datasets: datasets_statsRatingsTrendAllTime },
             options: {
                 responsive: true,
                 plugins: {
@@ -1881,7 +1881,174 @@
             }
         });
     </script>
-    
+
+    <!-- ANÁLISIS PERSONAL: EVOLUCIÓN DE VALORACIONES (WEEK) -->
+    <script>
+        let jsonString_statsRatingsTrendWeek = `[[${statsRatingsTrendWeek}]]`;
+        let decodedString_statsRatingsTrendWeek = jsonString_statsRatingsTrendWeek.replace(/&quot;/g, '"'); // Replace escaped quotes
+        let statsRatingsTrendWeekData = JSON.parse(decodedString_statsRatingsTrendWeek);
+
+        console.log("Data from backend:", statsRatingsTrendWeekData);
+
+        // Extract labels (dates) and values dynamically
+        const labels_statsRatingsTrendWeek = Object.keys(statsRatingsTrendWeekData);
+
+        const datasetsConfig_statsRatingsTrendWeek = [
+            { key: "valoracionDisciplina", label: "Disciplina", color: "#FF6384" },
+            { key: "valoracionOrden", label: "Orden", color: "#36A2EB" },
+            { key: "valoracionImpulsividad", label: "Impulsividad", color: "#FFCE56" },
+            { key: "valoracionConstancia", label: "Constancia", color: "#4BC0C0" },
+            { key: "valoracionTolerancia", label: "Tolerancia", color: "#9966FF" },
+            { key: "valoracionControlPrepotencia", label: "Control Prepotencia", color: "#FF9F40" },
+            { key: "valoracionHonestidad", label: "Honestidad", color: "#8BC34A" },
+            { key: "valoracionAceptacion", label: "Aceptación", color: "#00ACC1" },
+            { key: "valoracionConsecucionObjetivos", label: "Consecución Objetivos", color: "#D32F2F" }
+        ];
+
+        // Generate datasets dynamically
+        const datasets_statsRatingsTrendWeek = datasetsConfig_statsRatingsTrendWeek.map(({ key, label, color }) => ({
+            label,
+            data: labels_statsRatingsTrendWeek.map(date => statsRatingsTrendWeekData[date][key]), // Extracting the rating for each date
+            borderColor: color,
+            fill: false
+        }));
+
+        const ctx_chartRatingsTrendWeek = document.getElementById('chartRatingsTrendWeek').getContext('2d');
+        new Chart(ctx_chartRatingsTrendWeek, {
+            type: 'line',
+            data: { labels: labels_statsRatingsTrendWeek, datasets: datasets_statsRatingsTrendWeek },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { labels: { color: '#FFFFFF' } } // Make legend text white
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Fecha', color: '#FFFFFF' },
+                        ticks: { color: '#FFFFFF' } // Make X-axis labels white
+                    },
+                    y: {
+                        title: { display: true, text: 'Valoración', color: '#FFFFFF' },
+                        ticks: { color: '#FFFFFF' }, // Make Y-axis labels white
+                        beginAtZero: true,
+                        suggestedMax: 10
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- ANÁLISIS PERSONAL: EVOLUCIÓN DE VALORACIONES (MONTH) -->
+    <script>
+        let jsonString_statsRatingsTrendMonth = `[[${statsRatingsTrendMonth}]]`;
+        let decodedString_statsRatingsTrendMonth = jsonString_statsRatingsTrendMonth.replace(/&quot;/g, '"'); // Replace escaped quotes
+        let statsRatingsTrendMonthData = JSON.parse(decodedString_statsRatingsTrendMonth);
+
+        console.log("Data from backend:", statsRatingsTrendMonthData);
+
+        // Extract labels (dates) and values dynamically
+        const labels_statsRatingsTrendMonth = Object.keys(statsRatingsTrendMonthData);
+
+        const datasetsConfig_statsRatingsTrendMonth = [
+            { key: "valoracionDisciplina", label: "Disciplina", color: "#FF6384" },
+            { key: "valoracionOrden", label: "Orden", color: "#36A2EB" },
+            { key: "valoracionImpulsividad", label: "Impulsividad", color: "#FFCE56" },
+            { key: "valoracionConstancia", label: "Constancia", color: "#4BC0C0" },
+            { key: "valoracionTolerancia", label: "Tolerancia", color: "#9966FF" },
+            { key: "valoracionControlPrepotencia", label: "Control Prepotencia", color: "#FF9F40" },
+            { key: "valoracionHonestidad", label: "Honestidad", color: "#8BC34A" },
+            { key: "valoracionAceptacion", label: "Aceptación", color: "#00ACC1" },
+            { key: "valoracionConsecucionObjetivos", label: "Consecución Objetivos", color: "#D32F2F" }
+        ];
+
+        // Generate datasets dynamically
+        const datasets_statsRatingsTrendMonth = datasetsConfig_statsRatingsTrendMonth.map(({ key, label, color }) => ({
+            label,
+            data: labels_statsRatingsTrendMonth.map(date => statsRatingsTrendMonthData[date][key]), // Extracting the rating for each date
+            borderColor: color,
+            fill: false
+        }));
+
+        const ctx_chartRatingsTrendMonth = document.getElementById('chartRatingsTrendMonth').getContext('2d');
+        new Chart(ctx_chartRatingsTrendMonth, {
+            type: 'line',
+            data: { labels: labels_statsRatingsTrendMonth, datasets: datasets_statsRatingsTrendMonth },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { labels: { color: '#FFFFFF' } } // Make legend text white
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Fecha', color: '#FFFFFF' },
+                        ticks: { color: '#FFFFFF' } // Make X-axis labels white
+                    },
+                    y: {
+                        title: { display: true, text: 'Valoración', color: '#FFFFFF' },
+                        ticks: { color: '#FFFFFF' }, // Make Y-axis labels white
+                        beginAtZero: true,
+                        suggestedMax: 10
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- ANÁLISIS PERSONAL: EVOLUCIÓN DE VALORACIONES (DATERANGE) -->
+    <script>
+        let jsonString_statsRatingsTrendDateRange = `[[${statsRatingsTrendDateRange}]]`;
+        let decodedString_statsRatingsTrendDateRange = jsonString_statsRatingsTrendDateRange.replace(/&quot;/g, '"'); // Replace escaped quotes
+        let statsRatingsTrendDateRangeData = JSON.parse(decodedString_statsRatingsTrendDateRange);
+
+        console.log("Data from backend:", statsRatingsTrendDateRangeData);
+
+        // Extract labels (dates) and values dynamically
+        const labels_statsRatingsTrendDateRange = Object.keys(statsRatingsTrendDateRangeData);
+
+        const datasetsConfig_statsRatingsTrendDateRange = [
+            { key: "valoracionDisciplina", label: "Disciplina", color: "#FF6384" },
+            { key: "valoracionOrden", label: "Orden", color: "#36A2EB" },
+            { key: "valoracionImpulsividad", label: "Impulsividad", color: "#FFCE56" },
+            { key: "valoracionConstancia", label: "Constancia", color: "#4BC0C0" },
+            { key: "valoracionTolerancia", label: "Tolerancia", color: "#9966FF" },
+            { key: "valoracionControlPrepotencia", label: "Control Prepotencia", color: "#FF9F40" },
+            { key: "valoracionHonestidad", label: "Honestidad", color: "#8BC34A" },
+            { key: "valoracionAceptacion", label: "Aceptación", color: "#00ACC1" },
+            { key: "valoracionConsecucionObjetivos", label: "Consecución Objetivos", color: "#D32F2F" }
+        ];
+
+        // Generate datasets dynamically
+        const datasets_statsRatingsTrendDateRange = datasetsConfig_statsRatingsTrendDateRange.map(({ key, label, color }) => ({
+            label,
+            data: labels_statsRatingsTrendDateRange.map(date => statsRatingsTrendDateRangeData[date][key]), // Extracting the rating for each date
+            borderColor: color,
+            fill: false
+        }));
+
+        const ctx_chartRatingsTrendDateRange = document.getElementById('chartRatingsTrendDateRange').getContext('2d');
+        new Chart(ctx_chartRatingsTrendDateRange, {
+            type: 'line',
+            data: { labels: labels_statsRatingsTrendDateRange, datasets: datasets_statsRatingsTrendDateRange },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { labels: { color: '#FFFFFF' } } // Make legend text white
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Fecha', color: '#FFFFFF' },
+                        ticks: { color: '#FFFFFF' } // Make X-axis labels white
+                    },
+                    y: {
+                        title: { display: true, text: 'Valoración', color: '#FFFFFF' },
+                        ticks: { color: '#FFFFFF' }, // Make Y-axis labels white
+                        beginAtZero: true,
+                        suggestedMax: 10
+                    }
+                }
+            }
+        });
+    </script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             AOS.init();

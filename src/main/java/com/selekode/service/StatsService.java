@@ -719,23 +719,55 @@ public class StatsService {
 
 		return ratingsAverage;
 	}
-		
+
 	public static String convertObjectToJSON(Object objectToConvert) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            return objectMapper.writeValueAsString(objectToConvert);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			return objectMapper.writeValueAsString(objectToConvert);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static String getRatingsTrendAllTime() {
+		Map<String, PersonalRatings> personalRatingsDated = StatsRepository.findRatingsDatedAllTime();
+		String jsonRatings = convertObjectToJSON(personalRatingsDated);
+		System.out.println("JSON: " + jsonRatings);
+
+		return jsonRatings;
+	}
 	
-	  public static String getRatingsTrendAllTime() {
-	  Map<String, PersonalRatings> personalRatingsDated = StatsRepository.findRatingsDatedAllTime();
-      String jsonRatings = convertObjectToJSON(personalRatingsDated);
-      System.out.println("JSON: " + jsonRatings);
-	  
-	  return jsonRatings;
-	  
-	  }	 
+	public static String getRatingsTrendWeek() {
+		long unixWeek = 604800;
+		long dateEnd = Instant.now().getEpochSecond();
+		long dateStart = dateEnd - unixWeek;
+		Map<String, PersonalRatings> personalRatingsDated = StatsRepository.findRatingsDatedDateRange(dateStart,dateEnd);
+		String jsonRatings = convertObjectToJSON(personalRatingsDated);
+		System.out.println("JSON: " + jsonRatings);
+		
+		return jsonRatings;
+	}
+	
+	public static String getRatingsTrendMonth() {
+		long unixMonth = 2629746;
+		long dateEnd = Instant.now().getEpochSecond();
+		long dateStart = dateEnd - unixMonth;
+		Map<String, PersonalRatings> personalRatingsDated = StatsRepository.findRatingsDatedDateRange(dateStart,dateEnd);
+		String jsonRatings = convertObjectToJSON(personalRatingsDated);
+		System.out.println("JSON: " + jsonRatings);
+		
+		return jsonRatings;
+	}
+	
+	public static String getRatingsTrendDateRange(StatsDateRange statsDateRange) {
+		long dateStart = convertDateStrToLong(statsDateRange.getStartDate());
+		long dateEnd = convertDateStrToLong(statsDateRange.getEndDate());
+
+		Map<String, PersonalRatings> personalRatingsDated = StatsRepository.findRatingsDatedDateRange(dateStart,dateEnd);
+		String jsonRatings = convertObjectToJSON(personalRatingsDated);
+		System.out.println("JSON: " + jsonRatings);
+		
+		return jsonRatings;
+	}
 }
