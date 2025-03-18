@@ -10,7 +10,10 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.selekode.topaz.model.PersonalRatings;
 import com.selekode.topaz.model.StatsActivityPerDayOfWeek;
@@ -19,7 +22,7 @@ import com.selekode.topaz.model.StatsEmotionFrequency;
 public interface StatsRepository {
 	public static final String DB_URL = "jdbc:sqlite:src/main/resources/database/topazdatabase.db";
 
-	public static String convertDateToString_ddMMMyyy(long date) {
+	public static String convertDateToString_ddMMMyyy_hhmma(long date) {
 		// Convert the Unix timestamp (milliseconds) to an Instant
 		Instant instant = Instant.ofEpochSecond(date);
 
@@ -28,6 +31,17 @@ public interface StatsRepository {
 				.withZone(ZoneId.systemDefault());
 		String dateStr = formatter.format(instant);
 
+		return dateStr;
+	}
+	public static String convertDateToString_ddMMMyyy(long date) {
+		// Convert the Unix timestamp (milliseconds) to an Instant
+		Instant instant = Instant.ofEpochSecond(date);
+		
+		// Define the desired format (DD-MMM-YYYY)
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
+				.withZone(ZoneId.systemDefault());
+		String dateStr = formatter.format(instant);
+		
 		return dateStr;
 	}
 
@@ -468,49 +482,129 @@ public interface StatsRepository {
 	}
 
 	public static List<PersonalRatings> getPersonalRatingsDateRange(long dateStart, long dateEnd) {
-	    List<PersonalRatings> personalRatings = new ArrayList<>();
+		List<PersonalRatings> personalRatings = new ArrayList<>();
 
-	    // SQL query to fetch the required columns, using placeholders for the dates
-	    String sql = "SELECT valoracionDisciplina, valoracionOrden, valoracionImpulsividad, valoracionConstancia, "
-	               + "valoracionTolerancia, valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion, "
-	               + "valoracionConsecucionObjetivos "
-	               + "FROM revision "
-	               + "WHERE date >= ? AND date <= ?";
+		// SQL query to fetch the required columns, using placeholders for the dates
+		String sql = "SELECT valoracionDisciplina, valoracionOrden, valoracionImpulsividad, valoracionConstancia, "
+				+ "valoracionTolerancia, valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion, "
+				+ "valoracionConsecucionObjetivos " + "FROM revision " + "WHERE date >= ? AND date <= ?";
 
-	    try (Connection conn = DriverManager.getConnection(DB_URL);
-	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		try (Connection conn = DriverManager.getConnection(DB_URL);
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-	        // Set the parameters for the date range
-	        pstmt.setLong(1, dateStart);
-	        pstmt.setLong(2, dateEnd);
+			// Set the parameters for the date range
+			pstmt.setLong(1, dateStart);
+			pstmt.setLong(2, dateEnd);
 
-	        // Execute the query
-	        try (ResultSet rs = pstmt.executeQuery()) {
-	            while (rs.next()) {
-	                int valoracionDisciplina = rs.getInt("valoracionDisciplina");
-	                int valoracionOrden = rs.getInt("valoracionOrden");
-	                int valoracionImpulsividad = rs.getInt("valoracionImpulsividad");
-	                int valoracionConstancia = rs.getInt("valoracionConstancia");
-	                int valoracionTolerancia = rs.getInt("valoracionTolerancia");
-	                int valoracionControlPrepotencia = rs.getInt("valoracionControlPrepotencia");
-	                int valoracionHonestidad = rs.getInt("valoracionHonestidad");
-	                int valoracionAceptacion = rs.getInt("valoracionAceptacion");
-	                int valoracionConsecucionObjetivos = rs.getInt("valoracionConsecucionObjetivos");
+			// Execute the query
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					int valoracionDisciplina = rs.getInt("valoracionDisciplina");
+					int valoracionOrden = rs.getInt("valoracionOrden");
+					int valoracionImpulsividad = rs.getInt("valoracionImpulsividad");
+					int valoracionConstancia = rs.getInt("valoracionConstancia");
+					int valoracionTolerancia = rs.getInt("valoracionTolerancia");
+					int valoracionControlPrepotencia = rs.getInt("valoracionControlPrepotencia");
+					int valoracionHonestidad = rs.getInt("valoracionHonestidad");
+					int valoracionAceptacion = rs.getInt("valoracionAceptacion");
+					int valoracionConsecucionObjetivos = rs.getInt("valoracionConsecucionObjetivos");
 
-	                // Create a new PersonalRatings object and add it to the list
-	                PersonalRatings ratings = new PersonalRatings(valoracionDisciplina, valoracionOrden,
-	                        valoracionImpulsividad, valoracionConstancia, valoracionTolerancia,
-	                        valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion,
-	                        valoracionConsecucionObjetivos);
+					// Create a new PersonalRatings object and add it to the list
+					PersonalRatings ratings = new PersonalRatings(valoracionDisciplina, valoracionOrden,
+							valoracionImpulsividad, valoracionConstancia, valoracionTolerancia,
+							valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion,
+							valoracionConsecucionObjetivos);
 
-	                personalRatings.add(ratings);
-	            }
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return personalRatings;
+					personalRatings.add(ratings);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return personalRatings;
+	}	
+
+	
+	public static Map<String, PersonalRatings> findRatingsDatedAllTime() {
+		Map<String, PersonalRatings> personalRatingsMap = new LinkedHashMap<>();
+
+		// SQL query to fetch the required columns
+		String sql = "SELECT date, valoracionDisciplina, valoracionOrden, valoracionImpulsividad, valoracionConstancia, "
+				+ "valoracionTolerancia, valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion, "
+				+ "valoracionConsecucionObjetivos FROM revision" + " ORDER BY date ASC";
+
+		try (Connection conn = DriverManager.getConnection(DB_URL);
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)) {
+
+			while (rs.next()) {
+				String date = convertDateToString_ddMMMyyy(rs.getLong("date"));
+				int valoracionDisciplina = rs.getInt("valoracionDisciplina");
+				int valoracionOrden = rs.getInt("valoracionOrden");
+				int valoracionImpulsividad = rs.getInt("valoracionImpulsividad");
+				int valoracionConstancia = rs.getInt("valoracionConstancia");
+				int valoracionTolerancia = rs.getInt("valoracionTolerancia");
+				int valoracionControlPrepotencia = rs.getInt("valoracionControlPrepotencia");
+				int valoracionHonestidad = rs.getInt("valoracionHonestidad");
+				int valoracionAceptacion = rs.getInt("valoracionAceptacion");
+				int valoracionConsecucionObjetivos = rs.getInt("valoracionConsecucionObjetivos");
+
+				// Create a new PersonalRatings object and add it to the list
+				PersonalRatings ratings = new PersonalRatings(valoracionDisciplina, valoracionOrden,
+						valoracionImpulsividad, valoracionConstancia, valoracionTolerancia,
+						valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion,
+						valoracionConsecucionObjetivos);
+				
+		        personalRatingsMap.put(date, ratings);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return personalRatingsMap;
 	}
+	
+	public static Map<String, PersonalRatings> findRatingsDatedDateRange(long dateStart, long dateEnd) {
+		Map<String, PersonalRatings> personalRatingsMap = new LinkedHashMap<>();
+		
+		// SQL query to fetch the required columns
+		String sql = "SELECT date, valoracionDisciplina, valoracionOrden, valoracionImpulsividad, valoracionConstancia, "
+				+ "valoracionTolerancia, valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion, "
+				+ "valoracionConsecucionObjetivos FROM revision " + "WHERE date >= ? AND date <= ?" + "ORDER BY date ASC";;
+		
+		try (Connection conn = DriverManager.getConnection(DB_URL);
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
+			// Set the parameters for the date range
+			pstmt.setLong(1, dateStart);
+			pstmt.setLong(2, dateEnd);
 
+			// Execute the query
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					String date = convertDateToString_ddMMMyyy(rs.getLong("date"));
+					int valoracionDisciplina = rs.getInt("valoracionDisciplina");
+					int valoracionOrden = rs.getInt("valoracionOrden");
+					int valoracionImpulsividad = rs.getInt("valoracionImpulsividad");
+					int valoracionConstancia = rs.getInt("valoracionConstancia");
+					int valoracionTolerancia = rs.getInt("valoracionTolerancia");
+					int valoracionControlPrepotencia = rs.getInt("valoracionControlPrepotencia");
+					int valoracionHonestidad = rs.getInt("valoracionHonestidad");
+					int valoracionAceptacion = rs.getInt("valoracionAceptacion");
+					int valoracionConsecucionObjetivos = rs.getInt("valoracionConsecucionObjetivos");
+					
+					// Create a new PersonalRatings object and add it to the list
+					PersonalRatings ratings = new PersonalRatings(valoracionDisciplina, valoracionOrden,
+							valoracionImpulsividad, valoracionConstancia, valoracionTolerancia,
+							valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion,
+							valoracionConsecucionObjetivos);
+					
+					personalRatingsMap.put(date, ratings);
+			} } catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return personalRatingsMap;
+	}
 }

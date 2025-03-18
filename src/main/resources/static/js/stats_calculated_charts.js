@@ -1167,3 +1167,49 @@ var ratingsChart = new Chart(
     document.getElementById('chartAverageRatingsDateRange'),
     config
 );
+
+
+// ANÁLISIS PERSONAL: EVOLUCIÓN DE VALORACIONES (1m) 
+/* Thymeleaf Data to JavaScript */
+var ratingsTrend = /*[[${statsRatingsTrendAllTime}]]*/ {};
+
+console.log("Ratings Data:", ratingsTrend);  // Debugging
+
+// Extract labels (dates)
+var labels = Object.keys(ratingsTrend);
+var categories = ["Disciplina", "Orden", "Impulsividad", "Constancia", "Tolerancia", "Prepotencia", "Honestidad", "Aceptación", "Objetivos"];
+
+// Extract values for each category
+var datasets = categories.map(category => ({
+    label: category,
+    data: labels.map(date => ratingsTrend[date][category]),
+    borderWidth: 2,
+    borderColor: getRandomColor(),
+    fill: false
+}));
+
+function getRandomColor() {
+    return `hsl(${Math.random() * 360}, 70%, 50%)`; // Generates random colors
+}
+
+const ratingsTrendChartAllTime = document.getElementById('chartRatingsTrendAllTime').getContext('2d');
+new Chart(ratingsTrendChartAllTime, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: datasets
+    },
+    options: {
+        responsive: true,
+        scales: {
+            x: {
+                title: { display: true, text: 'Date' }
+            },
+            y: {
+                title: { display: true, text: 'Ratings' },
+                min: 0,
+                max: 10
+            }
+        }
+    }
+});
