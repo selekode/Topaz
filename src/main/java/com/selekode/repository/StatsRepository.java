@@ -17,6 +17,7 @@ import java.util.Map;
 
 import com.selekode.topaz.model.PersonalRatings;
 import com.selekode.topaz.model.StatsActivityPerDayOfWeek;
+import com.selekode.topaz.model.StatsEmotionAndRatingCorrelationData;
 import com.selekode.topaz.model.StatsEmotionFrequency;
 
 public interface StatsRepository {
@@ -33,15 +34,15 @@ public interface StatsRepository {
 
 		return dateStr;
 	}
+
 	public static String convertDateToString_ddMMMyyy(long date) {
 		// Convert the Unix timestamp (milliseconds) to an Instant
 		Instant instant = Instant.ofEpochSecond(date);
-		
+
 		// Define the desired format (DD-MMM-YYYY)
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
-				.withZone(ZoneId.systemDefault());
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy").withZone(ZoneId.systemDefault());
 		String dateStr = formatter.format(instant);
-		
+
 		return dateStr;
 	}
 
@@ -522,9 +523,8 @@ public interface StatsRepository {
 			e.printStackTrace();
 		}
 		return personalRatings;
-	}	
+	}
 
-	
 	public static Map<String, PersonalRatings> findRatingsDatedAllTime() {
 		Map<String, PersonalRatings> personalRatingsMap = new LinkedHashMap<>();
 
@@ -554,23 +554,25 @@ public interface StatsRepository {
 						valoracionImpulsividad, valoracionConstancia, valoracionTolerancia,
 						valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion,
 						valoracionConsecucionObjetivos);
-				
-		        personalRatingsMap.put(date, ratings);
+
+				personalRatingsMap.put(date, ratings);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return personalRatingsMap;
 	}
-	
+
 	public static Map<String, PersonalRatings> findRatingsDatedDateRange(long dateStart, long dateEnd) {
 		Map<String, PersonalRatings> personalRatingsMap = new LinkedHashMap<>();
-		
+
 		// SQL query to fetch the required columns
 		String sql = "SELECT date, valoracionDisciplina, valoracionOrden, valoracionImpulsividad, valoracionConstancia, "
 				+ "valoracionTolerancia, valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion, "
-				+ "valoracionConsecucionObjetivos FROM revision " + "WHERE date >= ? AND date <= ?" + "ORDER BY date ASC";;
-		
+				+ "valoracionConsecucionObjetivos FROM revision " + "WHERE date >= ? AND date <= ?"
+				+ "ORDER BY date ASC";
+		;
+
 		try (Connection conn = DriverManager.getConnection(DB_URL);
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -591,20 +593,120 @@ public interface StatsRepository {
 					int valoracionHonestidad = rs.getInt("valoracionHonestidad");
 					int valoracionAceptacion = rs.getInt("valoracionAceptacion");
 					int valoracionConsecucionObjetivos = rs.getInt("valoracionConsecucionObjetivos");
-					
+
 					// Create a new PersonalRatings object and add it to the list
 					PersonalRatings ratings = new PersonalRatings(valoracionDisciplina, valoracionOrden,
 							valoracionImpulsividad, valoracionConstancia, valoracionTolerancia,
 							valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion,
 							valoracionConsecucionObjetivos);
-					
+
 					personalRatingsMap.put(date, ratings);
-			} } catch (SQLException e) {
+				}
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return personalRatingsMap;
+	}
+
+	public static StatsEmotionAndRatingCorrelationData findEmotionAndRatingCorrelationDataAllTime() {
+		String sql = "SELECT * FROM revision";
+		List<double[]> emotionsList = new ArrayList<>();
+		List<double[]> ratingsList = new ArrayList<>();
+		try (Connection conn = DriverManager.getConnection(DB_URL);
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// Store emotions (convert boolean to int)
+				double[] emotions = { rs.getBoolean("emocionAlegria") ? 1.0 : 0.0,
+						rs.getBoolean("emocionTristeza") ? 1.0 : 0.0, rs.getBoolean("emocionIra") ? 1.0 : 0.0,
+						rs.getBoolean("emocionMiedo") ? 1.0 : 0.0, rs.getBoolean("emocionAnsiedad") ? 1.0 : 0.0,
+						rs.getBoolean("emocionAmor") ? 1.0 : 0.0, rs.getBoolean("emocionSorpresa") ? 1.0 : 0.0,
+						rs.getBoolean("emocionVerguenza") ? 1.0 : 0.0, rs.getBoolean("emocionFrustracion") ? 1.0 : 0.0,
+						rs.getBoolean("emocionSatisfaccion") ? 1.0 : 0.0,
+						rs.getBoolean("emocionAburrimiento") ? 1.0 : 0.0, rs.getBoolean("emocionSerenidad") ? 1.0 : 0.0,
+						rs.getBoolean("emocionConfianza") ? 1.0 : 0.0, rs.getBoolean("emocionAbrumado") ? 1.0 : 0.0,
+						rs.getBoolean("emocionEsperanza") ? 1.0 : 0.0 };
+
+				// Store ratings
+				double[] ratings = { rs.getInt("valoracionDisciplina"), rs.getInt("valoracionOrden"),
+						rs.getInt("valoracionImpulsividad"), rs.getInt("valoracionConstancia"),
+						rs.getInt("valoracionTolerancia"), rs.getInt("valoracionControlPrepotencia"),
+						rs.getInt("valoracionHonestidad"), rs.getInt("valoracionAceptacion"),
+						rs.getInt("valoracionConsecucionObjetivos") };
+
+				emotionsList.add(emotions);
+				ratingsList.add(ratings);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		// Convert lists to arrays
+		double[][] emotionsArray = emotionsList.toArray(new double[0][0]);
+		double[][] ratingsArray = ratingsList.toArray(new double[0][0]);
+
+		StatsEmotionAndRatingCorrelationData statsEmotionAndRatingCorrelationData = new StatsEmotionAndRatingCorrelationData();
+		statsEmotionAndRatingCorrelationData.emotions = emotionsArray;
+		statsEmotionAndRatingCorrelationData.ratings = ratingsArray;
+
+		return statsEmotionAndRatingCorrelationData;
+
+	}
+
+	public static StatsEmotionAndRatingCorrelationData findEmotionAndRatingCorrelationDataDateRange(long dateStart,
+			long dateEnd) {
+		String sql = "SELECT * FROM revision " + "WHERE date >= ? AND date <= ?";
+		List<double[]> emotionsList = new ArrayList<>();
+		List<double[]> ratingsList = new ArrayList<>();
+		try (Connection conn = DriverManager.getConnection(DB_URL);
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			// Set the parameters for the date range
+			pstmt.setLong(1, dateStart);
+			pstmt.setLong(2, dateEnd);
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// Store emotions (convert boolean to int)
+				double[] emotions = { rs.getBoolean("emocionAlegria") ? 1.0 : 0.0,
+						rs.getBoolean("emocionTristeza") ? 1.0 : 0.0, rs.getBoolean("emocionIra") ? 1.0 : 0.0,
+						rs.getBoolean("emocionMiedo") ? 1.0 : 0.0, rs.getBoolean("emocionAnsiedad") ? 1.0 : 0.0,
+						rs.getBoolean("emocionAmor") ? 1.0 : 0.0, rs.getBoolean("emocionSorpresa") ? 1.0 : 0.0,
+						rs.getBoolean("emocionVerguenza") ? 1.0 : 0.0, rs.getBoolean("emocionFrustracion") ? 1.0 : 0.0,
+						rs.getBoolean("emocionSatisfaccion") ? 1.0 : 0.0,
+						rs.getBoolean("emocionAburrimiento") ? 1.0 : 0.0, rs.getBoolean("emocionSerenidad") ? 1.0 : 0.0,
+						rs.getBoolean("emocionConfianza") ? 1.0 : 0.0, rs.getBoolean("emocionAbrumado") ? 1.0 : 0.0,
+						rs.getBoolean("emocionEsperanza") ? 1.0 : 0.0 };
+
+				// Store ratings
+				double[] ratings = { rs.getInt("valoracionDisciplina"), rs.getInt("valoracionOrden"),
+						rs.getInt("valoracionImpulsividad"), rs.getInt("valoracionConstancia"),
+						rs.getInt("valoracionTolerancia"), rs.getInt("valoracionControlPrepotencia"),
+						rs.getInt("valoracionHonestidad"), rs.getInt("valoracionAceptacion"),
+						rs.getInt("valoracionConsecucionObjetivos") };
+
+				emotionsList.add(emotions);
+				ratingsList.add(ratings);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		// Convert lists to arrays
+		double[][] emotionsArray = emotionsList.toArray(new double[0][0]);
+		double[][] ratingsArray = ratingsList.toArray(new double[0][0]);
+
+		StatsEmotionAndRatingCorrelationData statsEmotionAndRatingCorrelationData = new StatsEmotionAndRatingCorrelationData();
+		statsEmotionAndRatingCorrelationData.emotions = emotionsArray;
+		statsEmotionAndRatingCorrelationData.ratings = ratingsArray;
+
+		return statsEmotionAndRatingCorrelationData;
+
 	}
 }

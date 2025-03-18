@@ -53,6 +53,10 @@ public class StatsController {
 		model.addAttribute("statsRatingsTrendMonth", StatsService.getRatingsTrendMonth());
 		model.addAttribute("statsRatingsTrendDateRange", StatsService.getRatingsTrendDateRange(statsDateRange));
 		
+		model.addAttribute("statsCorrelationEmotionsRatingsAllTime", StatsService.getCorrelationEmotionsRatingsAllTime());
+		//model.addAttribute("statsCorrelationEmotionsRatingsDateMonth", StatsService.getCorrelationEmotionsRatingsMonth());
+		//model.addAttribute("statsCorrelationEmotionsRatingsDateRange", StatsService.getCorrelationEmotionsRatingsDateRange(statsDateRange));
+		
 		return "stats_calculated";
 	}
 }

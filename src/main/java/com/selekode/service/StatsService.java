@@ -8,17 +8,20 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.selekode.repository.StatsRepository;
 import com.selekode.topaz.model.StatsDateRange;
+import com.selekode.topaz.model.StatsEmotionAndRatingCorrelationData;
 import com.selekode.topaz.model.StatsEmotionFrequency;
 import com.selekode.topaz.model.StatsEntryCount;
 import com.selekode.topaz.model.PersonalRatings;
@@ -737,37 +740,151 @@ public class StatsService {
 
 		return jsonRatings;
 	}
-	
+
 	public static String getRatingsTrendWeek() {
 		long unixWeek = 604800;
 		long dateEnd = Instant.now().getEpochSecond();
 		long dateStart = dateEnd - unixWeek;
-		Map<String, PersonalRatings> personalRatingsDated = StatsRepository.findRatingsDatedDateRange(dateStart,dateEnd);
+		Map<String, PersonalRatings> personalRatingsDated = StatsRepository.findRatingsDatedDateRange(dateStart,
+				dateEnd);
 		String jsonRatings = convertObjectToJSON(personalRatingsDated);
 		System.out.println("JSON: " + jsonRatings);
-		
+
 		return jsonRatings;
 	}
-	
+
 	public static String getRatingsTrendMonth() {
 		long unixMonth = 2629746;
 		long dateEnd = Instant.now().getEpochSecond();
 		long dateStart = dateEnd - unixMonth;
-		Map<String, PersonalRatings> personalRatingsDated = StatsRepository.findRatingsDatedDateRange(dateStart,dateEnd);
+		Map<String, PersonalRatings> personalRatingsDated = StatsRepository.findRatingsDatedDateRange(dateStart,
+				dateEnd);
 		String jsonRatings = convertObjectToJSON(personalRatingsDated);
 		System.out.println("JSON: " + jsonRatings);
-		
+
 		return jsonRatings;
 	}
-	
+
 	public static String getRatingsTrendDateRange(StatsDateRange statsDateRange) {
 		long dateStart = convertDateStrToLong(statsDateRange.getStartDate());
 		long dateEnd = convertDateStrToLong(statsDateRange.getEndDate());
 
-		Map<String, PersonalRatings> personalRatingsDated = StatsRepository.findRatingsDatedDateRange(dateStart,dateEnd);
+		Map<String, PersonalRatings> personalRatingsDated = StatsRepository.findRatingsDatedDateRange(dateStart,
+				dateEnd);
 		String jsonRatings = convertObjectToJSON(personalRatingsDated);
 		System.out.println("JSON: " + jsonRatings);
-		
+
 		return jsonRatings;
 	}
+
+	private static double[] computePearsonGetColumn(double[][] matrix, int colIndex) {
+		return Arrays.stream(matrix).mapToDouble(row -> row[colIndex]).toArray();
+	}
+
+	public static String getCorrelationEmotionsRatingsAllTime() {
+		StatsEmotionAndRatingCorrelationData emotionAndRatingCorrelationData = StatsRepository
+				.findEmotionAndRatingCorrelationDataAllTime();
+		double[][] emotions = emotionAndRatingCorrelationData.emotions;
+		double[][] ratings = emotionAndRatingCorrelationData.ratings;
+
+		int numEmotions = emotions[0].length;
+		int numRatings = ratings[0].length;
+		double[][] correlationMatrix = new double[numEmotions][numRatings];
+
+		PearsonsCorrelation correlation = new PearsonsCorrelation();
+
+		for (int i = 0; i < numEmotions; i++) {
+			for (int j = 0; j < numRatings; j++) {
+				double[] emotionColumn = computePearsonGetColumn(emotions, i);
+				double[] ratingColumn = computePearsonGetColumn(ratings, j);
+				double correlationValue = correlation.correlation(emotionColumn, ratingColumn);
+				// Handle NaN values and replace with 0 or null equivalent
+				if (Double.isNaN(correlationValue)) {
+					correlationMatrix[i][j] = 0.0; // Replace NaN with 0 (or null equivalent)
+				} else {
+					correlationMatrix[i][j] = correlationValue;
+				}
+			}
+		}
+
+		// Convert the matrix to JSON
+		String jsonCorrelationMatrix = convertObjectToJSON(correlationMatrix);
+		System.out.println("JSON: " + jsonCorrelationMatrix);
+
+		return jsonCorrelationMatrix;
+	}
+
+	/*
+	public static String getCorrelationEmotionsRatingsMonth() {
+		long unixWeek = 604800;
+		long dateEnd = Instant.now().getEpochSecond();
+		long dateStart = dateEnd - unixWeek;
+		
+		StatsEmotionAndRatingCorrelationData emotionAndRatingCorrelationData = StatsRepository
+				.findEmotionAndRatingCorrelationDataAllTime();
+		double[][] emotions = emotionAndRatingCorrelationData.emotions;
+		double[][] ratings = emotionAndRatingCorrelationData.ratings;
+
+		int numEmotions = emotions[0].length;
+		int numRatings = ratings[0].length;
+		double[][] correlationMatrix = new double[numEmotions][numRatings];
+
+		PearsonsCorrelation correlation = new PearsonsCorrelation();
+
+		for (int i = 0; i < numEmotions; i++) {
+			for (int j = 0; j < numRatings; j++) {
+				double[] emotionColumn = computePearsonGetColumn(emotions, i);
+				double[] ratingColumn = computePearsonGetColumn(ratings, j);
+				double correlationValue = correlation.correlation(emotionColumn, ratingColumn);
+				// Handle NaN values and replace with 0 or null equivalent
+				if (Double.isNaN(correlationValue)) {
+					correlationMatrix[i][j] = 0.0; // Replace NaN with 0 (or null equivalent)
+				} else {
+					correlationMatrix[i][j] = correlationValue;
+				}
+			}
+		}
+
+		// Convert the matrix to JSON
+		String jsonCorrelationMatrix = convertObjectToJSON(correlationMatrix);
+		System.out.println("JSON: " + jsonCorrelationMatrix);
+
+		return jsonCorrelationMatrix;
+	}
+	
+	public static String getCorrelationEmotionsRatingsDateRange(StatsDateRange statsDateRange) {
+		long dateStart = convertDateStrToLong(statsDateRange.getStartDate());
+		long dateEnd = convertDateStrToLong(statsDateRange.getEndDate());
+		StatsEmotionAndRatingCorrelationData emotionAndRatingCorrelationData = StatsRepository
+				.findEmotionAndRatingCorrelationDataDateRange(dateStart, dateEnd);
+		double[][] emotions = emotionAndRatingCorrelationData.emotions;
+		double[][] ratings = emotionAndRatingCorrelationData.ratings;
+		
+		int numEmotions = emotions[0].length;
+		int numRatings = ratings[0].length;
+		double[][] correlationMatrix = new double[numEmotions][numRatings];
+		
+		PearsonsCorrelation correlation = new PearsonsCorrelation();
+		
+		for (int i = 0; i < numEmotions; i++) {
+			for (int j = 0; j < numRatings; j++) {
+				double[] emotionColumn = computePearsonGetColumn(emotions, i);
+				double[] ratingColumn = computePearsonGetColumn(ratings, j);
+				double correlationValue = correlation.correlation(emotionColumn, ratingColumn);
+				// Handle NaN values and replace with 0 or null equivalent
+				if (Double.isNaN(correlationValue)) {
+					correlationMatrix[i][j] = 0.0; // Replace NaN with 0 (or null equivalent)
+				} else {
+					correlationMatrix[i][j] = correlationValue;
+				}
+			}
+		}
+		
+		// Convert the matrix to JSON
+		String jsonCorrelationMatrix = convertObjectToJSON(correlationMatrix);
+		System.out.println("JSON: " + jsonCorrelationMatrix);
+		
+		return jsonCorrelationMatrix;
+	}
+	*/
 }
