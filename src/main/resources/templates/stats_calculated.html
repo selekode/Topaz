@@ -664,44 +664,11 @@
 
                         <!-- Tab Buttons -->
                         <div class="flex space-x-2 mb-4">
-                            <button @click="tab = '1m'"
-                                :class="tab === '1m' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
-                                class="px-4 py-2 rounded-md transition">
-                                1m
-                            </button>
-                            <button @click="tab = 'daterange'"
-                                :class="tab === 'daterange' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
-                                class="px-4 py-2 rounded-md transition">
-                                Rango
-                            </button>
                             <button @click="tab = 'all'"
                                 :class="tab === 'all' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 Total
                             </button>
-                        </div>
-
-                        <!-- Correlación entre emociones y valoraciones (1m) Tab -->
-                        <div x-show="tab === '1m'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">
-                                Correlación entre emociones y valoraciones en el último mes</p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra la correlación entre emociones y
-                                valoraciones
-                                personales en tus revisiones:</p>
-                            <canvas id="chartRatingsTrendMonth"
-                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
-                        </div>
-
-                        <!-- Correlación entre emociones y valoraciones (Daterange) Tab -->
-                        <div x-show="tab === 'daterange'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2"
-                                th:text="'Correlación entre emociones y valoraciones en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
-                            </p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra la correlación entre emociones y
-                                valoraciones
-                                personales en tus revisiones:</p>
-                            <canvas id="chartRatingsTrendDateRange"
-                                class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
                         </div>
 
                         <!-- Correlación entre emociones y valoraciones (Totales) Tab -->
@@ -711,7 +678,7 @@
                             <p class="text-base text-white mb-4">- Esta gráfica muestra la correlación entre emociones y
                                 valoraciones
                                 personales en tus revisiones:</p>
-                            <canvas id="heatmapChart" class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
+                            <canvas id="heatmapChartstatsCorrelationEmotionsRatingsAllTime" class="max-w-[75%] w-full h-auto"></canvas>
                         </div>
                     </div>
                 </div>
@@ -2126,19 +2093,29 @@
         });
     </script>
 
-    <!-- CORRELATIONS & INSIGHTS: EMOTIONS AND RATINGS CORRELATION (ALLTIME) -->
+<!-- CORRELATIONS & INSIGHTS: EMOTIONS AND RATINGS CORRELATION (ALLTIME) -->
 <script th:inline="javascript">
     let correlationMatrix = /*[[${statsCorrelationEmotionsRatingsAllTime}]]*/ '[]';
     correlationMatrix = JSON.parse(correlationMatrix);
 
-    // Sanitize the matrix by replacing "NaN" with null
+    // Verificación inicial de la matriz
+    console.log("Matriz de correlación original:", correlationMatrix);
+
+    // Sanitización de la matriz reemplazando "NaN" por null
     correlationMatrix = correlationMatrix.map(row => 
         row.map(value => value === "NaN" ? null : value)
     );
 
-    // Now `correlationMatrix` should only contain numbers or `null`
-    console.log("Sanitized Matrix:", correlationMatrix);
+    console.log("Matriz después de sanitización:", correlationMatrix);
 
+    // Asegurémonos de que la matriz tenga las dimensiones correctas
+    const expectedRows = 15;  // Emociones
+    const expectedCols = 9;   // Valoraciones
+
+    console.log(`Esperados: ${expectedRows} filas y ${expectedCols} columnas`);
+    console.log(`Matriz real: ${correlationMatrix.length} filas y ${correlationMatrix[0].length} columnas`);
+
+    // Verificar si el número de puntos corresponde a los valores esperados
     const emotions = [
         "Alegría", "Tristeza", "Ira", "Miedo", "Ansiedad", "Amor", "Sorpresa",
         "Vergüenza", "Frustración", "Satisfacción", "Aburrimiento", "Serenidad",
@@ -2147,71 +2124,106 @@
 
     const ratings = [
         "Disciplina", "Orden", "Impulsividad", "Constancia", "Tolerancia",
-        "Control Prepotencia", "Honestidad", "Aceptación", "Consecución Objetivos"
+        "Control Prepotencia", "Honestidad", "Aceptación", "Consecución de Objetivos"
     ];
 
+    // Crear los datos para el mapa de calor
     const heatmapData = [];
+    const seenPoints = new Set();  // Para evitar duplicados
+
     for (let row = 0; row < correlationMatrix.length; row++) {
         for (let col = 0; col < correlationMatrix[row].length; col++) {
             const value = correlationMatrix[row][col];
-            if (value !== null) { // Only add non-null values
-                heatmapData.push({
-                    x: col,
-                    y: row,
-                    v: value
-                });
+            if (value !== null) { // Solo agregar valores no nulos
+                const pointKey = `${row}-${col}`;  // Para evitar duplicados
+                if (!seenPoints.has(pointKey)) {
+                    seenPoints.add(pointKey);
+                    heatmapData.push({
+                        x: col,  // Índice de la valoración (eje X)
+                        y: row,  // Índice de la emoción (eje Y)
+                        v: value  // Valor de correlación
+                    });
+                }
             }
         }
     }
 
-    console.log("Heatmap Data:", heatmapData);
+    console.log("Datos para el heatmap:", heatmapData);
+    console.log(`Número total de puntos: ${heatmapData.length}`);
 
-    const ctx = document.getElementById('heatmapChart').getContext('2d');
+    // Crear gráfico
+    const ctx = document.getElementById('heatmapChartstatsCorrelationEmotionsRatingsAllTime').getContext('2d');
     new Chart(ctx, {
         type: 'scatter',
         data: {
             datasets: [{
-                label: 'Correlation Heatmap',
+                label: 'Mapa de Correlación',
                 data: heatmapData,
-                backgroundColor: function(ctx) {
+                backgroundColor(ctx) {
                     const value = ctx.raw.v;
-                    const alpha = Math.abs(value);
+                    const alpha = Math.abs(value);  // Intensidad del color basada en el valor
                     return value > 0
-                        ? `rgba(0, 123, 255, ${alpha})`   // Blue color for positive correlations
-                        : `rgba(255, 0, 0, ${alpha})`;    // Red color for negative correlations
+                        ? `rgba(0, 123, 255, ${alpha})`  // Azul para correlaciones positivas
+                        : `rgba(255, 0, 0, ${alpha})`;   // Rojo para correlaciones negativas
                 },
-                borderColor: 'rgba(0, 0, 0, 0.1)',
-                borderWidth: 1,
-                pointRadius: 5
+                pointRadius: 15,  // Ajustar el tamaño de los puntos
+                pointHoverRadius: 20,
             }]
         },
         options: {
+            responsive: true,
             scales: {
                 x: {
                     type: 'category',
                     labels: ratings,
-                    title: { display: true, text: "Ratings" },
-                    ticks: { autoSkip: true, maxRotation: 0 }
+                    title: { display: true, text: "Valoración" },
+                    ticks: {
+                        maxRotation: 45,
+                        minRotation: 45,
+                        color: 'white',  // Color blanco para las etiquetas
+                    },
+                    grid: {
+                        display: false,
+                    },
+                    min: -0.5,
+                    max: ratings.length - 0.5
                 },
                 y: {
                     type: 'category',
                     labels: emotions,
-                    title: { display: true, text: "Emotions" }
+                    title: { display: true, text: "Emoción" },
+                    ticks: {
+                        color: 'white',  // Color blanco para las etiquetas
+                    },
+                    grid: {
+                        display: false,
+                    },
+                    min: -0.5,
+                    max: emotions.length - 0.5
                 }
             },
             plugins: {
                 tooltip: {
                     callbacks: {
-                        title: (tooltipItems) => emotions[tooltipItems[0].raw.y],
-                        label: (tooltipItem) => `Correlation: ${tooltipItem.raw.v.toFixed(2)}`
-                    }
-                }
-            }
+                        title: (tooltipItems) => `Emoción: ${emotions[tooltipItems[0].raw.y]}`,
+                        label: (tooltipItem) => {
+                            const rating = ratings[tooltipItem.raw.x];
+                            const correlation = tooltipItem.raw.v.toFixed(2);
+                            return `Correlación con ${rating}: ${correlation}`;
+                        }
+                    },
+                },
+            },
+            elements: {
+                point: {
+                    borderColor: 'white', // Bordes blancos para los puntos
+                    borderWidth: 2,
+                },
+            },
         }
     });
 </script>
 
-    
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
