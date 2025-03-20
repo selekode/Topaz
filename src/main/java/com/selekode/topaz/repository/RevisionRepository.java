@@ -1,4 +1,4 @@
-package com.selekode.repository;
+package com.selekode.topaz.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,8 +12,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.selekode.service.RevisionService;
 import com.selekode.topaz.model.RevisionEntry;
+import com.selekode.topaz.service.RevisionService;
 
 public interface RevisionRepository {
 	public static final String DB_URL = "jdbc:sqlite:src/main/resources/database/topazdatabase.db";

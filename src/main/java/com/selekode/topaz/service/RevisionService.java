@@ -1,4 +1,4 @@
-package com.selekode.service;
+package com.selekode.topaz.service;
 
 import java.time.Instant;
 import java.time.ZoneId;
@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.selekode.repository.RevisionRepository;
 import com.selekode.topaz.model.RevisionEntry;
+import com.selekode.topaz.repository.RevisionRepository;
 
 @Service
 public class RevisionService {

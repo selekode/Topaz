@@ -1,4 +1,4 @@
-package com.selekode.repository;
+package com.selekode.topaz.repository;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,34 +18,12 @@ import java.util.Map;
 import com.selekode.topaz.model.PersonalRatings;
 import com.selekode.topaz.model.StatsActivityPerDayOfWeek;
 import com.selekode.topaz.model.StatsEmotionFrequency;
+import com.selekode.topaz.utils.StatsHelper;
 
 public interface StatsRepository {
 	public static final String DB_URL = "jdbc:sqlite:src/main/resources/database/topazdatabase.db";
 
-	public static String convertDateToString_ddMMMyyy_hhmma(long date) {
-		// Convert the Unix timestamp (milliseconds) to an Instant
-		Instant instant = Instant.ofEpochSecond(date);
-
-		// Define the desired format (DD-MMM-YYYY)
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a")
-				.withZone(ZoneId.systemDefault());
-		String dateStr = formatter.format(instant);
-
-		return dateStr;
-	}
-	public static String convertDateToString_ddMMMyyy(long date) {
-		// Convert the Unix timestamp (milliseconds) to an Instant
-		Instant instant = Instant.ofEpochSecond(date);
-		
-		// Define the desired format (DD-MMM-YYYY)
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy")
-				.withZone(ZoneId.systemDefault());
-		String dateStr = formatter.format(instant);
-		
-		return dateStr;
-	}
-
-	public static int getJournalEntryCountAllTime() {
+	public static int findJournalEntryCountAllTime() {
 		int journalEntryCount = 0;
 
 		// SQL query to count rows in the 'journal' table
@@ -70,7 +48,7 @@ public interface StatsRepository {
 		return journalEntryCount;
 	}
 
-	public static int getRevisionEntryCountAllTime() {
+	public static int findRevisionEntryCountAllTime() {
 		int revisionEntryCount = 0;
 
 		// SQL query to count rows in the 'journal' table
@@ -95,7 +73,7 @@ public interface StatsRepository {
 		return revisionEntryCount;
 	}
 
-	public static int getJournalEntryCountDateRange(long dateStart, long dateEnd) {
+	public static int findJournalEntryCountDateRange(long dateStart, long dateEnd) {
 		int journalEntryCount = 0;
 		System.out.println("Searching for rows in journal between:" + dateStart + " and " + dateEnd);
 
@@ -124,7 +102,7 @@ public interface StatsRepository {
 		return journalEntryCount;
 	}
 
-	public static int getRevisionEntryCountDateRange(long dateStart, long dateEnd) {
+	public static int findRevisionEntryCountDateRange(long dateStart, long dateEnd) {
 		int revisionEntryCount = 0;
 		System.out.println("Searching for rows in revision between:" + dateStart + " and " + dateEnd);
 
@@ -153,7 +131,7 @@ public interface StatsRepository {
 		return revisionEntryCount;
 	}
 
-	public static StatsActivityPerDayOfWeek getEntryCountPerDayAllTime() {
+	public static StatsActivityPerDayOfWeek findEntryCountPerDayAllTime() {
 		int journalMondayEntryCount = 0;
 		int journalTuesdayEntryCount = 0;
 		int journalWednesdayEntryCount = 0;
@@ -230,7 +208,7 @@ public interface StatsRepository {
 
 	}
 
-	public static StatsActivityPerDayOfWeek getEntryCountPerDayDateRange(long dateStart, long dateEnd) {
+	public static StatsActivityPerDayOfWeek findEntryCountPerDayDateRange(long dateStart, long dateEnd) {
 		int journalMondayEntryCount = 0;
 		int journalTuesdayEntryCount = 0;
 		int journalWednesdayEntryCount = 0;
@@ -333,7 +311,7 @@ public interface StatsRepository {
 
 	}
 
-	public static StatsEmotionFrequency getEmotionCountAllTime() {
+	public static StatsEmotionFrequency findEmotionCountAllTime() {
 		String sql = """
 				    SELECT
 				        SUM(CASE WHEN emocionAlegria = 1 THEN 1 ELSE 0 END) AS emocionAlegriaCount,
@@ -386,7 +364,7 @@ public interface StatsRepository {
 		return emotionFrequency;
 	}
 
-	public static StatsEmotionFrequency getEmotionCountDateRange(Long startDate, Long endDate) {
+	public static StatsEmotionFrequency findEmotionCountDateRange(Long startDate, Long endDate) {
 		String sql = """
 				    SELECT
 				        SUM(CASE WHEN emocionAlegria = 1 THEN 1 ELSE 0 END) AS emocionAlegriaCount,
@@ -444,7 +422,7 @@ public interface StatsRepository {
 		return emotionFrequency;
 	}
 
-	public static List<PersonalRatings> getPersonalRatingsAllTime() {
+	public static List<PersonalRatings> findPersonalRatingsAllTime() {
 		List<PersonalRatings> personalRatings = new ArrayList<>();
 
 		// SQL query to fetch the required columns
@@ -481,7 +459,7 @@ public interface StatsRepository {
 		return personalRatings;
 	}
 
-	public static List<PersonalRatings> getPersonalRatingsDateRange(long dateStart, long dateEnd) {
+	public static List<PersonalRatings> findPersonalRatingsDateRange(long dateStart, long dateEnd) {
 		List<PersonalRatings> personalRatings = new ArrayList<>();
 
 		// SQL query to fetch the required columns, using placeholders for the dates
@@ -522,9 +500,8 @@ public interface StatsRepository {
 			e.printStackTrace();
 		}
 		return personalRatings;
-	}	
+	}
 
-	
 	public static Map<String, PersonalRatings> findRatingsDatedAllTime() {
 		Map<String, PersonalRatings> personalRatingsMap = new LinkedHashMap<>();
 
@@ -538,7 +515,7 @@ public interface StatsRepository {
 				ResultSet rs = stmt.executeQuery(sql)) {
 
 			while (rs.next()) {
-				String date = convertDateToString_ddMMMyyy(rs.getLong("date"));
+				String date = StatsHelper.convertDateToString_ddMMMyyy(rs.getLong("date"));
 				int valoracionDisciplina = rs.getInt("valoracionDisciplina");
 				int valoracionOrden = rs.getInt("valoracionOrden");
 				int valoracionImpulsividad = rs.getInt("valoracionImpulsividad");
@@ -554,23 +531,25 @@ public interface StatsRepository {
 						valoracionImpulsividad, valoracionConstancia, valoracionTolerancia,
 						valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion,
 						valoracionConsecucionObjetivos);
-				
-		        personalRatingsMap.put(date, ratings);
+
+				personalRatingsMap.put(date, ratings);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return personalRatingsMap;
 	}
-	
+
 	public static Map<String, PersonalRatings> findRatingsDatedDateRange(long dateStart, long dateEnd) {
 		Map<String, PersonalRatings> personalRatingsMap = new LinkedHashMap<>();
-		
+
 		// SQL query to fetch the required columns
 		String sql = "SELECT date, valoracionDisciplina, valoracionOrden, valoracionImpulsividad, valoracionConstancia, "
 				+ "valoracionTolerancia, valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion, "
-				+ "valoracionConsecucionObjetivos FROM revision " + "WHERE date >= ? AND date <= ?" + "ORDER BY date ASC";;
-		
+				+ "valoracionConsecucionObjetivos FROM revision " + "WHERE date >= ? AND date <= ?"
+				+ "ORDER BY date ASC";
+		;
+
 		try (Connection conn = DriverManager.getConnection(DB_URL);
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -581,7 +560,7 @@ public interface StatsRepository {
 			// Execute the query
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
-					String date = convertDateToString_ddMMMyyy(rs.getLong("date"));
+					String date = StatsHelper.convertDateToString_ddMMMyyy(rs.getLong("date"));
 					int valoracionDisciplina = rs.getInt("valoracionDisciplina");
 					int valoracionOrden = rs.getInt("valoracionOrden");
 					int valoracionImpulsividad = rs.getInt("valoracionImpulsividad");
@@ -591,15 +570,16 @@ public interface StatsRepository {
 					int valoracionHonestidad = rs.getInt("valoracionHonestidad");
 					int valoracionAceptacion = rs.getInt("valoracionAceptacion");
 					int valoracionConsecucionObjetivos = rs.getInt("valoracionConsecucionObjetivos");
-					
+
 					// Create a new PersonalRatings object and add it to the list
 					PersonalRatings ratings = new PersonalRatings(valoracionDisciplina, valoracionOrden,
 							valoracionImpulsividad, valoracionConstancia, valoracionTolerancia,
 							valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion,
 							valoracionConsecucionObjetivos);
-					
+
 					personalRatingsMap.put(date, ratings);
-			} } catch (SQLException e) {
+				}
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		} catch (SQLException e) {
