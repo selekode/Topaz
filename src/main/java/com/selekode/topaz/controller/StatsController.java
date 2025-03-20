@@ -6,9 +6,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.selekode.service.StatsService;
 import com.selekode.topaz.model.StatsDateRange;
-
+import com.selekode.topaz.service.StatsService;
 
 import org.springframework.ui.Model;
 

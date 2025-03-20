@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 
-import com.selekode.service.RevisionService;
 import com.selekode.topaz.model.RevisionEntry;
+import com.selekode.topaz.service.RevisionService;
 
 @RequestMapping("/revision")
 @Controller

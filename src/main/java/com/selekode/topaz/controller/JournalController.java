@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
-import com.selekode.service.JournalService;
+
 import com.selekode.topaz.model.JournalEntry;
+import com.selekode.topaz.service.JournalService;
 
 @RequestMapping("/journal")
 @Controller
