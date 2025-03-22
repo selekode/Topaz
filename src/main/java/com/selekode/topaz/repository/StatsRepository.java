@@ -15,14 +15,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.selekode.topaz.config.DatabaseConfig;
 import com.selekode.topaz.model.PersonalRatings;
 import com.selekode.topaz.model.StatsActivityPerDayOfWeek;
 import com.selekode.topaz.model.StatsEmotionFrequency;
 import com.selekode.topaz.utils.StatsHelper;
 
 public interface StatsRepository {
-	public static final String DB_URL = "jdbc:sqlite:src/main/resources/database/topazdatabase.db";
-
+	public static final String DB_URL = DatabaseConfig.DB_URL;
+	
 	public static int findJournalEntryCountAllTime() {
 		int journalEntryCount = 0;
 
