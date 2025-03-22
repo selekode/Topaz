@@ -28,7 +28,7 @@ public class JournalController {
 	// ADD ENTRY FEATURE
 	@GetMapping("/addEntry")
 	public String loadPageAddEntry(Model model) {
-		JournalEntry journalEntry = new JournalEntry(0, "", "", "");
+		JournalEntry journalEntry = new JournalEntry(0, "", "", "", "", "", "", "", "", "", "", "", "", "");
 		model.addAttribute("journalEntry", journalEntry);
 
 		return "journal_addEntry";
