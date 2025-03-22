@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.selekode.topaz.config.DatabaseConstants;
+import com.selekode.topaz.database.DatabaseConstants;
 import com.selekode.topaz.model.JournalEntry;
 import com.selekode.topaz.model.RevisionEntry;
 
