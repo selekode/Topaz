@@ -18,13 +18,13 @@ public class DatabaseCreator {
         File directory = new File(directoryPath);
         if (!directory.exists()) {
             if (directory.mkdirs()) {
-                System.out.println("TopazDB: Directory created successfully: " + directoryPath);
+                System.out.println("TopazDB: Topaz Data Directory created successfully: " + directoryPath);
             } else {
-                System.out.println("TopazDB: Failed to create directory: " + directoryPath);
+                System.out.println("TopazDB: Failed to create Topaz Data Directory: " + directoryPath);
                 return;
             }
         } else {
-            System.out.println("TopazDB: Directory already exists: " + directoryPath);
+            System.out.println("TopazDB: Topaz Data Directory already exists: " + directoryPath);
         }
 
         // Check if the database file exists, if not, create it
@@ -51,6 +51,7 @@ public class DatabaseCreator {
                     "contentEspiritualidadProposito TEXT, " +
                     "contentRecreacionDiversion TEXT, " +
                     "contentContribucionLegado TEXT, " +
+                    "contentErroresCometidos TEXT, " +
                     "PRIMARY KEY(id AUTOINCREMENT)" +
                     ");";
             
