@@ -23,7 +23,7 @@ public class TopazWebview extends Application {
 		stage.getIcons().add(icon);
 
 		WebView webView = new WebView();
-		webView.getEngine().load("http://localhost:8080/journal/load");
+		webView.getEngine().load("http://localhost:8080/dashboard/load");
 
 		VBox vBox = new VBox(webView);
 		VBox.setVgrow(webView, javafx.scene.layout.Priority.ALWAYS);
