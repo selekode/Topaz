@@ -12,12 +12,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.selekode.topaz.database.DatabaseConstants;
 import com.selekode.topaz.model.RevisionEntry;
-import com.selekode.topaz.service.RevisionService;
 
 public interface RevisionRepository {
-	public static final String DB_URL = "jdbc:sqlite:src/main/resources/database/topazdatabase.db";
-
+	public static final String DB_URL = DatabaseConstants.DB_URL;
 	public static List<RevisionEntry> selectAllRevisionEntries() {
 		// SQL query to retrieve data from the table, ordered by date descending
 		String sql = "SELECT id, date, estadoEmocional, estadoEmocionalWhy, importanteParaMi, "

@@ -12,17 +12,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.selekode.topaz.database.DatabaseConstants;
 import com.selekode.topaz.model.JournalEntry;
 import com.selekode.topaz.model.RevisionEntry;
 
 public interface JournalRepository {
-	public static final String DB_URL = "jdbc:sqlite:src/main/resources/database/topazdatabase.db";
+	public static final String DB_URL = DatabaseConstants.DB_URL;
 
 	public static List<JournalEntry> selectAllJournalEntries() {
 		// SQL query to retrieve data from the table, ordered by date descending
 		String sql = "SELECT id, date, title, contentGeneral, contentSaludFisica, contentBienestarMental, contentRelacionesSociales, "
 				+ "contentCarreraProfesional, contentEstabilidadFinanciera, contentCrecimientoPersonal, contentPasatiemposCreatividad, "
-				+ "contentEspiritualidadProposito, contentRecreacionDiversion, contentContribucionLegado FROM journal ORDER BY date DESC";
+				+ "contentEspiritualidadProposito, contentRecreacionDiversion, contentContribucionLegado,contentErroresCometidos FROM journal ORDER BY date DESC";
 
 		List<JournalEntry> journalEntries = new ArrayList<>();
 
@@ -47,6 +48,7 @@ public interface JournalRepository {
 				String contentEspiritualidadProposito = rs.getString("contentEspiritualidadProposito");
 				String contentRecreacionDiversion = rs.getString("contentRecreacionDiversion");
 				String contentContribucionLegado = rs.getString("contentContribucionLegado");
+				String contentErroresCometidos = rs.getString("contentErroresCometidos");
 
 				// Convert date from UNIX time to String
 				String dateStr = convertDateToString_ddMMMyyy(date);
@@ -55,7 +57,8 @@ public interface JournalRepository {
 				JournalEntry journalEntry = new JournalEntry(id, dateStr, title, contentGeneral, contentSaludFisica,
 						contentBienestarMental, contentRelacionesSociales, contentCarreraProfesional,
 						contentEstabilidadFinanciera, contentCrecimientoPersonal, contentPasatiemposCreatividad,
-						contentEspiritualidadProposito, contentRecreacionDiversion, contentContribucionLegado);
+						contentEspiritualidadProposito, contentRecreacionDiversion, contentContribucionLegado,
+						contentErroresCometidos);
 				// Add the journal entry to the list
 				journalEntries.add(journalEntry);
 			}
@@ -72,7 +75,7 @@ public interface JournalRepository {
 		JournalEntry journalEntry = null;
 		String query = "SELECT id, date, title, contentGeneral, contentSaludFisica, contentBienestarMental, contentRelacionesSociales, "
 				+ "contentCarreraProfesional, contentEstabilidadFinanciera, contentCrecimientoPersonal, contentPasatiemposCreatividad, "
-				+ "contentEspiritualidadProposito, contentRecreacionDiversion, contentContribucionLegado FROM journal WHERE id = ?";
+				+ "contentEspiritualidadProposito, contentRecreacionDiversion, contentContribucionLegado, contentErroresCometidos FROM journal WHERE id = ?";
 
 		try (Connection connection = DriverManager.getConnection(DB_URL);
 				PreparedStatement statement = connection.prepareStatement(query)) {
@@ -84,7 +87,7 @@ public interface JournalRepository {
 			try (ResultSet resultSet = statement.executeQuery()) {
 				if (resultSet.next()) {
 					// Create a journalEntry object and load it with the data from the DB
-					journalEntry = new JournalEntry(0, "", "", "", "", "", "", "", "", "", "", "", "", "");
+					journalEntry = new JournalEntry(0, "", "", "", "", "", "", "", "", "", "", "", "", "", "");
 					journalEntry.setId(resultSet.getInt("id"));
 					journalEntry.setDate(resultSet.getString("date"));
 					journalEntry.setTitle(resultSet.getString("title"));
@@ -100,6 +103,7 @@ public interface JournalRepository {
 							.setContentEspiritualidadProposito(resultSet.getString("contentEspiritualidadProposito"));
 					journalEntry.setContentRecreacionDiversion(resultSet.getString("contentRecreacionDiversion"));
 					journalEntry.setContentContribucionLegado(resultSet.getString("contentContribucionLegado"));
+					journalEntry.setContentErroresCometidos(resultSet.getString("contentErroresCometidos"));
 				}
 			}
 
@@ -114,10 +118,9 @@ public interface JournalRepository {
 	public static void insertJournalEntry(JournalEntry journalEntry, Long unixTime) {
 		try (Connection conn = DriverManager.getConnection(DB_URL)) {
 			String sql = "INSERT INTO journal (date, title, contentGeneral, contentSaludFisica, contentBienestarMental, contentRelacionesSociales, "
-			         + "contentCarreraProfesional, contentEstabilidadFinanciera, contentCrecimientoPersonal, contentPasatiemposCreatividad, "
-			         + "contentEspiritualidadProposito, contentRecreacionDiversion, contentContribucionLegado) "
-			         + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  // Fix: Now 13 placeholders
-
+					+ "contentCarreraProfesional, contentEstabilidadFinanciera, contentCrecimientoPersonal, contentPasatiemposCreatividad, "
+					+ "contentEspiritualidadProposito, contentRecreacionDiversion, contentContribucionLegado, contentErroresCometidos) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // Fix: Now 13 placeholders
 
 			try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 				System.out.println("Setting data");
@@ -135,6 +138,7 @@ public interface JournalRepository {
 				pstmt.setString(11, journalEntry.getContentEspiritualidadProposito());
 				pstmt.setString(12, journalEntry.getContentRecreacionDiversion());
 				pstmt.setString(13, journalEntry.getContentContribucionLegado());
+				pstmt.setString(14, journalEntry.getContentErroresCometidos());
 				pstmt.executeUpdate();
 			}
 
@@ -146,7 +150,7 @@ public interface JournalRepository {
 	public static void updateJournalEntry(Long id, JournalEntry journalEntry) {
 		String updateQuery = "UPDATE journal SET title = ?, contentGeneral = ?, contentSaludFisica = ?, contentBienestarMental = ?, "
 				+ "contentRelacionesSociales = ?, contentCarreraProfesional = ?, contentEstabilidadFinanciera = ?, contentCrecimientoPersonal = ?, "
-				+ "contentPasatiemposCreatividad = ?, contentEspiritualidadProposito = ?, contentRecreacionDiversion = ?, contentContribucionLegado = ? "
+				+ "contentPasatiemposCreatividad = ?, contentEspiritualidadProposito = ?, contentRecreacionDiversion = ?, contentContribucionLegado = ?, contentErroresCometidos = ? "
 				+ "WHERE id = ?";
 
 		try (Connection connection = DriverManager.getConnection(DB_URL);
@@ -165,7 +169,8 @@ public interface JournalRepository {
 			preparedStatement.setString(10, journalEntry.getContentEspiritualidadProposito());
 			preparedStatement.setString(11, journalEntry.getContentRecreacionDiversion());
 			preparedStatement.setString(12, journalEntry.getContentContribucionLegado());
-			preparedStatement.setLong(13, journalEntry.getId());
+			preparedStatement.setString(13, journalEntry.getContentErroresCometidos());
+			preparedStatement.setLong(14, journalEntry.getId());
 
 			// Execute the update and get the number of affected rows
 			int affectedRows = preparedStatement.executeUpdate();
