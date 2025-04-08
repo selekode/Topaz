@@ -228,7 +228,6 @@ public interface JournalRepository {
 	}
 
 	public static String convertDateToString_ddMMMyyy(long date) {
-		// Convert the Unix timestamp (milliseconds) to an Instant
 		Instant instant = Instant.ofEpochSecond(date);
 
 		// Define the desired format (DD-MMM-YYYY)
