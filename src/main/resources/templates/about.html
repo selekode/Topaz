@@ -72,7 +72,7 @@
             <a href="/about" class="block w-full">
                 <button
                     class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
-                    Sobre Topaz
+                    Ajustes
                 </button>
             </a>
 
@@ -85,14 +85,47 @@
     <!-- Main content -->
     <div class="main-content  flex-grow bg-[#0F2529] p-6">
         <main class="container mx-auto mt-6 p-4">
-            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Sobre Topaz</h1>
+            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Ajustes</h1>
+
+            <div class="bg-[#172E38] p-6 rounded-lg shadow-xl mb-4" data-aos="fade-up">
+                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Ajustes</p>
+                <h2 class="text-2xl font-bold mb-4 text-white">Versión 0.0.4</h2>
+                <p class="text-base mb-2 text-white">Topaz es una aplicación diseñada para ayudarte a registrar tus
+                    pensamientos, emociones y objetivos personales de manera sencilla. A través de entradas de diario y
+                    revisiones emocionales, puedes reflexionar sobre tu día y hacer un seguimiento de tu bienestar.</p>
+                <p class="text-base mb-2 text-white">Además, Topaz ofrece estadísticas que analizan tus entradas de
+                    diario, mostrando patrones en tus emociones y productividad, lo que te permite comprender mejor tu
+                    progreso y tomar decisiones informadas para tu crecimiento personal.</p>
+                <p class="text-base mb-2 text-white">Finalmente, Topaz incluye una función de meditación con un
+                    temporizador ajustable, ayudándote a encontrar momentos de calma y concentración a lo largo del día.
+                </p>
+            </div>
 
             <div class="bg-[#172E38] p-6 rounded-lg shadow-xl" data-aos="fade-up">
-                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Versión 0.0.4</p>
-                <p class="text-base mb-2 text-white">Topaz es una aplicación diseñada para ayudarte a registrar tus pensamientos, emociones y objetivos personales de manera sencilla. A través de entradas de diario y revisiones emocionales, puedes reflexionar sobre tu día y hacer un seguimiento de tu bienestar.</p>
-                <p class="text-base mb-2 text-white">Además, Topaz ofrece estadísticas que analizan tus entradas de diario, mostrando patrones en tus emociones y productividad, lo que te permite comprender mejor tu progreso y tomar decisiones informadas para tu crecimiento personal.</p>
-                <p class="text-base mb-2 text-white">Finalmente, Topaz incluye una función de meditación con un temporizador ajustable, ayudándote a encontrar momentos de calma y concentración a lo largo del día.</p>
-            </div>
+                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Modificar ruta de la base de datos</p>
+                <p class="text-bold mb-2 text-white mb-4"><strong>Ruta actual:</strong>
+                    <span th:text="${currentDatabasePath}"  style="color: #23A3BB;"></span>
+                </p>
+
+                <form action="/updateDatabasePath" method="post" enctype="multipart/form-data">
+                    <label class="block w-full">
+                        <span class="sr-only">Ruta nueva:</span>
+                        <input 
+                          type="file" 
+                          name="newPath" 
+                          id="newPath"
+                          accept=".sqlite,.db"
+                          class="w-full text-sm text-[#23A3BB] border border-gray-300 rounded-lg cursor-pointer bg-[#172E38]"
+                        />
+                      </label>
+                      
+                      
+                    <br>
+                    <button type="submit" class="bg-[#23A3BB] transition hover:bg-[#1A8F9A] text-white text-sm py-2 px-6 rounded-full">
+                      Modificar
+                    </button>
+                  </form>
+
             </div>
         </main>
     </div>

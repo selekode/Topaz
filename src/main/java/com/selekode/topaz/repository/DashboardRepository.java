@@ -6,12 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.selekode.topaz.database.DatabaseConstants;
+import com.selekode.topaz.database.DatabaseVariables;
 
 public class DashboardRepository {
-	public static final String DB_URL = DatabaseConstants.DB_URL;
 
 	public static int getCurrentJournalStreak() {
+		final String DB_URL = DatabaseVariables.getDatabaseUrl();
+
 		String sql = """
 		        WITH Streak AS (
 		            SELECT 
@@ -44,6 +45,7 @@ public class DashboardRepository {
 	}
 	
 	public static int getCurrentRevisionStreak() {
+		final String DB_URL = DatabaseVariables.getDatabaseUrl();
 		String sql = """
 		        WITH Streak AS (
 		            SELECT 
@@ -76,6 +78,7 @@ public class DashboardRepository {
 	}
 	
 	public static int getLongestJournalStreak() {
+		final String DB_URL = DatabaseVariables.getDatabaseUrl();
 	    String sql = """
 	        WITH Streak AS (
 	            SELECT 
@@ -112,6 +115,7 @@ public class DashboardRepository {
 	}
 	
 	public static int getLongestRevisionStreak() {
+		final String DB_URL = DatabaseVariables.getDatabaseUrl();
 		String sql = """
 		        WITH Streak AS (
 		            SELECT 
@@ -148,6 +152,7 @@ public class DashboardRepository {
 	}
 
 	public static boolean getJournalIsWrittenToday() {
+		final String DB_URL = DatabaseVariables.getDatabaseUrl();
 	    String sql = """
 	        SELECT COUNT(*) 
 	        FROM journal 
@@ -173,6 +178,7 @@ public class DashboardRepository {
 
 
 	public static boolean getRevisionIsWrittenToday() {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		String sql = """
 		        SELECT COUNT(*) 
 		        FROM revision 

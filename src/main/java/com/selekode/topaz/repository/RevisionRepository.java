@@ -12,12 +12,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.selekode.topaz.database.DatabaseConstants;
+import com.selekode.topaz.database.DatabaseVariables;
 import com.selekode.topaz.model.RevisionEntry;
 
 public interface RevisionRepository {
-	public static final String DB_URL = DatabaseConstants.DB_URL;
 	public static List<RevisionEntry> selectAllRevisionEntries() {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		// SQL query to retrieve data from the table, ordered by date descending
 		String sql = "SELECT id, date, estadoEmocional, estadoEmocionalWhy, importanteParaMi, "
 				+ "aprendidoSobreMi, valoracionDisciplina, valoracionOrden, valoracionImpulsividad, "
@@ -98,6 +98,7 @@ public interface RevisionRepository {
 	}
 
 	public static RevisionEntry selectRevisionEntry(Long id) {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		RevisionEntry revisionEntry = null;
 
 		String query = "SELECT id, date, estadoEmocional, estadoEmocionalWhy, importanteParaMi, "
@@ -170,6 +171,7 @@ public interface RevisionRepository {
 	}
 
 	public static void insertRevisionEntry(RevisionEntry revisionEntry, Long unixTime) {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		try (Connection conn = DriverManager.getConnection(DB_URL)) {
 			String sql = "INSERT INTO revision (date, estadoEmocional, estadoEmocionalWhy, importanteParaMi, aprendidoSobreMi, valoracionDisciplina, valoracionOrden, valoracionImpulsividad, valoracionConstancia, valoracionTolerancia, valoracionControlPrepotencia, valoracionHonestidad, valoracionAceptacion, valoracionConsecucionObjetivos, explicacionValoracion, objetivosPersonales, emocionAlegria, emocionTristeza, emocionIra, emocionMiedo, emocionAnsiedad, emocionAmor, emocionSorpresa, emocionVerguenza, emocionFrustracion, emocionSatisfaccion, emocionAburrimiento, emocionSerenidad, emocionConfianza, emocionAbrumado, emocionEsperanza) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -219,6 +221,7 @@ public interface RevisionRepository {
 	}
 
 	public static void updateRevisionEntry(Long id, RevisionEntry revisionEntry) {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		String updateQuery = "UPDATE revision SET estadoEmocional = ?, estadoEmocionalWhy = ?, importanteParaMi = ?, "
 				+ "aprendidoSobreMi = ?, valoracionDisciplina = ?, valoracionOrden = ?, valoracionImpulsividad = ?, "
 				+ "valoracionConstancia = ?, valoracionTolerancia = ?, valoracionControlPrepotencia = ?, "
@@ -280,6 +283,7 @@ public interface RevisionRepository {
 	}
 
 	public static void deleteRevisionEntry(Long id) {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 

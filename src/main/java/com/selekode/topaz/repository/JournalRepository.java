@@ -12,14 +12,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.selekode.topaz.database.DatabaseConstants;
+import com.selekode.topaz.database.DatabaseVariables;
 import com.selekode.topaz.model.JournalEntry;
 import com.selekode.topaz.model.RevisionEntry;
 
 public interface JournalRepository {
-	public static final String DB_URL = DatabaseConstants.DB_URL;
 
 	public static List<JournalEntry> selectAllJournalEntries() {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		// SQL query to retrieve data from the table, ordered by date descending
 		String sql = "SELECT id, date, title, contentGeneral, contentSaludFisica, contentBienestarMental, contentRelacionesSociales, "
 				+ "contentCarreraProfesional, contentEstabilidadFinanciera, contentCrecimientoPersonal, contentPasatiemposCreatividad, "
@@ -72,6 +72,7 @@ public interface JournalRepository {
 	}
 
 	public static JournalEntry selectJournalEntry(Long id) {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		JournalEntry journalEntry = null;
 		String query = "SELECT id, date, title, contentGeneral, contentSaludFisica, contentBienestarMental, contentRelacionesSociales, "
 				+ "contentCarreraProfesional, contentEstabilidadFinanciera, contentCrecimientoPersonal, contentPasatiemposCreatividad, "
@@ -116,6 +117,7 @@ public interface JournalRepository {
 	}
 
 	public static void insertJournalEntry(JournalEntry journalEntry, Long unixTime) {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		try (Connection conn = DriverManager.getConnection(DB_URL)) {
 			String sql = "INSERT INTO journal (date, title, contentGeneral, contentSaludFisica, contentBienestarMental, contentRelacionesSociales, "
 					+ "contentCarreraProfesional, contentEstabilidadFinanciera, contentCrecimientoPersonal, contentPasatiemposCreatividad, "
@@ -148,6 +150,7 @@ public interface JournalRepository {
 	}
 
 	public static void updateJournalEntry(Long id, JournalEntry journalEntry) {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		String updateQuery = "UPDATE journal SET title = ?, contentGeneral = ?, contentSaludFisica = ?, contentBienestarMental = ?, "
 				+ "contentRelacionesSociales = ?, contentCarreraProfesional = ?, contentEstabilidadFinanciera = ?, contentCrecimientoPersonal = ?, "
 				+ "contentPasatiemposCreatividad = ?, contentEspiritualidadProposito = ?, contentRecreacionDiversion = ?, contentContribucionLegado = ?, contentErroresCometidos = ? "
@@ -186,6 +189,7 @@ public interface JournalRepository {
 	}
 
 	public static void deleteJournalEntry(Long id) {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 

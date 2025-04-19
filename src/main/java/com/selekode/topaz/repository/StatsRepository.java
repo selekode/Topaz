@@ -15,16 +15,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.selekode.topaz.database.DatabaseConstants;
+import com.selekode.topaz.database.DatabaseVariables;
 import com.selekode.topaz.model.PersonalRatings;
 import com.selekode.topaz.model.StatsActivityPerDayOfWeek;
 import com.selekode.topaz.model.StatsEmotionFrequency;
 import com.selekode.topaz.utils.StatsHelper;
 
-public interface StatsRepository {
-	public static final String DB_URL = DatabaseConstants.DB_URL;
-	
+public interface StatsRepository {	
 	public static int findJournalEntryCountAllTime() {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		int journalEntryCount = 0;
 
 		// SQL query to count rows in the 'journal' table
@@ -50,6 +49,7 @@ public interface StatsRepository {
 	}
 
 	public static int findRevisionEntryCountAllTime() {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		int revisionEntryCount = 0;
 
 		// SQL query to count rows in the 'journal' table
@@ -75,6 +75,7 @@ public interface StatsRepository {
 	}
 
 	public static int findJournalEntryCountDateRange(long dateStart, long dateEnd) {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		int journalEntryCount = 0;
 		System.out.println("Searching for rows in journal between:" + dateStart + " and " + dateEnd);
 
@@ -104,6 +105,7 @@ public interface StatsRepository {
 	}
 
 	public static int findRevisionEntryCountDateRange(long dateStart, long dateEnd) {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		int revisionEntryCount = 0;
 		System.out.println("Searching for rows in revision between:" + dateStart + " and " + dateEnd);
 
@@ -133,6 +135,7 @@ public interface StatsRepository {
 	}
 
 	public static StatsActivityPerDayOfWeek findEntryCountPerDayAllTime() {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		int journalMondayEntryCount = 0;
 		int journalTuesdayEntryCount = 0;
 		int journalWednesdayEntryCount = 0;
@@ -210,6 +213,7 @@ public interface StatsRepository {
 	}
 
 	public static StatsActivityPerDayOfWeek findEntryCountPerDayDateRange(long dateStart, long dateEnd) {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		int journalMondayEntryCount = 0;
 		int journalTuesdayEntryCount = 0;
 		int journalWednesdayEntryCount = 0;
@@ -313,6 +317,7 @@ public interface StatsRepository {
 	}
 
 	public static StatsEmotionFrequency findEmotionCountAllTime() {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		String sql = """
 				    SELECT
 				        SUM(CASE WHEN emocionAlegria = 1 THEN 1 ELSE 0 END) AS emocionAlegriaCount,
@@ -366,6 +371,7 @@ public interface StatsRepository {
 	}
 
 	public static StatsEmotionFrequency findEmotionCountDateRange(Long startDate, Long endDate) {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		String sql = """
 				    SELECT
 				        SUM(CASE WHEN emocionAlegria = 1 THEN 1 ELSE 0 END) AS emocionAlegriaCount,
@@ -424,6 +430,7 @@ public interface StatsRepository {
 	}
 
 	public static List<PersonalRatings> findPersonalRatingsAllTime() {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		List<PersonalRatings> personalRatings = new ArrayList<>();
 
 		// SQL query to fetch the required columns
@@ -461,6 +468,7 @@ public interface StatsRepository {
 	}
 
 	public static List<PersonalRatings> findPersonalRatingsDateRange(long dateStart, long dateEnd) {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		List<PersonalRatings> personalRatings = new ArrayList<>();
 
 		// SQL query to fetch the required columns, using placeholders for the dates
@@ -504,6 +512,7 @@ public interface StatsRepository {
 	}
 
 	public static Map<String, PersonalRatings> findRatingsDatedAllTime() {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		Map<String, PersonalRatings> personalRatingsMap = new LinkedHashMap<>();
 
 		// SQL query to fetch the required columns
@@ -542,6 +551,7 @@ public interface StatsRepository {
 	}
 
 	public static Map<String, PersonalRatings> findRatingsDatedDateRange(long dateStart, long dateEnd) {
+		String DB_URL = DatabaseVariables.getDatabaseUrl();
 		Map<String, PersonalRatings> personalRatingsMap = new LinkedHashMap<>();
 
 		// SQL query to fetch the required columns

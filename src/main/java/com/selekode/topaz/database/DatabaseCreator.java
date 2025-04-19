@@ -1,6 +1,10 @@
 package com.selekode.topaz.database;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,30 +14,57 @@ public class DatabaseCreator {
 
     public static void main(String[] args) {
         // Define the directory and database file
-        String directoryPath = "C:\\Topaz\\data";
-        //String dbFilePath = directoryPath + "\\topazdatabase.db";
-        String dbFilePath = DatabaseConstants.DB_URL;
+        DatabaseVariables.updateVariables();
+        String dataDirectoryPath = "C:\\Topaz\\data";
+        String DB_PATH_FILE = DatabaseVariables.DB_PATH_FILE;
+        String DB_PATH = DatabaseVariables.DB_PATH;
+        String DB_URL = DatabaseVariables.DB_URL;
 
         // Check if the directory exists, if not, create it
-        File directory = new File(directoryPath);
+        File directory = new File(dataDirectoryPath);
         if (!directory.exists()) {
             if (directory.mkdirs()) {
-                System.out.println("TopazDB: Topaz Data Directory created successfully: " + directoryPath);
+                System.out.println("TopazDB: Topaz Data Directory created successfully: " + dataDirectoryPath);
             } else {
-                System.out.println("TopazDB: Failed to create Topaz Data Directory: " + directoryPath);
+                System.out.println("TopazDB: Failed to create Topaz Data Directory: " + dataDirectoryPath);
                 return;
             }
         } else {
-            System.out.println("TopazDB: Topaz Data Directory already exists: " + directoryPath);
+            System.out.println("TopazDB: Topaz Data Directory already exists: " + dataDirectoryPath);
         }
+        
+        // Check if the database path file exists, if not, create it
+        File databasePathFile = new File(DB_PATH_FILE);
+        if(databasePathFile.exists()) {
+            System.out.println("TopazDB: Database path file already exists: " + DB_PATH_FILE);
+            // For some reason, even if the file does exist, it doesn't detect it
+        } else if (!databasePathFile.exists()) {
+            System.out.println("TopazDB: Database path file" + DB_PATH + "DOES NOT already exists: " + DB_PATH_FILE);
+            System.out.println("TopazDB: Creating Database Path file");
+            String dbPathFileContent = "C:\\Topaz\\data\\topaz_database_default.db";
 
+            try {
+                Path path = Paths.get(DB_PATH_FILE);
+                
+                // Ensure the parent directory exists
+                Files.createDirectories(path.getParent());
+                
+                // Write content to the file
+                Files.writeString(path, dbPathFileContent);
+                
+                System.out.println("File created at: " + path.toAbsolutePath());
+            } catch (IOException e) {
+                System.err.println("Error writing file: " + e.getMessage());
+            }            
+        }
+        
         // Check if the database file exists, if not, create it
-        File databaseFile = new File(dbFilePath);
+        File databaseFile = new File(DB_PATH);
         if(databaseFile.exists()) {
-            System.out.println("TopazDB: Database file already exists: " + dbFilePath);
+            System.out.println("TopazDB: Database file already exists: " + DB_PATH);
             // For some reason, even if the file does exist, it doesn't detect it
         } else if (!databaseFile.exists()) {
-            System.out.println("TopazDB: Database file DOES NOT already exist: ");
+            System.out.println("TopazDB: Database file: " + DB_PATH +  " DOES NOT already exist: ");
             System.out.println("TopazDB: Creating Database file");
             String createJournalTableSQL = 
                     "CREATE TABLE IF NOT EXISTS journal (" +
@@ -93,7 +124,7 @@ public class DatabaseCreator {
                     ");";
 
             // Connect to the database and create the tables
-            try (Connection connection = DriverManager.getConnection(dbFilePath);
+            try (Connection connection = DriverManager.getConnection(DB_URL);
                  Statement statement = connection.createStatement()) {
 
                 // Execute the SQL statements to create the tables
