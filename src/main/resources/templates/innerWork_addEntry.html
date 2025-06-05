@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topaz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script th:src="@{/js/tailwind.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="bg-[#0F2529] font-sans leading-normal tracking-normal flex min-h-screen">
+
+    <!-- Sidebar -->
+    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
+        <!-- Logo Section -->
+        <div class="flex items-center mb-6 mt-2 flex-col">
+            <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
+        </div>
+
+        <!-- Horizontal Rule -->
+        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+
+        <div class="space-y-4 w-full flex flex-col items-center">
+
+            <!-- Rounded buttons for other actions -->
+            <a href="/dashboard/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Inicio
+                </button>
+            </a>
+            <a href="/journal/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
+                    Diario
+                </button>
+            </a>
+            <a href="/revision/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Revisión
+                </button>
+            </a>
+            <a href="/stats/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Estadísticas
+                </button>
+            </a>
+            <a href="/innerwork/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
+                    Trabajo Interno
+                </button>
+            </a>
+            <a href="/meditacion/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Meditación
+                </button>
+            </a>
+            <a href="/about" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Sobre Topaz
+                </button>
+            </a>
+
+            <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+
+            <button
+                class="w-12 h-12 rounded-full bg-[#1A7C84] text-white flex items-center justify-center hover:bg-[#1A7C84] mb-4 transition-colors duration-300 font-bold">
+                +
+            </button>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="flex-grow bg-[#0F2529] p-6 main-content">
+        <main class="container mx-auto mt-6 p-4">
+            <h1 class="text-2xl font-bold mb-4 text-white">Trabajo Interno</h1>
+
+            <div data-aos="fade-left" class="bg-[#172E38] p-6 rounded-2xl shadow-xl flex flex-col justify-between">
+                <div class="mb-4 flex items-center justify-between">
+                    <a href="/innerwork/load"
+                        class="text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Atrás</a>
+                    <h2 class="text-xl text-white font-bold select-none">Añadir Trabajo Interno</h2>
+                </div>
+
+                <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+
+                <!-- Form to handle the journal entry -->
+                <form id="addInnerWorkForm" action="#" method="POST" th:action="@{/innerwork/saveEntry}"
+                    th:object="${innerWorkEntry}">
+                    <input type="text" name="title" id="title"
+                        class="text-xl font-bold mb-4 w-full bg-[#0F2529] text-white p-2 rounded-lg"
+                        placeholder="Título" th:value="${innerWorkEntry.title}" />
+
+                    <label for="contentGeneral" class="text-[#23A3BB] mb-4">Contenido</label>
+                    <textarea name="contentGeneral" id="contentGeneral"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
+                        th:field="${innerWorkEntry.content}"
+                        placeholder="¿Qué has trabajo interior has realizado?"></textarea>
+
+                    <label for="tagSelect" class="text-[#23A3BB] mb-4">Etiqueta</label>
+                    <br>
+                    <select id="tagSelect" th:field="*{tagID}">
+                        <option value="" disabled selected>Selecciona etiqueta</option>
+                        <option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}">
+                        </option>
+                    </select>
+                    <input type="hidden" th:field="*{id}" value="2" />
+                    <input type="hidden" th:field="*{id}" value="2" />
+                    <input type="hidden" th:field="*{date}" value="2" />
+
+                    <div class="mt-4 flex item">
+                        <button type="submit" id="saveButton"
+                            class="ml-auto text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script th:src="@{/js/deleteFeature_openModal.js}" defer></script>
+    <script th:src="@{/js/aos.js}" defer></script>
+    <script th:src="@{/js/alpine.js}" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            AOS.init();
+        });
+    </script>
+</body>
+
+</html>

@@ -34,7 +34,7 @@
     <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
-            <img th:src="@{/images/topaz-logo-text.png}" alt="Logo" class="w-[120px] select-none">
+            <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
         <!-- Horizontal Rule -->
@@ -67,6 +67,12 @@
                     Estadísticas
                 </button>
             </a>
+            <a href="/innerwork/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Trabajo Interno
+                </button>
+            </a>
             <a href="/meditacion/load" class="block w-full">
                 <button
                     class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
@@ -94,7 +100,7 @@
         <main class="container mx-auto mt-6 p-4">
             <h1 class="text-2xl font-bold mb-4 text-white">Revisión</h1>
 
-            <div data-aos="fade-left" class="bg-[#172E38] p-6 rounded-lg shadow-xl flex flex-col justify-between">
+            <div data-aos="fade-left" class="bg-[#172E38] p-6 rounded-2xl shadow-xl flex flex-col justify-between">
                 <div class="mb-4 flex items-center justify-between">
                     <a href="/revision/load"
                         class="text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Atrás</a>
@@ -106,13 +112,13 @@
                 <!-- Form to handle the revision entry -->
                 <form method="POST" th:action="@{/revision/saveEntry}" th:object="${revisionEntry}">
                     <!-- Date -->
-                    <p id="date" class="text-lg italic font-bold mb-2" style="color: #23A3BB;"></p>
+                    <p id="date" class="text-lg italic font-bold mb-4" style="color: #23A3BB;"></p>
 
                     <input type="hidden" th:field="*{id}" value="2" />
                     <input type="hidden" th:field="*{date}" value="2" />
 
                     <div class="mb-4">
-                        <label for="estadoEmocional" class="text-[#23A3BB] mb-1">Mi estado emocional ha sido:</label>
+                        <label for="estadoEmocional" class="text-[#23A3BB] mb-4">Mi estado emocional ha sido:</label>
                         <textarea id="estadoEmocional" th:field="*{estadoEmocional}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"
                             ></textarea>
@@ -120,7 +126,7 @@
 
                     <!-- Multiple Mood Selection -->
                     <div class="mb-4">
-                        <label class="text-[#23A3BB] mb-1">Selecciona las emociones que has sentido:</label>
+                        <label class="text-[#23A3BB] mb-4">Selecciona las emociones que has sentido:</label>
                         <div class="grid grid-cols-1 gap-4 w-full">
 
                             <!-- Positive Emotions -->
@@ -198,14 +204,14 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="estadoEmocionalWhy" class="text-[#23A3BB] mb-1">Explica por qué:</label>
+                        <label for="estadoEmocionalWhy" class="text-[#23A3BB] mb-4">Explica por qué:</label>
                         <textarea id="estadoEmocionalWhy" th:field="*{estadoEmocionalWhy}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"
                             ></textarea>
                     </div>
 
                     <div class="mb-4">
-                        <label for="importanteParaMi" class="text-[#23A3BB] mb-1">Lo más importante para mí ha
+                        <label for="importanteParaMi" class="text-[#23A3BB] mb-4">Lo más importante para mí ha
                             sido:</label>
                         <textarea id="importanteParaMi" th:field="*{importanteParaMi}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"
@@ -213,7 +219,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="aprendidoSobreMi" class="text-[#23A3BB] mb-1">He aprendido acerca de mí qué:</label>
+                        <label for="aprendidoSobreMi" class="text-[#23A3BB] mb-4">He aprendido acerca de mí qué:</label>
                         <textarea id="aprendidoSobreMi" th:field="*{aprendidoSobreMi}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"
                             ></textarea>
@@ -222,7 +228,7 @@
                     <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
 
                     <div class="mb-4">
-                        <label class="text-[#23A3BB] mb-1 block">Valoraciones:</label>
+                        <label class="text-[#23A3BB] mb-4 block">Valoraciones:</label>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             <div class="flex items-center space-x-2">
                                 <button type="button" id="valoracionDisciplinaMinus"
@@ -329,7 +335,7 @@
 
 
                     <div class="mb-4">
-                        <label for="explicacionValoracion" class="text-[#23A3BB] mb-1">Explicación Valoración:</label>
+                        <label for="explicacionValoracion" class="text-[#23A3BB] mb-4">Explicación Valoración:</label>
                         <textarea id="explicacionValoracion" th:field="*{explicacionValoracion}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"
                             ></textarea>
@@ -338,7 +344,7 @@
                     <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
 
                     <div class="mb-4">
-                        <label for="objetivosPersonales" class="text-[#23A3BB] mb-1">Objetivos Personales:</label>
+                        <label for="objetivosPersonales" class="text-[#23A3BB] mb-4">Objetivos Personales:</label>
                         <textarea id="objetivosPersonales" th:field="*{objetivosPersonales}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"
                             ></textarea>

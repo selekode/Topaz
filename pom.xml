@@ -12,6 +12,8 @@
 	<groupId>com.selekode</groupId>
 	<artifactId>topaz</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
 	<name>topaz</name>
 	<description>Journal app, todo list and habit tracker</description>
 	<url />
@@ -86,10 +88,6 @@
 		<dependency>
 			<groupId>org.xerial</groupId>
 			<artifactId>sqlite-jdbc</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.xerial</groupId>
-			<artifactId>sqlite-jdbc</artifactId>
 			<version>3.42.0.0</version>
 		</dependency>
 		<!-- Add Jackson dependencies (should be included with Spring Boot
@@ -106,6 +104,13 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

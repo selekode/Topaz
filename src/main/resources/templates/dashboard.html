@@ -17,7 +17,7 @@
     <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
-            <img th:src="@{/images/topaz-logo-text.png}" alt="Logo" class="w-[120px] select-none">
+            <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
         <!-- Horizontal Rule -->
@@ -50,6 +50,12 @@
                     Estadísticas
                 </button>
             </a>
+            <a href="/innerwork/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Trabajo Interno
+                </button>
+            </a>
             <a href="/meditacion/load" class="block w-full">
                 <button
                     class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
@@ -74,17 +80,17 @@
         <main class="container mx-auto mt-6 p-4">
             <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Inicio</h1>
 
-            <div class="bg-[#172E38] p-6 rounded-lg shadow-xl mb-4" data-aos="fade-up">
-                <p class="text-lg italic font-bold mb-2 text-[#23A3BB]">¡Bienvenido a Topaz!</p>
-                <p class="text-base mb-2 text-white mb-4">Sigue avanzando en tu viaje de desarollo personal. Aquí
+            <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl mb-4" data-aos="fade-up">
+                <p class="text-lg italic font-bold mb-4 text-[#23A3BB]">¡Bienvenido a Topaz!</p>
+                <p class="text-base mb-4 text-white mb-4">Sigue avanzando en tu viaje de desarollo personal. Aquí
                     encontrarás tu racha actual, insights de tus entradas pasadas y recordatorios para seguir
                     escribiendo. ¡Sigue creciendo, una entrada a entrada! </p>
                 <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
-                <p class="text-base mb-2 text-white" th:text="${dashboardData.strJournalToday}"></p>
+                <p class="text-base mb-4 text-white" th:text="${dashboardData.strJournalToday}"></p>
                 <p class="text-base mb-4 text-white" th:text="${dashboardData.strRevisionToday}"></p>
-                <p class="text-base mb-2 text-white" th:text="${dashboardData.strJournalStreak}"></p>
+                <p class="text-base mb-4 text-white" th:text="${dashboardData.strJournalStreak}"></p>
                 <p class="text-base mb-4 text-white" th:text="${dashboardData.strRevisionStreak}"></p>
-                <p class="text-base mb-2 text-white" th:text="${dashboardData.strLongestJournalStreak}"></p>
+                <p class="text-base mb-4 text-white" th:text="${dashboardData.strLongestJournalStreak}"></p>
                 <p class="text-base text-white" th:text="${dashboardData.strLongestRevisionStreak}"></p>
             </div>
     </div>
