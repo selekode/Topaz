@@ -89,7 +89,7 @@
     <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
-            <img th:src="@{/images/topaz-logo-text.png}" alt="Logo" class="w-[120px] select-none">
+            <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
         <!-- Horizontal Rule -->
@@ -123,6 +123,12 @@
                     Estadísticas
                 </button>
             </a>
+            <a href="/innerwork/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Trabajo Interno
+                </button>
+            </a>
             <a href="/meditacion/load" class="block w-full">
                 <button
                     class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
@@ -154,7 +160,7 @@
             <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Revisión</h1>
             <!-- Iterate over journal entries -->
             <div data-aos="fade-up" th:each="revisionEntry : ${revisionEntries}" x-data="{ open: false }"
-                class="relative bg-[#172E38] p-6 rounded-lg shadow-xl mb-6">
+                class="relative bg-[#172E38] p-6 rounded-2xl shadow-xl mb-6">
                 <!-- Buttons Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <!-- Show/Hide Button -->
@@ -178,7 +184,7 @@
 
                 <div class="mr-4 w-full">
                     <!-- Date -->
-                    <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;" th:text="${revisionEntry.date}">
+                    <p class="text-lg italic font-bold mb-4" style="color: #23A3BB;" th:text="${revisionEntry.date}">
                     </p>
 
                     <!-- Content to Show/Hide -->
@@ -316,7 +322,7 @@
 
                         <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6 mt-6">
 
-                        <label class="text-[#23A3BB] mb-1 block">Valoraciones:</label>
+                        <label class="text-[#23A3BB] mb-4 block">Valoraciones:</label>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>

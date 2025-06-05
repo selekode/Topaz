@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.selekode.topaz.model.JournalEntry;
 import com.selekode.topaz.repository.JournalRepository;
+import com.selekode.topaz.utils.DatesHelper;
 
 @Service
 public class JournalService {
@@ -24,7 +25,7 @@ public class JournalService {
 	}
 	
 	public static void insertJournalEntry(JournalEntry journalEntry) {
-		Long unixTime = generateUnixDate();
+		Long unixTime = DatesHelper.generateUnixDate();
 		JournalRepository.insertJournalEntry(journalEntry, unixTime);
 	}
 	
@@ -35,12 +36,4 @@ public class JournalService {
 	public static void deleteJournalEntry(Long id) {
     	JournalRepository.deleteJournalEntry(id);
 	}
-
-	public static long generateUnixDate() {
-		Instant now = Instant.now();
-		long unixTime = now.getEpochSecond();
-
-		return unixTime;
-	}	
-
 }

@@ -13,6 +13,7 @@ import com.selekode.topaz.webview.*;
 public class TopazApplication {
 
 	public static void main(String[] args) {
+		KillPortIfOccupied.killPortIfOccupied(8080);
 		SpringApplication.run(TopazApplication.class, args);
 		DatabaseCreator.main(args);
 		TopazWebview.main(args);

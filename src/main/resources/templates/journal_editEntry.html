@@ -32,7 +32,7 @@
     <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
-            <img th:src="@{/images/topaz-logo-text.png}" alt="Logo" class="w-[120px] select-none">
+            <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
         <!-- Horizontal Rule -->
@@ -64,6 +64,12 @@
                     Estadísticas
                 </button>
             </a>
+            <a href="/innerwork/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Trabajo Interno
+                </button>
+            </a>
             <a href="/meditacion/load" class="block w-full">
                 <button
                     class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
@@ -87,7 +93,7 @@
         <main class="container mx-auto mt-6 p-4">
             <h1 class="text-2xl font-bold mb-4 text-white">Diario</h1>
 
-            <div data-aos="fade-left" class="bg-[#172E38] p-6 rounded-lg shadow-xl flex flex-col justify-between">
+            <div data-aos="fade-left" class="bg-[#172E38] p-6 rounded-2xl shadow-xl flex flex-col justify-between">
                 <div class="mb-4 flex items-center justify-between">
                     <a href="/journal/load"
                         class="text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Atrás</a>
@@ -104,73 +110,73 @@
                         class="text-xl font-bold mb-4 w-full bg-[#0F2529] text-white p-2 rounded-lg" placeholder="Title"
                         th:value="${journalEntry.title}" />
 
-                    <label for="contentGeneral" class="text-[#23A3BB] mb-1">General</label>
+                    <label for="contentGeneral" class="text-[#23A3BB] mb-4">General</label>
                     <textarea name="contentGeneral" id="contentGeneral"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-2"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
                         th:text="${journalEntry.contentGeneral}" placeholder="¿Qué has hecho hoy?"></textarea>
 
-                    <label for="contentSaludFisica" class="text-[#23A3BB] mb-1">Salud Física</label>
+                    <label for="contentSaludFisica" class="text-[#23A3BB] mb-4">Salud Física</label>
                     <textarea name="contentSaludFisica" id="contentSaludFisica"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-2"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
                         th:text="${journalEntry.contentSaludFisica}" placeholder="Hoy he ido al gimnasio..."></textarea>
 
-                    <label for="contentBienestarMental" class="text-[#23A3BB] mb-1">Bienestar Mental</label>
+                    <label for="contentBienestarMental" class="text-[#23A3BB] mb-4">Bienestar Mental</label>
                     <textarea name="contentBienestarMental" id="contentBienestarMental"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-2"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
                         th:text="${journalEntry.contentBienestarMental}" placeholder="Hoy he meditado..."></textarea>
 
-                    <label for="contentRelacionesSociales" class="text-[#23A3BB] mb-1">Relaciones Sociales</label>
+                    <label for="contentRelacionesSociales" class="text-[#23A3BB] mb-4">Relaciones Sociales</label>
                     <textarea name="contentRelacionesSociales" id="contentRelacionesSociales"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-2"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
                         th:text="${journalEntry.contentRelacionesSociales}"
                         placeholder="Hoy he pasado tiempo con mi familia y amigos..."></textarea>
 
-                    <label for="contentCarreraProfesional" class="text-[#23A3BB] mb-1">Carrera Profesional</label>
+                    <label for="contentCarreraProfesional" class="text-[#23A3BB] mb-4">Carrera Profesional</label>
                     <textarea name="contentCarreraProfesional" id="contentCarreraProfesional"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-2"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
                         th:text="${journalEntry.contentCarreraProfesional}"
                         placeholder="Hoy he trabajado en..."></textarea>
 
-                    <label for="contentEstabilidadFinanciera" class="text-[#23A3BB] mb-1">Estabilidad Financiera</label>
+                    <label for="contentEstabilidadFinanciera" class="text-[#23A3BB] mb-4">Estabilidad Financiera</label>
                     <textarea name="contentEstabilidadFinanciera" id="contentEstabilidadFinanciera"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-2"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
                         th:text="${journalEntry.contentEstabilidadFinanciera}"
                         placeholder="Hoy he ganado...Hoy he gastado..."></textarea>
 
-                    <label for="contentCrecimientoPersonal" class="text-[#23A3BB] mb-1">Crecimiento Personal</label>
+                    <label for="contentCrecimientoPersonal" class="text-[#23A3BB] mb-4">Crecimiento Personal</label>
                     <textarea name="contentCrecimientoPersonal" id="contentCrecimientoPersonal"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-2"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
                         th:text="${journalEntry.contentCrecimientoPersonal}" placeholder="Hoy he leido..."></textarea>
 
-                    <label for="contentPasatiemposCreatividad" class="text-[#23A3BB] mb-1">Pasatiempos y
+                    <label for="contentPasatiemposCreatividad" class="text-[#23A3BB] mb-4">Pasatiempos y
                         Creatividad</label>
                     <textarea name="contentPasatiemposCreatividad" id="contentPasatiemposCreatividad"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-2"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
                         th:text="${journalEntry.contentPasatiemposCreatividad}"
                         placeholder="Hoy he hecho música...Hoy he dibujado..."></textarea>
 
-                    <label for="contentEspiritualidadProposito" class="text-[#23A3BB] mb-1">Espiritualidad y
+                    <label for="contentEspiritualidadProposito" class="text-[#23A3BB] mb-4">Espiritualidad y
                         Propósito</label>
                     <textarea name="contentEspiritualidadProposito" id="contentEspiritualidadProposito"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-2"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
                         th:text="${journalEntry.contentEspiritualidadProposito}"
                         placeholder="Hoy he reflexionado sobre..."></textarea>
 
-                    <label for="contentRecreacionDiversion" class="text-[#23A3BB] mb-1">Recreación y Diversión</label>
+                    <label for="contentRecreacionDiversion" class="text-[#23A3BB] mb-4">Recreación y Diversión</label>
                     <textarea name="contentRecreacionDiversion" id="contentRecreacionDiversion"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-2"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
                         th:text="${journalEntry.contentRecreacionDiversion}"
                         placeholder="Hoy he jugado a..."></textarea>
 
-                    <label for="contentContribucionLegado" class="text-[#23A3BB] mb-1">Contribución y Legado</label>
+                    <label for="contentContribucionLegado" class="text-[#23A3BB] mb-4">Contribución y Legado</label>
                     <textarea name="contentContribucionLegado" id="contentContribucionLegado"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-2"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
                         th:text="${journalEntry.contentContribucionLegado}"
                         placeholder="Hoy he ayudado a...Hoy he enseñado a..."></textarea>
 
-                    <label for="contentErroresCometidos" class="text-[#23A3BB] mb-1">Errores Cometidos</label>
+                    <label for="contentErroresCometidos" class="text-[#23A3BB] mb-4">Errores Cometidos</label>
                     <textarea name="contentErroresCometidos" id="contentErroresCometidos"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-2"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
                         th:text="${journalEntry.contentErroresCometidos}" placeholder="Hoy he hecho mal..."></textarea>
 
                     <div class="mt-4 flex item">

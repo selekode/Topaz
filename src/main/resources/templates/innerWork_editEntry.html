@@ -9,19 +9,7 @@
     <script th:src="@{/js/tailwind.js}" defer></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
-    <script>
-        function openModal(id) {
-            console.log("Opening modal for entry with ID: " + id);  // Debug log
-            document.getElementById('journalId').value = id;
-            document.getElementById('confirmModal').classList.remove('hidden');
-            console.log("Modal should now be visible");
-        }
-
-        function closeModal() {
-            console.log("Closing modal");  // Debug log
-            document.getElementById('confirmModal').classList.add('hidden');
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body class="bg-[#0F2529] font-sans leading-normal tracking-normal flex min-h-screen">
@@ -36,8 +24,8 @@
         <!-- Horizontal Rule -->
         <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
 
-        <!-- Buttons Section -->
         <div class="space-y-4 w-full flex flex-col items-center">
+
             <!-- Rounded buttons for other actions -->
             <a href="/dashboard/load" class="block w-full">
                 <button
@@ -47,7 +35,7 @@
             </a>
             <a href="/journal/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
                     Diario
                 </button>
             </a>
@@ -65,7 +53,7 @@
             </a>
             <a href="/innerwork/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
                     Trabajo Interno
                 </button>
             </a>
@@ -77,34 +65,67 @@
             </a>
             <a href="/about" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
                     Sobre Topaz
                 </button>
             </a>
 
             <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
 
+            <button
+                class="w-12 h-12 rounded-full bg-[#1A7C84] text-white flex items-center justify-center hover:bg-[#1A7C84] mb-4 transition-colors duration-300 font-bold">
+                +
+            </button>
         </div>
     </div>
 
-
     <!-- Main content -->
-    <div class="main-content  flex-grow bg-[#0F2529] p-6">
+    <div class="flex-grow bg-[#0F2529] p-6 main-content">
         <main class="container mx-auto mt-6 p-4">
-            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Sobre Topaz</h1>
+            <h1 class="text-2xl font-bold mb-4 text-white">Trabajo Interno</h1>
 
-            <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl" data-aos="fade-up">
-                <p class="text-lg italic font-bold mb-4" style="color: #23A3BB;">Versión 0.0.4</p>
-                <p class="text-base mb-4 text-white">Topaz es una aplicación diseñada para ayudarte a registrar tus pensamientos, emociones y objetivos personales de manera sencilla. A través de entradas de diario y revisiones emocionales, puedes reflexionar sobre tu día y hacer un seguimiento de tu bienestar.</p>
-                <p class="text-base mb-4 text-white">Además, Topaz ofrece estadísticas que analizan tus entradas de diario, mostrando patrones en tus emociones y productividad, lo que te permite comprender mejor tu progreso y tomar decisiones informadas para tu crecimiento personal.</p>
-                <p class="text-base mb-4 text-white">La función de Trabajo interno te guía en ejercicios de autoconocimiento y desarrollo personal, con preguntas introspectivas diseñadas para profundizar en tus experiencias, valores y creencias, fomentando una mayor claridad y equilibrio emocional.</p>
-                <p class="text-base mb-4 text-white">Finalmente, Topaz incluye una función de meditación con un temporizador ajustable, ayudándote a encontrar momentos de calma y concentración a lo largo del día.</p>
-            </div>
+            <div data-aos="fade-left" class="bg-[#172E38] p-6 rounded-2xl shadow-xl flex flex-col justify-between">
+                <div class="mb-4 flex items-center justify-between">
+                    <a href="/innerwork/load"
+                        class="text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Atrás</a>
+                    <h2 class="text-xl text-white font-bold select-none">Editar Trabajo Interno</h2>
+                </div>
+
+                <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+
+                <!-- Form to handle the journal entry -->
+                <form id="journalForm" method="POST" th:action="@{/innerwork/updateEntry/{id}(id=${innerWorkEntry.id})}"
+                    th:object="${innerWorkEntry}">
+
+                    <input type="text" th:field="*{title}"
+                        class="text-xl font-bold mb-4 w-full bg-[#0F2529] text-white p-2 rounded-lg"
+                        placeholder="Título" />
+
+                    <label for="contentGeneral" class="text-[#23A3BB] mb-4">Contenido</label>
+                    <textarea th:field="*{content}" id="contentGeneral"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
+                        placeholder="¿Qué trabajo interior has realizado?"></textarea>
+
+                    <select id="tagSelect" th:field="*{tagID}">
+                        <option value="" disabled>Selecciona etiqueta</option>
+                        <option th:each="tag : ${tags}" th:value="${tag.id}" th:text="${tag.name}"></option>
+                    </select>
+
+                    <input type="hidden" th:field="*{id}" />
+                    <input type="hidden" th:field="*{date}" />
+
+                    <div class="mt-4 flex item">
+                        <button type="submit" id="saveButton"
+                            class="ml-auto text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+
             </div>
         </main>
     </div>
 
-    </div>
     <script th:src="@{/js/deleteFeature_openModal.js}" defer></script>
     <script th:src="@{/js/aos.js}" defer></script>
     <script th:src="@{/js/alpine.js}" defer></script>

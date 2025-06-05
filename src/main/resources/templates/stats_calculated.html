@@ -26,7 +26,7 @@
     <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
-            <img th:src="@{/images/topaz-logo-text.png}" alt="Logo" class="w-[120px] select-none">
+            <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
         <!-- Horizontal Rule -->
@@ -59,6 +59,12 @@
                     Estadísticas
                 </button>
             </a>
+            <a href="/innerwork/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Trabajo Interno
+                </button>
+            </a>
             <a href="/meditacion/load" class="block w-full">
                 <button
                     class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
@@ -83,8 +89,8 @@
         <main class="container mx-auto mt-6 p-4">
             <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">
                 Estadísticas</h1>
-            <div class="bg-[#172E38] p-6 rounded-lg shadow-xl mb-4" data-aos="fade-up">
-                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Descubre el data sobre tu diario y
+            <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl mb-4" data-aos="fade-up">
+                <p class="text-lg italic font-bold mb-4" style="color: #23A3BB;">Descubre el data sobre tu diario y
                     revisiones</p>
                 <p class="text-base text-white mb-4">A continuación aparece el data
                     extraido de las entradas en tu diario y
@@ -114,8 +120,8 @@
 
             <!-- Card 1: Métricas Generales | Numero de entradas -->
             <div data-aos="fade-up" x-data="{ open: false }"
-                class="relative bg-[#172E38] p-6 rounded-lg shadow-xl mb-6">
-                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Métricas Generales</p>
+                class="relative bg-[#172E38] p-6 rounded-2xl shadow-xl mb-6">
+                <p class="text-lg italic font-bold mb-4" style="color: #23A3BB;">Métricas Generales</p>
                 <p class="text-2xl font-bold text-white mb-3">Número de entradas
                 </p>
 
@@ -160,7 +166,7 @@
 
                         <!-- Entradas en Última Semana Tab -->
                         <div x-show="tab === 'lastWeek'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2"
+                            <p class="text-lg text-white font-bold mb-4"
                                 th:text="'Entradas en el periodo entre ' + ${statsDateRangeLastWeek.startDate} + ' y ' + ${statsDateRangeLastWeek.endDate}">
                             </p>
                             <canvas id="chartEntryCountWeek" class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
@@ -168,7 +174,7 @@
 
                         <!-- Entradas en Último Mes Tab -->
                         <div x-show="tab === 'lastMonth'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2"
+                            <p class="text-lg text-white font-bold mb-4"
                                 th:text="'Entradas en el periodo entre ' + ${statsDateRangeLastMonth.startDate} + ' y ' + ${statsDateRangeLastMonth.endDate}">
                             </p>
                             <canvas id="chartEntryCountMonth" class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
@@ -176,7 +182,7 @@
 
                         <!-- Entradas en el Periodo Tab -->
                         <div x-show="tab === 'range'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2"
+                            <p class="text-lg text-white font-bold mb-4"
                                 th:text="'Entradas en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
                             <canvas id="chartEntryCountDateRange"
@@ -184,7 +190,7 @@
                         </div>
                         <!-- Entradas Totales Tab -->
                         <div x-show="tab === 'all'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">
+                            <p class="text-lg text-white font-bold mb-4">
                                 Entradas Totales</p>
                             <canvas id="chartEntryCountAllTime"
                                 class="max-w-[75%] max-h-[280px] w-full h-auto"></canvas>
@@ -196,9 +202,9 @@
 
             <!-- Card 2: Métricas Generales | Actividad por día -->
             <div data-aos="fade-up" x-data="{ open: false, tab: 'journalAllTime' }"
-                class="relative bg-[#172E38] p-6 rounded-lg shadow-xl mb-6">
+                class="relative bg-[#172E38] p-6 rounded-2xl shadow-xl mb-6">
 
-                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Métricas Generales</p>
+                <p class="text-lg italic font-bold mb-4" style="color: #23A3BB;">Métricas Generales</p>
                 <p class="text-2xl font-bold text-white">Actividad por día de la semana</p>
 
                 <!-- Button Positioned in the Top Right -->
@@ -260,10 +266,10 @@
 
                         <!-- Diario (7d) -->
                         <div x-show="tab === 'journalLastWeek'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2"
+                            <p class="text-lg text-white font-bold mb-4"
                                 th:text="'Actividad por día en el Diario en el periodo entre ' + ${statsDateRangeLastWeek.startDate} + ' y ' + ${statsDateRangeLastWeek.endDate}">
                             </p>
-                            <p class="text-base text-white mb-1"
+                            <p class="text-base text-white mb-4"
                                 th:text="'- En la última semana, el día en el que más has escrito en el diario es el ' + ${statsActivityPerDayOfWeekWeek.journalMostActiveDay}">
                             </p>
                             <p class="text-base text-white mb-4"
@@ -275,10 +281,10 @@
 
                         <!-- Revisiones (7d) -->
                         <div x-show="tab === 'revisionLastWeek'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2"
+                            <p class="text-lg text-white font-bold mb-4"
                                 th:text="'Actividad por día en Revisiones en el periodo entre ' + ${statsDateRangeLastWeek.startDate} + ' y ' + ${statsDateRangeLastWeek.endDate}">
                             </p>
-                            <p class="text-base text-white mb-1"
+                            <p class="text-base text-white mb-4"
                                 th:text="'- En la última semana, el día en el que más revisiones has escrito es el ' + ${statsActivityPerDayOfWeekWeek.revisionMostActiveDay}">
                             </p>
                             <p class="text-base text-white mb-4"
@@ -290,10 +296,10 @@
 
                         <!-- Diario (1m) -->
                         <div x-show="tab === 'journalLastMonth'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2"
+                            <p class="text-lg text-white font-bold mb-4"
                                 th:text="'Actividad por día en el Diario en el periodo entre ' + ${statsDateRangeLastMonth.startDate} + ' y ' + ${statsDateRangeLastMonth.endDate}">
                             </p>
-                            <p class="text-base text-white mb-1"
+                            <p class="text-base text-white mb-4"
                                 th:text="'- En el último més, el día en el que más has escrito en el diario es el ' + ${statsActivityPerDayOfWeekMonth.journalMostActiveDay}">
                             </p>
                             <p class="text-base text-white mb-4"
@@ -305,10 +311,10 @@
 
                         <!-- Revisiones (1m) -->
                         <div x-show="tab === 'revisionLastMonth'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2"
+                            <p class="text-lg text-white font-bold mb-4"
                                 th:text="'Actividad por día en Revisiones en el periodo entre ' + ${statsDateRangeLastMonth.startDate} + ' y ' + ${statsDateRangeLastMonth.endDate}">
                             </p>
-                            <p class="text-base text-white mb-1"
+                            <p class="text-base text-white mb-4"
                                 th:text="'- En el último més, el día en el que más revisiones has escrito es el ' + ${statsActivityPerDayOfWeekMonth.revisionMostActiveDay}">
                             </p>
                             <p class="text-base text-white mb-4"
@@ -320,10 +326,10 @@
 
                         <!-- Diario (Rango) -->
                         <div x-show="tab === 'journalDateRange'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2"
+                            <p class="text-lg text-white font-bold mb-4"
                                 th:text="'Actividad por día en el Diario en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
-                            <p class="text-base text-white mb-1"
+                            <p class="text-base text-white mb-4"
                                 th:text="'- El día en el que más has escrito en el diario es el ' + ${statsActivityPerDayOfWeekDateRange.journalMostActiveDay}">
                             </p>
                             <p class="text-base text-white mb-4"
@@ -335,10 +341,10 @@
 
                         <!-- Revisiones (Rango) -->
                         <div x-show="tab === 'revisionDateRange'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2"
+                            <p class="text-lg text-white font-bold mb-4"
                                 th:text="'Actividad por día en Revisiones en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
-                            <p class="text-base text-white mb-1"
+                            <p class="text-base text-white mb-4"
                                 th:text="'- El día en el que más revisiones has escrito es el ' + ${statsActivityPerDayOfWeekDateRange.revisionMostActiveDay}">
                             </p>
                             <p class="text-base text-white mb-4"
@@ -350,8 +356,8 @@
 
                         <!-- Diario (Total) -->
                         <div x-show="tab === 'journalAllTime'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">Actividad por día en el Diario total</p>
-                            <p class="text-base text-white mb-1"
+                            <p class="text-lg text-white font-bold mb-4">Actividad por día en el Diario total</p>
+                            <p class="text-base text-white mb-4"
                                 th:text="'- El día en el que más escribes en el diario es el ' + ${statsActivityPerDayOfWeekAllTime.journalMostActiveDay}">
                             </p>
                             <p class="text-base text-white mb-4"
@@ -363,8 +369,8 @@
 
                         <!-- Revisiones (Total) -->
                         <div x-show="tab === 'revisionAllTime'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">Actividad por día en Revisiones total</p>
-                            <p class="text-base text-white mb-1"
+                            <p class="text-lg text-white font-bold mb-4">Actividad por día en Revisiones total</p>
+                            <p class="text-base text-white mb-4"
                                 th:text="'- El día en el que más revisiones escribes es el ' + ${statsActivityPerDayOfWeekAllTime.revisionMostActiveDay}">
                             </p>
                             <p class="text-base text-white mb-4"
@@ -380,8 +386,8 @@
 
             <!-- Card 3: Tendencias Emocionales | Frecuencia Emocional -->
             <div data-aos="fade-up" x-data="{ open: false }"
-                class="relative bg-[#172E38] p-6 rounded-lg shadow-xl mb-6">
-                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Tendencias Emocionales</p>
+                class="relative bg-[#172E38] p-6 rounded-2xl shadow-xl mb-6">
+                <p class="text-lg italic font-bold mb-4" style="color: #23A3BB;">Tendencias Emocionales</p>
                 <p class="text-2xl font-bold text-white">Frecuencia Emocional
                 </p>
                 <!-- Button Positioned in the Top Right -->
@@ -419,11 +425,11 @@
                         <!-- FREQUENCIAEMOCIONAL_LASTWEEK -->
                         <div x-show="tab === 'lastWeek'" x-transition>
 
-                            <p class="text-lg text-white font-bold mb-2"
+                            <p class="text-lg text-white font-bold mb-4"
                                 th:text="'Frecuencia de emociones en el periodo entre ' + ${statsDateRangeLastWeek.startDate} + ' y ' + ${statsDateRangeLastWeek.endDate}">
                             </p>
-                            <p class="text-base text-white mb-2"
-                                th:text="'- Tus emociones más frecuentes han sido ' + ${statsEmotionFrequencyWeek.topEmotion1} + ', ' + ${statsEmotionFrequencyWeek.topEmotion2} + ', ' + ${statsEmotionFrequencyWeek.topEmotion3} + ' y ' + ${statsEmotionFrequencyWeek.topEmotion4}">
+                            <p class="text-base text-white mb-4"
+                                th:text="'- Tus emociones más frecuentes han sido ' + ${statsEmotionFrequencyWeek.topEmotion1} + ', ' + ${statsEmotionFrequencyWeek.topEmotion2} + ' y ' + ${statsEmotionFrequencyWeek.topEmotion3}">
                             </p>
                             <p class="text-base text-white mb-4">- Esta gráfica muestra cuantas veces has seleccionado
                                 cada emoción en tus revisiones en la última semana:</p>
@@ -434,11 +440,11 @@
                         <!-- FREQUENCIAEMOCIONAL_LASTMONTH -->
                         <div x-show="tab === 'lastMonth'" x-transition>
 
-                            <p class="text-lg text-white font-bold mb-2"
+                            <p class="text-lg text-white font-bold mb-4"
                                 th:text="'Frecuencia de emociones en el periodo entre ' + ${statsDateRangeLastMonth.startDate} + ' y ' + ${statsDateRangeLastMonth.endDate}">
                             </p>
-                            <p class="text-base text-white mb-2"
-                                th:text="'- Tus emociones más frecuentes han sido ' + ${statsEmotionFrequencyMonth.topEmotion1} + ', ' + ${statsEmotionFrequencyMonth.topEmotion2} + ', ' + ${statsEmotionFrequencyMonth.topEmotion3} + ' y ' + ${statsEmotionFrequencyMonth.topEmotion4}">
+                            <p class="text-base text-white mb-4"
+                                th:text="'- Tus emociones más frecuentes han sido ' + ${statsEmotionFrequencyMonth.topEmotion1} + ', ' + ${statsEmotionFrequencyMonth.topEmotion2} +' y ' + ${statsEmotionFrequencyMonth.topEmotion3}">
                             </p>
                             <p class="text-base text-white mb-4">- Esta gráfica muestra cuantas veces has seleccionado
                                 cada emoción en tus revisiones en el último mes</p>
@@ -450,11 +456,11 @@
                         <!-- FREQUENCIAEMOCIONAL_DATERANGE -->
                         <div x-show="tab === 'dateRange'" x-transition>
 
-                            <p class="text-lg text-white font-bold mb-2"
+                            <p class="text-lg text-white font-bold mb-4"
                                 th:text="'Frecuencia de emociones en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
-                            <p class="text-base text-white mb-2"
-                                th:text="'- Tus emociones más frecuentes han sido ' + ${statsEmotionFrequencyDateRange.topEmotion1} + ', ' + ${statsEmotionFrequencyDateRange.topEmotion2} + ', ' + ${statsEmotionFrequencyDateRange.topEmotion3} + ' y ' + ${statsEmotionFrequencyDateRange.topEmotion4}">
+                            <p class="text-base text-white mb-4"
+                                th:text="'- Tus emociones más frecuentes han sido ' + ${statsEmotionFrequencyDateRange.topEmotion1} + ', ' + ${statsEmotionFrequencyDateRange.topEmotion2} + ' y ' + ${statsEmotionFrequencyDateRange.topEmotion3}">
                             </p>
                             <p class="text-base text-white mb-4"
                                 th:text="'- Esta gráfica muestra cuantas veces has seleccionado cada emoción en tus revisiones entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
@@ -465,9 +471,9 @@
 
                         <!-- FREQUENCIAEMOCIONAL_TOTAL -->
                         <div x-show="tab === 'total'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">Frecuencia de emociones total</p>
-                            <p class="text-base text-white mb-2"
-                                th:text="'- Tus emociones más frecuentes son ' + ${statsEmotionFrequencyAllTime.topEmotion1} + ', ' + ${statsEmotionFrequencyAllTime.topEmotion2} + ', ' + ${statsEmotionFrequencyAllTime.topEmotion3} + ' y ' + ${statsEmotionFrequencyAllTime.topEmotion4}">
+                            <p class="text-lg text-white font-bold mb-4">Frecuencia de emociones total</p>
+                            <p class="text-base text-white mb-4"
+                                th:text="'- Tus emociones más frecuentes son ' + ${statsEmotionFrequencyAllTime.topEmotion1} + ', ' + ${statsEmotionFrequencyAllTime.topEmotion2} + ' y ' + ${statsEmotionFrequencyAllTime.topEmotion3}">
                             </p>
                             <p class="text-base text-white mb-4">- Esta gráfica muestra cuantas veces has seleccionado
                                 cada emoción en tus revisiones:</p>
@@ -480,8 +486,8 @@
 
             <!-- Card 4: Analysis Valoraciones | Medía de las valoraciones  -->
             <div data-aos="fade-up" x-data="{ open: false }"
-                class="relative bg-[#172E38] p-6 rounded-lg shadow-xl mb-6">
-                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Análisis de valoraciones</p>
+                class="relative bg-[#172E38] p-6 rounded-2xl shadow-xl mb-6">
+                <p class="text-lg italic font-bold mb-4" style="color: #23A3BB;">Análisis de valoraciones</p>
                 <p class="text-2xl font-bold text-white">Media de las valoraciones
                 </p>
                 <!-- Button Positioned in the Top Right -->
@@ -524,7 +530,7 @@
 
                         <!-- Media Valoraciones (7d) Tab -->
                         <div x-show="tab === '7d'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">
+                            <p class="text-lg text-white font-bold mb-4">
                                 Media de las valoraciones en la última semana</p>
                             <p class="text-base text-white mb-4">- Esta gráfica muestra la media de las valoraciones
                                 personales en tus revisiones:</p>
@@ -533,7 +539,7 @@
 
                         <!-- Media Valoraciones (1m) Tab -->
                         <div x-show="tab === '1m'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">
+                            <p class="text-lg text-white font-bold mb-4">
                                 Media de las valoraciones en el último mes</p>
                             <p class="text-base text-white mb-4">- Esta gráfica muestra la media de las valoraciones
                                 personales en tus revisiones:</p>
@@ -542,7 +548,7 @@
 
                         <!-- Media Valoraciones (Daterange) Tab -->
                         <div x-show="tab === 'daterange'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2"
+                            <p class="text-lg text-white font-bold mb-4"
                                 th:text="'Media de las valoraciones en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
                             <p class="text-base text-white mb-4">- Esta gráfica muestra la media de las valoraciones
@@ -553,7 +559,7 @@
 
                         <!-- Media Valoraciones (Totales) Tab -->
                         <div x-show="tab === 'all'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">
+                            <p class="text-lg text-white font-bold mb-4">
                                 Media de las valoraciones total</p>
                             <p class="text-base text-white mb-4">- Esta gráfica muestra la media de las valoraciones
                                 personales en tus revisiones:</p>
@@ -567,8 +573,8 @@
 
             <!-- Card 5: Analysis Valoraciones | Evolución de las valoraciones  -->
             <div data-aos="fade-up" x-data="{ open: false }"
-                class="relative bg-[#172E38] p-6 rounded-lg shadow-xl mb-6">
-                <p class="text-lg italic font-bold mb-2" style="color: #23A3BB;">Análisis de valoraciones</p>
+                class="relative bg-[#172E38] p-6 rounded-2xl shadow-xl mb-6">
+                <p class="text-lg italic font-bold mb-4" style="color: #23A3BB;">Análisis de valoraciones</p>
                 <p class="text-2xl font-bold text-white">Evolución de las valoraciones
                 </p>
                 <!-- Button Positioned in the Top Right -->
@@ -611,7 +617,7 @@
 
                         <!-- Evolución Valoraciones (7d) Tab -->
                         <div x-show="tab === '7d'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">
+                            <p class="text-lg text-white font-bold mb-4">
                                 Evolución de las valoraciones en la última semana</p>
                             <p class="text-base text-white mb-4">- Esta gráfica muestra la evolución de las valoraciones
                                 personales en tus revisiones:</p>
@@ -620,7 +626,7 @@
 
                         <!-- Evolución Valoraciones (1m) Tab -->
                         <div x-show="tab === '1m'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">
+                            <p class="text-lg text-white font-bold mb-4">
                                 Evolución de las valoraciones en el último mes</p>
                             <p class="text-base text-white mb-4">- Esta gráfica muestra la evolución de las valoraciones
                                 personales en tus revisiones:</p>
@@ -630,7 +636,7 @@
 
                         <!-- Evolución Valoraciones (Daterange) Tab -->
                         <div x-show="tab === 'daterange'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2"
+                            <p class="text-lg text-white font-bold mb-4"
                                 th:text="'Evolución de las valoraciones en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
                             <p class="text-base text-white mb-4">- Esta gráfica muestra la evolución de las valoraciones
@@ -641,7 +647,7 @@
 
                         <!-- Evolución Valoraciones (Totales) Tab -->
                         <div x-show="tab === 'all'" x-transition>
-                            <p class="text-lg text-white font-bold mb-2">
+                            <p class="text-lg text-white font-bold mb-4">
                                 Evolución de las valoraciones total</p>
                             <p class="text-base text-white mb-4">- Esta gráfica muestra la evolución de las valoraciones
                                 personales en tus revisiones:</p>

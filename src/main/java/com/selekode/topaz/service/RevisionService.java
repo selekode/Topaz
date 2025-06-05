@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.selekode.topaz.model.RevisionEntry;
 import com.selekode.topaz.repository.RevisionRepository;
+import com.selekode.topaz.utils.DatesHelper;
 
 @Service
 public class RevisionService {
@@ -26,7 +27,7 @@ public class RevisionService {
 	}
 	
 	public static void insertRevisionEntry(RevisionEntry revisionEntry) {
-		Long unixTime = generateUnixDate();
+		Long unixTime = DatesHelper.generateUnixDate();
 		RevisionRepository.insertRevisionEntry(revisionEntry, unixTime);
 	}
 	
@@ -37,11 +38,4 @@ public class RevisionService {
 	public static void deleteRevisionEntry(Long id) {
 		RevisionRepository.deleteRevisionEntry(id);
 	}
-
-	public static long generateUnixDate() {
-		Instant now = Instant.now();
-		long unixTime = now.getEpochSecond();
-
-		return unixTime;
-	}	
 }

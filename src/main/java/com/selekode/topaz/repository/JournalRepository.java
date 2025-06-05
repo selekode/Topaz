@@ -14,7 +14,7 @@ import java.util.List;
 
 import com.selekode.topaz.database.DatabaseConstants;
 import com.selekode.topaz.model.JournalEntry;
-import com.selekode.topaz.model.RevisionEntry;
+import com.selekode.topaz.utils.DatesHelper;
 
 public interface JournalRepository {
 	public static final String DB_URL = DatabaseConstants.DB_URL;
@@ -51,7 +51,7 @@ public interface JournalRepository {
 				String contentErroresCometidos = rs.getString("contentErroresCometidos");
 
 				// Convert date from UNIX time to String
-				String dateStr = convertDateToString_ddMMMyyy(date);
+				String dateStr = DatesHelper.convertDateToString_ddMMMyyy(date);
 
 				// Create a new JournalEntry object and set all content fields
 				JournalEntry journalEntry = new JournalEntry(id, dateStr, title, contentGeneral, contentSaludFisica,
@@ -225,16 +225,5 @@ public interface JournalRepository {
 				System.err.println("Error closing resources: " + e.getMessage());
 			}
 		}
-	}
-
-	public static String convertDateToString_ddMMMyyy(long date) {
-		Instant instant = Instant.ofEpochSecond(date);
-
-		// Define the desired format (DD-MMM-YYYY)
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a")
-				.withZone(ZoneId.systemDefault());
-		String dateStr = formatter.format(instant);
-
-		return dateStr;
 	}
 }

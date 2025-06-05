@@ -95,7 +95,7 @@
             </a>
             <a href="/journal/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
                     Diario
                 </button>
             </a>
@@ -113,7 +113,7 @@
             </a>
             <a href="/innerwork/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
                     Trabajo Interno
                 </button>
             </a>
@@ -132,7 +132,7 @@
 
             <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
 
-            <a href="/journal/addEntry">
+            <a href="/innerwork/addEntry">
                 <button
                     class="w-12 h-12 rounded-full bg-[#23A3BB] font-bold text-white flex items-center justify-center hover:bg-[#1A8F9A] mb-4 transition-colors duration-300">
                     +
@@ -145,10 +145,15 @@
     <!-- Main content -->
     <div class="main-content  flex-grow bg-[#0F2529] p-6">
         <main class="container mx-auto mt-6 p-4">
-            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Diario</h1>
-
-            <!-- Iterate over journal entries -->
-            <div data-aos="fade-up" th:each="journalEntry : ${journalEntries}" x-data="{ open: false }"
+            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Trabajo Interno</h1>
+            <div class="flex justify-between items-center mt-4 mb-4">
+                <a href="/innerwork/tags/load" class="text-sm text-teal-600 font-medium hover:underline">
+                    <button
+                        class="ml-auto text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Etiquetas</button>
+                </a>
+            </div>
+            <!-- Iterate over inner work entries -->
+            <div data-aos="fade-up" th:each="innerWorkEntry : ${innerWorkEntries}" x-data="{ open: false }"
                 class="relative bg-[#172E38] p-6 rounded-2xl shadow-xl mb-6">
                 <!-- Buttons Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
@@ -159,50 +164,43 @@
                     </button>
 
                     <!-- Edit button -->
-                    <a th:href="@{/journal/editEntry/{id}(id=${journalEntry.id})}"
+                    <a th:href="@{/innerwork/editEntry/{id}(id=${innerWorkEntry.id})}"
                         class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
                         Editar
                     </a>
 
                     <!-- Delete button -->
-                    <button th:attr="onclick='openModal(' + ${journalEntry.id} + ')'"
+                    <button th:attr="onclick='openModal(' + ${innerWorkEntry.id} + ')'"
                         class="px-4 py-2 rounded-full bg-[#E74C3C] text-white text-sm transition hover:bg-[#D63C2D]">
                         Eliminar
                     </button>
                 </div>
 
-                <!-- Journal Entry Content -->
+                <!-- Inner Work Entry Content -->
                 <div class="mr-4">
-                    <!-- Date -->
-                    <p class="text-lg italic font-bold mb-4" style="color: #23A3BB;" th:text="${journalEntry.date}"></p>
+                    <p class="text-lg italic font-bold mb-4 text-[#23A3BB]" th:text="${innerWorkEntry.date}">
+                    </p>
+
+                    <!-- Show the tag name by matching tag.id == innerWorkEntry.tagID -->
+                    <p class="text-l mb-4 text-[#23A3BB]" th:text="${tagMap[innerWorkEntry.tagID]}">Etiqueta</p>
 
                     <!-- Content to Show/Hide -->
                     <div x-show="open" x-collapse>
                         <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
 
-                        <h2 class="text-2xl font-bold mb-4 text-white" th:text="${journalEntry.title}"></h2>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentGeneral}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentSaludFisica}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentBienestarMental}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentRelacionesSociales}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentCarreraProfesional}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentEstabilidadFinanciera}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentCrecimientoPersonal}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentPasatiemposCreatividad}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentEspiritualidadProposito}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentRecreacionDiversion}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentContribucionLegado}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentErroresCometidos}"></p>
+                        <h2 class="text-2xl font-bold mb-4 text-white" th:text="${innerWorkEntry.title}"></h2>
+                        <p class="text-base mb-4 text-white" th:text="${innerWorkEntry.content}"></p>
                     </div>
                 </div>
             </div>
+
 
             <!-- Modal HTML -->
             <div id="confirmModal"
                 class="modal hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
                 <div class="modal-content rounded-lg p-6">
                     <h3 class="text-lg text-justify text-white font-bold mb-4 select-none">¿Seguro que quieres eliminar
-                        está página del diario?</h3>
+                        esta entrada de trabajo interno?</h3>
                     <form id="deleteForm" method="post" action="deleteEntry">
                         <input type="hidden" id="journalId" name="id" />
                         <button type="submit"

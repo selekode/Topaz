@@ -30,7 +30,7 @@
     <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
-            <img th:src="@{/images/topaz-logo-text.png}" alt="Logo" class="w-[120px] select-none">
+            <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
         <!-- Horizontal Rule -->
@@ -63,6 +63,12 @@
                     Estadísticas
                 </button>
             </a>
+            <a href="/innerwork/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Trabajo Interno
+                </button>
+            </a>
             <a href="/meditacion/load" class="block w-full">
                 <button
                     class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
@@ -87,8 +93,8 @@
             <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Meditación</h1>
 
 
-            <div class="bg-[#172E38] p-6 rounded-lg shadow-xl" data-aos="fade-up">
-                <p class="text-lg italic font-bold mb-2 text-[#23A3BB] text-left">Temporizador de Meditación</p>
+            <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl" data-aos="fade-up">
+                <p class="text-lg italic font-bold mb-4 text-[#23A3BB] text-left">Temporizador de Meditación</p>
                 <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
 
                 <!-- Time input -->
@@ -124,10 +130,10 @@
                 <p id="customTimer" class="text-center text-white text-2xl mb-4">15:00</p>
             </div>
 
-            <div class="bg-[#172E38] p-6 rounded-lg shadow-xl mt-4" data-aos="fade-up">
+            <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl mt-4" data-aos="fade-up">
                 <!-- Mindfulness Instructions -->
                 <div class="text-white text-base space-y-2">
-                    <p class="text-lg italic font-bold mb-2 text-[#23A3BB] text-left">Cómo Practicar la Atención Plena</p>
+                    <p class="text-lg italic font-bold mb-4 text-[#23A3BB] text-left">Cómo Practicar la Atención Plena</p>
 
                     <p><strong>1 - Encuentra un lugar tranquilo:</strong> Siéntate cómodo, con la espalda recta y las
                         manos relajadas.</p>
