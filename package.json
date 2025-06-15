@@ -1,0 +1,25 @@
+{
+  "name": "topaz",
+  "version": "1.0.0",
+  "description": "**Topaz** is an app designed to help you easily record your thoughts, emotions, and personal goals. Through journal entries, you can reflect on your day and track your well-being.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/selekode/Topaz.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/selekode/Topaz/issues"
+  },
+  "homepage": "https://github.com/selekode/Topaz#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.5",
+    "tailwindcss": "^4.1.10"
+  }
+}

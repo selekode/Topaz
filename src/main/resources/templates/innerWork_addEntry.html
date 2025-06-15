@@ -72,11 +72,6 @@
             </a>
 
             <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
-
-            <button
-                class="w-12 h-12 rounded-full bg-[#1A7C84] text-white flex items-center justify-center hover:bg-[#1A7C84] mb-4 transition-colors duration-300 font-bold">
-                +
-            </button>
         </div>
     </div>
 
@@ -86,13 +81,12 @@
             <h1 class="text-2xl font-bold mb-4 text-white">Trabajo Interno</h1>
 
             <div data-aos="fade-left" class="bg-[#172E38] p-6 rounded-2xl shadow-xl flex flex-col justify-between">
-                <div class="mb-4 flex items-center justify-between">
+                <div class="mb-4 relative flex items-center">
                     <a href="/innerwork/load"
                         class="text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Atrás</a>
-                    <h2 class="text-xl text-white font-bold select-none">Añadir Trabajo Interno</h2>
+                    <h2 class="absolute left-1/2 transform -translate-x-1/2 text-xl text-white font-bold select-none">
+                        Añadir Trabajo Interno</h2>
                 </div>
-
-                <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
 
                 <!-- Form to handle the journal entry -->
                 <form id="addInnerWorkForm" action="#" method="POST" th:action="@{/innerwork/saveEntry}"

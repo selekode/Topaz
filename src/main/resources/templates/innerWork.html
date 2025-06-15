@@ -9,18 +9,8 @@
     <script th:src="@{/js/tailwind.js}" defer></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
-
-        html {
-            background-color: #0F2529;
-        }
-
-        body {
-            font-family: 'Ubuntu', sans-serif !important;
-        }
-
         /* Fix the sidebar to stay in place */
         .sidebar {
             position: fixed;
@@ -131,13 +121,6 @@
             </a>
 
             <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
-
-            <a href="/innerwork/addEntry">
-                <button
-                    class="w-12 h-12 rounded-full bg-[#23A3BB] font-bold text-white flex items-center justify-center hover:bg-[#1A8F9A] mb-4 transition-colors duration-300">
-                    +
-                </button>
-            </a>
         </div>
     </div>
 
@@ -150,6 +133,10 @@
                 <a href="/innerwork/tags/load" class="text-sm text-teal-600 font-medium hover:underline">
                     <button
                         class="ml-auto text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Etiquetas</button>
+                </a>
+                <a href="/innerwork/addEntry" class="text-sm text-teal-600 font-medium hover:underline">
+                    <button
+                        class="ml-auto text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Añadir</button>
                 </a>
             </div>
             <!-- Iterate over inner work entries -->
@@ -178,17 +165,15 @@
 
                 <!-- Inner Work Entry Content -->
                 <div class="mr-4">
-                    <p class="text-lg italic font-bold mb-4 text-[#23A3BB]" th:text="${innerWorkEntry.date}">
+                    <p class="text-lg  font-bold mb-4 text-[#23A3BB]" th:text="${innerWorkEntry.date}">
                     </p>
 
                     <!-- Show the tag name by matching tag.id == innerWorkEntry.tagID -->
                     <p class="text-l mb-4 text-[#23A3BB]" th:text="${tagMap[innerWorkEntry.tagID]}">Etiqueta</p>
+                    <h2 class="text-2xl font-bold mb-4 text-white" th:text="${innerWorkEntry.title}"></h2>
 
                     <!-- Content to Show/Hide -->
                     <div x-show="open" x-collapse>
-                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
-
-                        <h2 class="text-2xl font-bold mb-4 text-white" th:text="${innerWorkEntry.title}"></h2>
                         <p class="text-base mb-4 text-white" th:text="${innerWorkEntry.content}"></p>
                     </div>
                 </div>

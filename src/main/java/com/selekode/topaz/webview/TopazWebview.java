@@ -23,6 +23,8 @@ public class TopazWebview extends Application {
 		stage.getIcons().add(icon);
 
 		WebView webView = new WebView();
+		webView.setZoom(1.0); // or tweak to match your screen scaling
+		webView.setStyle("-fx-font-smoothing-type: lcd;");
 		webView.getEngine().load("http://localhost:8080/dashboard/load");
 
 		VBox vBox = new VBox(webView);

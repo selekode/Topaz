@@ -87,11 +87,6 @@
             </a>
 
             <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
-
-            <button
-                class="w-12 h-12 rounded-full bg-[#1A7C84] text-white flex items-center justify-center hover:bg-[#1A7C84] mb-4 transition-colors duration-300 font-bold">
-                +
-            </button>
         </div>
     </div>
 
@@ -101,10 +96,14 @@
             <h1 class="text-2xl font-bold mb-4 text-white">Revisión</h1>
 
             <div data-aos="fade-left" class="bg-[#172E38] p-6 rounded-2xl shadow-xl flex flex-col justify-between">
-                <div class="mb-4 flex items-center justify-between">
+                <div class="mb-4 relative flex items-center">
                     <a href="/revision/load"
-                        class="text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Atrás</a>
-                    <h2 class="text-xl text-white font-bold select-none">Añadir Revisión</h2>
+                        class="text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">
+                        Atrás
+                    </a>
+                    <h2 class="absolute left-1/2 transform -translate-x-1/2 text-xl text-white font-bold select-none">
+                        Añadir Revisión
+                    </h2>
                 </div>
 
                 <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
@@ -112,7 +111,7 @@
                 <!-- Form to handle the revision entry -->
                 <form method="POST" th:action="@{/revision/saveEntry}" th:object="${revisionEntry}">
                     <!-- Date -->
-                    <p id="date" class="text-lg italic font-bold mb-4" style="color: #23A3BB;"></p>
+                    <p id="date" class="text-lg  font-bold mb-4" style="color: #23A3BB;"></p>
 
                     <input type="hidden" th:field="*{id}" value="2" />
                     <input type="hidden" th:field="*{date}" value="2" />
@@ -120,8 +119,7 @@
                     <div class="mb-4">
                         <label for="estadoEmocional" class="text-[#23A3BB] mb-4">Mi estado emocional ha sido:</label>
                         <textarea id="estadoEmocional" th:field="*{estadoEmocional}"
-                            class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"
-                            ></textarea>
+                            class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"></textarea>
                     </div>
 
                     <!-- Multiple Mood Selection -->
@@ -132,71 +130,86 @@
                             <!-- Positive Emotions -->
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionAlegria}" class="form-checkbox text-[#23A3BB]">
+                                    <input type="checkbox" th:field="*{emocionAlegria}"
+                                        class="form-checkbox text-[#23A3BB]">
                                     <span class="text-white">Alegría</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionAmor}" class="form-checkbox text-[#23A3BB]">
+                                    <input type="checkbox" th:field="*{emocionAmor}"
+                                        class="form-checkbox text-[#23A3BB]">
                                     <span class="text-white">Amor</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionSatisfaccion}" class="form-checkbox text-[#23A3BB]">
+                                    <input type="checkbox" th:field="*{emocionSatisfaccion}"
+                                        class="form-checkbox text-[#23A3BB]">
                                     <span class="text-white">Satisfacción</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionSerenidad}" class="form-checkbox text-[#23A3BB]">
+                                    <input type="checkbox" th:field="*{emocionSerenidad}"
+                                        class="form-checkbox text-[#23A3BB]">
                                     <span class="text-white">Serenidad</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionConfianza}" class="form-checkbox text-[#23A3BB]">
+                                    <input type="checkbox" th:field="*{emocionConfianza}"
+                                        class="form-checkbox text-[#23A3BB]">
                                     <span class="text-white">Confianza</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionEsperanza}" class="form-checkbox text-[#23A3BB]">
+                                    <input type="checkbox" th:field="*{emocionEsperanza}"
+                                        class="form-checkbox text-[#23A3BB]">
                                     <span class="text-white">Esperanza</span>
                                 </label>
                             </div>
-                        
+
                             <!-- Negative Emotions -->
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionTristeza}" class="form-checkbox text-[#23A3BB]">
+                                    <input type="checkbox" th:field="*{emocionTristeza}"
+                                        class="form-checkbox text-[#23A3BB]">
                                     <span class="text-white">Tristeza</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionIra}" class="form-checkbox text-[#23A3BB]">
+                                    <input type="checkbox" th:field="*{emocionIra}"
+                                        class="form-checkbox text-[#23A3BB]">
                                     <span class="text-white">Ira</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionFrustracion}" class="form-checkbox text-[#23A3BB]">
+                                    <input type="checkbox" th:field="*{emocionFrustracion}"
+                                        class="form-checkbox text-[#23A3BB]">
                                     <span class="text-white">Frustración</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionAnsiedad}" class="form-checkbox text-[#23A3BB]">
+                                    <input type="checkbox" th:field="*{emocionAnsiedad}"
+                                        class="form-checkbox text-[#23A3BB]">
                                     <span class="text-white">Ansiedad</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionVerguenza}" class="form-checkbox text-[#23A3BB]">
+                                    <input type="checkbox" th:field="*{emocionVerguenza}"
+                                        class="form-checkbox text-[#23A3BB]">
                                     <span class="text-white">Vergüenza</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionMiedo}" class="form-checkbox text-[#23A3BB]">
+                                    <input type="checkbox" th:field="*{emocionMiedo}"
+                                        class="form-checkbox text-[#23A3BB]">
                                     <span class="text-white">Miedo</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionAbrumado}" class="form-checkbox text-[#23A3BB]">
+                                    <input type="checkbox" th:field="*{emocionAbrumado}"
+                                        class="form-checkbox text-[#23A3BB]">
                                     <span class="text-white">Abrumado</span>
                                 </label>
                             </div>
-                        
+
                             <!-- Mixed/Neutral Emotions -->
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionSorpresa}" class="form-checkbox text-[#23A3BB]">
+                                    <input type="checkbox" th:field="*{emocionSorpresa}"
+                                        class="form-checkbox text-[#23A3BB]">
                                     <span class="text-white">Sorpresa</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionAburrimiento}" class="form-checkbox text-[#23A3BB]">
+                                    <input type="checkbox" th:field="*{emocionAburrimiento}"
+                                        class="form-checkbox text-[#23A3BB]">
                                     <span class="text-white">Aburrimiento</span>
                                 </label>
                             </div>
@@ -206,23 +219,20 @@
                     <div class="mb-4">
                         <label for="estadoEmocionalWhy" class="text-[#23A3BB] mb-4">Explica por qué:</label>
                         <textarea id="estadoEmocionalWhy" th:field="*{estadoEmocionalWhy}"
-                            class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"
-                            ></textarea>
+                            class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"></textarea>
                     </div>
 
                     <div class="mb-4">
                         <label for="importanteParaMi" class="text-[#23A3BB] mb-4">Lo más importante para mí ha
                             sido:</label>
                         <textarea id="importanteParaMi" th:field="*{importanteParaMi}"
-                            class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"
-                            ></textarea>
+                            class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"></textarea>
                     </div>
 
                     <div class="mb-4">
                         <label for="aprendidoSobreMi" class="text-[#23A3BB] mb-4">He aprendido acerca de mí qué:</label>
                         <textarea id="aprendidoSobreMi" th:field="*{aprendidoSobreMi}"
-                            class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"
-                            ></textarea>
+                            class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"></textarea>
                     </div>
 
                     <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
@@ -337,8 +347,7 @@
                     <div class="mb-4">
                         <label for="explicacionValoracion" class="text-[#23A3BB] mb-4">Explicación Valoración:</label>
                         <textarea id="explicacionValoracion" th:field="*{explicacionValoracion}"
-                            class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"
-                            ></textarea>
+                            class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"></textarea>
                     </div>
 
                     <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
@@ -346,8 +355,7 @@
                     <div class="mb-4">
                         <label for="objetivosPersonales" class="text-[#23A3BB] mb-4">Objetivos Personales:</label>
                         <textarea id="objetivosPersonales" th:field="*{objetivosPersonales}"
-                            class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"
-                            ></textarea>
+                            class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"></textarea>
                     </div>
 
                     <div class="mt-4 flex item">
