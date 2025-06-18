@@ -70,9 +70,6 @@ public class DatabaseCreator {
 			        
 
 			String createInnerWorkTagsTableSQL = "CREATE TABLE IF NOT EXISTS inner_work_tags (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL);";
-			String createInnerWorkEntryTagTableSQL = "CREATE TABLE IF NOT EXISTS inner_work_entry_tag (inner_work_entry_id INTEGER NOT NULL, "
-					+ "tag_id INTEGER NOT NULL, PRIMARY KEY (inner_work_entry_id, tag_id), FOREIGN KEY (inner_work_entry_id) REFERENCES "
-					+ "inner_work_entry(id) ON DELETE CASCADE, FOREIGN KEY (tag_id) REFERENCES inner_work_tags(id) ON DELETE CASCADE);";
 
 			// Connect to the database and create the tables
 			try (Connection connection = DriverManager.getConnection(dbFilePath);
@@ -83,7 +80,6 @@ public class DatabaseCreator {
 				statement.execute(createRevisionTableSQL);
 				statement.execute(createInnerWorkEntryTableSQL);
 				statement.execute(createInnerWorkTagsTableSQL);
-				statement.execute(createInnerWorkEntryTagTableSQL);
 
 				System.out.println("TopazDB: Database and tables created successfully!");
 

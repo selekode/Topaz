@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topaz</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/css/output.css}" rel="stylesheet">
     <script th:src="@{/js/tailwind.js}" defer></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
@@ -44,16 +44,16 @@
                     Revisión
                 </button>
             </a>
-            <a href="/stats/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
-                    Estadísticas
-                </button>
-            </a>
             <a href="/innerwork/load" class="block w-full">
                 <button
                     class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
                     Trabajo Interno
+                </button>
+            </a>			
+            <a href="/stats/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Estadísticas
                 </button>
             </a>
             <a href="/meditacion/load" class="block w-full">
@@ -76,7 +76,7 @@
 
 
     <!-- Main content -->
-    <div class="main-content  flex-grow bg-[#0F2529] p-6">
+    <div class="main-content  flex-grow bg-[#0F2529] p-6 select-none">
         <main class="container mx-auto mt-6 p-4">
             <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Inicio</h1>
 
@@ -84,14 +84,38 @@
                 <p class="text-lg font-bold mb-4 text-[#23A3BB]">¡Bienvenido a Topaz!</p>
                 <p class="text-base mb-4 text-white mb-4">Sigue avanzando en tu viaje de desarollo personal. Aquí
                     encontrarás tu racha actual, insights de tus entradas pasadas y recordatorios para seguir
-                    escribiendo. ¡Sigue creciendo, una entrada a entrada! </p>
-                <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
-                <p class="text-base mb-4 text-white" th:text="${dashboardData.strJournalToday}"></p>
-                <p class="text-base mb-4 text-white" th:text="${dashboardData.strRevisionToday}"></p>
-                <p class="text-base mb-4 text-white" th:text="${dashboardData.strJournalStreak}"></p>
-                <p class="text-base mb-4 text-white" th:text="${dashboardData.strRevisionStreak}"></p>
-                <p class="text-base mb-4 text-white" th:text="${dashboardData.strLongestJournalStreak}"></p>
-                <p class="text-base text-white" th:text="${dashboardData.strLongestRevisionStreak}"></p>
+                    escribiendo. ¡Sigue creciendo poco a poco, con constancia!</p>
+            </div>
+
+            <div class="flex justify-center">
+                <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl mb-4 mx-2 flex-1">
+                    <p class="text-lg font-bold mb-4 text-[#fff]">Cosas que podrías hacer</p>
+                    <p class="text-base mb-4 text-white" th:text="${dashboardData.strJournalToday}"></p>
+                    <p class="text-base mb-4 text-white" th:text="${dashboardData.strRevisionToday}"></p>
+                    <p class="text-base mb-4 text-white">• Realizar un trabajo interno</p>
+                </div>
+
+                <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl mb-4 mx-2 flex-1">
+                    <p class="text-lg font-bold mb-4 text-[#fff]">Racha actual en diario</p>
+                    <p class="text-base mb-4 text-white" th:text="${dashboardData.strJournalStreak}"></p>
+                </div>
+
+                <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl mb-4 mx-2 flex-1">
+                    <p class="text-lg font-bold mb-4 text-[#fff]">Racha actual de revisiones</p>
+                    <p class="text-base mb-4 text-white" th:text="${dashboardData.strRevisionStreak}"></p>
+                </div>
+            </div>
+
+            <div class="flex justify-center">
+                <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl mb-4 mx-2 flex-1">
+                    <p class="text-lg font-bold mb-4 text-[#fff]">Racha más larga en diario</p>
+                    <p class="text-base mb-4 text-white" th:text="${dashboardData.strLongestJournalStreak}"></p>
+                </div>
+
+                <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl mb-4 mx-2 flex-1">
+                    <p class="text-lg font-bold mb-4 text-[#fff]">Racha más larga de revisiones</p>
+                    <p class="text-base text-white" th:text="${dashboardData.strLongestRevisionStreak}"></p>
+                </div>
             </div>
     </div>
     </main>

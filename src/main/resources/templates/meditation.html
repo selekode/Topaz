@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topaz</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/css/output.css}" rel="stylesheet">
     <script th:src="@{/js/tailwind.js}" defer></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
@@ -57,16 +57,16 @@
                     Revisión
                 </button>
             </a>
-            <a href="/stats/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
-                    Estadísticas
-                </button>
-            </a>
             <a href="/innerwork/load" class="block w-full">
                 <button
                     class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
                     Trabajo Interno
+                </button>
+            </a>
+            <a href="/stats/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Estadísticas
                 </button>
             </a>
             <a href="/meditacion/load" class="block w-full">
@@ -88,7 +88,7 @@
 
 
     <!-- Main content -->
-    <div class="main-content  flex-grow bg-[#0F2529] p-6">
+    <div class="main-content  flex-grow bg-[#0F2529] p-6 select-none">
         <main class="container mx-auto mt-6 p-4">
             <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Meditación</h1>
 
@@ -130,30 +130,42 @@
                 <p id="customTimer" class="text-center text-white text-2xl mb-4">15:00</p>
             </div>
 
-            <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl mt-4" data-aos="fade-up">
+            <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl mt-4" data-aos="fade-up" x-data="{ open: false }">
                 <!-- Mindfulness Instructions -->
                 <div class="text-white text-base space-y-2">
                     <p class="text-lg  font-bold mb-4 text-[#23A3BB] text-left">Cómo Practicar la Atención Plena</p>
 
-                    <p><strong>1 - Encuentra un lugar tranquilo:</strong> Siéntate cómodo, con la espalda recta y las
-                        manos relajadas.</p>
+                    <!-- Show/Hide Button -->
+                    <button @click="open = !open"
+                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                        <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
+                    </button>
 
-                    <p><strong>2 - Cierra los ojos y respira:</strong> Inhala profundamente por la nariz y exhala
-                        lentamente por la boca.</p>
+                    <div x-show="open" x-collapse class="mt-2">
 
-                    <p><strong>3 - Observa tu mente:</strong> No intentes vaciarla; simplemente nota los pensamientos
-                        sin juzgarlos.</p>
+                        <p><strong>1 - Encuentra un lugar tranquilo:</strong> Siéntate cómodo, con la espalda recta y
+                            las
+                            manos relajadas.</p>
 
-                    <p><strong>4 - Usa un ancla:</strong> Enfócate en tu respiración, los sonidos o las sensaciones de
-                        tu cuerpo.</p>
+                        <p><strong>2 - Cierra los ojos y respira:</strong> Inhala profundamente por la nariz y exhala
+                            lentamente por la boca.</p>
 
-                    <p><strong>5 - Sé amable contigo mismo:</strong> Si te distraes, regresa a tu respiración con
-                        suavidad.</p>
+                        <p><strong>3 - Observa tu mente:</strong> No intentes vaciarla; simplemente nota los
+                            pensamientos
+                            sin juzgarlos.</p>
 
-                    <p><strong>6 - Finaliza con gratitud:</strong> Antes de abrir los ojos, agradece este momento de
-                        calma.</p>
+                        <p><strong>4 - Usa un ancla:</strong> Enfócate en tu respiración, los sonidos o las sensaciones
+                            de
+                            tu cuerpo.</p>
 
-                    <p class="text-center text-[#23A3BB] font-bold">Disfruta el presente</p>
+                        <p><strong>5 - Sé amable contigo mismo:</strong> Si te distraes, regresa a tu respiración con
+                            suavidad.</p>
+
+                        <p><strong>6 - Finaliza con gratitud:</strong> Antes de abrir los ojos, agradece este momento de
+                            calma.</p>
+
+                        <p class="text-center text-[#23A3BB] font-bold">Disfruta el presente</p>
+                    </div>
                 </div>
 
                 <!-- Audio Elements for New Sounds -->

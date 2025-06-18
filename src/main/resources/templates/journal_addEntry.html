@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topaz</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/css/output.css}" rel="stylesheet">
     <script th:src="@{/js/tailwind.js}" defer></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
@@ -45,16 +45,16 @@
                     Revisión
                 </button>
             </a>
-            <a href="/stats/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
-                    Estadísticas
-                </button>
-            </a>
             <a href="/innerwork/load" class="block w-full">
                 <button
                     class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
                     Trabajo Interno
+                </button>
+            </a>
+            <a href="/stats/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Estadísticas
                 </button>
             </a>
             <a href="/meditacion/load" class="block w-full">
@@ -80,12 +80,12 @@
             <h1 class="text-2xl font-bold mb-4 text-white">Diario</h1>
 
             <div data-aos="fade-left" class="bg-[#172E38] p-6 rounded-2xl shadow-xl flex flex-col justify-between">
-                <div class="mb-4 relative flex items-center">
+                <div class="mb-4 relative flex justify-center items-center">
                     <a href="/journal/load"
-                        class="text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">
+                        class="absolute left-0 text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">
                         Atrás
                     </a>
-                    <h2 class="absolute left-1/2 transform -translate-x-1/2 text-xl text-white font-bold select-none">
+                    <h2 class="text-xl text-white font-bold select-none">
                         Añadir Entrada al Diario
                     </h2>
                 </div>
@@ -180,82 +180,102 @@
                 </form>
             </div>
 
-            <div class="bg-[#172E38] p-6 rounded-2xl mt-4 shadow-xl" data-aos="fade-up">
-                <p class="text-lg  font-bold mb-4" style="color: #23A3BB;">Áreas Claves para una Vida Equilibrada
-                </p>
-                <p class="text-base mb-4 text-white">Para ser feliz y estar bien equilibrado, es importante explorar y
-                    equilibrar diferentes áreas de la vida. Intenta mejorar en todas las áreas cada día, pero no te
-                    preocupes si no lo logras siempre. Lo importante es avanzar poco a poco.</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Salud Física -->
-                    <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
-                        <p class="text-xl font-bold mb-4">Salud Física</p>
-                        <p class="text-base">Ejercicio regular, nutrición adecuada, descanso y bienestar físico.</p>
-                    </div>
-
-                    <!-- Bienestar Mental -->
-                    <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
-                        <p class="text-xl font-bold mb-4">Bienestar Mental</p>
-                        <p class="text-base">Mindfulness, meditación, manejo del estrés y desarrollo emocional.</p>
-                    </div>
-
-                    <!-- Relaciones Sociales -->
-                    <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
-                        <p class="text-xl font-bold mb-4">Relaciones Sociales</p>
-                        <p class="text-base">Construir amistades, fortalecer los lazos familiares y participar en la
-                            comunidad.</p>
-                    </div>
-
-                    <!-- Carrera Profesional -->
-                    <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
-                        <p class="text-xl font-bold mb-4">Carrera Profesional</p>
-                        <p class="text-base">Desarrollo de habilidades, alcanzar metas profesionales y mantener una
-                            carrera satisfactoria.</p>
-                    </div>
-
-                    <!-- Estabilidad Financiera -->
-                    <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
-                        <p class="text-xl font-bold mb-4">Estabilidad Financiera</p>
-                        <p class="text-base">Presupuesto, ahorro e inversión para la seguridad y bienestar financiero.
+            <!-- Outer container with x-show -->
+            <div x-data="{ open: false }">
+                <!-- Content controlled by x-show -->
+                <div>
+                    <div class="bg-[#172E38] p-6 rounded-2xl mt-4 shadow-xl" data-aos="fade-up">
+                        <p class="text-lg font-bold mb-4" style="color: #23A3BB;">
+                            Áreas Claves para una Vida Equilibrada
                         </p>
-                    </div>
-
-                    <!-- Crecimiento Personal -->
-                    <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
-                        <p class="text-xl font-bold mb-4">Crecimiento Personal</p>
-                        <p class="text-base">Lectura, aprendizaje continuo y reflexión personal para el
-                            auto-descubrimiento.</p>
-                    </div>
-
-                    <!-- Pasatiempos y Creatividad -->
-                    <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
-                        <p class="text-xl font-bold mb-4">Pasatiempos y Creatividad</p>
-                        <p class="text-base">Explorar intereses y actividades creativas que fomenten la diversión y la
-                            relajación.</p>
-                    </div>
-
-                    <!-- Espiritualidad y Propósito -->
-                    <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
-                        <p class="text-xl font-bold mb-4">Espiritualidad y Propósito</p>
-                        <p class="text-base">Conectar con el sentido de vida, gratitud y reflexionar sobre el propósito.
+                        <p class="text-base mb-4 text-white">
+                            Para ser feliz y estar bien equilibrado, es importante explorar y
+                            equilibrar diferentes áreas de la vida. Intenta mejorar en todas las áreas cada día, pero no
+                            te
+                            preocupes si no lo logras siempre. Lo importante es avanzar poco a poco.
                         </p>
-                    </div>
 
-                    <!-- Recreación y Diversión -->
-                    <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
-                        <p class="text-xl font-bold mb-4">Recreación y Diversión</p>
-                        <p class="text-base">Disfrutar de actividades recreativas, viajes y momentos de diversión.</p>
-                    </div>
+                        <!-- Show/Hide Button -->
+                        <button @click="open = !open"
+                            class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                            <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
+                        </button>
 
-                    <!-- Contribución y Legado -->
-                    <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
-                        <p class="text-xl font-bold mb-4">Contribución y Legado</p>
-                        <p class="text-base">Dejar un impacto positivo en los demás. Enseñar a los demas. Ejercer
-                            mentoría.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4" x-show="open" x-collapse>
+                            <!-- Salud Física -->
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                                <p class="text-xl font-bold mb-4">Salud Física</p>
+                                <p class="text-base">Ejercicio regular, nutrición adecuada, descanso y bienestar físico.
+                                </p>
+                            </div>
+
+                            <!-- Bienestar Mental -->
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                                <p class="text-xl font-bold mb-4">Bienestar Mental</p>
+                                <p class="text-base">Mindfulness, meditación, manejo del estrés y desarrollo emocional.
+                                </p>
+                            </div>
+
+                            <!-- Relaciones Sociales -->
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                                <p class="text-xl font-bold mb-4">Relaciones Sociales</p>
+                                <p class="text-base">Construir amistades, fortalecer los lazos familiares y participar
+                                    en la comunidad.</p>
+                            </div>
+
+                            <!-- Carrera Profesional -->
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                                <p class="text-xl font-bold mb-4">Carrera Profesional</p>
+                                <p class="text-base">Desarrollo de habilidades, alcanzar metas profesionales y mantener
+                                    una carrera satisfactoria.</p>
+                            </div>
+
+                            <!-- Estabilidad Financiera -->
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                                <p class="text-xl font-bold mb-4">Estabilidad Financiera</p>
+                                <p class="text-base">Presupuesto, ahorro e inversión para la seguridad y bienestar
+                                    financiero.</p>
+                            </div>
+
+                            <!-- Crecimiento Personal -->
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                                <p class="text-xl font-bold mb-4">Crecimiento Personal</p>
+                                <p class="text-base">Lectura, aprendizaje continuo y reflexión personal para el
+                                    auto-descubrimiento.</p>
+                            </div>
+
+                            <!-- Pasatiempos y Creatividad -->
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                                <p class="text-xl font-bold mb-4">Pasatiempos y Creatividad</p>
+                                <p class="text-base">Explorar intereses y actividades creativas que fomenten la
+                                    diversión y la relajación.</p>
+                            </div>
+
+                            <!-- Espiritualidad y Propósito -->
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                                <p class="text-xl font-bold mb-4">Espiritualidad y Propósito</p>
+                                <p class="text-base">Conectar con el sentido de vida, gratitud y reflexionar sobre el
+                                    propósito.</p>
+                            </div>
+
+                            <!-- Recreación y Diversión -->
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                                <p class="text-xl font-bold mb-4">Recreación y Diversión</p>
+                                <p class="text-base">Disfrutar de actividades recreativas, viajes y momentos de
+                                    diversión.</p>
+                            </div>
+
+                            <!-- Contribución y Legado -->
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                                <p class="text-xl font-bold mb-4">Contribución y Legado</p>
+                                <p class="text-base">Dejar un impacto positivo en los demás. Enseñar a los demás.
+                                    Ejercer mentoría.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
 
 
         </main>

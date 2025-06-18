@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topaz</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link th:href="@{/css/output.css}" rel="stylesheet">
     <script th:src="@{/js/tailwind.js}" defer></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
@@ -44,16 +44,16 @@
                     Revisión
                 </button>
             </a>
-            <a href="/stats/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
-                    Estadísticas
-                </button>
-            </a>
             <a href="/innerwork/load" class="block w-full">
                 <button
                     class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
                     Trabajo Interno
+                </button>
+            </a>			
+            <a href="/stats/load" class="block w-full">
+                <button
+                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    Estadísticas
                 </button>
             </a>
             <a href="/meditacion/load" class="block w-full">
@@ -77,7 +77,7 @@
     <!-- Main content -->
     <div class="main-content  flex-grow bg-[#0F2529] p-6">
         <main class="container mx-auto mt-6 p-4">
-            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Diario</h1>
+            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white select-none">Diario</h1>
             <div class="flex justify-end items-center mt-4 mb-4">
                 <a href="/journal/addEntry" class="text-sm text-teal-600 font-medium hover:underline">
                     <button
@@ -91,11 +91,11 @@
                 class="relative bg-[#172E38] p-6 rounded-2xl shadow-xl mb-6">
                 <!-- Buttons Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
-                    <!-- Show/Hide Button -->
-                    <button @click="open = !open"
-                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
-                        <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
-                    </button>
+                        <!-- Show/Hide Button -->
+                        <button @click="open = !open"
+                            class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                            <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
+                        </button>
 
                     <!-- Edit button -->
                     <a th:href="@{/journal/editEntry/{id}(id=${journalEntry.id})}"
