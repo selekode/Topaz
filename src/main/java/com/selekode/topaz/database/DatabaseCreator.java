@@ -61,18 +61,30 @@ public class DatabaseCreator {
 					+ "emocionEsperanza BOOLEAN DEFAULT 0, " + "PRIMARY KEY(id AUTOINCREMENT)" + ");";
 
 			String createInnerWorkEntryTableSQL = "CREATE TABLE IF NOT EXISTS inner_work_entry ("
-			        + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-			        + "date INTEGER NOT NULL, "
-			        + "tag_id INTEGER, "
-			        + "title TEXT,"
-			        + "content TEXT,"
-			        + "FOREIGN KEY (tag_id) REFERENCES inner_work_tags(id) ON DELETE CASCADE);";
-			        
+					+ "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "date INTEGER NOT NULL, " + "tag_id INTEGER, "
+					+ "title TEXT," + "content TEXT,"
+					+ "FOREIGN KEY (tag_id) REFERENCES inner_work_tags(id) ON DELETE CASCADE);";
 
-			String createInnerWorkTagsTableSQL = "CREATE TABLE IF NOT EXISTS inner_work_tags (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL);";
+			String createInnerWorkTagsTableSQL = "CREATE TABLE IF NOT EXISTS inner_work_tags ("
+					+ "id INTEGER PRIMARY KEY AUTOINCREMENT, " + "name TEXT NOT NULL);";
+
+			String[] tags = { "Asertividad", "Disciplina", "Impulsividad", "Empatía", "Proactividad", "Comunicación",
+					"Gratitud", "Perseverancia", "Autoestima", "Autoconciencia" };
+
+			StringBuilder insertTagsValueBuilder = new StringBuilder();
+			for (int i = 0; i < tags.length; i++) {
+				insertTagsValueBuilder.append("('").append(tags[i]).append("')");
+				if (i < tags.length - 1) {
+					insertTagsValueBuilder.append(", ");
+				}
+			}
+
+			String insertTagsSQL = "INSERT INTO inner_work_tags (name) VALUES " + insertTagsValueBuilder.toString() + ";";
+			
+			
 
 			// Connect to the database and create the tables
-			try (Connection connection = DriverManager.getConnection(dbFilePath);
+			try (Connection connection = DriverManager.getConnection(DatabaseConstants.DB_URL);
 					Statement statement = connection.createStatement()) {
 
 				// Execute the SQL statements to create the tables
@@ -80,6 +92,7 @@ public class DatabaseCreator {
 				statement.execute(createRevisionTableSQL);
 				statement.execute(createInnerWorkEntryTableSQL);
 				statement.execute(createInnerWorkTagsTableSQL);
+				statement.execute(insertTagsSQL);
 
 				System.out.println("TopazDB: Database and tables created successfully!");
 
