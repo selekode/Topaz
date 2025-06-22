@@ -90,11 +90,31 @@ public class StatsHelper {
 		return unixDates;
 	}
 
-	public static StatsEntryCount calculateEntryCount(int journalEntryCount, int revisionEntryCount) {
-		int totalEntryCount = journalEntryCount + revisionEntryCount;
-		StatsEntryCount entryCount = new StatsEntryCount(totalEntryCount, journalEntryCount, revisionEntryCount);
+	public static StatsEntryCount calculateEntryCount(int journalEntryCount, int revisionEntryCount,
+			int innerWorkEntryCount) {
+		int totalEntryCount = journalEntryCount + revisionEntryCount + innerWorkEntryCount;
+		StatsEntryCount entryCount = new StatsEntryCount(totalEntryCount, journalEntryCount, revisionEntryCount,
+				innerWorkEntryCount);
 
 		return entryCount;
+	}
+	
+
+	public static StatsActivityPerDayOfWeek calculateActivityPerDayOfWeek(
+			StatsActivityPerDayOfWeek activityPerDayOfWeek) {
+		activityPerDayOfWeek.setEntryCounts(activityPerDayOfWeek.getMondayEntryCount(),
+				activityPerDayOfWeek.getTuesdayEntryCount(), activityPerDayOfWeek.getWednesdayEntryCount(),
+				activityPerDayOfWeek.getThursdayEntryCount(), activityPerDayOfWeek.getFridayEntryCount(),
+				activityPerDayOfWeek.getSaturdayEntryCount(), activityPerDayOfWeek.getSundayEntryCount());
+
+		// Caluclate which day of the week has the most ammount of entries
+		activityPerDayOfWeek.setMostActiveDay(calculateDayWithHighestCount(activityPerDayOfWeek));
+
+		// Caluclate the ammount of entries the day of the week with the most ammount of
+		// entries has
+		activityPerDayOfWeek.setMostActiveDayN(calculateDayWithHighestCountN(activityPerDayOfWeek));
+
+		return activityPerDayOfWeek;
 	}
 
 	public static String calculateMaxEntryDayOfWeek(int[] counts, String[] days) {
@@ -107,102 +127,35 @@ public class StatsHelper {
 		return days[maxIndex]; // Returns the day with the highest count
 	}
 
-	public static String calculateDayWithHighestJournalCount(StatsActivityPerDayOfWeek activityPerDayOfWeek) {
-		int[] journalCounts = { activityPerDayOfWeek.getJournalMondayEntryCount(),
-				activityPerDayOfWeek.getJournalTuesdayEntryCount(),
-				activityPerDayOfWeek.getJournalWednesdayEntryCount(),
-				activityPerDayOfWeek.getJournalThursdayEntryCount(), activityPerDayOfWeek.getJournalFridayEntryCount(),
-				activityPerDayOfWeek.getJournalSaturdayEntryCount(),
-				activityPerDayOfWeek.getJournalSundayEntryCount() };
+	public static String calculateDayWithHighestCount(StatsActivityPerDayOfWeek activityPerDayOfWeek) {
+		int[] entryCounts = { activityPerDayOfWeek.getMondayEntryCount(), activityPerDayOfWeek.getTuesdayEntryCount(),
+				activityPerDayOfWeek.getWednesdayEntryCount(), activityPerDayOfWeek.getThursdayEntryCount(),
+				activityPerDayOfWeek.getFridayEntryCount(), activityPerDayOfWeek.getSaturdayEntryCount(),
+				activityPerDayOfWeek.getSundayEntryCount() };
 
 		String[] days = { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo" };
 
-		return StatsHelper.calculateMaxEntryDayOfWeek(journalCounts, days);
+		return StatsHelper.calculateMaxEntryDayOfWeek(entryCounts, days);
 	}
 
-	public static int calculateDayWithHighestJournalCountN(StatsActivityPerDayOfWeek activityPerDayOfWeek) {
-		int journalMostActiveDayN = 0;
-		int[] journalCounts = { activityPerDayOfWeek.getJournalMondayEntryCount(),
-				activityPerDayOfWeek.getJournalTuesdayEntryCount(),
-				activityPerDayOfWeek.getJournalWednesdayEntryCount(),
-				activityPerDayOfWeek.getJournalThursdayEntryCount(), activityPerDayOfWeek.getJournalFridayEntryCount(),
-				activityPerDayOfWeek.getJournalSaturdayEntryCount(),
-				activityPerDayOfWeek.getJournalSundayEntryCount() };
+	public static int calculateDayWithHighestCountN(StatsActivityPerDayOfWeek activityPerDayOfWeek) {
+		int mostActiveDayN = 0;
+		int[] entryCounts = { activityPerDayOfWeek.getMondayEntryCount(), activityPerDayOfWeek.getTuesdayEntryCount(),
+				activityPerDayOfWeek.getWednesdayEntryCount(), activityPerDayOfWeek.getThursdayEntryCount(),
+				activityPerDayOfWeek.getFridayEntryCount(), activityPerDayOfWeek.getSaturdayEntryCount(),
+				activityPerDayOfWeek.getSundayEntryCount() };
 
-		int maxJournalEntries = 0;
+		int maxEntries = 0;
 
-		for (int i = 0; i < journalCounts.length; i++) {
-			if (journalCounts[i] > maxJournalEntries) {
-				maxJournalEntries = journalCounts[i];
+		for (int i = 0; i < entryCounts.length; i++) {
+			if (entryCounts[i] > maxEntries) {
+				maxEntries = entryCounts[i];
 			}
 		}
 
-		journalMostActiveDayN = maxJournalEntries;
+		mostActiveDayN = maxEntries;
 
-		return journalMostActiveDayN;
-	}
-
-	private static String calculateDayWithHighestRevisionCount(StatsActivityPerDayOfWeek activityPerDayOfWeek) {
-		int[] revisionCounts = { activityPerDayOfWeek.getRevisionMondayEntryCount(),
-				activityPerDayOfWeek.getRevisionTuesdayEntryCount(),
-				activityPerDayOfWeek.getRevisionWednesdayEntryCount(),
-				activityPerDayOfWeek.getRevisionThursdayEntryCount(),
-				activityPerDayOfWeek.getRevisionFridayEntryCount(),
-				activityPerDayOfWeek.getRevisionSaturdayEntryCount(),
-				activityPerDayOfWeek.getRevisionSundayEntryCount() };
-
-		String[] days = { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo" };
-
-		return StatsHelper.calculateMaxEntryDayOfWeek(revisionCounts, days);
-	}
-
-	public static int calculateDayWithHighestRevisionCountN(StatsActivityPerDayOfWeek activityPerDayOfWeek) {
-		int revisionMostActiveDayN = 0;
-		int[] revisionCounts = { activityPerDayOfWeek.getRevisionMondayEntryCount(),
-				activityPerDayOfWeek.getRevisionTuesdayEntryCount(),
-				activityPerDayOfWeek.getRevisionWednesdayEntryCount(),
-				activityPerDayOfWeek.getRevisionThursdayEntryCount(),
-				activityPerDayOfWeek.getRevisionFridayEntryCount(),
-				activityPerDayOfWeek.getRevisionSaturdayEntryCount(),
-				activityPerDayOfWeek.getRevisionSundayEntryCount() };
-		int maxRevisionEntries = 0;
-
-		for (int i = 0; i < revisionCounts.length; i++) {
-			if (revisionCounts[i] > maxRevisionEntries) {
-				maxRevisionEntries = revisionCounts[i];
-			}
-		}
-		revisionMostActiveDayN = maxRevisionEntries;
-		return revisionMostActiveDayN;
-	}
-
-	public static StatsActivityPerDayOfWeek calculateActivityPerDayOfWeek(
-			StatsActivityPerDayOfWeek activityPerDayOfWeek) {
-		// We set the entry counts to this object to help us with the calculation
-		activityPerDayOfWeek.setJournalEntryCounts(activityPerDayOfWeek.getJournalMondayEntryCount(),
-				activityPerDayOfWeek.getJournalTuesdayEntryCount(),
-				activityPerDayOfWeek.getJournalWednesdayEntryCount(),
-				activityPerDayOfWeek.getJournalThursdayEntryCount(), activityPerDayOfWeek.getJournalFridayEntryCount(),
-				activityPerDayOfWeek.getJournalSaturdayEntryCount(), activityPerDayOfWeek.getJournalSundayEntryCount());
-
-		activityPerDayOfWeek.setRevisionEntryCounts(activityPerDayOfWeek.getRevisionMondayEntryCount(),
-				activityPerDayOfWeek.getRevisionTuesdayEntryCount(),
-				activityPerDayOfWeek.getRevisionWednesdayEntryCount(),
-				activityPerDayOfWeek.getRevisionThursdayEntryCount(),
-				activityPerDayOfWeek.getRevisionFridayEntryCount(),
-				activityPerDayOfWeek.getRevisionSaturdayEntryCount(),
-				activityPerDayOfWeek.getRevisionSundayEntryCount());
-
-		// Caluclate which day of the week has the most ammount of entries
-		activityPerDayOfWeek.setJournalMostActiveDay(calculateDayWithHighestJournalCount(activityPerDayOfWeek));
-		activityPerDayOfWeek.setRevisionMostActiveDay(calculateDayWithHighestRevisionCount(activityPerDayOfWeek));
-
-		// Caluclate the ammount of entries the day of the week with the most ammount of
-		// entries has
-		activityPerDayOfWeek.setJournalMostActiveDayN(calculateDayWithHighestJournalCountN(activityPerDayOfWeek));
-		activityPerDayOfWeek.setRevisionMostActiveDayN(calculateDayWithHighestRevisionCountN(activityPerDayOfWeek));
-		return activityPerDayOfWeek;
-
+		return mostActiveDayN;
 	}
 
 	public static StatsEmotionFrequency calculateEmotionFrequency(StatsEmotionFrequency emotionFrequency) {
@@ -290,5 +243,6 @@ public class StatsHelper {
 
 		return ratingsAverage;
 	}
+
 
 }

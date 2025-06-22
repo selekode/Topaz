@@ -1,29 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topaz</title>
     <link th:href="@{/css/output.css}" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        
-    </style>
+    <script th:src="@{/js/tailwind.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+    <script>
+        function openModal(id) {
+            console.log("Opening modal for entry with ID: " + id);  // Debug log
+            document.getElementById('journalId').value = id;
+            document.getElementById('confirmModal').classList.remove('hidden');
+            console.log("Modal should now be visible");
+        }
+
+        function closeModal() {
+            console.log("Closing modal");  // Debug log
+            document.getElementById('confirmModal').classList.add('hidden');
+        }
+    </script>
 </head>
 
-<body class="bg-[#0F2529] font-sans leading-normal tracking-normal flex min-h-screen">
+<body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center">
+    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
-            <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px]">
+            <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
         <!-- Horizontal Rule -->
         <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
 
+        <!-- Buttons Section -->
         <div class="space-y-4 w-full flex flex-col items-center">
             <!-- Rounded buttons for other actions -->
             <a href="/dashboard/load" class="block w-full">
@@ -68,19 +81,29 @@
                     Sobre Topaz
                 </button>
             </a>
+
+            <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+
         </div>
     </div>
 
+
     <!-- Main content -->
-    <div class="flex-grow bg-[#0F2529] p-6">
+    <div class="main-content  flex-grow bg-[#0F2529] p-6 select-none">
         <main class="container mx-auto mt-6 p-4">
-            <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl">
-                <h1 class="text-gray-700 text-xl mb-4" style="color: #FFFFFF;">Error</h1>
-            </div>
+            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Error</h1>
         </main>
     </div>
-</body>
 
-</html>
+    </div>
+    <script th:src="@{/js/deleteFeature_openModal.js}" defer></script>
+    <script th:src="@{/js/aos.js}" defer></script>
+    <script th:src="@{/js/alpine.js}" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            AOS.init();
+        });
+    </script>
+</body>
 
 </html>

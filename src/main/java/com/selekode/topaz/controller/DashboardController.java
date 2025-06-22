@@ -11,7 +11,7 @@ import com.selekode.topaz.service.DashboardService;
 public class DashboardController {
 	  @GetMapping("/load")
 	  public String loadPageDashboard(Model model) {
-			model.addAttribute("dashboardData", DashboardService.getDashboardData()); // Add journalEntries to the model
+			model.addAttribute("dashboardDataMap", DashboardService.getDashboardData()); 
 
 		  return "dashboard";
 	  }
