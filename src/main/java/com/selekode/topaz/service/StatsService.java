@@ -1,5 +1,6 @@
 package com.selekode.topaz.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.selekode.topaz.model.StatsDateRange;
 import com.selekode.topaz.model.StatsEmotionFrequency;
 import com.selekode.topaz.model.StatsEntryCount;
+import com.selekode.topaz.model.Table;
 import com.selekode.topaz.repository.StatsRepository;
 import com.selekode.topaz.utils.StatsHelper;
 import com.selekode.topaz.model.PersonalRatings;
@@ -41,7 +43,10 @@ public class StatsService {
 		// Calculate entryCounts for all time
 		int journalEntryCount = StatsRepository.findJournalEntryCountAllTime();
 		int revisionEntryCount = StatsRepository.findRevisionEntryCountAllTime();
-		StatsEntryCount entryCount = StatsHelper.calculateEntryCount(journalEntryCount, revisionEntryCount);
+		int innerWorkEntryCount = StatsRepository.findInnerWorkEntryCountAllTime();
+		StatsEntryCount entryCount = StatsHelper.calculateEntryCount(journalEntryCount, revisionEntryCount,
+				innerWorkEntryCount);
+		System.out.println("TopazStatistics: Entry Count: " + entryCount.toString());
 
 		return entryCount;
 	}
@@ -52,7 +57,10 @@ public class StatsService {
 		long dateEnd = StatsHelper.convertDateStrToLong(statsDateRange.getEndDate());
 		int journalEntryCount = StatsRepository.findJournalEntryCountDateRange(dateStart, dateEnd);
 		int revisionEntryCount = StatsRepository.findRevisionEntryCountDateRange(dateStart, dateEnd);
-		StatsEntryCount entryCount = StatsHelper.calculateEntryCount(journalEntryCount, revisionEntryCount);
+		int innerWorkEntryCount = StatsRepository.findInnerWorkEntryCountDateRange(dateStart, dateEnd);
+
+		StatsEntryCount entryCount = StatsHelper.calculateEntryCount(journalEntryCount, revisionEntryCount,
+				innerWorkEntryCount);
 
 		return entryCount;
 	}
@@ -62,7 +70,10 @@ public class StatsService {
 		long dateEnd = StatsHelper.calculateLastWeekDates().getDateEnd();
 		int journalEntryCount = StatsRepository.findJournalEntryCountDateRange(dateStart, dateEnd);
 		int revisionEntryCount = StatsRepository.findRevisionEntryCountDateRange(dateStart, dateEnd);
-		StatsEntryCount entryCount = StatsHelper.calculateEntryCount(journalEntryCount, revisionEntryCount);
+		int innerWorkEntryCount = StatsRepository.findInnerWorkEntryCountDateRange(dateStart, dateEnd);
+
+		StatsEntryCount entryCount = StatsHelper.calculateEntryCount(journalEntryCount, revisionEntryCount,
+				innerWorkEntryCount);
 
 		return entryCount;
 	}
@@ -72,48 +83,112 @@ public class StatsService {
 		long dateEnd = StatsHelper.calculateLastMonthDates().getDateEnd();
 		int journalEntryCount = StatsRepository.findJournalEntryCountDateRange(dateStart, dateEnd);
 		int revisionEntryCount = StatsRepository.findRevisionEntryCountDateRange(dateStart, dateEnd);
-		StatsEntryCount entryCount = StatsHelper.calculateEntryCount(journalEntryCount, revisionEntryCount);
+		int innerWorkEntryCount = StatsRepository.findInnerWorkEntryCountDateRange(dateStart, dateEnd);
+
+		StatsEntryCount entryCount = StatsHelper.calculateEntryCount(journalEntryCount, revisionEntryCount,
+				innerWorkEntryCount);
 
 		return entryCount;
 	}
 
-	public static StatsActivityPerDayOfWeek getActivityPerDayOfWeekAllTime() {
-		// Retreives row count from DB, adds them to activityPerDayOfWeek, leaving two
-		// fields empty (journalMostActiveDayN & revisionMostActiveDayN), which we will
-		// calculate and fill here in the helper layer.
-		StatsActivityPerDayOfWeek activityPerDayOfWeek = StatsRepository.findEntryCountPerDayAllTime();
-		activityPerDayOfWeek = StatsHelper.calculateActivityPerDayOfWeek(activityPerDayOfWeek);
+	public static List<StatsActivityPerDayOfWeek> getActivityPerDayOfWeekAllTime() {
+		List<StatsActivityPerDayOfWeek> activitiesPerDayOfWeek = new ArrayList<>();
+		;
 
-		return activityPerDayOfWeek;
+		StatsActivityPerDayOfWeek activityPerDayOfWeekJournal = StatsRepository
+				.findEntryCountPerDayAllTime(Table.JOURNAL);
+		StatsActivityPerDayOfWeek activityPerDayOfWeekRevision = StatsRepository
+				.findEntryCountPerDayAllTime(Table.REVISION);
+		StatsActivityPerDayOfWeek activityPerDayOfWeekInnerWork = StatsRepository
+				.findEntryCountPerDayAllTime(Table.INNER_WORK_ENTRY);
+
+		activityPerDayOfWeekJournal = StatsHelper.calculateActivityPerDayOfWeek(activityPerDayOfWeekJournal);
+		activityPerDayOfWeekRevision = StatsHelper.calculateActivityPerDayOfWeek(activityPerDayOfWeekRevision);
+		activityPerDayOfWeekInnerWork = StatsHelper.calculateActivityPerDayOfWeek(activityPerDayOfWeekInnerWork);
+
+		activitiesPerDayOfWeek.add(activityPerDayOfWeekJournal);
+		activitiesPerDayOfWeek.add(activityPerDayOfWeekRevision);
+		activitiesPerDayOfWeek.add(activityPerDayOfWeekInnerWork);
+
+		System.out.println(activitiesPerDayOfWeek);
+
+		return activitiesPerDayOfWeek;
 	}
 
-	public static StatsActivityPerDayOfWeek getActivityPerDayOfWeekDateRange(StatsDateRange statsDateRange) {
+	public static List<StatsActivityPerDayOfWeek> getActivityPerDayOfWeekDateRange(
+			StatsDateRange statsDateRange) {
 		long dateStart = StatsHelper.convertDateStrToLong(statsDateRange.getStartDate());
 		long dateEnd = StatsHelper.convertDateStrToLong(statsDateRange.getEndDate());
-		StatsActivityPerDayOfWeek activityPerDayOfWeek = StatsRepository.findEntryCountPerDayDateRange(dateStart,
-				dateEnd);
-		activityPerDayOfWeek = StatsHelper.calculateActivityPerDayOfWeek(activityPerDayOfWeek);
+		List<StatsActivityPerDayOfWeek> activitiesPerDayOfWeek = new ArrayList<>();
 
-		return activityPerDayOfWeek;
+		StatsActivityPerDayOfWeek activityPerDayOfWeekJournal = StatsRepository
+				.findEntryCountPerDayGenericDateRange(dateStart, dateEnd, Table.JOURNAL);
+		StatsActivityPerDayOfWeek activityPerDayOfWeekRevision = StatsRepository
+				.findEntryCountPerDayGenericDateRange(dateStart, dateEnd, Table.REVISION);
+		StatsActivityPerDayOfWeek activityPerDayOfWeekInnerWork = StatsRepository
+				.findEntryCountPerDayGenericDateRange(dateStart, dateEnd, Table.INNER_WORK_ENTRY);
+
+		activityPerDayOfWeekJournal = StatsHelper.calculateActivityPerDayOfWeek(activityPerDayOfWeekJournal);
+		activityPerDayOfWeekRevision = StatsHelper.calculateActivityPerDayOfWeek(activityPerDayOfWeekRevision);
+		activityPerDayOfWeekInnerWork = StatsHelper.calculateActivityPerDayOfWeek(activityPerDayOfWeekInnerWork);
+
+		activitiesPerDayOfWeek.add(activityPerDayOfWeekJournal);
+		activitiesPerDayOfWeek.add(activityPerDayOfWeekRevision);
+		activitiesPerDayOfWeek.add(activityPerDayOfWeekInnerWork);
+		
+		System.out.println(activitiesPerDayOfWeek);
+
+		return activitiesPerDayOfWeek;
 	}
 
-	public static StatsActivityPerDayOfWeek getActivityPerDayOfWeekWeek() {
+	public static List<StatsActivityPerDayOfWeek> getActivityPerDayOfWeekWeek() {
 		long dateStart = StatsHelper.calculateLastWeekDates().getDateStart();
 		long dateEnd = StatsHelper.calculateLastWeekDates().getDateEnd();
-		StatsActivityPerDayOfWeek activityPerDayOfWeek = StatsRepository.findEntryCountPerDayDateRange(dateStart,
-				dateEnd);
-		activityPerDayOfWeek = StatsHelper.calculateActivityPerDayOfWeek(activityPerDayOfWeek);
+		List<StatsActivityPerDayOfWeek> activitiesPerDayOfWeek = new ArrayList<>();
 
-		return activityPerDayOfWeek;
+		StatsActivityPerDayOfWeek activityPerDayOfWeekJournal = StatsRepository
+				.findEntryCountPerDayGenericDateRange(dateStart, dateEnd, Table.JOURNAL);
+		StatsActivityPerDayOfWeek activityPerDayOfWeekRevision = StatsRepository
+				.findEntryCountPerDayGenericDateRange(dateStart, dateEnd, Table.REVISION);
+		StatsActivityPerDayOfWeek activityPerDayOfWeekInnerWork = StatsRepository
+				.findEntryCountPerDayGenericDateRange(dateStart, dateEnd, Table.INNER_WORK_ENTRY);
+
+		activityPerDayOfWeekJournal = StatsHelper.calculateActivityPerDayOfWeek(activityPerDayOfWeekJournal);
+		activityPerDayOfWeekRevision = StatsHelper.calculateActivityPerDayOfWeek(activityPerDayOfWeekRevision);
+		activityPerDayOfWeekInnerWork = StatsHelper.calculateActivityPerDayOfWeek(activityPerDayOfWeekInnerWork);
+		
+		activitiesPerDayOfWeek.add(activityPerDayOfWeekJournal);
+		activitiesPerDayOfWeek.add(activityPerDayOfWeekRevision);
+		activitiesPerDayOfWeek.add(activityPerDayOfWeekInnerWork);
+		
+		System.out.println(activitiesPerDayOfWeek);
+
+		return activitiesPerDayOfWeek;
 	}
 
-	public static StatsActivityPerDayOfWeek getActivityPerDayOfWeekMonth() {
+	public static List<StatsActivityPerDayOfWeek> getActivityPerDayOfWeekMonth() {
 		long dateStart = StatsHelper.calculateLastMonthDates().getDateStart();
 		long dateEnd = StatsHelper.calculateLastMonthDates().getDateEnd();
-		StatsActivityPerDayOfWeek activityPerDayOfWeek = StatsRepository.findEntryCountPerDayDateRange(dateStart,
-				dateEnd);
-		activityPerDayOfWeek = StatsHelper.calculateActivityPerDayOfWeek(activityPerDayOfWeek);
-		return activityPerDayOfWeek;
+		List<StatsActivityPerDayOfWeek> activitiesPerDayOfWeek = new ArrayList<>();
+
+		StatsActivityPerDayOfWeek activityPerDayOfWeekJournal = StatsRepository
+				.findEntryCountPerDayGenericDateRange(dateStart, dateEnd, Table.JOURNAL);
+		StatsActivityPerDayOfWeek activityPerDayOfWeekRevision = StatsRepository
+				.findEntryCountPerDayGenericDateRange(dateStart, dateEnd, Table.REVISION);
+		StatsActivityPerDayOfWeek activityPerDayOfWeekInnerWork = StatsRepository
+				.findEntryCountPerDayGenericDateRange(dateStart, dateEnd, Table.INNER_WORK_ENTRY);
+
+		activityPerDayOfWeekJournal = StatsHelper.calculateActivityPerDayOfWeek(activityPerDayOfWeekJournal);
+		activityPerDayOfWeekRevision = StatsHelper.calculateActivityPerDayOfWeek(activityPerDayOfWeekRevision);
+		activityPerDayOfWeekInnerWork = StatsHelper.calculateActivityPerDayOfWeek(activityPerDayOfWeekInnerWork);
+
+		activitiesPerDayOfWeek.add(activityPerDayOfWeekJournal);
+		activitiesPerDayOfWeek.add(activityPerDayOfWeekRevision);
+		activitiesPerDayOfWeek.add(activityPerDayOfWeekInnerWork);
+		
+		System.out.println(activitiesPerDayOfWeek);
+
+		return activitiesPerDayOfWeek;
 	}
 
 	public static StatsEmotionFrequency getEmotionFrequencyAllTime() {

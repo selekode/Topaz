@@ -1,73 +1,85 @@
 package com.selekode.topaz.utils;
 
 public class DashboardHelper {
-	public static String getJournalStreakParagraph(int journalStreak) {
-		String journalStreakParagraph = "";
-		System.out.println("journalStreak: " + journalStreak);
+	public static String getJournalStreakParagraph(int streak) {
+		String paragraph = "";
+		System.out.println("journalStreak: " + streak);
 
-		if (journalStreak <= 1) {
-			journalStreakParagraph = "¡Escribe varios dias seguidos para empezar una racha!";
-		} else if (journalStreak > 1) {
-			journalStreakParagraph = "Llevas " + journalStreak
+		if (streak <= 1) {
+			paragraph = "¡Escribe varios dias seguidos para empezar una racha!";
+		} else if (streak > 1) {
+			paragraph = "Llevas " + streak
 					+ " días seguidos escribiendo revisiones. ¡Sigue así!";
 		}
 		
-		return journalStreakParagraph;
+		return paragraph;
 	}
 
-	public static String getRevisionStreakParagraph(int revisionStreak) {
-		String revisionStreakParagraph = null;
-		System.out.println("RevisionStreak: " + revisionStreak);
-		if (revisionStreak <= 1) {
-			revisionStreakParagraph = "¡Escribe varios dias seguidos para empezar una racha!";
-		} else if (revisionStreak > 1) {
-			revisionStreakParagraph = "Llevas " + revisionStreak
+	public static String getRevisionStreakParagraph(int streak) {
+		String paragraph = null;
+		System.out.println("RevisionStreak: " + streak);
+		if (streak <= 1) {
+			paragraph = "¡Escribe varios dias seguidos para empezar una racha!";
+		} else if (streak > 1) {
+			paragraph = "Llevas " + streak
 					+ " días seguidos escribiendo revisiones. ¡Sigue así!";
 		}
-		return revisionStreakParagraph;
+		return paragraph;
 	}
 
-	public static String getLongestJournalStreakParagraph(int longestJournalStreak) {
-		String longestJournalStreakParagraph = null;
-		if (longestJournalStreak <= 1) {
-			longestJournalStreakParagraph = "Aún no has conseguido una racha escribiendo en tu diario";
+	public static String getLongestJournalStreakParagraph(int streak) {
+		String paragraph = null;
+		if (streak <= 1) {
+			paragraph = "Aún no has conseguido una racha escribiendo en tu diario";
 		}
-		if (longestJournalStreak > 1) {
-			longestJournalStreakParagraph = "Tu racha más larga escribiendo en tu diario ha sido de "
-					+ longestJournalStreak + " días.";
+		if (streak > 1) {
+			paragraph = "Tu racha más larga escribiendo en tu diario ha sido de "
+					+ streak + " días";
 		}
-		return longestJournalStreakParagraph;
+		return paragraph;
 	}
 
-	public static String getLongestRevisionStreakParagraph(int longestRevisionStreak) {
-		String longestRrevisionStreakParagraph = null;
-		if (longestRevisionStreak <= 1) {
-			longestRrevisionStreakParagraph = "Aún no has conseguido una racha de revisiones";
+	public static String getLongestRevisionStreakParagraph(int streak) {
+		String paragraph = null;
+		if (streak <= 1) {
+			paragraph = "Aún no has conseguido una racha de revisiones";
 		}
-		if (longestRevisionStreak > 1) {
-			longestRrevisionStreakParagraph = "Tu racha más larga escribiendo revisiones ha sido de "
-					+ longestRevisionStreak + " días.";
+		if (streak > 1) {
+			paragraph = "Tu racha más larga escribiendo revisiones ha sido de "
+					+ streak + " días";
 		}
-		return longestRrevisionStreakParagraph;
+		return paragraph;
 	}
 
-	public static String getJournalIsWrittenTodayParagraph(boolean journalToday) {
-		String journalIsWrittenTodayParagraph = null;
-		if (journalToday == true) {
-			journalIsWrittenTodayParagraph = "";
+	public static String getJournalIsWrittenTodayParagraph(boolean isWritten) {
+		String paragraph = null;
+		if (isWritten == true) {
+			paragraph = " ";
 		} else {
-			journalIsWrittenTodayParagraph = "• Aún no has escrito en tu diario hoy.";
+			paragraph = "• Aún no has escrito en tu diario hoy";
 		}
-		return journalIsWrittenTodayParagraph;
+		return paragraph;
 	}
 
-	public static String getRevisionIsWrittenTodayParagraph(boolean revisionToday) {
-		String revisionIsWrittenTodayParagraph = null;
-		if (revisionToday == true) {
-			revisionIsWrittenTodayParagraph = "";
+	public static String getRevisionIsWrittenTodayParagraph(boolean isWritten) {
+		String paragraph = null;
+		if (isWritten == true) {
+			paragraph = "";
 		} else {
-			revisionIsWrittenTodayParagraph = "• Aún no has escrito una revisión hoy.";
+			paragraph = "• Aún no has escrito una revisión hoy";
 		}
-		return revisionIsWrittenTodayParagraph;
+		return paragraph;
+	}
+
+	public static String getInnerWorkIsWrittenTodayParagraph(boolean isWritten) {
+		String paragraph = null;
+		
+		if (isWritten == true) {
+			paragraph = "";
+		} else {
+			paragraph = "• Podrías escribir un trabajo interno";
+		}
+		
+		return paragraph;
 	}
 }
