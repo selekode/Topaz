@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.selekode.topaz.model.StatsDateRange;
 import com.selekode.topaz.service.StatsService;
+import com.selekode.topaz.utils.DatesHelper;
+import com.selekode.topaz.utils.StatsHelper;
 
 import org.springframework.ui.Model;
 
@@ -24,8 +26,8 @@ public class StatsController {
 	@PostMapping("/calculateStats")
 	public String calculateStats(@ModelAttribute StatsDateRange statsDateRange, Model model) {
 		model.addAttribute("statsDateRange", statsDateRange);
-		model.addAttribute("statsDateRangeLastWeek", StatsService.getDateRangeLastWeek());
-		model.addAttribute("statsDateRangeLastMonth", StatsService.getDateRangeLastMonth());
+		model.addAttribute("statsDateRangeLastWeek", StatsHelper.calculateDateRangeLastWeek());
+		model.addAttribute("statsDateRangeLastMonth", StatsHelper.calculateDateRangeLastMonth());
 		
 		model.addAttribute("statsEntryCountWeek", StatsService.getEntryCountWeek());
 		model.addAttribute("statsEntryCountMonth", StatsService.getEntryCountMonth());

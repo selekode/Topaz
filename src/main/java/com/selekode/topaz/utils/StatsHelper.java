@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.selekode.topaz.model.PersonalRatings;
 import com.selekode.topaz.model.StatsActivityPerDayOfWeek;
+import com.selekode.topaz.model.StatsDateRange;
 import com.selekode.topaz.model.StatsEmotionFrequency;
 import com.selekode.topaz.model.StatsEntryCount;
 import com.selekode.topaz.model.UnixDates;
@@ -22,6 +23,28 @@ import com.selekode.topaz.model.UnixDates;
 public class StatsHelper {
 	private StatsHelper() {
 		// Private constructor to prevent instantiation
+	}
+	
+	public static StatsDateRange calculateDateRangeLastWeek() {
+		long dateStart = StatsHelper.calculateLastWeekDates().getDateStart();
+		long dateEnd = StatsHelper.calculateLastWeekDates().getDateEnd();
+
+		String dateStartStr = StatsHelper.convertDateLongToStr(dateStart);
+		String dateEndStr = StatsHelper.convertDateLongToStr(dateEnd);
+		StatsDateRange dateRangeLastWeek = new StatsDateRange(dateStartStr, dateEndStr);
+
+		return dateRangeLastWeek;
+	}
+
+	public static StatsDateRange calculateDateRangeLastMonth() {
+		long dateStart = StatsHelper.calculateLastMonthDates().getDateStart();
+		long dateEnd = StatsHelper.calculateLastMonthDates().getDateEnd();
+
+		String dateStartStr = StatsHelper.convertDateLongToStr(dateStart);
+		String dateEndStr = StatsHelper.convertDateLongToStr(dateEnd);
+		StatsDateRange dateRangeLastMonth = new StatsDateRange(dateStartStr, dateEndStr);
+
+		return dateRangeLastMonth;
 	}
 
 	public static String convertDateToString_ddMMMyyy_hhmma(long date) {

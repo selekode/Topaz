@@ -1,5 +1,7 @@
 package com.selekode.topaz.controller;
 
+import java.time.LocalDate;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,51 +17,51 @@ import com.selekode.topaz.service.JournalService;
 @RequestMapping("/journal")
 @Controller
 public class JournalController {
-	// LOAD JOURNAL FEATURE
+	private final JournalService service;
+
+	public JournalController(JournalService service) {
+		this.service = service;
+	}
+
 	@GetMapping("/load")
 	public String loadPageJournal(Model model) {
-		model.addAttribute("journalEntries", JournalService.selectAllJournalEntries()); // Add journalEntries to the model
+		model.addAttribute("journalEntries", service.getAll());
 
 		return "journal";
 	}
 
-	// ADD ENTRY FEATURE
 	@GetMapping("/addEntry")
 	public String loadPageAddEntry(Model model) {
-		JournalEntry journalEntry = new JournalEntry(0, "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+		JournalEntry journalEntry = new JournalEntry();
 		model.addAttribute("journalEntry", journalEntry);
 
 		return "journal_addEntry";
 	}
 
-	// When the save button on the form is clicked, it will send the data here
 	@PostMapping("/saveEntry")
 	public String saveNewEntry(@ModelAttribute JournalEntry journalEntry) {
-		JournalService.insertJournalEntry(journalEntry);
+		service.save(journalEntry);
 
 		return "redirect_journal";
 	}
 
-	// EDIT ENTRY
 	@GetMapping("/editEntry/{id}")
 	public String loadPageEditEntry(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("journalEntry", JournalService.selectJournalEntry(id));
+		model.addAttribute("journalEntry", service.getById(id));
 
 		return "journal_editEntry";
 	}
 
-	// When the edit button on the form is clicked, it will send the data here
 	@PostMapping("/updateEntry/{id}")
-	public String updateEntry(@PathVariable("id") Long id, @ModelAttribute JournalEntry journalEntry) {
-		JournalService.updateJournalEntry(id, journalEntry);
+	public String saveUpdatedEntry(@PathVariable("id") Long id, @ModelAttribute JournalEntry journalEntry) {	
+		service.updateJournalEntry(id, journalEntry);
 
 		return "redirect_journal";
 	}
 
-	// DELETE ENTRY FEATURE
 	@PostMapping("/deleteEntry")
 	public String deleteEntry(@RequestParam("id") Long id) {
-		JournalService.deleteJournalEntry(id);
+		service.delete(id);
 
 		return "redirect_journal";
 	}

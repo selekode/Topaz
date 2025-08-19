@@ -13,11 +13,6 @@
 
     <script>
         window.onload = function () {
-            // const dateInput = document.getElementById('title');
-            // const currentDate = new Date();
-            // const options = { day: '2-digit', month: 'short', year: 'numeric' };
-            // dateInput.placeholder = currentDate.toLocaleDateString('es-ES', options).replace(/ /g, '-');
-
             const saveButton = document.getElementById('saveButton');
             const modal = document.getElementById('saveModal');
             const closeModal = document.getElementById('closeModal');
@@ -63,7 +58,7 @@
                     class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
                     Trabajo Interno
                 </button>
-            </a>			
+            </a>
             <a href="/stats/load" class="block w-full">
                 <button
                     class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
@@ -110,6 +105,10 @@
                 <!-- Form to handle the journal entry -->
                 <form id="journalForm" action="#" method="POST"
                     th:action="@{/journal/updateEntry/{id}(id=${journalEntry.id})}" th:object="${journalEntry}">
+                    <input type="text" name="date" id="date"
+                        class="text-xl font-bold mb-4 w-full bg-[#0F2529] text-white p-2 rounded-lg" placeholder="Date"
+                        th:value="${journalEntry.date}" />
+
                     <input type="text" name="title" id="title"
                         class="text-xl font-bold mb-4 w-full bg-[#0F2529] text-white p-2 rounded-lg" placeholder="Title"
                         th:value="${journalEntry.title}" />

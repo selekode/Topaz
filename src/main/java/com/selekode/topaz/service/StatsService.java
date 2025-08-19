@@ -17,29 +17,7 @@ import com.selekode.topaz.model.StatsActivityPerDayOfWeek;
 
 @Service
 public class StatsService {
-	public static StatsDateRange getDateRangeLastWeek() {
-		long dateStart = StatsHelper.calculateLastWeekDates().getDateStart();
-		long dateEnd = StatsHelper.calculateLastWeekDates().getDateEnd();
-
-		String dateStartStr = StatsHelper.convertDateLongToStr(dateStart);
-		String dateEndStr = StatsHelper.convertDateLongToStr(dateEnd);
-		StatsDateRange dateRangeLastWeek = new StatsDateRange(dateStartStr, dateEndStr);
-
-		return dateRangeLastWeek;
-	}
-
-	public static StatsDateRange getDateRangeLastMonth() {
-		long dateStart = StatsHelper.calculateLastMonthDates().getDateStart();
-		long dateEnd = StatsHelper.calculateLastMonthDates().getDateEnd();
-
-		String dateStartStr = StatsHelper.convertDateLongToStr(dateStart);
-		String dateEndStr = StatsHelper.convertDateLongToStr(dateEnd);
-		StatsDateRange dateRangeLastMonth = new StatsDateRange(dateStartStr, dateEndStr);
-
-		return dateRangeLastMonth;
-	}
-
-	public static StatsEntryCount getEntryCountAllTime() {
+		public static StatsEntryCount getEntryCountAllTime() {
 		// Calculate entryCounts for all time
 		int journalEntryCount = StatsRepository.findJournalEntryCountAllTime();
 		int revisionEntryCount = StatsRepository.findRevisionEntryCountAllTime();
