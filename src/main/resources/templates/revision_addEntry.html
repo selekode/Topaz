@@ -9,8 +9,6 @@
     <script th:src="@{/js/tailwind.js}" defer></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
-
 
     <script>
         window.onload = function () {
@@ -111,20 +109,20 @@
                 <!-- Form to handle the revision entry -->
                 <form method="POST" th:action="@{/revision/saveEntry}" th:object="${revisionEntry}">
                     <!-- Date -->
-                    <p id="date" class="text-lg  font-bold mb-4" style="color: #23A3BB;"></p>
+                    <p id="date" class="text-lg  font-bold mb-4" style="display: none;"></p>
 
                     <input type="hidden" th:field="*{id}" value="2" />
                     <input type="hidden" th:field="*{date}" value="2" />
 
                     <div class="mb-4">
-                        <label for="estadoEmocional" class="text-[#23A3BB] mb-4">Mi estado emocional ha sido:</label>
+                        <label for="estadoEmocional" class="text-[#23A3BB] text-lg font-semibold mb-2 block">Mi estado emocional ha sido:</label>
                         <textarea id="estadoEmocional" th:field="*{estadoEmocional}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"></textarea>
                     </div>
 
                     <!-- Multiple Mood Selection -->
                     <div class="mb-4">
-                        <label class="text-[#23A3BB] mb-4">Selecciona las emociones que has sentido:</label>
+                        <label class="text-[#23A3BB] text-lg font-semibold mb-2 block">Selecciona las emociones que has sentido:</label>
                         <div class="grid grid-cols-1 gap-4 w-full">
 
                             <!-- Positive Emotions -->
@@ -217,28 +215,26 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="estadoEmocionalWhy" class="text-[#23A3BB] mb-4">Explica por qué:</label>
+                        <label for="estadoEmocionalWhy" class="text-[#23A3BB] text-lg font-semibold mb-2 block">Explica por qué:</label>
                         <textarea id="estadoEmocionalWhy" th:field="*{estadoEmocionalWhy}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"></textarea>
                     </div>
 
                     <div class="mb-4">
-                        <label for="importanteParaMi" class="text-[#23A3BB] mb-4">Lo más importante para mí ha
+                        <label for="importanteParaMi" class="text-[#23A3BB] text-lg font-semibold mb-2 block">Lo más importante para mí ha
                             sido:</label>
                         <textarea id="importanteParaMi" th:field="*{importanteParaMi}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"></textarea>
                     </div>
 
                     <div class="mb-4">
-                        <label for="aprendidoSobreMi" class="text-[#23A3BB] mb-4">He aprendido acerca de mí qué:</label>
+                        <label for="aprendidoSobreMi" class="text-[#23A3BB] text-lg font-semibold mb-2 block">He aprendido acerca de mí qué:</label>
                         <textarea id="aprendidoSobreMi" th:field="*{aprendidoSobreMi}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"></textarea>
                     </div>
 
-                    <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
-
                     <div class="mb-4">
-                        <label class="text-[#23A3BB] mb-4 block">Valoraciones:</label>
+                        <label class="text-[#23A3BB] text-lg font-semibold mb-2 block">Valoraciones:</label>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             <div class="flex items-center space-x-2">
                                 <button type="button" id="valoracionDisciplinaMinus"
@@ -345,15 +341,13 @@
 
 
                     <div class="mb-4">
-                        <label for="explicacionValoracion" class="text-[#23A3BB] mb-4">Explicación Valoración:</label>
+                        <label for="explicacionValoracion" class="text-[#23A3BB] text-lg font-semibold mb-2 block">Explicación Valoración:</label>
                         <textarea id="explicacionValoracion" th:field="*{explicacionValoracion}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"></textarea>
                     </div>
 
-                    <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
-
                     <div class="mb-4">
-                        <label for="objetivosPersonales" class="text-[#23A3BB] mb-4">Objetivos Personales:</label>
+                        <label for="objetivosPersonales" class="text-[#23A3BB] text-lg font-semibold mb-2 block">Objetivos Personales:</label>
                         <textarea id="objetivosPersonales" th:field="*{objetivosPersonales}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white"></textarea>
                     </div>

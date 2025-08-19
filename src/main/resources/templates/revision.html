@@ -10,58 +10,6 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
 
-
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        /* Fix the sidebar to stay in place */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            /* Full viewport height */
-            overflow-y: auto;
-        }
-
-        /* Adjust the main content to avoid being hidden under the sidebar */
-        .main-content {
-            margin-left: 16rem;
-            /* This matches the sidebar width */
-        }
-
-        /* Modal background color */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            justify-content: center;
-            align-items: center;
-            background-color: #172E38;
-            /* Updated background */
-            opacity: 0.9;
-            /* Slight transparency */
-        }
-
-        .modal-content {
-            background-color: #1E3D48;
-            margin: auto;
-            z-index: 1001;
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Modal hidden class */
-        .hidden {
-            display: none;
-        }
-    </style>
     <script>
         function openModal(id) {
             console.log("Opening modal for entry with ID: " + id);  // Debug log
@@ -116,7 +64,7 @@
                     class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
                     Trabajo Interno
                 </button>
-            </a>			
+            </a>
             <a href="/stats/load" class="block w-full">
                 <button
                     class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
@@ -186,23 +134,12 @@
                     <div x-show="open" x-collapse>
                         <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
 
-                        <p class="text-base" style="color: #23A3BB;">Estado emocional:</p>
-                        <p class="text-base mb-4 text-white" th:text="${revisionEntry.estadoEmocional}"></p>
+                        <p class="text-[#23A3BB] text-lg font-semibold mb-2 block">Estado emocional:</p>
+                        <p class="text-[#fff] text-base mb-4 block" th:text="${revisionEntry.estadoEmocional}"></p>
 
-                        <p class="text-base" style="color: #23A3BB;">Por qué de mi estado emocional:</p>
-                        <p class="text-base mb-4 text-white" th:text="${revisionEntry.estadoEmocionalWhy}"></p>
-
-                        <p class="text-base" style="color: #23A3BB;">Lo más importante para mi ha sido:</p>
-                        <p class="text-base mb-4 text-white" th:text="${revisionEntry.importanteParaMi}"></p>
-
-                        <p class="text-base" style="color: #23A3BB;">He aprendido sobre mi:</p>
-                        <p class="text-base mb-4 text-white" th:text="${revisionEntry.aprendidoSobreMi}"></p>
-
-                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
-
-                        <p class="text-base mb-4 mt-4 text-white text-bold" style="color: #23A3BB;">Emociones Sentidas:
+                        <p class="text-[#23A3BB] text-lg font-semibold mb-2 block">Emociones Sentidas:
                         </p>
-                        <div class="grid grid-cols-1 gap-4 w-full">
+                        <div class="grid grid-cols-1 gap-4 w-full mb-4">
                             <div class="grid grid-cols-1 gap-4 w-full">
 
                                 <!-- Positive Emotions -->
@@ -313,68 +250,74 @@
 
                         </div>
 
+                        <p class="text-[#23A3BB] text-lg font-semibold mb-2 block">Por qué de mi estado emocional:</p>
+                        <p class="text-[#fff] text-base mb-4 block" th:text="${revisionEntry.estadoEmocionalWhy}"></p>
 
+                        <p class="text-[#23A3BB] text-lg font-semibold mb-2 block">Lo más importante para mi ha sido:
+                        </p>
+                        <p class="text-[#fff] text-base mb-4 block" th:text="${revisionEntry.importanteParaMi}"></p>
 
-                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6 mt-6">
+                        <p class="text-[#23A3BB] text-lg font-semibold mb-2 block">He aprendido sobre mi:</p>
+                        <p class="text-[#fff] text-base mb-4 block" th:text="${revisionEntry.aprendidoSobreMi}"></p>
 
-                        <label class="text-[#23A3BB] mb-4 block">Valoraciones:</label>
+                        <label class="text-[#23A3BB] text-lg font-semibold mb-4 block">Valoraciones:</label>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
                             <div>
-                                <p class="text-base mt-4 text-white" style="color: #23A3BB;">Disciplina:</p>
-                                <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionDisciplina}">
+                                <p class="text-[#23A3BB] text-base font-semibold mb-2 block">Disciplina:</p>
+                                <p class="text-[#fff] text-base mb-4 block"
+                                    th:text="${revisionEntry.valoracionDisciplina}"></p>
+                            </div>
+                            <div>
+                                <p class="text-[#23A3BB] text-base font-semibold mb-2 block">Orden:</p>
+                                <p class="text-[#fff] text-base mb-4 block" th:text="${revisionEntry.valoracionOrden}">
                                 </p>
                             </div>
                             <div>
-                                <p class="text-base mt-4 text-white" style="color: #23A3BB;">Orden:</p>
-                                <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionOrden}"></p>
+                                <p class="text-[#23A3BB] text-base font-semibold mb-2 block">Impulsividad:</p>
+                                <p class="text-[#fff] text-base mb-4 block"
+                                    th:text="${revisionEntry.valoracionImpulsividad}"></p>
                             </div>
                             <div>
-                                <p class="text-base mt-4 text-white" style="color: #23A3BB;">Impulsividad:</p>
-                                <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionImpulsividad}">
-                                </p>
+                                <p class="text-[#23A3BB] text-base font-semibold mb-2 block">Constancia:</p>
+                                <p class="text-[#fff] text-base mb-4 block"
+                                    th:text="${revisionEntry.valoracionConstancia}"></p>
                             </div>
                             <div>
-                                <p class="text-base mt-4 text-white" style="color: #23A3BB;">Constancia:</p>
-                                <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionConstancia}">
-                                </p>
+                                <p class="text-[#23A3BB] text-base font-semibold mb-2 block">Tolerancia:</p>
+                                <p class="text-[#fff] text-base mb-4 block"
+                                    th:text="${revisionEntry.valoracionTolerancia}"></p>
                             </div>
                             <div>
-                                <p class="text-base mt-4 text-white" style="color: #23A3BB;">Tolerancia:</p>
-                                <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionTolerancia}">
-                                </p>
-                            </div>
-                            <div>
-                                <p class="text-base mt-4 text-white" style="color: #23A3BB;">Control Prepotencia:</p>
-                                <p class="text-base mb-4 text-white"
+                                <p class="text-[#23A3BB] text-base font-semibold mb-2 block">Control Prepotencia:</p>
+                                <p class="text-[#fff] text-base mb-4 block"
                                     th:text="${revisionEntry.valoracionControlPrepotencia}"></p>
                             </div>
                             <div>
-                                <p class="text-base mt-4 text-white" style="color: #23A3BB;">Honestidad:</p>
-                                <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionHonestidad}">
-                                </p>
+                                <p class="text-[#23A3BB] text-base font-semibold mb-2 block">Honestidad:</p>
+                                <p class="text-[#fff] text-base mb-4 block"
+                                    th:text="${revisionEntry.valoracionHonestidad}"></p>
                             </div>
                             <div>
-                                <p class="text-base mt-4 text-white" style="color: #23A3BB;">Aceptación:</p>
-                                <p class="text-base mb-4 text-white" th:text="${revisionEntry.valoracionAceptacion}">
-                                </p>
+                                <p class="text-[#23A3BB] text-base font-semibold mb-2 block">Aceptación:</p>
+                                <p class="text-[#fff] text-base mb-4 block"
+                                    th:text="${revisionEntry.valoracionAceptacion}"></p>
                             </div>
                             <div>
-                                <p class="text-base mt-4 text-white" style="color: #23A3BB;">Consecución de Objetivos:
+                                <p class="text-[#23A3BB] text-base font-semibold mb-2 block">Consecución de Objetivos:
                                 </p>
-                                <p class="text-base mb-4 text-white"
+                                <p class="text-[#fff] text-base mb-4 block"
                                     th:text="${revisionEntry.valoracionConsecucionObjetivos}"></p>
                             </div>
                         </div>
 
 
-                        <p class="text-base mt-4 text-white" style="color: #23A3BB;">Explicación Valoración:</p>
-                        <p class="text-base mb-4 text-white" th:text="${revisionEntry.explicacionValoracion}"></p>
+                        <p class="text-[#23A3BB] text-lg font-semibold mb-2 block">Explicación Valoración:</p>
+                        <p class="text-[#fff] text-base mb-4 block" th:text="${revisionEntry.explicacionValoracion}">
+                        </p>
 
-                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6 mt-6">
-
-                        <p class="text-base mt-4 text-white" style="color: #23A3BB;">Objetivos personales:</p>
-                        <p class="text-base mb-4 text-white" th:text="${revisionEntry.objetivosPersonales}"></p>
+                        <p class="text-[#23A3BB] text-lg font-semibold mb-2 block">Objetivos personales:</p>
+                        <p class="text-[#fff] text-base mb-4 block" th:text="${revisionEntry.objetivosPersonales}"></p>
                     </div>
 
                 </div>
