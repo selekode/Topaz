@@ -15,45 +15,45 @@ import com.selekode.topaz.service.RevisionService;
 @RequestMapping("/revision")
 @Controller
 public class RevisionController {
-	// LOAD REVISION FEATURE
+	RevisionService revisionService;
+	
+	public RevisionController(RevisionService revisionService) {
+		this.revisionService = revisionService;
+	}
+	
 	@GetMapping("/load")
 	public String loadPageRevision(Model model) {
-		model.addAttribute("revisionEntries", RevisionService.selectAllRevisionEntries());
+		model.addAttribute("revisionEntries", revisionService.getAll());
 		
 		return "revision";
 	}
 
-	// ADD ENTRY FEATURE
 	@GetMapping("/addEntry")
 	public String loadPageAddEntry(Model model) {
-		RevisionEntry revisionEntry = new RevisionEntry(0, "", "", "", "", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, "", "", false,
-				false, false, false, false, false, false, false, false, false, false, false, false, false, false);
+		RevisionEntry revisionEntry = new RevisionEntry();
 		model.addAttribute("revisionEntry", revisionEntry);
 
 		return "revision_addEntry";
 	}
 
-	// When the save button on the form is clicked, it will send the data here
 	@PostMapping("/saveEntry")
 	public String saveNewEntry(@ModelAttribute RevisionEntry revisionEntry) {
-		RevisionService.insertRevisionEntry(revisionEntry);
+		revisionService.save(revisionEntry);
 
 		return "redirect_revision";
 	}
 
-	// EDIT ENTRY
 	@GetMapping("/editEntry/{id}")
 	public String loadPageEditEntry(@PathVariable("id") Long id, Model model) {
-		RevisionEntry revisionEntry = RevisionService.selectRevisionEntry(id);
+		RevisionEntry revisionEntry = revisionService.getById(id);
 		model.addAttribute("revisionEntry", revisionEntry);
 
 		return "revision_editEntry";
 	}
 
-	// When the edit button on the form is clicked, it will send the data here
 	@PostMapping("/updateEntry/{id}")
 	public String updateEntry(@PathVariable("id") Long id, @ModelAttribute RevisionEntry revisionEntry) {
-		RevisionService.updateRevisionEntry(id, revisionEntry);
+		revisionService.update(id, revisionEntry);
 
 		return "redirect_revision";
 	}
@@ -61,7 +61,7 @@ public class RevisionController {
 	// DELETE ENTRY FEATURE
 	@PostMapping("/deleteEntry")
 	public String deleteEntry(@RequestParam("id") Long id) {
-		RevisionService.deleteRevisionEntry(id);
+		revisionService.delete(id);
 
 		return "redirect_revision";
 	}

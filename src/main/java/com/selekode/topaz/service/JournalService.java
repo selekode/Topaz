@@ -1,6 +1,5 @@
 package com.selekode.topaz.service;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -9,56 +8,55 @@ import org.springframework.stereotype.Service;
 
 import com.selekode.topaz.model.JournalEntry;
 import com.selekode.topaz.repository.JournalRepository;
-import com.selekode.topaz.utils.DatesHelper;
 
 @Service
 public class JournalService {
 	
-	private final JournalRepository repository;
+	private final JournalRepository journalRepository;
 
-    public JournalService(JournalRepository repository) {
-        this.repository = repository;
+    public JournalService(JournalRepository journalRepository) {
+        this.journalRepository = journalRepository;
     }
 
     public List<JournalEntry> getAll() {
-        return repository.findAll(Sort.by(Sort.Direction.DESC, "date"));
+        return journalRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
     }
 
     public JournalEntry getById(Long id) {
-        return repository.findById(id).orElse(null);
+        return journalRepository.findById(id).orElse(null);
     }
 
-    public JournalEntry save(JournalEntry entry) {
-    	if (entry.getDate() == null) {
-            entry.setDate(LocalDate.now());
+    public JournalEntry save(JournalEntry journalEntry) {
+    	if (journalEntry.getDate() == null) {
+            journalEntry.setDate(LocalDate.now());
         }
-        return repository.save(entry);
+        return journalRepository.save(journalEntry);
     }
     
-    public JournalEntry updateJournalEntry(Long id, JournalEntry updatedEntry) {
-        return repository.findById(id)
+    public JournalEntry update(Long id, JournalEntry updatedJournalEntry) {
+        return journalRepository.findById(id)
                 .map(existing -> {
-                    existing.setDate(updatedEntry.getDate());
-                    existing.setTitle(updatedEntry.getTitle());
-                    existing.setContentGeneral(updatedEntry.getContentGeneral());
-                    existing.setContentSaludFisica(updatedEntry.getContentSaludFisica());
-                    existing.setContentBienestarMental(updatedEntry.getContentBienestarMental());
-                    existing.setContentRelacionesSociales(updatedEntry.getContentRelacionesSociales());
-                    existing.setContentCarreraProfesional(updatedEntry.getContentCarreraProfesional());
-                    existing.setContentEstabilidadFinanciera(updatedEntry.getContentEstabilidadFinanciera());
-                    existing.setContentCrecimientoPersonal(updatedEntry.getContentCrecimientoPersonal());
-                    existing.setContentPasatiemposCreatividad(updatedEntry.getContentPasatiemposCreatividad());
-                    existing.setContentEspiritualidadProposito(updatedEntry.getContentEspiritualidadProposito());
-                    existing.setContentRecreacionDiversion(updatedEntry.getContentRecreacionDiversion());
-                    existing.setContentContribucionLegado(updatedEntry.getContentContribucionLegado());
-                    existing.setContentErroresCometidos(updatedEntry.getContentErroresCometidos());
-                    return repository.save(existing);
+                    existing.setDate(updatedJournalEntry.getDate());
+                    existing.setTitle(updatedJournalEntry.getTitle());
+                    existing.setContentGeneral(updatedJournalEntry.getContentGeneral());
+                    existing.setContentSaludFisica(updatedJournalEntry.getContentSaludFisica());
+                    existing.setContentBienestarMental(updatedJournalEntry.getContentBienestarMental());
+                    existing.setContentRelacionesSociales(updatedJournalEntry.getContentRelacionesSociales());
+                    existing.setContentCarreraProfesional(updatedJournalEntry.getContentCarreraProfesional());
+                    existing.setContentEstabilidadFinanciera(updatedJournalEntry.getContentEstabilidadFinanciera());
+                    existing.setContentCrecimientoPersonal(updatedJournalEntry.getContentCrecimientoPersonal());
+                    existing.setContentPasatiemposCreatividad(updatedJournalEntry.getContentPasatiemposCreatividad());
+                    existing.setContentEspiritualidadProposito(updatedJournalEntry.getContentEspiritualidadProposito());
+                    existing.setContentRecreacionDiversion(updatedJournalEntry.getContentRecreacionDiversion());
+                    existing.setContentContribucionLegado(updatedJournalEntry.getContentContribucionLegado());
+                    existing.setContentErroresCometidos(updatedJournalEntry.getContentErroresCometidos());
+                    return journalRepository.save(existing);
                 })
                 .orElseThrow(() -> new IllegalArgumentException("Entry not found: " + id));
     }
 
-
+    
     public void delete(Long id) {
-        repository.deleteById(id);
+        journalRepository.deleteById(id);
     }
 }

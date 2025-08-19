@@ -1,8 +1,28 @@
 package com.selekode.topaz.model;
 
+import java.time.LocalDate;
+
+import com.selekode.topaz.converter.LocalDateUnixSecondsConverter;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "revision")
 public class RevisionEntry {
-	private int id;
-	private String date;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	// Stores as Unix seconds in DB, used as LocalDate in Java
+	@Convert(converter = LocalDateUnixSecondsConverter.class)
+	@Column(name = "date", nullable = false)
+	private LocalDate date;
 	private String estadoEmocional;
 	private String estadoEmocionalWhy;
 	private String importanteParaMi;
@@ -35,7 +55,12 @@ public class RevisionEntry {
 	private boolean emocionConfianza;
 	private boolean emocionAbrumado;
 	private boolean emocionEsperanza;
+	
+	public RevisionEntry() {
+		
+	}
 
+	/*
 	public RevisionEntry(int id, String date, String estadoEmocional, String estadoEmocionalWhy,
 			String importanteParaMi, String aprendidoSobreMi, int valoracionDisciplina, int valoracionOrden,
 			int valoracionImpulsividad, int valoracionConstancia, int valoracionTolerancia,
@@ -78,20 +103,20 @@ public class RevisionEntry {
 		this.emocionAbrumado = emocionAbrumado;
 		this.emocionEsperanza = emocionEsperanza;
 	}
-
-	public int getId() {
+*/
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
@@ -335,5 +360,4 @@ public class RevisionEntry {
 		this.emocionEsperanza = emocionEsperanza;
 	}
 
-	
 }
