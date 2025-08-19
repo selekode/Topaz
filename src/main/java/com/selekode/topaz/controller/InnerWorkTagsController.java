@@ -21,46 +21,50 @@ import com.selekode.topaz.service.JournalService;
 @Controller
 @RequestMapping("/innerwork/tags")
 public class InnerWorkTagsController {
+	private final InnerWorkTagService innerWorkTagService;
+	
+	public InnerWorkTagsController(InnerWorkTagService innerWorkTagService) {
+		this.innerWorkTagService = innerWorkTagService;
+	}
 
 	@GetMapping("/load")
 	public String loadPageInnerWorkTags(Model model) {
-		model.addAttribute("innerWorkTags", InnerWorkTagService.selectAllTags());
+		model.addAttribute("innerWorkTags", innerWorkTagService.getAll());
 
 		return "innerWorkTags";
 	}
 
 	@GetMapping("/addTag")
 	public String loadPageInnerWorkAddTags(Model model) {
-		InnerWorkTag innerWorkTag = new InnerWorkTag(0, "");
-		model.addAttribute("innerWorkTag", innerWorkTag);
+		model.addAttribute("innerWorkTag", new InnerWorkTag());
 
 		return "innerWorkTags_addTag";
 	}
 
 	@PostMapping("/addTag")
 	public String saveNewTag(@ModelAttribute InnerWorkTag innerWorkTag) {
-		InnerWorkTagService.insertTag(innerWorkTag);
+		innerWorkTagService.save(innerWorkTag);
 
 		return "redirect_innerWorkTags";
 	}
 
 	@GetMapping("/editTag/{id}")
-	public String loadPageEditTag(@PathVariable("id") int id, Model model) {
-		model.addAttribute("innerWorkTag", InnerWorkTagService.selectTag(id));
+	public String loadPageEditTag(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("innerWorkTag", innerWorkTagService.getById(id));
 
 		return "innerWorkTags_editTag";
 	}
 
 	@PostMapping("/updateTag/{id}")
-	public String updateTag(@PathVariable("id") int id, @ModelAttribute InnerWorkTag innerWorkTag) {
-		InnerWorkTagService.updateTag(id, innerWorkTag);
+	public String updateTag(@PathVariable("id") Long id, @ModelAttribute InnerWorkTag innerWorkTag) {
+		innerWorkTagService.update(id, innerWorkTag);
 
 		return "redirect_innerWorkTags";
 	}
 
 	@PostMapping("/deleteTag")
-	public String deleteTag(@RequestParam("id") int id) {
-		InnerWorkTagService.deleteTag(id);
+	public String deleteTag(@RequestParam("id") Long id) {
+		innerWorkTagService.delete(id);
 
 		return "redirect_innerWorkTags";
 	}

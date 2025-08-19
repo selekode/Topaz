@@ -22,12 +22,21 @@ import com.selekode.topaz.service.InnerWorkTagService;
 @Controller
 @RequestMapping("/innerwork")
 public class InnerWorkController {
+	private final InnerWorkEntryService innerWorkEntryService;
+	private final InnerWorkTagService innerWorkTagService;
+	
+	public InnerWorkController(InnerWorkEntryService innerWorkEntryService, InnerWorkTagService innerWorkTagService) {
+		this.innerWorkEntryService = innerWorkEntryService;
+		this.innerWorkTagService = innerWorkTagService;
+	}
+	
+	
 	@GetMapping("/load")
 	public String loadPageInnerWork(Model model) {
 	    List<InnerWorkEntry> innerWorkEntries = InnerWorkEntryService.selectAllInnerWorkEntries();
-	    List<InnerWorkTag> tags = InnerWorkTagService.selectAllTags();
+	    List<InnerWorkTag> tags = innerWorkTagService.getAll();
 
-	    Map<Integer, String> tagMap = tags.stream()
+	    Map<Long, String> tagMap = tags.stream()
 	                                     .collect(Collectors.toMap(InnerWorkTag::getId, InnerWorkTag::getName));
 	    
 	    model.addAttribute("innerWorkEntries", innerWorkEntries);
@@ -43,7 +52,7 @@ public class InnerWorkController {
 	public String loadPageAddEntry(Model model) {
 		InnerWorkEntry innerWorkEntry = new InnerWorkEntry(0, "", 0, "", "");
 		model.addAttribute("innerWorkEntry", innerWorkEntry);
-		List<InnerWorkTag> tags = InnerWorkTagService.selectAllTags();
+		List<InnerWorkTag> tags = innerWorkTagService.getAll();
 		model.addAttribute("tags", tags);
 		return "innerWork_addEntry";
 	}
@@ -59,7 +68,7 @@ public class InnerWorkController {
 	@GetMapping("/editEntry/{id}")
 	public String loadPageEditEntry(@PathVariable("id") int id, Model model) {
 		model.addAttribute("innerWorkEntry", InnerWorkEntryService.selectInnerWorkEntry(id));
-		List<InnerWorkTag> tags = InnerWorkTagService.selectAllTags();
+		List<InnerWorkTag> tags = innerWorkTagService.getAll();
 		model.addAttribute("tags", tags);
 		return "innerWork_editEntry";
 	}

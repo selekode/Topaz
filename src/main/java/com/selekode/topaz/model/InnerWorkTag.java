@@ -1,12 +1,22 @@
 package com.selekode.topaz.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "inner_work_tags")
 public class InnerWorkTag {
-	private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String name;
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -15,10 +25,9 @@ public class InnerWorkTag {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public InnerWorkTag(int id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
+	
+	public InnerWorkTag() {
+		
 	}
 	
 	
