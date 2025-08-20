@@ -2,6 +2,7 @@ package com.selekode.topaz.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.selekode.topaz.model.InnerWorkTag;
@@ -16,7 +17,7 @@ public class InnerWorkTagService {
 	}
 	
 	public List<InnerWorkTag> getAll(){
-		return innerWorkTagRepository.findAll();
+		return innerWorkTagRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
 	}
 	
 	public InnerWorkTag getById(Long id) {

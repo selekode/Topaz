@@ -27,6 +27,8 @@ public class RevisionEntry {
 	private String estadoEmocionalWhy;
 	private String importanteParaMi;
 	private String aprendidoSobreMi;
+	
+	// Valoraciones 0-10
 	private int valoracionDisciplina;
 	private int valoracionOrden;
 	private int valoracionImpulsividad;
@@ -36,6 +38,7 @@ public class RevisionEntry {
 	private int valoracionHonestidad;
 	private int valoracionAceptacion;
 	private int valoracionConsecucionObjetivos;
+	
 	private String explicacionValoracion;
 	private String objetivosPersonales;
 

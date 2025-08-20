@@ -1,37 +1,49 @@
 package com.selekode.topaz.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.selekode.topaz.model.InnerWorkEntry;
 import com.selekode.topaz.repository.InnerWorkEntryRepository;
-import com.selekode.topaz.utils.DatesHelper;
-
 
 @Service
 public class InnerWorkEntryService {
 
-	public static List<InnerWorkEntry> selectAllInnerWorkEntries() {
-		List<InnerWorkEntry> journalWorkEntries = InnerWorkEntryRepository.selectAllInnerWorkEntries();
-		return journalWorkEntries;
+	private final InnerWorkEntryRepository innerWorkEntryRepository;
+
+	public InnerWorkEntryService(InnerWorkEntryRepository innerWorkEntryRepository) {
+		this.innerWorkEntryRepository = innerWorkEntryRepository;
 	}
-	
-	public static InnerWorkEntry selectInnerWorkEntry(int id) {
-		InnerWorkEntry innerWorkEntry = InnerWorkEntryRepository.selectInnerWorkEntry(id);
-		return innerWorkEntry;
+
+	public List<InnerWorkEntry> getAll() {
+		return innerWorkEntryRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
 	}
-	
-	public static void insertInnerWorkEntry(InnerWorkEntry entry) {
-		Long unixTime = DatesHelper.generateUnixDate();
-		InnerWorkEntryRepository.insertInnerWorkEntry(entry, unixTime);
+
+	public InnerWorkEntry getById(Long id) {
+		return innerWorkEntryRepository.findById(id).orElse(null);
 	}
-	
-	public static void updateInnerWorkEntry(int id, InnerWorkEntry entry) {
-		InnerWorkEntryRepository.updateInnerWorkEntry(id, entry);
+
+	public void save(InnerWorkEntry innerWorkEntry) {
+		if (innerWorkEntry.getDate() == null) {
+			innerWorkEntry.setDate(LocalDate.now());
+		}
+		innerWorkEntryRepository.save(innerWorkEntry);
 	}
-	
-	public static void deleteInnerWorkEntry(int id) {
-		InnerWorkEntryRepository.deleteInnerWorkEntry(id);
+
+	public InnerWorkEntry update(Long id, InnerWorkEntry updatedInnerWorkEntry) {
+		return innerWorkEntryRepository.findById(id).map(existing -> {
+            existing.setDate(updatedInnerWorkEntry.getDate());
+            existing.setTitle(updatedInnerWorkEntry.getTitle());
+            existing.setContent(updatedInnerWorkEntry.getContent());
+            existing.setTagID(updatedInnerWorkEntry.getTagID());
+            return innerWorkEntryRepository.save(existing);
+        }).orElseThrow(() -> new IllegalArgumentException("Entry not found: " + id));
+	}
+
+	public void delete(Long id) {
+		innerWorkEntryRepository.deleteById(id);
 	}
 }

@@ -33,7 +33,7 @@ public class InnerWorkController {
 	
 	@GetMapping("/load")
 	public String loadPageInnerWork(Model model) {
-	    List<InnerWorkEntry> innerWorkEntries = InnerWorkEntryService.selectAllInnerWorkEntries();
+	    List<InnerWorkEntry> innerWorkEntries = innerWorkEntryService.getAll();
 	    List<InnerWorkTag> tags = innerWorkTagService.getAll();
 
 	    Map<Long, String> tagMap = tags.stream()
@@ -42,15 +42,14 @@ public class InnerWorkController {
 	    model.addAttribute("innerWorkEntries", innerWorkEntries);
 	    model.addAttribute("tags", tags);
 	    model.addAttribute("tagMap", tagMap);
+	    System.out.println(tagMap);
 
 	    return "innerWork";
 	}
 
-
-
 	@GetMapping("/addEntry")
 	public String loadPageAddEntry(Model model) {
-		InnerWorkEntry innerWorkEntry = new InnerWorkEntry(0, "", 0, "", "");
+		InnerWorkEntry innerWorkEntry = new InnerWorkEntry();
 		model.addAttribute("innerWorkEntry", innerWorkEntry);
 		List<InnerWorkTag> tags = innerWorkTagService.getAll();
 		model.addAttribute("tags", tags);
@@ -59,35 +58,32 @@ public class InnerWorkController {
 
 	@PostMapping("/saveEntry")
 	public String saveNewEntry(@ModelAttribute InnerWorkEntry innerWorkEntry) {
-		InnerWorkEntryService.insertInnerWorkEntry(innerWorkEntry);
+		innerWorkEntryService.save(innerWorkEntry);
 
 		return "redirect_innerWork";
 	}
 
-	// EDIT ENTRY
 	@GetMapping("/editEntry/{id}")
-	public String loadPageEditEntry(@PathVariable("id") int id, Model model) {
-		model.addAttribute("innerWorkEntry", InnerWorkEntryService.selectInnerWorkEntry(id));
+	public String loadPageEditEntry(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("innerWorkEntry", innerWorkEntryService.getById(id));
 		List<InnerWorkTag> tags = innerWorkTagService.getAll();
 		model.addAttribute("tags", tags);
 		return "innerWork_editEntry";
 	}
 
-	// When the edit button on the form is clicked, it will send the data here
 	@PostMapping("/updateEntry/{id}")
-	public String updateEntry(@PathVariable("id") int id, @ModelAttribute InnerWorkEntry innerWorkEntry) {
+	public String updateEntry(@PathVariable("id") Long id, @ModelAttribute InnerWorkEntry innerWorkEntry) {
 		System.out.println("Received from frontend: entry with: ID: " + id + ", Title: " + innerWorkEntry.getTitle()
 				+ ", TagID: " + innerWorkEntry.getTagID() + ", Content: " + innerWorkEntry.getContent());
 
-		InnerWorkEntryService.updateInnerWorkEntry(id, innerWorkEntry);
+		innerWorkEntryService.update(id, innerWorkEntry);
 
 		return "redirect_innerWork";
 	}
 
-	// DELETE ENTRY FEATURE
 	@PostMapping("/deleteEntry")
-	public String deleteEntry(@RequestParam("id") int id) {
-		InnerWorkEntryService.deleteInnerWorkEntry(id);
+	public String deleteEntry(@RequestParam("id") Long id) {
+		innerWorkEntryService.delete(id);
 
 		return "redirect_innerWork";
 	}

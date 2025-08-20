@@ -1,50 +1,73 @@
 package com.selekode.topaz.model;
 
+import java.time.LocalDate;
+
+import com.selekode.topaz.converter.LocalDateUnixSecondsConverter;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "inner_work_entry")
 public class InnerWorkEntry {
-	private int id;
-	private String date;
-	private Integer tagID;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	// Stores as Unix seconds in DB, used as LocalDate in Java
+	@Convert(converter = LocalDateUnixSecondsConverter.class)
+	@Column(name = "date", nullable = false)
+	private LocalDate date;
+	private Long tagID;
 	private String title;
 	private String content;
-	public int getId() {
+
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getDate() {
+
+	public LocalDate getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-	public Integer getTagID() {
+
+	public Long getTagID() {
 		return tagID;
 	}
-	public void setTagID(Integer tagID) {
+
+	public void setTagID(Long tagID) {
 		this.tagID = tagID;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getContent() {
 		return content;
 	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public InnerWorkEntry(int id, String date, Integer tagID, String title, String content) {
-		super();
-		this.id = id;
-		this.date = date;
-		this.tagID = tagID;
-		this.title = title;
-		this.content = content;
-	}
-	
-	
-}
 
+	public InnerWorkEntry() {
+		
+	}
+
+}
