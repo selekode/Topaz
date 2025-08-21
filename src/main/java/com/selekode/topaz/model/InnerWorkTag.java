@@ -29,6 +29,10 @@ public class InnerWorkTag {
 	public InnerWorkTag() {
 		
 	}
-	
+	public InnerWorkTag(Long id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 	
 }

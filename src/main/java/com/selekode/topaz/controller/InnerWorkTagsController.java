@@ -1,7 +1,5 @@
 package com.selekode.topaz.controller;
 
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,12 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.selekode.topaz.model.InnerWorkEntryTag;
 import com.selekode.topaz.model.InnerWorkTag;
-import com.selekode.topaz.model.JournalEntry;
-import com.selekode.topaz.service.InnerWorkEntryService;
 import com.selekode.topaz.service.InnerWorkTagService;
-import com.selekode.topaz.service.JournalService;
 
 @Controller
 @RequestMapping("/innerwork/tags")

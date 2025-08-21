@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.selekode.topaz.model.InnerWorkEntry;
 import com.selekode.topaz.model.InnerWorkTag;
-import com.selekode.topaz.model.JournalEntry;
 import com.selekode.topaz.service.InnerWorkEntryService;
 import com.selekode.topaz.service.InnerWorkTagService;
 
