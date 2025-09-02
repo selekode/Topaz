@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.selekode.topaz.model.InnerWorkEntry;
+import com.selekode.topaz.model.InnerWork;
 import com.selekode.topaz.model.InnerWorkTag;
-import com.selekode.topaz.service.InnerWorkEntryService;
+import com.selekode.topaz.service.InnerWorkService;
 import com.selekode.topaz.service.InnerWorkTagService;
 
 @Controller
 @RequestMapping("/innerwork")
 public class InnerWorkController {
-	private final InnerWorkEntryService innerWorkEntryService;
+	private final InnerWorkService innerWorkEntryService;
 	private final InnerWorkTagService innerWorkTagService;
 	
-	public InnerWorkController(InnerWorkEntryService innerWorkEntryService, InnerWorkTagService innerWorkTagService) {
+	public InnerWorkController(InnerWorkService innerWorkEntryService, InnerWorkTagService innerWorkTagService) {
 		this.innerWorkEntryService = innerWorkEntryService;
 		this.innerWorkTagService = innerWorkTagService;
 	}
@@ -32,7 +32,7 @@ public class InnerWorkController {
 	
 	@GetMapping("/load")
 	public String loadPageInnerWork(Model model) {
-	    List<InnerWorkEntry> innerWorkEntries = innerWorkEntryService.getAll();
+	    List<InnerWork> innerWorkEntries = innerWorkEntryService.getAll();
 	    List<InnerWorkTag> tags = innerWorkTagService.getAll();
 
 	    Map<Long, String> tagMap = tags.stream()
@@ -48,7 +48,7 @@ public class InnerWorkController {
 
 	@GetMapping("/addEntry")
 	public String loadPageAddEntry(Model model) {
-		InnerWorkEntry innerWorkEntry = new InnerWorkEntry();
+		InnerWork innerWorkEntry = new InnerWork();
 		model.addAttribute("innerWorkEntry", innerWorkEntry);
 		List<InnerWorkTag> tags = innerWorkTagService.getAll();
 		model.addAttribute("tags", tags);
@@ -56,7 +56,7 @@ public class InnerWorkController {
 	}
 
 	@PostMapping("/saveEntry")
-	public String saveNewEntry(@ModelAttribute InnerWorkEntry innerWorkEntry) {
+	public String saveNewEntry(@ModelAttribute InnerWork innerWorkEntry) {
 		innerWorkEntryService.save(innerWorkEntry);
 
 		return "redirect_innerWork";
@@ -71,7 +71,7 @@ public class InnerWorkController {
 	}
 
 	@PostMapping("/updateEntry/{id}")
-	public String updateEntry(@PathVariable("id") Long id, @ModelAttribute InnerWorkEntry innerWorkEntry) {
+	public String updateEntry(@PathVariable("id") Long id, @ModelAttribute InnerWork innerWorkEntry) {
 		System.out.println("Received from frontend: entry with: ID: " + id + ", Title: " + innerWorkEntry.getTitle()
 				+ ", TagID: " + innerWorkEntry.getTagID() + ", Content: " + innerWorkEntry.getContent());
 

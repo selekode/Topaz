@@ -17,10 +17,10 @@ import java.util.Map;
 
 import com.selekode.topaz.database.DatabaseConstants;
 import com.selekode.topaz.model.PersonalRatings;
-import com.selekode.topaz.model.StatsActivityPerDayOfWeek;
-import com.selekode.topaz.model.StatsEmotionFrequency;
+import com.selekode.topaz.model.ActivityPerDayOfWeekDTO;
+import com.selekode.topaz.model.EmotionFrequencyDTO;
 import com.selekode.topaz.model.Table;
-import com.selekode.topaz.utils.StatsHelper;
+import com.selekode.topaz.utils.StatsUtils;
 
 public interface StatsRepository {
 	public static final String DB_URL = DatabaseConstants.DB_URL;
@@ -188,7 +188,7 @@ public interface StatsRepository {
 	}
 
 
-	public static StatsActivityPerDayOfWeek findEntryCountPerDayGenericDateRange(long dateStart, long dateEnd, Table table) {
+	public static ActivityPerDayOfWeekDTO findEntryCountPerDayGenericDateRange(long dateStart, long dateEnd, Table table) {
 		int mondayEntryCount = 0;
 		int tuesdayEntryCount = 0;
 		int wednesdayEntryCount = 0;
@@ -197,7 +197,7 @@ public interface StatsRepository {
 		int saturdayEntryCount = 0;
 		int sundayEntryCount = 0;
 		
-		StatsActivityPerDayOfWeek entryCountPerDay = null;
+		ActivityPerDayOfWeekDTO entryCountPerDay = null;
 		
 		String sql = "SELECT date, strftime('%w', date, 'unixepoch') AS weekday, COUNT(*) AS entry_count "
 				+ "FROM " + table.getDbName() + " WHERE date BETWEEN ? AND ? " + "GROUP BY date, weekday " + // Group by date as well
@@ -236,7 +236,7 @@ public interface StatsRepository {
 			e.printStackTrace();
 		}
 		
-		entryCountPerDay = new StatsActivityPerDayOfWeek(mondayEntryCount, tuesdayEntryCount,
+		entryCountPerDay = new ActivityPerDayOfWeekDTO(mondayEntryCount, tuesdayEntryCount,
 				wednesdayEntryCount, thursdayEntryCount, fridayEntryCount,
 				saturdayEntryCount, sundayEntryCount, "", 0);
 		
@@ -244,7 +244,7 @@ public interface StatsRepository {
 		
 	}
 	
-	public static StatsActivityPerDayOfWeek findEntryCountPerDayAllTime(Table table) {
+	public static ActivityPerDayOfWeekDTO findEntryCountPerDayAllTime(Table table) {
 		int mondayEntryCount = 0;
 		int tuesdayEntryCount = 0;
 		int wednesdayEntryCount = 0;
@@ -253,7 +253,7 @@ public interface StatsRepository {
 		int saturdayEntryCount = 0;
 		int sundayEntryCount = 0;
 
-		StatsActivityPerDayOfWeek entryCountPerDay = null;
+		ActivityPerDayOfWeekDTO entryCountPerDay = null;
 		
 		String sql = "SELECT strftime('%w', date, 'unixepoch') AS weekday, COUNT(*) AS entry_count FROM " + table.getDbName() +" GROUP BY weekday ORDER BY weekday;";
 
@@ -279,7 +279,7 @@ public interface StatsRepository {
 			e.printStackTrace();
 		}
 
-		entryCountPerDay = new StatsActivityPerDayOfWeek(mondayEntryCount, tuesdayEntryCount,
+		entryCountPerDay = new ActivityPerDayOfWeekDTO(mondayEntryCount, tuesdayEntryCount,
 				wednesdayEntryCount, thursdayEntryCount, fridayEntryCount,
 				saturdayEntryCount, sundayEntryCount, "", 0);
 
@@ -287,7 +287,7 @@ public interface StatsRepository {
 
 	}
 
-	public static StatsEmotionFrequency findEmotionCountAllTime() {
+	public static EmotionFrequencyDTO findEmotionCountAllTime() {
 		String sql = """
 				    SELECT
 				        SUM(CASE WHEN emocionAlegria = 1 THEN 1 ELSE 0 END) AS emocionAlegriaCount,
@@ -308,7 +308,7 @@ public interface StatsRepository {
 				    FROM revision;
 				""";
 
-		StatsEmotionFrequency emotionFrequency = new StatsEmotionFrequency(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		EmotionFrequencyDTO emotionFrequency = new EmotionFrequencyDTO(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				"", 0, "", 0, "", 0, "", 0);
 
 		try (Connection conn = DriverManager.getConnection(DB_URL);
@@ -340,7 +340,7 @@ public interface StatsRepository {
 		return emotionFrequency;
 	}
 
-	public static StatsEmotionFrequency findEmotionCountDateRange(Long startDate, Long endDate) {
+	public static EmotionFrequencyDTO findEmotionCountDateRange(Long startDate, Long endDate) {
 		String sql = """
 				    SELECT
 				        SUM(CASE WHEN emocionAlegria = 1 THEN 1 ELSE 0 END) AS emocionAlegriaCount,
@@ -362,7 +362,7 @@ public interface StatsRepository {
 				    WHERE date BETWEEN ? AND ?;
 				""";
 
-		StatsEmotionFrequency emotionFrequency = new StatsEmotionFrequency(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		EmotionFrequencyDTO emotionFrequency = new EmotionFrequencyDTO(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				"", 0, "", 0, "", 0, "", 0);
 
 		try (Connection conn = DriverManager.getConnection(DB_URL);
@@ -491,7 +491,7 @@ public interface StatsRepository {
 				ResultSet rs = stmt.executeQuery(sql)) {
 
 			while (rs.next()) {
-				String date = StatsHelper.convertDateToString_ddMMMyyy(rs.getLong("date"));
+				String date = StatsUtils.convertDateToString_ddMMMyyy(rs.getLong("date"));
 				int valoracionDisciplina = rs.getInt("valoracionDisciplina");
 				int valoracionOrden = rs.getInt("valoracionOrden");
 				int valoracionImpulsividad = rs.getInt("valoracionImpulsividad");
@@ -536,7 +536,7 @@ public interface StatsRepository {
 			// Execute the query
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
-					String date = StatsHelper.convertDateToString_ddMMMyyy(rs.getLong("date"));
+					String date = StatsUtils.convertDateToString_ddMMMyyy(rs.getLong("date"));
 					int valoracionDisciplina = rs.getInt("valoracionDisciplina");
 					int valoracionOrden = rs.getInt("valoracionOrden");
 					int valoracionImpulsividad = rs.getInt("valoracionImpulsividad");

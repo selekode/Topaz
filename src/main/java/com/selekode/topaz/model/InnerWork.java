@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "inner_work_entry")
-public class InnerWorkEntry {
+public class InnerWork {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -66,7 +66,7 @@ public class InnerWorkEntry {
 		this.content = content;
 	}
 
-	public InnerWorkEntry() {
+	public InnerWork() {
 		
 	}
 

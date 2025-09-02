@@ -64,10 +64,9 @@ public class DashboardUtils {
 	
 	public static String getJournalStreakParagraph(int streak) {
 		String paragraph = "";
-		System.out.println("journalStreak: " + streak);
 
 		if (streak <= 1) {
-			paragraph = "¡Escribe varios dias seguidos para empezar una racha!";
+			paragraph = "¡Escribe varios dias seguidos para empezar una nueva racha!";
 		} else if (streak > 1) {
 			paragraph = "Llevas " + streak
 					+ " días seguidos escribiendo revisiones. ¡Sigue así!";
@@ -78,9 +77,8 @@ public class DashboardUtils {
 
 	public static String getRevisionStreakParagraph(int streak) {
 		String paragraph = null;
-		System.out.println("RevisionStreak: " + streak);
 		if (streak <= 1) {
-			paragraph = "¡Escribe varios dias seguidos para empezar una racha!";
+			paragraph = "¡Escribe varios dias seguidos para empezar una nueva racha!";
 		} else if (streak > 1) {
 			paragraph = "Llevas " + streak
 					+ " días seguidos escribiendo revisiones. ¡Sigue así!";

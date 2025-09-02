@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import com.selekode.topaz.model.DashboardData;
-import com.selekode.topaz.repository.InnerWorkEntryRepository;
+import com.selekode.topaz.repository.InnerWorkRepository;
 import com.selekode.topaz.repository.JournalRepository;
 import com.selekode.topaz.repository.RevisionRepository;
 import com.selekode.topaz.utils.DashboardUtils;
@@ -19,11 +19,11 @@ public class DashboardService {
 
     private final JournalRepository journalRepository;
     private final RevisionRepository revisionRepository;
-    private final InnerWorkEntryRepository innerWorkRepository;
+    private final InnerWorkRepository innerWorkRepository;
 
     public DashboardService(JournalRepository journalRepository,
                             RevisionRepository revisionRepository,
-                            InnerWorkEntryRepository innerWorkRepository) {
+                            InnerWorkRepository innerWorkRepository) {
         this.journalRepository = journalRepository;
         this.revisionRepository = revisionRepository;
         this.innerWorkRepository = innerWorkRepository;
@@ -44,16 +44,11 @@ public class DashboardService {
         int longestJournalStreak = DashboardUtils.calculateLongestStreak(journalDates);
         int longestRevisionStreak = DashboardUtils.calculateLongestStreak(revisionDates);
 
-        System.out.println("JournalStreak: " + journalStreak);
-        System.out.println("RevisionStreak: " + revisionStreak);
-        System.out.println("LongestJournalStreak: " + longestJournalStreak);
-        System.out.println("LongestRevisionStreak: " + longestRevisionStreak);
-
-        // --- Check entries today ---
+     // --- Check entries today ---
         LocalDate today = LocalDate.now();
-        boolean journalToday = journalRepository.existsByDateBetween(today, today);
-        boolean revisionToday = revisionRepository.existsByDateBetween(today, today);
-        boolean innerWorkToday = innerWorkRepository.existsByDateBetween(today, today);
+        boolean journalToday = journalRepository.existsByDate(today);
+        boolean revisionToday = revisionRepository.existsByDate(today);
+        boolean innerWorkToday = innerWorkRepository.existsByDate(today);
 
         // --- Generate paragraphs for Thymeleaf ---
         String strJournalStreak = DashboardUtils.getJournalStreakParagraph(journalStreak);
@@ -80,7 +75,6 @@ public class DashboardService {
                 "", "", strInnerWorkToday
         );
 
-        // --- Return map ---
         Map<String, DashboardData> dashboardDataMap = new HashMap<>();
         dashboardDataMap.put("Journal", dashboardDataJournal);
         dashboardDataMap.put("Revision", dashboardDataRevision);

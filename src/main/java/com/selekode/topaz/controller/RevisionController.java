@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 
-import com.selekode.topaz.model.RevisionEntry;
+import com.selekode.topaz.model.Revision;
 import com.selekode.topaz.service.RevisionService;
 
 @RequestMapping("/revision")
@@ -30,14 +30,14 @@ public class RevisionController {
 
 	@GetMapping("/addEntry")
 	public String loadPageAddEntry(Model model) {
-		RevisionEntry revisionEntry = new RevisionEntry();
+		Revision revisionEntry = new Revision();
 		model.addAttribute("revisionEntry", revisionEntry);
 
 		return "revision_addEntry";
 	}
 
 	@PostMapping("/saveEntry")
-	public String saveNewEntry(@ModelAttribute RevisionEntry revisionEntry) {
+	public String saveNewEntry(@ModelAttribute Revision revisionEntry) {
 		revisionService.save(revisionEntry);
 
 		return "redirect_revision";
@@ -45,14 +45,14 @@ public class RevisionController {
 
 	@GetMapping("/editEntry/{id}")
 	public String loadPageEditEntry(@PathVariable("id") Long id, Model model) {
-		RevisionEntry revisionEntry = revisionService.getById(id);
+		Revision revisionEntry = revisionService.getById(id);
 		model.addAttribute("revisionEntry", revisionEntry);
 
 		return "revision_editEntry";
 	}
 
 	@PostMapping("/updateEntry/{id}")
-	public String updateEntry(@PathVariable("id") Long id, @ModelAttribute RevisionEntry revisionEntry) {
+	public String updateEntry(@PathVariable("id") Long id, @ModelAttribute Revision revisionEntry) {
 		revisionService.update(id, revisionEntry);
 
 		return "redirect_revision";

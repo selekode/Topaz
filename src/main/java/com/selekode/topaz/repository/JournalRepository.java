@@ -13,11 +13,15 @@ import com.selekode.topaz.model.JournalEntry;
 public interface JournalRepository extends JpaRepository<JournalEntry, Long> {
 	@Query(value = "SELECT DISTINCT date FROM journal WHERE date IS NOT NULL ORDER BY date ASC", nativeQuery = true)
 	List<Long> findAllDatesAsUnix();
+    
+    @Query("SELECT FUNCTION('strftime', '%w', j.date) AS weekday, COUNT(j) AS entryCount " +
+           "FROM JournalEntry j WHERE j.date BETWEEN ?1 AND ?2 GROUP BY weekday ORDER BY weekday")
+    List<Object[]> findEntryCountPerDayDateRange(LocalDate startDate, LocalDate endDate);
 
-    /**
-     * Check if there is any entry in a specific day range.
-     * Example usage: existsByDatesBetween(startOfDay, endOfDay)
-     */
-    boolean existsByDateBetween(LocalDate today, LocalDate today2);
+    @Query("SELECT FUNCTION('strftime', '%w', j.date) AS weekday, COUNT(j) AS entryCount " +
+           "FROM JournalEntry j GROUP BY weekday ORDER BY weekday")
+    List<Object[]> findEntryCountPerDayAllTime();
+    
+	boolean existsByDate(LocalDate date);
 }
 

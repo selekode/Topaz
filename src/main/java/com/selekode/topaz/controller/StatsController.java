@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.selekode.topaz.model.StatsDateRange;
+import com.selekode.topaz.model.DateRange;
 import com.selekode.topaz.service.StatsService;
-import com.selekode.topaz.utils.StatsHelper;
+import com.selekode.topaz.utils.StatsUtils;
 
 import org.springframework.ui.Model;
 
@@ -18,15 +18,15 @@ public class StatsController {
 
 	@GetMapping("/load")
 	public String loadPage(Model model) {
-		model.addAttribute("statsDateRange", new StatsDateRange("", ""));
+		model.addAttribute("statsDateRange", new DateRange("", ""));
 		return "stats";
 	}
 
 	@PostMapping("/calculateStats")
-	public String calculateStats(@ModelAttribute StatsDateRange statsDateRange, Model model) {
+	public String calculateStats(@ModelAttribute DateRange statsDateRange, Model model) {
 		model.addAttribute("statsDateRange", statsDateRange);
-		model.addAttribute("statsDateRangeLastWeek", StatsHelper.calculateDateRangeLastWeek());
-		model.addAttribute("statsDateRangeLastMonth", StatsHelper.calculateDateRangeLastMonth());
+		model.addAttribute("statsDateRangeLastWeek", StatsUtils.calculateDateRangeLastWeek());
+		model.addAttribute("statsDateRangeLastMonth", StatsUtils.calculateDateRangeLastMonth());
 		
 		model.addAttribute("statsEntryCountWeek", StatsService.getEntryCountWeek());
 		model.addAttribute("statsEntryCountMonth", StatsService.getEntryCountMonth());

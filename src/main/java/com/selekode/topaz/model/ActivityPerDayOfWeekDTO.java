@@ -1,6 +1,6 @@
 package com.selekode.topaz.model;
 
-public class StatsActivityPerDayOfWeek {
+public class ActivityPerDayOfWeekDTO {
 	private int mondayEntryCount;
 	private int tuesdayEntryCount;
 	private int wednesdayEntryCount;
@@ -83,7 +83,7 @@ public class StatsActivityPerDayOfWeek {
 		this.mostActiveDayN = mostActiveDayN;
 	}
 
-	public StatsActivityPerDayOfWeek(int mondayEntryCount, int tuesdayEntryCount, int wednesdayEntryCount,
+	public ActivityPerDayOfWeekDTO(int mondayEntryCount, int tuesdayEntryCount, int wednesdayEntryCount,
 			int thursdayEntryCount, int fridayEntryCount, int saturdayEntryCount, int sundayEntryCount,
 			String mostActiveDay, int mostActiveDayN) {
 		super();

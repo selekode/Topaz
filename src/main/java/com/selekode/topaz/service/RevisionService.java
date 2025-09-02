@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.selekode.topaz.model.RevisionEntry;
+import com.selekode.topaz.model.Revision;
 import com.selekode.topaz.repository.RevisionRepository;
 
 @Service
@@ -17,22 +17,22 @@ public class RevisionService {
         this.revisionRepository = revisionRepository;
     }
 
-    public List<RevisionEntry> getAll() {
+    public List<Revision> getAll() {
         return revisionRepository.findAll();
     }
 
-    public RevisionEntry getById(Long id) {
+    public Revision getById(Long id) {
         return revisionRepository.findById(id).orElse(null);
     }
 
-    public void save(RevisionEntry revisionEntry) {
+    public void save(Revision revisionEntry) {
     	if (revisionEntry.getDate() == null) {
             revisionEntry.setDate(LocalDate.now());
         }
         revisionRepository.save(revisionEntry);
     }
     
-    public RevisionEntry update(Long id, RevisionEntry updatedEntry) {
+    public Revision update(Long id, Revision updatedEntry) {
         return revisionRepository.findById(id)
                 .map(existing -> {
                     // Update fields
