@@ -1,6 +1,6 @@
 package com.selekode.topaz.model;
 
-public class StatsEntryCount {
+public class EntryCountDTO {
 	private int totalEntries;
 	private int totalEntriesJournal;
 	private int totalEntriesRevision;
@@ -38,7 +38,7 @@ public class StatsEntryCount {
 		this.totalEntriesInnerWork = totalEntriesInnerWork;
 	}
 
-	public StatsEntryCount(int totalEntries, int totalEntriesJournal, int totalEntriesRevision,
+	public EntryCountDTO(int totalEntries, int totalEntriesJournal, int totalEntriesRevision,
 			int totalEntriesInnerWork) {
 		super();
 		this.totalEntries = totalEntries;

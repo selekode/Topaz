@@ -95,89 +95,116 @@
                 <!-- Form to handle the journal entry -->
                 <form id="journalForm" action="#" method="POST" th:action="@{/journal/saveEntry}"
                     th:object="${journalEntry}">
+
+                    <!-- Title -->
                     <input type="text" name="title" id="title"
-                        class="text-xl font-bold mb-4 w-full bg-[#0F2529] text-white p-2 rounded-lg"
+                        class="text-2xl font-bold mb-6 w-full bg-[#0F2529] text-white p-3 rounded-lg"
                         placeholder="Título" th:value="${journalEntry.title}" />
 
-                    <label for="contentGeneral" class="text-[#23A3BB] mb-4">General</label>
+                    <!-- General -->
+                    <label for="contentGeneral" class="text-[#23A3BB] text-lg font-semibold mb-2 block">General</label>
                     <textarea name="contentGeneral" id="contentGeneral"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
                         th:value="${journalEntry.contentGeneral}" placeholder="¿Qué has hecho hoy?"></textarea>
 
-                    <label for="contentSaludFisica" class="text-[#23A3BB] mb-4">Salud Física</label>
+                    <!-- Salud Física -->
+                    <label for="contentSaludFisica" class="text-[#23A3BB] text-lg font-semibold mb-2 block">Salud
+                        Física</label>
                     <textarea name="contentSaludFisica" id="contentSaludFisica"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
                         th:value="${journalEntry.contentSaludFisica}"
                         placeholder="Hoy he ido al gimnasio..."></textarea>
 
-                    <label for="contentBienestarMental" class="text-[#23A3BB] mb-4">Bienestar Mental</label>
+                    <!-- Bienestar Mental -->
+                    <label for="contentBienestarMental"
+                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Bienestar Mental</label>
                     <textarea name="contentBienestarMental" id="contentBienestarMental"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
                         th:value="${journalEntry.contentBienestarMental}" placeholder="Hoy he meditado..."></textarea>
 
-                    <label for="contentRelacionesSociales" class="text-[#23A3BB] mb-4">Relaciones Sociales</label>
+                    <!-- Relaciones Sociales -->
+                    <label for="contentRelacionesSociales"
+                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Relaciones Sociales</label>
                     <textarea name="contentRelacionesSociales" id="contentRelacionesSociales"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
                         th:value="${journalEntry.contentRelacionesSociales}"
                         placeholder="Hoy he pasado tiempo con mi familia y amigos..."></textarea>
 
-                    <label for="contentCarreraProfesional" class="text-[#23A3BB] mb-4">Carrera Profesional</label>
+                    <!-- Carrera Profesional -->
+                    <label for="contentCarreraProfesional"
+                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Carrera Profesional</label>
                     <textarea name="contentCarreraProfesional" id="contentCarreraProfesional"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
                         th:value="${journalEntry.contentCarreraProfesional}"
                         placeholder="Hoy he trabajado en..."></textarea>
 
-                    <label for="contentEstabilidadFinanciera" class="text-[#23A3BB] mb-4">Estabilidad Financiera</label>
+                    <!-- Estabilidad Financiera -->
+                    <label for="contentEstabilidadFinanciera"
+                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Estabilidad Financiera</label>
                     <textarea name="contentEstabilidadFinanciera" id="contentEstabilidadFinanciera"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
                         th:value="${journalEntry.contentEstabilidadFinanciera}"
-                        placeholder="Hoy he ganado...Hoy he gastado..."></textarea>
+                        placeholder="Hoy he ganado... Hoy he gastado..."></textarea>
 
-                    <label for="contentCrecimientoPersonal" class="text-[#23A3BB] mb-4">Crecimiento Personal</label>
+                    <!-- Crecimiento Personal -->
+                    <label for="contentCrecimientoPersonal"
+                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Crecimiento Personal</label>
                     <textarea name="contentCrecimientoPersonal" id="contentCrecimientoPersonal"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
-                        th:value="${journalEntry.contentCrecimientoPersonal}" placeholder="Hoy he leido..."></textarea>
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
+                        th:value="${journalEntry.contentCrecimientoPersonal}" placeholder="Hoy he leído..."></textarea>
 
-                    <label for="contentPasatiemposCreatividad" class="text-[#23A3BB] mb-4">Pasatiempos y
-                        Creatividad</label>
+                    <!-- Pasatiempos y Creatividad -->
+                    <label for="contentPasatiemposCreatividad"
+                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Pasatiempos y Creatividad</label>
                     <textarea name="contentPasatiemposCreatividad" id="contentPasatiemposCreatividad"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
                         th:value="${journalEntry.contentPasatiemposCreatividad}"
-                        placeholder="Hoy he hecho música...Hoy he dibujado..."></textarea>
+                        placeholder="Hoy he hecho música... Hoy he dibujado..."></textarea>
 
-                    <label for="contentEspiritualidadProposito" class="text-[#23A3BB] mb-4">Espiritualidad y
-                        Propósito</label>
+                    <!-- Espiritualidad y Propósito -->
+                    <label for="contentEspiritualidadProposito"
+                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Espiritualidad y Propósito</label>
                     <textarea name="contentEspiritualidadProposito" id="contentEspiritualidadProposito"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
                         th:value="${journalEntry.contentEspiritualidadProposito}"
                         placeholder="Hoy he reflexionado sobre..."></textarea>
 
-                    <label for="contentRecreacionDiversion" class="text-[#23A3BB] mb-4">Recreación y Diversión</label>
+                    <!-- Recreación y Diversión -->
+                    <label for="contentRecreacionDiversion"
+                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Recreación y Diversión</label>
                     <textarea name="contentRecreacionDiversion" id="contentRecreacionDiversion"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
                         th:value="${journalEntry.contentRecreacionDiversion}"
                         placeholder="Hoy he jugado a..."></textarea>
 
-                    <label for="contentContribucionLegado" class="text-[#23A3BB] mb-4">Contribución y Legado</label>
+                    <!-- Contribución y Legado -->
+                    <label for="contentContribucionLegado"
+                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Contribución y Legado</label>
                     <textarea name="contentContribucionLegado" id="contentContribucionLegado"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
                         th:value="${journalEntry.contentContribucionLegado}"
-                        placeholder="Hoy he ayudado a...Hoy he enseñado a..."></textarea>
+                        placeholder="Hoy he ayudado a... Hoy he enseñado a..."></textarea>
 
-                    <label for="contentErroresCometidos" class="text-[#23A3BB] mb-4">Errores Cometidos</label>
+                    <!-- Errores Cometidos -->
+                    <label for="contentErroresCometidos" class="text-[#23A3BB] text-lg font-semibold mb-2 block">Errores
+                        Cometidos</label>
                     <textarea name="contentErroresCometidos" id="contentErroresCometidos"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-white mb-4"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
                         th:value="${journalEntry.contentErroresCometidos}" placeholder="Hoy he hecho mal..."></textarea>
 
-                    <input type="hidden" th:field="*{id}" value="2" />
-                    <input type="hidden" th:field="*{date}" value="2" />
+                    <!-- Hidden fields -->
+                    <input type="hidden" th:field="*{id}" />
+                    <input type="hidden" th:field="*{date}" />
 
-                    <div class="mt-4 flex item">
+                    <!-- Submit button -->
+                    <div class="mt-6 flex">
                         <button type="submit" id="saveButton"
-                            class="ml-auto text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Guardar</button>
+                            class="ml-auto text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">
+                            Guardar
+                        </button>
                     </div>
-
                 </form>
+
             </div>
 
             <!-- Outer container with x-show -->

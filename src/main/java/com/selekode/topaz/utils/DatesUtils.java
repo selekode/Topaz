@@ -4,7 +4,9 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
-public class DatesHelper {
+import com.selekode.topaz.model.UnixDateRange;
+
+public class DatesUtils {
 	public static long generateUnixDate() {
 		Instant now = Instant.now();
 		long unixTime = now.getEpochSecond();
@@ -21,5 +23,23 @@ public class DatesHelper {
 		String dateStr = formatter.format(instant);
 
 		return dateStr;
+	}
+	
+	public static UnixDateRange calculateLastWeekDates() {
+		long unixWeek = 604800;
+		long dateEnd = Instant.now().getEpochSecond();
+		long dateStart = dateEnd - unixWeek;
+		UnixDateRange unixDates = new UnixDateRange(dateStart, dateEnd);
+
+		return unixDates;
+	}
+
+	public static UnixDateRange calculateLastMonthDates() {
+		long unixMonth = 2629746;
+		long dateEnd = Instant.now().getEpochSecond();
+		long dateStart = dateEnd - unixMonth;
+		UnixDateRange unixDates = new UnixDateRange(dateStart, dateEnd);
+
+		return unixDates;
 	}
 }

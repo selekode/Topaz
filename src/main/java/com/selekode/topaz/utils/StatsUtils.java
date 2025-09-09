@@ -13,22 +13,41 @@ import java.util.Map;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.selekode.topaz.model.PersonalRatings;
-import com.selekode.topaz.model.StatsActivityPerDayOfWeek;
-import com.selekode.topaz.model.StatsEmotionFrequency;
-import com.selekode.topaz.model.StatsEntryCount;
-import com.selekode.topaz.model.UnixDates;
+import com.selekode.topaz.model.ActivityPerDayOfWeekDTO;
+import com.selekode.topaz.model.DateRange;
+import com.selekode.topaz.model.EmotionFrequencyDTO;
+import com.selekode.topaz.model.EntryCountDTO;
+import com.selekode.topaz.model.UnixDateRange;
 
-// Utility helper classes are a great way to reduce clutter in your service classes by moving reusable logic into separate, stateless classes. 
-public class StatsHelper {
-	private StatsHelper() {
-		// Private constructor to prevent instantiation
+public class StatsUtils {
+	private StatsUtils() {
+	}
+
+	public static DateRange calculateDateRangeLastWeek() {
+		long dateStart = DatesUtils.calculateLastWeekDates().getStartDate();
+		long dateEnd = DatesUtils.calculateLastWeekDates().getEndDate();
+
+		String dateStartStr = StatsUtils.convertDateLongToStr(dateStart);
+		String dateEndStr = StatsUtils.convertDateLongToStr(dateEnd);
+		DateRange dateRangeLastWeek = new DateRange(dateStartStr, dateEndStr);
+
+		return dateRangeLastWeek;
+	}
+
+	public static DateRange calculateDateRangeLastMonth() {
+		long dateStart = DatesUtils.calculateLastMonthDates().getStartDate();
+		long dateEnd = DatesUtils.calculateLastMonthDates().getEndDate();
+
+		String dateStartStr = StatsUtils.convertDateLongToStr(dateStart);
+		String dateEndStr = StatsUtils.convertDateLongToStr(dateEnd);
+		DateRange dateRangeLastMonth = new DateRange(dateStartStr, dateEndStr);
+
+		return dateRangeLastMonth;
 	}
 
 	public static String convertDateToString_ddMMMyyy_hhmma(long date) {
-		// Convert the Unix timestamp (milliseconds) to an Instant
 		Instant instant = Instant.ofEpochSecond(date);
 
-		// Define the desired format (DD-MMM-YYYY)
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a")
 				.withZone(ZoneId.systemDefault());
 		String dateStr = formatter.format(instant);
@@ -37,10 +56,8 @@ public class StatsHelper {
 	}
 
 	public static String convertDateToString_ddMMMyyy(long date) {
-		// Convert the Unix timestamp (milliseconds) to an Instant
 		Instant instant = Instant.ofEpochSecond(date);
 
-		// Define the desired format (DD-MMM-YYYY)
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy").withZone(ZoneId.systemDefault());
 		String dateStr = formatter.format(instant);
 
@@ -72,45 +89,26 @@ public class StatsHelper {
 		}
 	}
 
-	public static UnixDates calculateLastWeekDates() {
-		long unixWeek = 604800;
-		long dateEnd = Instant.now().getEpochSecond();
-		long dateStart = dateEnd - unixWeek;
-		UnixDates unixDates = new UnixDates(dateStart, dateEnd);
-
-		return unixDates;
-	}
-
-	public static UnixDates calculateLastMonthDates() {
-		long unixMonth = 2629746;
-		long dateEnd = Instant.now().getEpochSecond();
-		long dateStart = dateEnd - unixMonth;
-		UnixDates unixDates = new UnixDates(dateStart, dateEnd);
-
-		return unixDates;
-	}
-
-	public static StatsEntryCount calculateEntryCount(int journalEntryCount, int revisionEntryCount,
+	public static EntryCountDTO calculateEntryCount(int journalEntryCount, int revisionEntryCount,
 			int innerWorkEntryCount) {
 		int totalEntryCount = journalEntryCount + revisionEntryCount + innerWorkEntryCount;
-		StatsEntryCount entryCount = new StatsEntryCount(totalEntryCount, journalEntryCount, revisionEntryCount,
+		EntryCountDTO entryCount = new EntryCountDTO(totalEntryCount, journalEntryCount, revisionEntryCount,
 				innerWorkEntryCount);
 
 		return entryCount;
 	}
-	
 
-	public static StatsActivityPerDayOfWeek calculateActivityPerDayOfWeek(
-			StatsActivityPerDayOfWeek activityPerDayOfWeek) {
+	public static ActivityPerDayOfWeekDTO calculateActivityPerDayOfWeek(
+			ActivityPerDayOfWeekDTO activityPerDayOfWeek) {
 		activityPerDayOfWeek.setEntryCounts(activityPerDayOfWeek.getMondayEntryCount(),
 				activityPerDayOfWeek.getTuesdayEntryCount(), activityPerDayOfWeek.getWednesdayEntryCount(),
 				activityPerDayOfWeek.getThursdayEntryCount(), activityPerDayOfWeek.getFridayEntryCount(),
 				activityPerDayOfWeek.getSaturdayEntryCount(), activityPerDayOfWeek.getSundayEntryCount());
 
-		// Caluclate which day of the week has the most ammount of entries
+		// Calculate which day of the week has the most amount of entries
 		activityPerDayOfWeek.setMostActiveDay(calculateDayWithHighestCount(activityPerDayOfWeek));
 
-		// Caluclate the ammount of entries the day of the week with the most ammount of
+		// Calculate how many entries the day of the week with the most amount of
 		// entries has
 		activityPerDayOfWeek.setMostActiveDayN(calculateDayWithHighestCountN(activityPerDayOfWeek));
 
@@ -127,7 +125,7 @@ public class StatsHelper {
 		return days[maxIndex]; // Returns the day with the highest count
 	}
 
-	public static String calculateDayWithHighestCount(StatsActivityPerDayOfWeek activityPerDayOfWeek) {
+	public static String calculateDayWithHighestCount(ActivityPerDayOfWeekDTO activityPerDayOfWeek) {
 		int[] entryCounts = { activityPerDayOfWeek.getMondayEntryCount(), activityPerDayOfWeek.getTuesdayEntryCount(),
 				activityPerDayOfWeek.getWednesdayEntryCount(), activityPerDayOfWeek.getThursdayEntryCount(),
 				activityPerDayOfWeek.getFridayEntryCount(), activityPerDayOfWeek.getSaturdayEntryCount(),
@@ -135,10 +133,10 @@ public class StatsHelper {
 
 		String[] days = { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo" };
 
-		return StatsHelper.calculateMaxEntryDayOfWeek(entryCounts, days);
+		return StatsUtils.calculateMaxEntryDayOfWeek(entryCounts, days);
 	}
 
-	public static int calculateDayWithHighestCountN(StatsActivityPerDayOfWeek activityPerDayOfWeek) {
+	public static int calculateDayWithHighestCountN(ActivityPerDayOfWeekDTO activityPerDayOfWeek) {
 		int mostActiveDayN = 0;
 		int[] entryCounts = { activityPerDayOfWeek.getMondayEntryCount(), activityPerDayOfWeek.getTuesdayEntryCount(),
 				activityPerDayOfWeek.getWednesdayEntryCount(), activityPerDayOfWeek.getThursdayEntryCount(),
@@ -158,7 +156,7 @@ public class StatsHelper {
 		return mostActiveDayN;
 	}
 
-	public static StatsEmotionFrequency calculateEmotionFrequency(StatsEmotionFrequency emotionFrequency) {
+	public static EmotionFrequencyDTO calculateEmotionFrequency(EmotionFrequencyDTO emotionFrequency) {
 		// Create a map to store emotion counts with their names
 		Map<String, Integer> emotionCounts = new HashMap<>();
 		emotionCounts.put("Alegría", emotionFrequency.getEmocionAlegriaCount());
@@ -243,6 +241,4 @@ public class StatsHelper {
 
 		return ratingsAverage;
 	}
-
-
 }

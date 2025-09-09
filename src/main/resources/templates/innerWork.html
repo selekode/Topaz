@@ -50,7 +50,7 @@
                     Trabajo Interno
                 </button>
             </a>
-			<a href="/stats/load" class="block w-full">
+            <a href="/stats/load" class="block w-full">
                 <button
                     class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
                     Estadísticas
@@ -118,7 +118,9 @@
                     </p>
 
                     <!-- Show the tag name by matching tag.id == innerWorkEntry.tagID -->
-                    <p class="text-l mb-4 text-[#23A3BB]" th:text="${tagMap[innerWorkEntry.tagID]}">Etiqueta</p>
+                    <div th:each="innerWorkEntry : ${innerWorkEntries}">
+                        <p class="text-l mb-4 text-[#23A3BB]" th:text="${tagMap[innerWorkEntry.tagID]}">Etiqueta</p>
+                    </div>
                     <h2 class="text-2xl font-bold mb-4 text-white" th:text="${innerWorkEntry.title}"></h2>
 
                     <!-- Content to Show/Hide -->

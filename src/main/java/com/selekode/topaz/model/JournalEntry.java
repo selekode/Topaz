@@ -1,8 +1,30 @@
 package com.selekode.topaz.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+
+import java.time.LocalDate;
+
+import com.selekode.topaz.converter.LocalDateUnixSecondsConverter;
+
+@Entity
+@Table(name = "journal")
 public class JournalEntry {
-	private int id;
-	private String date;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	// Stores as Unix seconds in DB, used as LocalDate in Java
+	@Convert(converter = LocalDateUnixSecondsConverter.class)
+	@Column(name = "date", nullable = false)
+	private LocalDate date;
+
 	private String title;
 	private String contentGeneral;
 	private String contentSaludFisica;
@@ -17,19 +39,45 @@ public class JournalEntry {
 	private String contentContribucionLegado;
 	private String contentErroresCometidos;
 
-	public int getId() {
+	// Default constructor required by JPA
+	public JournalEntry() {
+	}
+
+	// Optional: constructor with all fields except ID
+	/*
+	 * public JournalEntry(LocalDate date, String title, String contentGeneral,
+	 * String contentSaludFisica, String contentBienestarMental, String
+	 * contentRelacionesSociales, String contentCarreraProfesional, String
+	 * contentEstabilidadFinanciera, String contentCrecimientoPersonal, String
+	 * contentPasatiemposCreatividad, String contentEspiritualidadProposito, String
+	 * contentRecreacionDiversion, String contentContribucionLegado, String
+	 * contentErroresCometidos) { this.date = date; this.title = title;
+	 * this.contentGeneral = contentGeneral; this.contentSaludFisica =
+	 * contentSaludFisica; this.contentBienestarMental = contentBienestarMental;
+	 * this.contentRelacionesSociales = contentRelacionesSociales;
+	 * this.contentCarreraProfesional = contentCarreraProfesional;
+	 * this.contentEstabilidadFinanciera = contentEstabilidadFinanciera;
+	 * this.contentCrecimientoPersonal = contentCrecimientoPersonal;
+	 * this.contentPasatiemposCreatividad = contentPasatiemposCreatividad;
+	 * this.contentEspiritualidadProposito = contentEspiritualidadProposito;
+	 * this.contentRecreacionDiversion = contentRecreacionDiversion;
+	 * this.contentContribucionLegado = contentContribucionLegado;
+	 * this.contentErroresCometidos = contentErroresCometidos; }
+	 */
+	// Getters and setters
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
@@ -136,28 +184,4 @@ public class JournalEntry {
 	public void setContentErroresCometidos(String contentErroresCometidos) {
 		this.contentErroresCometidos = contentErroresCometidos;
 	}
-
-	public JournalEntry(int id, String date, String title, String contentGeneral, String contentSaludFisica,
-			String contentBienestarMental, String contentRelacionesSociales, String contentCarreraProfesional,
-			String contentEstabilidadFinanciera, String contentCrecimientoPersonal,
-			String contentPasatiemposCreatividad, String contentEspiritualidadProposito,
-			String contentRecreacionDiversion, String contentContribucionLegado, String contentErroresCometidos) {
-		super();
-		this.id = id;
-		this.date = date;
-		this.title = title;
-		this.contentGeneral = contentGeneral;
-		this.contentSaludFisica = contentSaludFisica;
-		this.contentBienestarMental = contentBienestarMental;
-		this.contentRelacionesSociales = contentRelacionesSociales;
-		this.contentCarreraProfesional = contentCarreraProfesional;
-		this.contentEstabilidadFinanciera = contentEstabilidadFinanciera;
-		this.contentCrecimientoPersonal = contentCrecimientoPersonal;
-		this.contentPasatiemposCreatividad = contentPasatiemposCreatividad;
-		this.contentEspiritualidadProposito = contentEspiritualidadProposito;
-		this.contentRecreacionDiversion = contentRecreacionDiversion;
-		this.contentContribucionLegado = contentContribucionLegado;
-		this.contentErroresCometidos = contentErroresCometidos;
-	}
-
 }

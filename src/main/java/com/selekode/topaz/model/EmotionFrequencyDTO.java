@@ -1,6 +1,6 @@
 package com.selekode.topaz.model;
 
-public class StatsEmotionFrequency {
+public class EmotionFrequencyDTO {
 	private int emocionAlegriaCount;
 	private int emocionTristezaCount;
 	private int emocionIraCount;
@@ -168,7 +168,7 @@ public class StatsEmotionFrequency {
 	public void setTopEmotion4Count(int topEmotion4Count) {
 		this.topEmotion4Count = topEmotion4Count;
 	}
-	public StatsEmotionFrequency(int emocionAlegriaCount, int emocionTristezaCount, int emocionIraCount,
+	public EmotionFrequencyDTO(int emocionAlegriaCount, int emocionTristezaCount, int emocionIraCount,
 			int emocionMiedoCount, int emocionAnsiedadCount, int emocionAmorCount, int emocionSorpresaCount,
 			int emocionVerguenzaCount, int emocionFrustracionCount, int emocionSatisfaccionCount,
 			int emocionAburrimientoCount, int emocionSerenidadCount, int emocionConfianzaCount, int emocionAbrumadoCount,

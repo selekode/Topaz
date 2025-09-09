@@ -1,10 +1,10 @@
 package com.selekode.topaz.model;
 
-public class StatsDateRange {
+public class DateRange {
 	private String startDate;
 	private String endDate;
 
-	public StatsDateRange(String startDate, String endDate) {
+	public DateRange(String startDate, String endDate) {
 		super();
 		this.startDate = startDate;
 		this.endDate = endDate;

@@ -2,6 +2,7 @@ package com.selekode.topaz.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.selekode.topaz.model.InnerWorkTag;
@@ -9,27 +10,33 @@ import com.selekode.topaz.repository.InnerWorkTagRepository;
 
 @Service
 public class InnerWorkTagService {
-	public static List<InnerWorkTag> selectAllTags() {
-		List<InnerWorkTag> innerWorkTags = InnerWorkTagRepository.selectAllInnerWorkTags();
-		
-		return innerWorkTags;
+	private final InnerWorkTagRepository innerWorkTagRepository;
+	
+	public InnerWorkTagService(InnerWorkTagRepository innerWorkTagRepository) {
+		this.innerWorkTagRepository = innerWorkTagRepository;
 	}
 	
-	public static InnerWorkTag selectTag(int id) {
-		InnerWorkTag innerWorkTag = InnerWorkTagRepository.selectInnerWorkTag(id);
-		
-		return innerWorkTag;
+	public List<InnerWorkTag> getAll(){
+		return innerWorkTagRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
 	}
 	
-	public static void insertTag(InnerWorkTag tag) {
-		InnerWorkTagRepository.insertInnerWorkTag(tag);
-	}
-	public static void updateTag(int id, InnerWorkTag tag) {
-		InnerWorkTagRepository.updateInnerWorkTag(id, tag);
+	public InnerWorkTag getById(Long id) {
+		return innerWorkTagRepository.findById(id).orElse(null);
 	}
 	
-	public static void deleteTag(int id) {
-		InnerWorkTagRepository.deleteInnerWorkTag(id);
+	public InnerWorkTag save(InnerWorkTag innerWorkTag) {
+		return innerWorkTagRepository.save(innerWorkTag);
 	}
-
+	
+	public InnerWorkTag update(Long id, InnerWorkTag updatedInnerWorkTag) {
+		return innerWorkTagRepository.findById(id).map(existing -> {
+			existing.setName(updatedInnerWorkTag.getName());
+			return innerWorkTagRepository.save(existing);
+			
+		}).orElseThrow(() -> new IllegalArgumentException("Entry not found: " + id));
+	}
+	
+	public void delete(Long id) {
+		innerWorkTagRepository.deleteById(id);
+	}
 }
