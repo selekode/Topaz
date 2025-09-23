@@ -4,7 +4,7 @@
   "description": "**Topaz** is an app designed to help you easily record your thoughts, emotions, and personal goals. Through journal entries, you can reflect on your day and track your well-being.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:css": "tailwindcss -i ./src/main/resources/static/css/tailwind.css -o ./src/main/resources/static/css/output.css --watch"
   },
   "repository": {
     "type": "git",
@@ -23,10 +23,7 @@
     "tailwindcss": "^4.1.10"
   },
   "dependencies": {
-    "@tailwindcss/cli": "^4.1.10"
-  },
-  "scripts": {
-  "build:css": "tailwindcss -i ./src/main/resources/static/css/tailwind.css -o ./src/main/resources/static/css/output.css --watch"
-}
-
+    "@tailwindcss/cli": "^4.1.10",
+    "react-router-dom": "^7.9.1"
+  }
 }
