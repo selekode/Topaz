@@ -2,6 +2,8 @@ package com.selekode.topaz.service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -11,52 +13,116 @@ import com.selekode.topaz.repository.JournalRepository;
 
 @Service
 public class JournalService {
-	
+
 	private final JournalRepository journalRepository;
+	private final EntryEncryptionService entryEncryptionService;
 
-    public JournalService(JournalRepository journalRepository) {
-        this.journalRepository = journalRepository;
-    }
+	public JournalService(JournalRepository journalRepository, EntryEncryptionService entryEncryptionService) {
+		this.journalRepository = journalRepository;
+		this.entryEncryptionService = entryEncryptionService;
+	}
 
-    public List<JournalEntry> getAll() {
-        return journalRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
-    }
+	private JournalEntry encryptEntry(JournalEntry entry) {
+		try {
+			entry.setTitle(entryEncryptionService.encryptText(entry.getTitle()));
+			entry.setContentGeneral(entryEncryptionService.encryptText(entry.getContentGeneral()));
+			entry.setContentSaludFisica(entryEncryptionService.encryptText(entry.getContentSaludFisica()));
+			entry.setContentBienestarMental(entryEncryptionService.encryptText(entry.getContentBienestarMental()));
+			entry.setContentRelacionesSociales(
+					entryEncryptionService.encryptText(entry.getContentRelacionesSociales()));
+			entry.setContentCarreraProfesional(
+					entryEncryptionService.encryptText(entry.getContentCarreraProfesional()));
+			entry.setContentEstabilidadFinanciera(
+					entryEncryptionService.encryptText(entry.getContentEstabilidadFinanciera()));
+			entry.setContentCrecimientoPersonal(
+					entryEncryptionService.encryptText(entry.getContentCrecimientoPersonal()));
+			entry.setContentPasatiemposCreatividad(
+					entryEncryptionService.encryptText(entry.getContentPasatiemposCreatividad()));
+			entry.setContentEspiritualidadProposito(
+					entryEncryptionService.encryptText(entry.getContentEspiritualidadProposito()));
+			entry.setContentRecreacionDiversion(
+					entryEncryptionService.encryptText(entry.getContentRecreacionDiversion()));
+			entry.setContentContribucionLegado(
+					entryEncryptionService.encryptText(entry.getContentContribucionLegado()));
+			entry.setContentErroresCometidos(entryEncryptionService.encryptText(entry.getContentErroresCometidos()));
+		} catch (Exception e) {
+			e.printStackTrace(); // or use a logger
+		}
+		return entry;
+	}
 
-    public JournalEntry getById(Long id) {
-        return journalRepository.findById(id).orElse(null);
-    }
+	private JournalEntry decryptEntry(JournalEntry entry) {
+		try {
+			entry.setTitle(entryEncryptionService.decryptText(entry.getTitle()));
+			entry.setContentGeneral(entryEncryptionService.decryptText(entry.getContentGeneral()));
+			entry.setContentSaludFisica(entryEncryptionService.decryptText(entry.getContentSaludFisica()));
+			entry.setContentBienestarMental(entryEncryptionService.decryptText(entry.getContentBienestarMental()));
+			entry.setContentRelacionesSociales(
+					entryEncryptionService.decryptText(entry.getContentRelacionesSociales()));
+			entry.setContentCarreraProfesional(
+					entryEncryptionService.decryptText(entry.getContentCarreraProfesional()));
+			entry.setContentEstabilidadFinanciera(
+					entryEncryptionService.decryptText(entry.getContentEstabilidadFinanciera()));
+			entry.setContentCrecimientoPersonal(
+					entryEncryptionService.decryptText(entry.getContentCrecimientoPersonal()));
+			entry.setContentPasatiemposCreatividad(
+					entryEncryptionService.decryptText(entry.getContentPasatiemposCreatividad()));
+			entry.setContentEspiritualidadProposito(
+					entryEncryptionService.decryptText(entry.getContentEspiritualidadProposito()));
+			entry.setContentRecreacionDiversion(
+					entryEncryptionService.decryptText(entry.getContentRecreacionDiversion()));
+			entry.setContentContribucionLegado(
+					entryEncryptionService.decryptText(entry.getContentContribucionLegado()));
+			entry.setContentErroresCometidos(entryEncryptionService.decryptText(entry.getContentErroresCometidos()));
+		} catch (Exception e) {
+			e.printStackTrace(); // or use a logger
+		}
+		return entry;
+	}
 
-    public JournalEntry save(JournalEntry journalEntry) {
-    	if (journalEntry.getDate() == null) {
-            journalEntry.setDate(LocalDate.now());
-        }
-        return journalRepository.save(journalEntry);
-    }
-    
-    public JournalEntry update(Long id, JournalEntry updatedJournalEntry) {
-        return journalRepository.findById(id)
-                .map(existing -> {
-                    existing.setDate(updatedJournalEntry.getDate());
-                    existing.setTitle(updatedJournalEntry.getTitle());
-                    existing.setContentGeneral(updatedJournalEntry.getContentGeneral());
-                    existing.setContentSaludFisica(updatedJournalEntry.getContentSaludFisica());
-                    existing.setContentBienestarMental(updatedJournalEntry.getContentBienestarMental());
-                    existing.setContentRelacionesSociales(updatedJournalEntry.getContentRelacionesSociales());
-                    existing.setContentCarreraProfesional(updatedJournalEntry.getContentCarreraProfesional());
-                    existing.setContentEstabilidadFinanciera(updatedJournalEntry.getContentEstabilidadFinanciera());
-                    existing.setContentCrecimientoPersonal(updatedJournalEntry.getContentCrecimientoPersonal());
-                    existing.setContentPasatiemposCreatividad(updatedJournalEntry.getContentPasatiemposCreatividad());
-                    existing.setContentEspiritualidadProposito(updatedJournalEntry.getContentEspiritualidadProposito());
-                    existing.setContentRecreacionDiversion(updatedJournalEntry.getContentRecreacionDiversion());
-                    existing.setContentContribucionLegado(updatedJournalEntry.getContentContribucionLegado());
-                    existing.setContentErroresCometidos(updatedJournalEntry.getContentErroresCometidos());
-                    return journalRepository.save(existing);
-                })
-                .orElseThrow(() -> new IllegalArgumentException("Entry not found: " + id));
-    }
+	/*
+	 * public List<JournalEntry> getAll() { return
+	 * journalRepository.findAll(Sort.by(Sort.Direction.DESC, "date")); }
+	 */
 
-    
-    public void delete(Long id) {
-        journalRepository.deleteById(id);
-    }
+	public List<JournalEntry> getAll() {
+		return journalRepository.findAll(Sort.by(Sort.Direction.DESC, "date")).stream().map(this::decryptEntry)
+				.collect(Collectors.toList());
+	}
+
+	/*
+	 * public JournalEntry getById(Long id) { return
+	 * journalRepository.findById(id).orElse(null); }
+	 */
+
+	public Optional<JournalEntry> findById(Long id) {
+		return journalRepository.findById(id).map(this::decryptEntry);
+	}
+
+	public void save(JournalEntry entry) throws Exception {
+		if (entry.getDate() == null) {
+	        entry.setDate(LocalDate.now()); // default to today
+	    }
+		journalRepository.save(encryptEntry(entry));
+	}
+
+	public JournalEntry update(Long id, JournalEntry updatedJournalEntry) {
+		
+	    return journalRepository.findById(id).map(existing -> {
+	        // preserve ID and date (if needed)
+	        updatedJournalEntry.setId(existing.getId());
+
+	        // encrypt before saving
+	        JournalEntry encrypted = encryptEntry(updatedJournalEntry);
+	        JournalEntry saved = journalRepository.save(encrypted);
+
+	        // decrypt before returning
+	        return decryptEntry(saved);
+	    }).orElseThrow(() -> new IllegalArgumentException("Entry not found: " + id));
+	}
+
+
+	public void delete(Long id) {
+		journalRepository.deleteById(id);
+	}
 }
