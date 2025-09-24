@@ -1,11 +1,15 @@
 package com.selekode.topaz.controller;
 
+import java.security.NoSuchAlgorithmException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.selekode.topaz.model.Settings;
 import com.selekode.topaz.repository.SettingsRepository;
+import com.selekode.topaz.service.EntryEncryptionService;
+import com.selekode.topaz.service.JournalService;
 import com.selekode.topaz.utils.PasswordUtils;
 
 import jakarta.servlet.http.HttpSession;
@@ -15,6 +19,12 @@ public class LoginController {
 
     @Autowired
     private SettingsRepository settingsRepo;
+    
+    private final EntryEncryptionService entryEncryptionService;
+
+	public LoginController(EntryEncryptionService entryEncryptionService) {
+		this.entryEncryptionService = entryEncryptionService;
+	}
 
     @GetMapping("/login")
     public String loginPage() {
@@ -44,12 +54,17 @@ public class LoginController {
 
     @PostMapping("/setupPassword")
     public String setupPassword(@RequestParam String password, 
-                                @RequestParam String confirm) {
+                                @RequestParam String confirm) throws NoSuchAlgorithmException {
         if (!password.equals(confirm)) {
             return "redirect:/setupPassword?error";
         }
         String hash = PasswordUtils.hashPassword(password);
         settingsRepo.save(new Settings("passwordHash", hash));
+
+        entryEncryptionService.generateKey();
+        
+        //Generate entries Encryption Key
+        
         return "redirect:/login";
     }
 

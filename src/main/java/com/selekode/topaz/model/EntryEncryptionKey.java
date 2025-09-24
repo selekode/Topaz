@@ -1,16 +1,18 @@
 package com.selekode.topaz.model;
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "entry_encryption_key")
 public class EntryEncryptionKey {
-
-    @Id
-    private Long id = 1L; // Only one row for the key
-
-    @Column(length = 512)
-    private String encryptedKey;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String key;
 
 	public Long getId() {
 		return id;
@@ -20,13 +22,12 @@ public class EntryEncryptionKey {
 		this.id = id;
 	}
 
-	public String getEncryptedKey() {
-		return encryptedKey;
+	public String getKey() {
+		return key;
 	}
 
-	public void setEncryptedKey(String encryptedKey) {
-		this.encryptedKey = encryptedKey;
+	public void setKey(String key) {
+		this.key = key;
 	}
-    
-    
+
 }

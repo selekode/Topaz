@@ -37,7 +37,7 @@ public class JournalController {
 	}
 
 	@PostMapping("/saveEntry")
-	public String saveNewEntry(@ModelAttribute JournalEntry journalEntry) {
+	public String saveNewEntry(@ModelAttribute JournalEntry journalEntry) throws Exception {
 		journalService.save(journalEntry);
 
 		return "redirect_journal";
@@ -45,7 +45,9 @@ public class JournalController {
 
 	@GetMapping("/editEntry/{id}")
 	public String loadPageEditEntry(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("journalEntry", journalService.getById(id));
+		JournalEntry journalEntry = journalService.findById(id)
+		        .orElseThrow(() -> new IllegalArgumentException("Entry not found: " + id));
+		    model.addAttribute("journalEntry", journalEntry);
 
 		return "journal_editEntry";
 	}
