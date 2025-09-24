@@ -15,7 +15,9 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
+    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4">
+
+
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
@@ -29,43 +31,43 @@
             <!-- Rounded buttons for other actions -->
             <a href="/dashboard/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 hover:button-secondary-bg">
                     Inicio
                 </button>
             </a>
             <a href="/journal/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
+                    class="w-full text-left py-2 px-4 button-secondary-bg rounded-md transition-colors duration-300 hover:button-bg ">
                     Diario
                 </button>
             </a>
             <a href="/revision/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 hover:button-secondary-bg">
                     Revisión
                 </button>
             </a>
             <a href="/innerwork/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 hover:button-secondary-bg">
                     Trabajo Interno
                 </button>
             </a>
             <a href="/stats/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 hover:button-secondary-bg">
                     Estadísticas
                 </button>
             </a>
             <a href="/meditacion/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 hover:button-secondary-bg">
                     Meditación
                 </button>
             </a>
             <a href="/about" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A]">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 hover:button-secondary-bg">
                     Sobre Topaz
                 </button>
             </a>
@@ -75,17 +77,17 @@
     </div>
 
     <!-- Main content -->
-    <div class="flex-grow bg-[#0F2529] p-6 main-content">
+    <div class="flex-grow bg-background p-6 main-content">
         <main class="container mx-auto mt-6 p-4">
-            <h1 class="text-2xl font-bold mb-4 text-white">Diario</h1>
+            <h1 class="text-2xl font-bold mb-4 text-textPrimary">Diario</h1>
 
-            <div data-aos="fade-left" class="bg-[#172E38] p-6 rounded-2xl shadow-xl flex flex-col justify-between">
+            <div data-aos="fade-left" class="bg-surface p-6 rounded-xl shadow-md flex flex-col justify-between">
                 <div class="mb-4 relative flex justify-center items-center">
                     <a href="/journal/load"
-                        class="absolute left-0 text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">
+                        class="absolute left-0 text-textPrimary button-bg  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">
                         Atrás
                     </a>
-                    <h2 class="text-xl text-white font-bold select-none">
+                    <h2 class="text-xl text-textPrimary font-bold select-none">
                         Añadir Entrada al Diario
                     </h2>
                 </div>
@@ -98,20 +100,20 @@
 
                     <!-- Title -->
                     <input type="text" name="title" id="title"
-                        class="text-2xl font-bold mb-6 w-full bg-[#0F2529] text-white p-3 rounded-lg"
+                        class="text-2xl font-bold mb-6 w-full bg-background text-textPrimary p-3 rounded-lg"
                         placeholder="Título" th:value="${journalEntry.title}" />
 
                     <!-- General -->
                     <label for="contentGeneral" class="text-[#23A3BB] text-lg font-semibold mb-2 block">General</label>
                     <textarea name="contentGeneral" id="contentGeneral"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentGeneral}" placeholder="¿Qué has hecho hoy?"></textarea>
 
                     <!-- Salud Física -->
                     <label for="contentSaludFisica" class="text-[#23A3BB] text-lg font-semibold mb-2 block">Salud
                         Física</label>
                     <textarea name="contentSaludFisica" id="contentSaludFisica"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentSaludFisica}"
                         placeholder="Hoy he ido al gimnasio..."></textarea>
 
@@ -119,14 +121,14 @@
                     <label for="contentBienestarMental"
                         class="text-[#23A3BB] text-lg font-semibold mb-2 block">Bienestar Mental</label>
                     <textarea name="contentBienestarMental" id="contentBienestarMental"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentBienestarMental}" placeholder="Hoy he meditado..."></textarea>
 
                     <!-- Relaciones Sociales -->
                     <label for="contentRelacionesSociales"
                         class="text-[#23A3BB] text-lg font-semibold mb-2 block">Relaciones Sociales</label>
                     <textarea name="contentRelacionesSociales" id="contentRelacionesSociales"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentRelacionesSociales}"
                         placeholder="Hoy he pasado tiempo con mi familia y amigos..."></textarea>
 
@@ -134,7 +136,7 @@
                     <label for="contentCarreraProfesional"
                         class="text-[#23A3BB] text-lg font-semibold mb-2 block">Carrera Profesional</label>
                     <textarea name="contentCarreraProfesional" id="contentCarreraProfesional"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentCarreraProfesional}"
                         placeholder="Hoy he trabajado en..."></textarea>
 
@@ -142,7 +144,7 @@
                     <label for="contentEstabilidadFinanciera"
                         class="text-[#23A3BB] text-lg font-semibold mb-2 block">Estabilidad Financiera</label>
                     <textarea name="contentEstabilidadFinanciera" id="contentEstabilidadFinanciera"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentEstabilidadFinanciera}"
                         placeholder="Hoy he ganado... Hoy he gastado..."></textarea>
 
@@ -150,14 +152,14 @@
                     <label for="contentCrecimientoPersonal"
                         class="text-[#23A3BB] text-lg font-semibold mb-2 block">Crecimiento Personal</label>
                     <textarea name="contentCrecimientoPersonal" id="contentCrecimientoPersonal"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentCrecimientoPersonal}" placeholder="Hoy he leído..."></textarea>
 
                     <!-- Pasatiempos y Creatividad -->
                     <label for="contentPasatiemposCreatividad"
                         class="text-[#23A3BB] text-lg font-semibold mb-2 block">Pasatiempos y Creatividad</label>
                     <textarea name="contentPasatiemposCreatividad" id="contentPasatiemposCreatividad"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentPasatiemposCreatividad}"
                         placeholder="Hoy he hecho música... Hoy he dibujado..."></textarea>
 
@@ -165,7 +167,7 @@
                     <label for="contentEspiritualidadProposito"
                         class="text-[#23A3BB] text-lg font-semibold mb-2 block">Espiritualidad y Propósito</label>
                     <textarea name="contentEspiritualidadProposito" id="contentEspiritualidadProposito"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentEspiritualidadProposito}"
                         placeholder="Hoy he reflexionado sobre..."></textarea>
 
@@ -173,7 +175,7 @@
                     <label for="contentRecreacionDiversion"
                         class="text-[#23A3BB] text-lg font-semibold mb-2 block">Recreación y Diversión</label>
                     <textarea name="contentRecreacionDiversion" id="contentRecreacionDiversion"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentRecreacionDiversion}"
                         placeholder="Hoy he jugado a..."></textarea>
 
@@ -181,7 +183,7 @@
                     <label for="contentContribucionLegado"
                         class="text-[#23A3BB] text-lg font-semibold mb-2 block">Contribución y Legado</label>
                     <textarea name="contentContribucionLegado" id="contentContribucionLegado"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentContribucionLegado}"
                         placeholder="Hoy he ayudado a... Hoy he enseñado a..."></textarea>
 
@@ -189,7 +191,7 @@
                     <label for="contentErroresCometidos" class="text-[#23A3BB] text-lg font-semibold mb-2 block">Errores
                         Cometidos</label>
                     <textarea name="contentErroresCometidos" id="contentErroresCometidos"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-[#0F2529] text-base text-white mb-6"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentErroresCometidos}" placeholder="Hoy he hecho mal..."></textarea>
 
                     <!-- Hidden fields -->
@@ -199,7 +201,7 @@
                     <!-- Submit button -->
                     <div class="mt-6 flex">
                         <button type="submit" id="saveButton"
-                            class="ml-auto text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">
+                            class="ml-auto text-textPrimary button-bg  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">
                             Guardar
                         </button>
                     </div>
@@ -211,11 +213,11 @@
             <div x-data="{ open: false }">
                 <!-- Content controlled by x-show -->
                 <div>
-                    <div class="bg-[#172E38] p-6 rounded-2xl mt-4 shadow-xl" data-aos="fade-up">
+                    <div class="bg-surface p-6 rounded-xl mt-4 shadow-md" data-aos="fade-up">
                         <p class="text-lg font-bold mb-4" style="color: #23A3BB;">
                             Áreas Claves para una Vida Equilibrada
                         </p>
-                        <p class="text-base mb-4 text-white">
+                        <p class="text-base mb-4 text-textPrimary">
                             Para ser feliz y estar bien equilibrado, es importante explorar y
                             equilibrar diferentes áreas de la vida. Intenta mejorar en todas las áreas cada día, pero no
                             te
@@ -224,76 +226,76 @@
 
                         <!-- Show/Hide Button -->
                         <button @click="open = !open"
-                            class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                            class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
                             <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                         </button>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4" x-show="open" x-collapse>
                             <!-- Salud Física -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
                                 <p class="text-xl font-bold mb-4">Salud Física</p>
                                 <p class="text-base">Ejercicio regular, nutrición adecuada, descanso y bienestar físico.
                                 </p>
                             </div>
 
                             <!-- Bienestar Mental -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
                                 <p class="text-xl font-bold mb-4">Bienestar Mental</p>
                                 <p class="text-base">Mindfulness, meditación, manejo del estrés y desarrollo emocional.
                                 </p>
                             </div>
 
                             <!-- Relaciones Sociales -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
                                 <p class="text-xl font-bold mb-4">Relaciones Sociales</p>
                                 <p class="text-base">Construir amistades, fortalecer los lazos familiares y participar
                                     en la comunidad.</p>
                             </div>
 
                             <!-- Carrera Profesional -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
                                 <p class="text-xl font-bold mb-4">Carrera Profesional</p>
                                 <p class="text-base">Desarrollo de habilidades, alcanzar metas profesionales y mantener
                                     una carrera satisfactoria.</p>
                             </div>
 
                             <!-- Estabilidad Financiera -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
                                 <p class="text-xl font-bold mb-4">Estabilidad Financiera</p>
                                 <p class="text-base">Presupuesto, ahorro e inversión para la seguridad y bienestar
                                     financiero.</p>
                             </div>
 
                             <!-- Crecimiento Personal -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
                                 <p class="text-xl font-bold mb-4">Crecimiento Personal</p>
                                 <p class="text-base">Lectura, aprendizaje continuo y reflexión personal para el
                                     auto-descubrimiento.</p>
                             </div>
 
                             <!-- Pasatiempos y Creatividad -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
                                 <p class="text-xl font-bold mb-4">Pasatiempos y Creatividad</p>
                                 <p class="text-base">Explorar intereses y actividades creativas que fomenten la
                                     diversión y la relajación.</p>
                             </div>
 
                             <!-- Espiritualidad y Propósito -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
                                 <p class="text-xl font-bold mb-4">Espiritualidad y Propósito</p>
                                 <p class="text-base">Conectar con el sentido de vida, gratitud y reflexionar sobre el
                                     propósito.</p>
                             </div>
 
                             <!-- Recreación y Diversión -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
                                 <p class="text-xl font-bold mb-4">Recreación y Diversión</p>
                                 <p class="text-base">Disfrutar de actividades recreativas, viajes y momentos de
                                     diversión.</p>
                             </div>
 
                             <!-- Contribución y Legado -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-white">
+                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
                                 <p class="text-xl font-bold mb-4">Contribución y Legado</p>
                                 <p class="text-base">Dejar un impacto positivo en los demás. Enseñar a los demás.
                                     Ejercer mentoría.</p>

@@ -7,7 +7,7 @@
 }
 
 html {
-    background-color: #0F2529 !important;
+    background-color: #fff !important;
 }
 
 /* Show elements once AOS is initialized */
@@ -17,7 +17,7 @@ html {
 
 body {
     font-family: "Roboto", sans-serif !important;
-    background-color: #0F2529 !important;
+    background-color: #fff !important;
 }
 
 
@@ -80,4 +80,75 @@ canvas {
 @font-face {
   font-family: 'Inter';
   src: url('./fonts/Inter.ttf') format('truetype');
+}
+
+.bg-surface {
+    background-color: #F2F2F5;
+}
+
+.bg-background {
+    background-color: #fff;
+}
+
+.border {
+    border-color: #D1D1D6;
+}
+
+.text-textPrimary {
+color: #1C1C1E;
+
+}
+
+.text-textSecondary {
+color: #3C3C43;
+
+}
+
+.text-accent {
+color: #0d7373 ;
+
+}
+
+.button-bg {
+    background-color: #23A3BB;
+}
+
+.button-bg:hover {
+    background-color: #1A8F9A;
+}
+
+.button-sidebar {
+    background-color: transparent;
+}
+
+.button-sidebar:hover {
+    background-color: #c3dadf;
+}
+
+.button-secondary-bg {
+    background-color: #c3dadf;
+    border: #D1D1D6;
+}
+
+.button-secondary-bg:hover {
+    background-color: #E5E5EA;
+}
+
+.button-delete-bg {
+    background-color: transparent;
+    border: #FF3B30 !important;
+}
+
+.button-delete-bg:hover {
+    background-color: #FFECEC;
+}
+
+.text-alert {
+    color: #FF453A;
+
+}
+
+.text-success {
+color: #32D74B;
+
 }

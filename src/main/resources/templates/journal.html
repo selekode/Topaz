@@ -14,7 +14,8 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
+    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4">
+
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
@@ -28,43 +29,43 @@
             <!-- Rounded buttons for other actions -->
             <a href="/dashboard/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Inicio
                 </button>
             </a>
             <a href="/journal/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB] select-none">
+                    class="w-full text-left py-2 px-4 button-secondary-bg rounded-md transition-colors duration-300 hover:button-bg  select-none">
                     Diario
                 </button>
             </a>
             <a href="/revision/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Revisión
                 </button>
             </a>
             <a href="/innerwork/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Trabajo Interno
                 </button>
             </a>			
             <a href="/stats/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Estadísticas
                 </button>
             </a>
             <a href="/meditacion/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Meditación
                 </button>
             </a>
             <a href="/about" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Sobre Topaz
                 </button>
             </a>
@@ -75,37 +76,37 @@
 
 
     <!-- Main content -->
-    <div class="main-content  flex-grow bg-[#0F2529] p-6">
+    <div class="main-content  flex-grow bg-background p-6">
         <main class="container mx-auto mt-6 p-4">
-            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white select-none">Diario</h1>
+            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-textPrimary select-none">Diario</h1>
             <div class="flex justify-end items-center mt-4 mb-4">
                 <a href="/journal/addEntry" class="text-sm text-teal-600 font-medium hover:underline">
                     <button
-                        class="ml-auto text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Añadir</button>
+                        class="ml-auto text-textPrimary button-bg  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">Añadir</button>
                 </a>
             </div>
 
 
             <!-- Iterate over journal entries -->
             <div data-aos="fade-up" th:each="journalEntry : ${journalEntries}" x-data="{ open: false }"
-                class="relative bg-[#172E38] p-6 rounded-2xl shadow-xl mb-6">
+                class="relative bg-surface p-6 rounded-xl shadow-md mb-6">
                 <!-- Buttons Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
                         <!-- Show/Hide Button -->
                         <button @click="open = !open"
-                            class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                            class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
                             <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                         </button>
 
                     <!-- Edit button -->
                     <a th:href="@{/journal/editEntry/{id}(id=${journalEntry.id})}"
-                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
                         Editar
                     </a>
 
                     <!-- Delete button -->
                     <button th:attr="onclick='openModal(' + ${journalEntry.id} + ')'"
-                        class="px-4 py-2 rounded-full bg-[#E74C3C] text-white text-sm transition hover:bg-[#D63C2D]">
+                        class="px-4 py-2 rounded-md button-delete-bg text-textPrimary text-sm transition">
                         Eliminar
                     </button>
                 </div>
@@ -114,24 +115,24 @@
                 <div class="mr-4">
                     <!-- Date -->
                     <p class="text-lg  font-bold mb-4" style="color: #23A3BB;" th:text="${journalEntry.date}"></p>
-                    <h2 class="text-2xl font-bold mb-4 text-white" th:text="${journalEntry.title}"></h2>
+                    <h2 class="text-2xl font-bold mb-4 text-textPrimary" th:text="${journalEntry.title}"></h2>
 
                     <!-- Content to Show/Hide -->
                     <div x-show="open" x-collapse>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentGeneral}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentSaludFisica}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentBienestarMental}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentRelacionesSociales}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentCarreraProfesional}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentEstabilidadFinanciera}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentCrecimientoPersonal}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentPasatiemposCreatividad}">
+                        <p class="text-base mb-4 text-textPrimary" th:text="${journalEntry.contentGeneral}"></p>
+                        <p class="text-base mb-4 text-textPrimary" th:text="${journalEntry.contentSaludFisica}"></p>
+                        <p class="text-base mb-4 text-textPrimary" th:text="${journalEntry.contentBienestarMental}"></p>
+                        <p class="text-base mb-4 text-textPrimary" th:text="${journalEntry.contentRelacionesSociales}"></p>
+                        <p class="text-base mb-4 text-textPrimary" th:text="${journalEntry.contentCarreraProfesional}"></p>
+                        <p class="text-base mb-4 text-textPrimary" th:text="${journalEntry.contentEstabilidadFinanciera}"></p>
+                        <p class="text-base mb-4 text-textPrimary" th:text="${journalEntry.contentCrecimientoPersonal}"></p>
+                        <p class="text-base mb-4 text-textPrimary" th:text="${journalEntry.contentPasatiemposCreatividad}">
                         </p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentEspiritualidadProposito}">
+                        <p class="text-base mb-4 text-textPrimary" th:text="${journalEntry.contentEspiritualidadProposito}">
                         </p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentRecreacionDiversion}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentContribucionLegado}"></p>
-                        <p class="text-base mb-4 text-white" th:text="${journalEntry.contentErroresCometidos}"></p>
+                        <p class="text-base mb-4 text-textPrimary" th:text="${journalEntry.contentRecreacionDiversion}"></p>
+                        <p class="text-base mb-4 text-textPrimary" th:text="${journalEntry.contentContribucionLegado}"></p>
+                        <p class="text-base mb-4 text-textPrimary" th:text="${journalEntry.contentErroresCometidos}"></p>
                     </div>
                 </div>
             </div>
@@ -140,15 +141,15 @@
             <div id="confirmModal"
                 class="modal hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
                 <div class="modal-content rounded-lg p-6">
-                    <h3 class="text-lg text-justify text-white font-bold mb-4 select-none">¿Seguro que quieres eliminar
+                    <h3 class="text-lg text-justify text-textPrimary font-bold mb-4 select-none">¿Seguro que quieres eliminar
                         está entrada del diario?</h3>
                     <form id="deleteForm" method="post" action="deleteEntry">
                         <input type="hidden" id="journalId" name="id" />
                         <button type="submit"
-                            class="w-28 h-10 bg-[#23A3BB] text-white rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">Si,
+                            class="w-28 h-10 button-bg  text-textPrimary rounded-md transition-colors duration-300 hover:button-secondary-bg select-none">Si,
                             Eliminar</button>
                         <button type="button"
-                            class="ml-4 w-28 h-10 bg-gray-500 text-white rounded-full transition-colors duration-300 hover:bg-gray-600 select-none"
+                            class="ml-4 w-28 h-10 bg-gray-500 text-textPrimary rounded-md transition-colors duration-300 hover:bg-gray-600 select-none"
                             onclick="closeModal()">Cancelar</button>
                     </form>
                 </div>

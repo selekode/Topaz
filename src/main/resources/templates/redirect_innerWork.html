@@ -18,7 +18,7 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center">
+    <div class="w-64 bg-[#1E3D48] text-textPrimary p-4 flex flex-col items-center">
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px]">
@@ -29,17 +29,17 @@
 
         <div class="space-y-4 w-full flex flex-col items-center">
             <!-- Rounded buttons for other actions -->
-            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full hover:bg-[#1A8F9A]">Diario</button>
-            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full hover:bg-[#1A8F9A]">Revisión</button>
-            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full hover:bg-[#1A8F9A]">Stats</button>
-            <button class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full hover:bg-[#1A8F9A]">Sobre Topaz</button>
+            <button class="w-full text-left py-2 px-4 button-bg  rounded-md hover:button-secondary-bg">Diario</button>
+            <button class="w-full text-left py-2 px-4 button-bg  rounded-md hover:button-secondary-bg">Revisión</button>
+            <button class="w-full text-left py-2 px-4 button-bg  rounded-md hover:button-secondary-bg">Stats</button>
+            <button class="w-full text-left py-2 px-4 button-bg  rounded-md hover:button-secondary-bg">Sobre Topaz</button>
         </div>
     </div>
 
     <!-- Main content -->
-    <div class="flex-grow bg-[#0F2529] p-6">
+    <div class="flex-grow bg-background p-6">
         <main class="container mx-auto mt-6 p-4">
-            <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl">
+            <div class="bg-surface p-6 rounded-xl shadow-md">
                     <h1 class="text-gray-700 text-xl mb-4" style="color: #FFFFFF;">Cargando...</h1>
             </div>
         </main>

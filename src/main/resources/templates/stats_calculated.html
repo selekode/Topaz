@@ -23,7 +23,9 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
+    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4">
+
+
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
@@ -37,43 +39,43 @@
             <!-- Rounded buttons for other actions -->
             <a href="/dashboard/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Inicio
                 </button>
             </a>
             <a href="/journal/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Diario
                 </button>
             </a>
             <a href="/revision/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Revisión
                 </button>
             </a>
             <a href="/innerwork/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Trabajo Interno
                 </button>
             </a>
             <a href="/stats/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
+                    class="w-full text-left py-2 px-4 button-secondary-bg rounded-md transition-colors duration-300 hover:button-bg ">
                     Estadísticas
                 </button>
             </a>
             <a href="/meditacion/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Meditación
                 </button>
             </a>
             <a href="/about" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Sobre Topaz
                 </button>
             </a>
@@ -85,14 +87,14 @@
 
 
     <!-- Main content -->
-    <div class="main-content  flex-grow bg-[#0F2529] p-6">
+    <div class="main-content  flex-grow bg-background p-6">
         <main class="container mx-auto mt-6 p-4">
-            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">
+            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-textPrimary">
                 Estadísticas</h1>
-            <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl mb-4" data-aos="fade-up">
+            <div class="bg-surface p-6 rounded-xl shadow-md mb-4" data-aos="fade-up">
                 <p class="text-lg  font-bold mb-4" style="color: #23A3BB;">Descubre el data sobre tu diario y
                     revisiones</p>
-                <p class="text-base text-white mb-4">A continuación aparece el data
+                <p class="text-base text-textPrimary mb-4">A continuación aparece el data
                     extraido de las entradas en tu diario y
                     revisiones</p>
 
@@ -100,17 +102,17 @@
                     <div>
                         <p class="text-base" style="color: #23A3BB;">Fecha
                             Inicio:</p>
-                        <p class="text-base text-white" th:text="${statsDateRange.startDate}"></p>
+                        <p class="text-base text-textPrimary" th:text="${statsDateRange.startDate}"></p>
                     </div>
                     <div>
                         <p class="text-base" style="color: #23A3BB;">Fecha
                             Final:</p>
-                        <p class="text-base text-white" th:text="${statsDateRange.endDate}"></p>
+                        <p class="text-base text-textPrimary" th:text="${statsDateRange.endDate}"></p>
                     </div>
                     <div class="flex justify-end">
                         <a href="/stats/load">
                             <button
-                                class="bg-[#23A3BB] transition hover:bg-[#1A8F9A] text-white text-sm py-2 px-6 rounded-full">Cambiar
+                                class="button-bg  transition hover:button-secondary-bg text-textPrimary text-sm py-2 px-6 rounded-md">Cambiar
                                 fecha</button>
                         </a>
                     </div>
@@ -120,16 +122,16 @@
 
             <!-- Card 1: Métricas Generales | Numero de entradas -->
             <div data-aos="fade-up" x-data="{ open: false }"
-                class="relative bg-[#172E38] p-6 rounded-2xl shadow-xl mb-6">
+                class="relative bg-surface p-6 rounded-xl shadow-md mb-6">
                 <p class="text-lg  font-bold mb-4" style="color: #23A3BB;">Métricas Generales</p>
-                <p class="text-2xl font-bold text-white mb-3">Número de entradas
+                <p class="text-2xl font-bold text-textPrimary mb-3">Número de entradas
                 </p>
 
                 <!-- Button Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <!-- Show/Hide Button -->
                     <button @click="open = !open"
-                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                     </button>
                 </div>
@@ -143,22 +145,22 @@
                         <!-- Tab Buttons -->
                         <div class="flex space-x-2 mb-4">
                             <button @click="tab = 'lastWeek'"
-                                :class="tab === 'lastWeek' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'lastWeek' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 7d
                             </button>
                             <button @click="tab = 'lastMonth'"
-                                :class="tab === 'lastMonth' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'lastMonth' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 1m
                             </button>
                             <button @click="tab = 'range'"
-                                :class="tab === 'range' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'range' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 Rango de Fechas
                             </button>
                             <button @click="tab = 'all'"
-                                :class="tab === 'all' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'all' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 Total
                             </button>
@@ -166,7 +168,7 @@
 
                         <!-- Entradas en Última Semana Tab -->
                         <div x-show="tab === 'lastWeek'" x-transition class="w-full">
-                            <p class="text-lg text-white font-bold mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entradas en el periodo entre ' + ${statsDateRangeLastWeek.startDate} + ' y ' + ${statsDateRangeLastWeek.endDate}">
                             </p>
 
@@ -177,7 +179,7 @@
 
                         <!-- Entradas en Último Mes Tab -->
                         <div x-show="tab === 'lastMonth'" x-transition class="w-full">
-                            <p class="text-lg text-white font-bold mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entradas en el periodo entre ' + ${statsDateRangeLastMonth.startDate} + ' y ' + ${statsDateRangeLastMonth.endDate}">
                             </p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
@@ -187,7 +189,7 @@
 
                         <!-- Entradas en el Periodo Tab -->
                         <div x-show="tab === 'range'" x-transition class="w-full">
-                            <p class="text-lg text-white font-bold mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entradas en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
@@ -196,7 +198,7 @@
                         </div>
                         <!-- Entradas Totales Tab -->
                         <div x-show="tab === 'all'" x-transition class="w-full">
-                            <p class="text-lg text-white font-bold mb-4">
+                            <p class="text-lg text-textPrimary font-bold mb-4">
                                 Entradas Totales</p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
                                 <canvas id="chartEntryCountAllTime" class="absolute top-0 left-0 w-full h-full"></canvas>
@@ -209,15 +211,15 @@
 
             <!-- Card 2.1: Métricas Generales | Actividad por día diario -->
             <div data-aos="fade-up" x-data="{ open: false, tab: 'journalAllTime' }"
-                class="relative bg-[#172E38] p-6 rounded-2xl shadow-xl mb-6">
+                class="relative bg-surface p-6 rounded-xl shadow-md mb-6">
 
                 <p class="text-lg  font-bold mb-4 text-[#23A3BB]">Métricas Generales</p>
-                <p class="text-2xl font-bold text-white">Actividad por día de la semana (Diario)</p>
+                <p class="text-2xl font-bold text-textPrimary">Actividad por día de la semana (Diario)</p>
 
                 <!-- Button Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <button @click="open = !open"
-                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                     </button>
                 </div>
@@ -230,22 +232,22 @@
                         <!-- Tab Navigation -->
                         <div class="flex space-x-2 mb-4">
                             <button @click="tab = 'journalLastWeek'"
-                                :class="tab === 'journalLastWeek' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'journalLastWeek' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 7d
                             </button>
                             <button @click="tab = 'journalLastMonth'"
-                                :class="tab === 'journalLastMonth' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'journalLastMonth' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 1m
                             </button>
                             <button @click="tab = 'journalDateRange'"
-                                :class="tab === 'journalDateRange' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'journalDateRange' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 Rango
                             </button>
                             <button @click="tab = 'journalAllTime'"
-                                :class="tab === 'journalAllTime' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'journalAllTime' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 Total
                             </button>
@@ -253,13 +255,13 @@
 
                         <!-- Diario (7d) -->
                         <div x-show="tab === 'journalLastWeek'" x-transition class="w-full">
-                            <p class="text-lg text-white font-bold mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entre ' + ${statsDateRangeLastWeek.startDate} + ' y ' + ${statsDateRangeLastWeek.endDate}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- En la última semana, el día en el que más has escrito en el diario es el ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDay}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- En la última semana, has escrito ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDayN} + ' entradas en el diario un ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDay}">
                             </p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
@@ -269,13 +271,13 @@
 
                         <!-- Diario (1m) -->
                         <div x-show="tab === 'journalLastMonth'" x-transition class="w-full">
-                            <p class="text-lg text-white font-bold mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entre ' + ${statsDateRangeLastMonth.startDate} + ' y ' + ${statsDateRangeLastMonth.endDate}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- En el último més, el día en el que más has escrito en el diario es el ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDay}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- En el último més, has escrito ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDayN} + ' entradas en el diario un ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDay}">
                             </p>
 
@@ -286,13 +288,13 @@
 
                         <!-- Diario (Rango) -->
                         <div x-show="tab === 'journalDateRange'" x-transition class="w-full">
-                            <p class="text-lg text-white font-bold mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- El día en el que más has escrito en el diario es el ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDay}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- Has escrito ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDayN} + ' entradas en el diario un ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDay}">
                             </p>
 
@@ -303,10 +305,10 @@
 
                         <!-- Diario (Total) -->
                         <div x-show="tab === 'journalAllTime'" x-transition class="w-full">
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- El día en el que más escribes en el diario es el ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDay}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- Has escrito ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDayN} + ' entradas en el diario un ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDay}">
                             </p>
 
@@ -320,15 +322,15 @@
 
             <!-- Card 2.2: Métricas Generales | Actividad por día revision -->
             <div data-aos="fade-up" x-data="{ open: false, tab: 'revisionAllTime' }"
-                class="relative bg-[#172E38] p-6 rounded-2xl shadow-xl mb-6">
+                class="relative bg-surface p-6 rounded-xl shadow-md mb-6">
 
                 <p class="text-lg  font-bold mb-4" style="color: #23A3BB;">Métricas Generales</p>
-                <p class="text-2xl font-bold text-white">Actividad por día de la semana (Revisiones)</p>
+                <p class="text-2xl font-bold text-textPrimary">Actividad por día de la semana (Revisiones)</p>
 
                 <!-- Button Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <button @click="open = !open"
-                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                     </button>
                 </div>
@@ -341,22 +343,22 @@
                         <!-- Tab Navigation -->
                         <div class="flex space-x-2 mb-4">
                             <button @click="tab = 'revisionLastWeek'"
-                                :class="tab === 'revisionLastWeek' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'revisionLastWeek' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 7d
                             </button>
                             <button @click="tab = 'revisionLastMonth'"
-                                :class="tab === 'revisionLastMonth' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'revisionLastMonth' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 1m
                             </button>
                             <button @click="tab = 'revisionDateRange'"
-                                :class="tab === 'revisionDateRange' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'revisionDateRange' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 Rango
                             </button>
                             <button @click="tab = 'revisionAllTime'"
-                                :class="tab === 'revisionAllTime' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'revisionAllTime' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 Total
                             </button>
@@ -364,13 +366,13 @@
 
                         <!-- Revisiones (7d) -->
                         <div x-show="tab === 'revisionLastWeek'" x-transition>
-                            <p class="text-lg text-white font-bold mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entre ' + ${statsDateRangeLastWeek.startDate} + ' y ' + ${statsDateRangeLastWeek.endDate}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- En la última semana, el día en el que más revisiones has escrito es el ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDay}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- En la última semana, has escrito ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDayN} + ' revisiones un ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDay}">
                             </p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
@@ -380,13 +382,13 @@
 
                         <!-- Revisiones (1m) -->
                         <div x-show="tab === 'revisionLastMonth'" x-transition>
-                            <p class="text-lg text-white font-bold mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entre ' + ${statsDateRangeLastMonth.startDate} + ' y ' + ${statsDateRangeLastMonth.endDate}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- En el último més, el día en el que más revisiones has escrito es el ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDay}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- En el último més, has escrito ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDayN} + ' revisiones un ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDay}">
                             </p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
@@ -396,13 +398,13 @@
 
                         <!-- Revisiones (Rango) -->
                         <div x-show="tab === 'revisionDateRange'" x-transition>
-                            <p class="text-lg text-white font-bold mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- El día en el que más revisiones has escrito es el ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDay}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- Has escrito ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDayN} + ' revisiones un ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDay}">
                             </p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
@@ -412,10 +414,10 @@
 
                         <!-- Revisiones (Total) -->
                         <div x-show="tab === 'revisionAllTime'" x-transition>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- El día en el que más revisiones escribes es el ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDay}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- Has escrito ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDayN} + ' revisiones un ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDay}">
                             </p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
@@ -428,15 +430,15 @@
 
             <!-- Card 2.3: Métricas Generales | Actividad por día inner work -->
             <div data-aos="fade-up" x-data="{ open: false, tab: 'innerWorkAllTime' }"
-                class="relative bg-[#172E38] p-6 rounded-2xl shadow-xl mb-6">
+                class="relative bg-surface p-6 rounded-xl shadow-md mb-6">
 
                 <p class="text-lg  font-bold mb-4" style="color: #23A3BB;">Métricas Generales</p>
-                <p class="text-2xl font-bold text-white">Actividad por día de la semana (Trabajos Internos)</p>
+                <p class="text-2xl font-bold text-textPrimary">Actividad por día de la semana (Trabajos Internos)</p>
 
                 <!-- Button Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <button @click="open = !open"
-                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                     </button>
                 </div>
@@ -449,22 +451,22 @@
                         <!-- Tab Navigation -->
                         <div class="flex space-x-2 mb-4">
                             <button @click="tab = 'innerWorkLastWeek'"
-                                :class="tab === 'innerWorkLastWeek' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'innerWorkLastWeek' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 7d
                             </button>
                             <button @click="tab = 'innerWorkLastMonth'"
-                                :class="tab === 'innerWorkLastMonth' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'innerWorkLastMonth' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 1m
                             </button>
                             <button @click="tab = 'innerWorkDateRange'"
-                                :class="tab === 'innerWorkDateRange' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'innerWorkDateRange' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 Rango
                             </button>
                             <button @click="tab = 'innerWorkAllTime'"
-                                :class="tab === 'innerWorkAllTime' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'innerWorkAllTime' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 Total
                             </button>
@@ -472,13 +474,13 @@
 
                         <!-- TrabajosInternos (7d) -->
                         <div x-show="tab === 'innerWorkLastWeek'" x-transition>
-                            <p class="text-lg text-white font-bold mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entre ' + ${statsDateRangeLastWeek.startDate} + ' y ' + ${statsDateRangeLastWeek.endDate}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- En la última semana, los dias en los cuales más trabajos internos escribes son los ' + ${statsActivitiesPerDayOfWeekWeek[2].mostActiveDay}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- En la última semana, has escrito ' + ${statsActivitiesPerDayOfWeekWeek[2].mostActiveDayN} + ' entradas en el diario un ' + ${statsActivitiesPerDayOfWeekWeek[2].mostActiveDay}">
                             </p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
@@ -488,13 +490,13 @@
 
                         <!-- TrabajosInternos (1m) -->
                         <div x-show="tab === 'innerWorkLastMonth'" x-transition>
-                            <p class="text-lg text-white font-bold mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entre ' + ${statsDateRangeLastMonth.startDate} + ' y ' + ${statsDateRangeLastMonth.endDate}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- En el último més, los dias en los cuales más trabajos internos escribes son los ' + ${statsActivitiesPerDayOfWeekMonth[2].mostActiveDay}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- En el último més, has escrito ' + ${statsActivitiesPerDayOfWeekMonth[2].mostActiveDayN} + ' trabajos internos en un ' + ${statsActivitiesPerDayOfWeekMonth[2].mostActiveDay}">
                             </p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
@@ -504,13 +506,13 @@
 
                         <!-- TrabajosInternos (Rango) -->
                         <div x-show="tab === 'innerWorkDateRange'" x-transition>
-                            <p class="text-lg text-white font-bold mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- Los dias en los cuales más trabajos internos escribes son los ' + ${statsActivitiesPerDayOfWeekDateRange[2].mostActiveDay}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- Has escrito ' + ${statsActivitiesPerDayOfWeekDateRange[2].mostActiveDayN} + ' trabajos internos en un ' + ${statsActivitiesPerDayOfWeekDateRange[2].mostActiveDay}">
                             </p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
@@ -520,11 +522,11 @@
 
                         <!-- TrabajosInternos (Total) -->
                         <div x-show="tab === 'innerWorkAllTime'" x-transition>
-                            <p class="text-lg text-white font-bold mb-4">Actividad por día en el Diario total</p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4">Actividad por día en el Diario total</p>
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- Los dias en los cuales más trabajos internos escribes son los ' + ${statsActivitiesPerDayOfWeekAllTime[2].mostActiveDay}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- Has escrito ' + ${statsActivitiesPerDayOfWeekAllTime[2].mostActiveDayN} + ' trabajos internos en un ' + ${statsActivitiesPerDayOfWeekAllTime[2].mostActiveDay}">
                             </p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
@@ -538,15 +540,15 @@
 
             <!-- Card 3: Tendencias Emocionales | Frecuencia Emocional -->
             <div data-aos="fade-up" x-data="{ open: false }"
-                class="relative bg-[#172E38] p-6 rounded-2xl shadow-xl mb-6">
+                class="relative bg-surface p-6 rounded-xl shadow-md mb-6">
                 <p class="text-lg  font-bold mb-4" style="color: #23A3BB;">Tendencias Emocionales</p>
-                <p class="text-2xl font-bold text-white">Frecuencia Emocional
+                <p class="text-2xl font-bold text-textPrimary">Frecuencia Emocional
                 </p>
                 <!-- Button Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <!-- Show/Hide Button -->
                     <button @click="open = !open"
-                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                     </button>
                 </div>
@@ -561,29 +563,29 @@
                         <!-- Tabs Navigation -->
                         <div class="flex space-x-2 mb-4">
                             <button @click="tab = 'lastWeek'"
-                                :class="tab === 'lastWeek' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'lastWeek' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-lg transition">7d</button>
                             <button @click="tab = 'lastMonth'"
-                                :class="tab === 'lastMonth' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'lastMonth' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-lg transition">1m</button>
                             <button @click="tab = 'dateRange'"
-                                :class="tab === 'dateRange' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'dateRange' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-lg transition">Rango de Fechas</button>
                             <button @click="tab = 'total'"
-                                :class="tab === 'total' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'total' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-lg transition">Total</button>
                         </div>
 
                         <!-- FREQUENCIAEMOCIONAL_LASTWEEK -->
                         <div x-show="tab === 'lastWeek'" x-transition>
 
-                            <p class="text-lg text-white font-bold mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Frecuencia de emociones en el periodo entre ' + ${statsDateRangeLastWeek.startDate} + ' y ' + ${statsDateRangeLastWeek.endDate}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- Tus emociones más frecuentes han sido ' + ${statsEmotionFrequencyWeek.topEmotion1} + ', ' + ${statsEmotionFrequencyWeek.topEmotion2} + ' y ' + ${statsEmotionFrequencyWeek.topEmotion3}">
                             </p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra cuantas veces has seleccionado
+                            <p class="text-base text-textPrimary mb-4">- Esta gráfica muestra cuantas veces has seleccionado
                                 cada emoción en tus revisiones en la última semana:</p>
                             <div>
                                 <canvas id="emotionFrequencyPieChartLastWeek"
@@ -596,13 +598,13 @@
                         <!-- FREQUENCIAEMOCIONAL_LASTMONTH -->
                         <div x-show="tab === 'lastMonth'" x-transition>
 
-                            <p class="text-lg text-white font-bold mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Frecuencia de emociones en el periodo entre ' + ${statsDateRangeLastMonth.startDate} + ' y ' + ${statsDateRangeLastMonth.endDate}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- Tus emociones más frecuentes han sido ' + ${statsEmotionFrequencyMonth.topEmotion1} + ', ' + ${statsEmotionFrequencyMonth.topEmotion2} +' y ' + ${statsEmotionFrequencyMonth.topEmotion3}">
                             </p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra cuantas veces has seleccionado
+                            <p class="text-base text-textPrimary mb-4">- Esta gráfica muestra cuantas veces has seleccionado
                                 cada emoción en tus revisiones en el último mes</p>
                             <div>
                                 <canvas id="emotionFrequencyPieChartLastMonth"
@@ -615,13 +617,13 @@
                         <!-- FREQUENCIAEMOCIONAL_DATERANGE -->
                         <div x-show="tab === 'dateRange'" x-transition>
 
-                            <p class="text-lg text-white font-bold mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Frecuencia de emociones en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- Tus emociones más frecuentes han sido ' + ${statsEmotionFrequencyDateRange.topEmotion1} + ', ' + ${statsEmotionFrequencyDateRange.topEmotion2} + ' y ' + ${statsEmotionFrequencyDateRange.topEmotion3}">
                             </p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- Esta gráfica muestra cuantas veces has seleccionado cada emoción en tus revisiones entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
                             <div>
@@ -633,11 +635,11 @@
 
                         <!-- FREQUENCIAEMOCIONAL_TOTAL -->
                         <div x-show="tab === 'total'" x-transition>
-                            <p class="text-lg text-white font-bold mb-4">Frecuencia de emociones total</p>
-                            <p class="text-base text-white mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4">Frecuencia de emociones total</p>
+                            <p class="text-base text-textPrimary mb-4"
                                 th:text="'- Tus emociones más frecuentes son ' + ${statsEmotionFrequencyAllTime.topEmotion1} + ', ' + ${statsEmotionFrequencyAllTime.topEmotion2} + ' y ' + ${statsEmotionFrequencyAllTime.topEmotion3}">
                             </p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra cuantas veces has seleccionado
+                            <p class="text-base text-textPrimary mb-4">- Esta gráfica muestra cuantas veces has seleccionado
                                 cada emoción en tus revisiones:</p>
                             <div>
                                 <canvas id="emotionFrequencyPieChartAllTime"
@@ -651,15 +653,15 @@
 
             <!-- Card 4: Analysis Valoraciones | Medía de las valoraciones  -->
             <div data-aos="fade-up" x-data="{ open: false }"
-                class="relative bg-[#172E38] p-6 rounded-2xl shadow-xl mb-6">
+                class="relative bg-surface p-6 rounded-xl shadow-md mb-6">
                 <p class="text-lg  font-bold mb-4" style="color: #23A3BB;">Análisis de valoraciones</p>
-                <p class="text-2xl font-bold text-white">Media de las valoraciones
+                <p class="text-2xl font-bold text-textPrimary">Media de las valoraciones
                 </p>
                 <!-- Button Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <!-- Show/Hide Button -->
                     <button @click="open = !open"
-                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                     </button>
                 </div>
@@ -672,22 +674,22 @@
                         <!-- Tab Buttons -->
                         <div class="flex space-x-2 mb-4">
                             <button @click="tab = '7d'"
-                                :class="tab === '7d' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === '7d' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 7d
                             </button>
                             <button @click="tab = '1m'"
-                                :class="tab === '1m' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === '1m' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 1m
                             </button>
                             <button @click="tab = 'daterange'"
-                                :class="tab === 'daterange' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'daterange' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 Rango
                             </button>
                             <button @click="tab = 'all'"
-                                :class="tab === 'all' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'all' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 Total
                             </button>
@@ -695,9 +697,9 @@
 
                         <!-- Media Valoraciones (7d) Tab -->
                         <div x-show="tab === '7d'" x-transition>
-                            <p class="text-lg text-white font-bold mb-4">
+                            <p class="text-lg text-textPrimary font-bold mb-4">
                                 Media de las valoraciones en la última semana</p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra la media de las valoraciones
+                            <p class="text-base text-textPrimary mb-4">- Esta gráfica muestra la media de las valoraciones
                                 personales en tus revisiones:</p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
                                 <canvas id="chartAverageRatings7d" class="absolute top-0 left-0 w-full h-full"></canvas>
@@ -706,9 +708,9 @@
 
                         <!-- Media Valoraciones (1m) Tab -->
                         <div x-show="tab === '1m'" x-transition>
-                            <p class="text-lg text-white font-bold mb-4">
+                            <p class="text-lg text-textPrimary font-bold mb-4">
                                 Media de las valoraciones en el último mes</p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra la media de las valoraciones
+                            <p class="text-base text-textPrimary mb-4">- Esta gráfica muestra la media de las valoraciones
                                 personales en tus revisiones:</p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
                                 <canvas id="chartAverageRatings1m" class="absolute top-0 left-0 w-full h-full"></canvas>
@@ -717,10 +719,10 @@
 
                         <!-- Media Valoraciones (Daterange) Tab -->
                         <div x-show="tab === 'daterange'" x-transition>
-                            <p class="text-lg text-white font-bold mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Media de las valoraciones en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra la media de las valoraciones
+                            <p class="text-base text-textPrimary mb-4">- Esta gráfica muestra la media de las valoraciones
                                 personales en tus revisiones:</p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
                                 <canvas id="chartAverageRatingsDateRange" class="absolute top-0 left-0 w-full h-full"></canvas>
@@ -729,9 +731,9 @@
 
                         <!-- Media Valoraciones (Totales) Tab -->
                         <div x-show="tab === 'all'" x-transition>
-                            <p class="text-lg text-white font-bold mb-4">
+                            <p class="text-lg text-textPrimary font-bold mb-4">
                                 Media de las valoraciones total</p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra la media de las valoraciones
+                            <p class="text-base text-textPrimary mb-4">- Esta gráfica muestra la media de las valoraciones
                                 personales en tus revisiones:</p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
                                 <canvas id="chartAverageRatingsAllTime" class="absolute top-0 left-0 w-full h-full"></canvas>
@@ -743,15 +745,15 @@
 
             <!-- Card 5: Analysis Valoraciones | Evolución de las valoraciones  -->
             <div data-aos="fade-up" x-data="{ open: false }"
-                class="relative bg-[#172E38] p-6 rounded-2xl shadow-xl mb-6">
+                class="relative bg-surface p-6 rounded-xl shadow-md mb-6">
                 <p class="text-lg  font-bold mb-4" style="color: #23A3BB;">Análisis de valoraciones</p>
-                <p class="text-2xl font-bold text-white">Evolución de las valoraciones
+                <p class="text-2xl font-bold text-textPrimary">Evolución de las valoraciones
                 </p>
                 <!-- Button Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <!-- Show/Hide Button -->
                     <button @click="open = !open"
-                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                     </button>
                 </div>
@@ -764,22 +766,22 @@
                         <!-- Tab Buttons -->
                         <div class="flex space-x-2 mb-4">
                             <button @click="tab = '7d'"
-                                :class="tab === '7d' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === '7d' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 7d
                             </button>
                             <button @click="tab = '1m'"
-                                :class="tab === '1m' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === '1m' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 1m
                             </button>
                             <button @click="tab = 'daterange'"
-                                :class="tab === 'daterange' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'daterange' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 Rango
                             </button>
                             <button @click="tab = 'all'"
-                                :class="tab === 'all' ? 'bg-[#1A8F9A] text-white' : 'bg-gray-700 text-gray-300'"
+                                :class="tab === 'all' ? 'button-secondary-bg text-textPrimary' : 'bg-gray-700 text-gray-300'"
                                 class="px-4 py-2 rounded-md transition">
                                 Total
                             </button>
@@ -787,9 +789,9 @@
 
                         <!-- Evolución Valoraciones (7d) Tab -->
                         <div x-show="tab === '7d'" x-transition>
-                            <p class="text-lg text-white font-bold mb-4">
+                            <p class="text-lg text-textPrimary font-bold mb-4">
                                 Evolución de las valoraciones en la última semana</p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra la evolución de las valoraciones
+                            <p class="text-base text-textPrimary mb-4">- Esta gráfica muestra la evolución de las valoraciones
                                 personales en tus revisiones:</p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
                                 <canvas id="chartRatingsTrendWeek" class="absolute top-0 left-0 w-full h-full"></canvas>
@@ -798,9 +800,9 @@
 
                         <!-- Evolución Valoraciones (1m) Tab -->
                         <div x-show="tab === '1m'" x-transition>
-                            <p class="text-lg text-white font-bold mb-4">
+                            <p class="text-lg text-textPrimary font-bold mb-4">
                                 Evolución de las valoraciones en el último mes</p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra la evolución de las valoraciones
+                            <p class="text-base text-textPrimary mb-4">- Esta gráfica muestra la evolución de las valoraciones
                                 personales en tus revisiones:</p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
                                 <canvas id="chartRatingsTrendMonth" class="absolute top-0 left-0 w-full h-full"></canvas>
@@ -809,10 +811,10 @@
 
                         <!-- Evolución Valoraciones (Daterange) Tab -->
                         <div x-show="tab === 'daterange'" x-transition>
-                            <p class="text-lg text-white font-bold mb-4"
+                            <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Evolución de las valoraciones en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra la evolución de las valoraciones
+                            <p class="text-base text-textPrimary mb-4">- Esta gráfica muestra la evolución de las valoraciones
                                 personales en tus revisiones:</p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
                                 <canvas id="chartRatingsTrendDateRange" class="absolute top-0 left-0 w-full h-full"></canvas>
@@ -821,9 +823,9 @@
 
                         <!-- Evolución Valoraciones (Totales) Tab -->
                         <div x-show="tab === 'all'" x-transition>
-                            <p class="text-lg text-white font-bold mb-4">
+                            <p class="text-lg text-textPrimary font-bold mb-4">
                                 Evolución de las valoraciones total</p>
-                            <p class="text-base text-white mb-4">- Esta gráfica muestra la evolución de las valoraciones
+                            <p class="text-base text-textPrimary mb-4">- Esta gráfica muestra la evolución de las valoraciones
                                 personales en tus revisiones:</p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
                                 <canvas id="chartRatingsTrendAllTime" class="absolute top-0 left-0 w-full h-full"></canvas>

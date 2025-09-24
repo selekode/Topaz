@@ -27,7 +27,9 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
+    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4">
+
+
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
@@ -41,43 +43,43 @@
             <!-- Rounded buttons for other actions -->
             <a href="/dashboard/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Inicio
                 </button>
             </a>
             <a href="/journal/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Diario
                 </button>
             </a>
             <a href="/revision/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Revisión
                 </button>
             </a>
             <a href="/innerwork/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Trabajo Interno
                 </button>
             </a>
             <a href="/stats/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Estadísticas
                 </button>
             </a>
             <a href="/meditacion/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
+                    class="w-full text-left py-2 px-4 button-secondary-bg rounded-md transition-colors duration-300 hover:button-bg ">
                     Meditación
                 </button>
             </a>
             <a href="/about" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Sobre Topaz
                 </button>
             </a>
@@ -88,56 +90,56 @@
 
 
     <!-- Main content -->
-    <div class="main-content  flex-grow bg-[#0F2529] p-6 select-none">
+    <div class="main-content  flex-grow bg-background p-6 select-none">
         <main class="container mx-auto mt-6 p-4">
-            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Meditación</h1>
+            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-textPrimary">Meditación</h1>
 
 
-            <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl" data-aos="fade-up">
+            <div class="bg-surface p-6 rounded-xl shadow-md" data-aos="fade-up">
                 <p class="text-lg  font-bold mb-4 text-[#23A3BB] text-left">Temporizador de Meditación</p>
                 <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
 
                 <!-- Time input -->
                 <div class="flex flex-col items-center justify-center gap-2 mb-4">
-                    <span class="text-white">Introduce el tiempo:</span>
+                    <span class="text-textPrimary">Introduce el tiempo:</span>
 
                     <div class="flex items-center gap-2">
                         <input id="timeInput" type="number" min="1" max="120" value="15"
-                            class="w-16 bg-[#1E4A57] text-white text-center rounded-lg px-2 py-1 outline-none" />
-                        <span class="text-white">minutos</span>
+                            class="w-16 bg-[#1E4A57] text-textPrimary text-center rounded-lg px-2 py-1 outline-none" />
+                        <span class="text-textPrimary">minutos</span>
                     </div>
                 </div>
 
                 <!-- Buttons -->
                 <div class="flex gap-2 justify-center mb-6">
                     <button id="customStartBtn"
-                        class="bg-[#1E4A57] text-white px-4 py-2 rounded-lg transition-all duration-300 hover:bg-[#23A3BB]">
+                        class="bg-[#1E4A57] text-textPrimary px-4 py-2 rounded-lg transition-all duration-300 hover:button-bg ">
                         Iniciar
                     </button>
                     <button id="customRestartBtn"
-                        class="bg-[#1E4A57] text-white px-4 py-2 rounded-lg transition-all duration-300 hover:bg-[#23A3BB]">
+                        class="bg-[#1E4A57] text-textPrimary px-4 py-2 rounded-lg transition-all duration-300 hover:button-bg ">
                         Reiniciar
                     </button>
                 </div>
 
                 <!-- Progress bar -->
-                <div class="w-full bg-gray-700 rounded-full h-4 mb-4 overflow-hidden">
-                    <div id="customProgress" class="h-full bg-[#23A3BB] transition-all duration-1000"
+                <div class="w-full bg-gray-700 rounded-md h-4 mb-4 overflow-hidden">
+                    <div id="customProgress" class="h-full button-bg  transition-all duration-1000"
                         style="width: 0%;"></div>
                 </div>
 
                 <!-- Timer display -->
-                <p id="customTimer" class="text-center text-white text-2xl mb-4">15:00</p>
+                <p id="customTimer" class="text-center text-textPrimary text-2xl mb-4">15:00</p>
             </div>
 
-            <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl mt-4" data-aos="fade-up" x-data="{ open: false }">
+            <div class="bg-surface p-6 rounded-xl shadow-md mt-4" data-aos="fade-up" x-data="{ open: false }">
                 <!-- Mindfulness Instructions -->
-                <div class="text-white text-base space-y-2">
+                <div class="text-textPrimary text-base space-y-2">
                     <p class="text-lg  font-bold mb-4 text-[#23A3BB] text-left">Cómo Practicar la Atención Plena</p>
 
                     <!-- Show/Hide Button -->
                     <button @click="open = !open"
-                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                     </button>
 
