@@ -29,6 +29,7 @@ public class LoginController {
     @GetMapping("/login")
     public String loginPage() {
         // If no password set yet → redirect to setup page
+    	System.out.println("Loading Login");
         return settingsRepo.findById("passwordHash").isEmpty() 
                 ? "redirect:/setupPassword" 
                 : "login";
