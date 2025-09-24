@@ -14,7 +14,7 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4">
+    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
 
 
         <!-- Logo Section -->
@@ -22,8 +22,7 @@
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
-        <!-- Horizontal Rule -->
-        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+        
 
         <!-- Buttons Section -->
         <div class="space-y-4 w-full flex flex-col items-center">
@@ -48,7 +47,7 @@
             </a>
             <a href="/innerwork/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-secondary-bg rounded-md transition-colors duration-300 hover:button-bg ">
+                    class="w-full text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent ">
                     Trabajo Interno
                 </button>
             </a>
@@ -71,7 +70,7 @@
                 </button>
             </a>
 
-            <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+            
         </div>
     </div>
 
@@ -79,15 +78,15 @@
     <!-- Main content -->
     <div class="main-content  flex-grow bg-background p-6">
         <main class="container mx-auto mt-6 p-4">
-            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-textPrimary selected-none">Trabajo Interno</h1>
+            <h1 data-aos="zoom-in" class="text-3xl font-bold mb-4 text-textPrimary selected-none">Trabajo Interno</h1>
             <div class="flex justify-between items-center mt-4 mb-4">
                 <a href="/innerwork/tags/load" class="text-sm text-teal-600 font-medium hover:underline">
                     <button
-                        class="ml-auto text-textPrimary button-bg  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">Etiquetas</button>
+                        class="ml-auto text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">Etiquetas</button>
                 </a>
                 <a href="/innerwork/addEntry" class="text-sm text-teal-600 font-medium hover:underline">
                     <button
-                        class="ml-auto text-textPrimary button-bg  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">Añadir</button>
+                        class="ml-auto text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">Añadir</button>
                 </a>
             </div>
             <!-- Iterate over inner work entries -->
@@ -97,13 +96,13 @@
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <!-- Show/Hide Button -->
                     <button @click="open = !open"
-                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
+                        class="px-4 py-2 rounded-md button-accent  text-textPrimary text-sm transition hover:button-secondary-bg">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                     </button>
 
                     <!-- Edit button -->
                     <a th:href="@{/innerwork/editEntry/{id}(id=${innerWorkEntry.id})}"
-                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
+                        class="px-4 py-2 rounded-md button-accent  text-textPrimary text-sm transition hover:button-secondary-bg">
                         Editar
                     </a>
 
@@ -116,12 +115,12 @@
 
                 <!-- Inner Work Entry Content -->
                 <div class="mr-4">
-                    <p class="text-lg  font-bold mb-4 text-[#23A3BB]" th:text="${innerWorkEntry.date}">
+                    <p class="text-lg  font-bold mb-4 text-accent" th:text="${innerWorkEntry.date}">
                     </p>
 
                     <!-- Show the tag name by matching tag.id == innerWorkEntry.tagID -->
                     <div th:each="innerWorkEntry : ${innerWorkEntries}">
-                        <p class="text-l mb-4 text-[#23A3BB]" th:text="${tagMap[innerWorkEntry.tagID]}">Etiqueta</p>
+                        <p class="text-l mb-4 text-accent" th:text="${tagMap[innerWorkEntry.tagID]}">Etiqueta</p>
                     </div>
                     <h2 class="text-2xl font-bold mb-4 text-textPrimary" th:text="${innerWorkEntry.title}"></h2>
 
@@ -142,10 +141,10 @@
                     <form id="deleteForm" method="post" action="deleteEntry">
                         <input type="hidden" id="journalId" name="id" />
                         <button type="submit"
-                            class="w-28 h-10 button-bg  text-textPrimary rounded-md transition-colors duration-300 hover:button-secondary-bg select-none">Si,
+                            class="w-28 h-10 button-accent  text-textPrimary rounded-md transition-colors duration-300 hover:button-secondary-bg select-none">Si,
                             Eliminar</button>
                         <button type="button"
-                            class="ml-4 w-28 h-10 bg-gray-500 text-textPrimary rounded-md transition-colors duration-300 hover:bg-gray-600 select-none"
+                            class="ml-4 w-28 h-10 bg-gray-500 text-white rounded-md transition-colors duration-300 hover:bg-gray-600 select-none"
                             onclick="closeModal()">Cancelar</button>
                     </form>
                 </div>

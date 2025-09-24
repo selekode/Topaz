@@ -14,7 +14,7 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4">
+    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
 
 
         <!-- Logo Section -->
@@ -22,8 +22,7 @@
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
-        <!-- Horizontal Rule -->
-        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+        
 
         <!-- Buttons Section -->
         <div class="space-y-4 w-full flex flex-col items-center">
@@ -48,7 +47,7 @@
             </a>
             <a href="/innerwork/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-secondary-bg rounded-md transition-colors duration-300 hover:button-bg ">
+                    class="w-full text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent ">
                     Trabajo Interno
                 </button>
             </a>
@@ -84,21 +83,21 @@
             <div data-aos="fade-left" class="bg-surface p-6 rounded-xl shadow-md flex flex-col justify-between">
                 <div class="mb-4 flex items-center justify-between">
                     <a href="/innerwork/load"
-                        class="text-textPrimary button-bg  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">Atrás</a>
+                        class="text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">Atrás</a>
                     <h2 class="text-xl text-textPrimary font-bold select-none">Etiquetas</h2>
 
                     <a href="/innerwork/tags/addTag"
-                        class="text-textPrimary button-bg  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">Añadir</a>
+                        class="text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">Añadir</a>
                 </div>
 
                 <!-- Iterate over inner work entries -->
                 <div data-aos="fade-up" th:each="InnerWorkTag : ${innerWorkTags}" x-data="{ open: false }"
-                    class="relative bg-[#234554] p-6 rounded-xl shadow-md mb-6">
+                    class="relative bg-background p-6 rounded-xl shadow-md mb-6">
 
                     <div class="absolute top-4 right-4 flex space-x-2">
                         <!-- Edit button -->
                         <a th:href="@{/innerwork/tags/editTag/{id}(id=${InnerWorkTag.id})}"
-                            class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
+                            class="px-4 py-2 rounded-md button-accent  text-textPrimary text-sm transition hover:button-secondary-bg">
                             Editar
                         </a>
 
@@ -125,10 +124,10 @@
                     <form id="deleteForm" method="post" action="/innerwork/tags/deleteTag">
                         <input type="hidden" id="journalId" name="id" />
                         <button type="submit"
-                            class="w-28 h-10 button-bg  text-textPrimary rounded-md transition-colors duration-300 hover:button-secondary-bg select-none">Si,
+                            class="w-28 h-10 button-accent  text-textPrimary rounded-md transition-colors duration-300 hover:button-secondary-bg select-none">Si,
                             Eliminar</button>
                         <button type="button"
-                            class="ml-4 w-28 h-10 bg-gray-500 text-textPrimary rounded-md transition-colors duration-300 hover:bg-gray-600 select-none"
+                            class="ml-4 w-28 h-10 bg-gray-500 text-white rounded-md transition-colors duration-300 hover:bg-gray-600 select-none"
                             onclick="closeModal()">Cancelar</button>
                     </form>
                 </div>

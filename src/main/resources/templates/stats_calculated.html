@@ -23,7 +23,7 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4">
+    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
 
 
         <!-- Logo Section -->
@@ -31,8 +31,7 @@
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
-        <!-- Horizontal Rule -->
-        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+        
 
         <!-- Buttons Section -->
         <div class="space-y-4 w-full flex flex-col items-center">
@@ -63,7 +62,7 @@
             </a>
             <a href="/stats/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-secondary-bg rounded-md transition-colors duration-300 hover:button-bg ">
+                    class="w-full text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent ">
                     Estadísticas
                 </button>
             </a>
@@ -80,7 +79,7 @@
                 </button>
             </a>
 
-            <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+            
 
         </div>
     </div>
@@ -112,7 +111,7 @@
                     <div class="flex justify-end">
                         <a href="/stats/load">
                             <button
-                                class="button-bg  transition hover:button-secondary-bg text-textPrimary text-sm py-2 px-6 rounded-md">Cambiar
+                                class="button-accent  transition hover:button-secondary-bg text-textPrimary text-sm py-2 px-6 rounded-md">Cambiar
                                 fecha</button>
                         </a>
                     </div>
@@ -131,7 +130,7 @@
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <!-- Show/Hide Button -->
                     <button @click="open = !open"
-                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
+                        class="px-4 py-2 rounded-md button-accent  text-textPrimary text-sm transition hover:button-secondary-bg">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                     </button>
                 </div>
@@ -140,7 +139,7 @@
                 <div class="mr-4">
                     <!-- Content to Show/Hide -->
                     <div x-show="open" x-collapse x-data="{ tab: 'all' }">
-                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                        
 
                         <!-- Tab Buttons -->
                         <div class="flex space-x-2 mb-4">
@@ -213,13 +212,13 @@
             <div data-aos="fade-up" x-data="{ open: false, tab: 'journalAllTime' }"
                 class="relative bg-surface p-6 rounded-xl shadow-md mb-6">
 
-                <p class="text-lg  font-bold mb-4 text-[#23A3BB]">Métricas Generales</p>
+                <p class="text-lg  font-bold mb-4 text-accent">Métricas Generales</p>
                 <p class="text-2xl font-bold text-textPrimary">Actividad por día de la semana (Diario)</p>
 
                 <!-- Button Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <button @click="open = !open"
-                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
+                        class="px-4 py-2 rounded-md button-accent  text-textPrimary text-sm transition hover:button-secondary-bg">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                     </button>
                 </div>
@@ -227,7 +226,7 @@
                 <!-- Card Content -->
                 <div class="mr-4">
                     <div x-show="open" x-collapse>
-                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                        
 
                         <!-- Tab Navigation -->
                         <div class="flex space-x-2 mb-4">
@@ -330,7 +329,7 @@
                 <!-- Button Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <button @click="open = !open"
-                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
+                        class="px-4 py-2 rounded-md button-accent  text-textPrimary text-sm transition hover:button-secondary-bg">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                     </button>
                 </div>
@@ -338,7 +337,7 @@
                 <!-- Card Content -->
                 <div class="mr-4">
                     <div x-show="open" x-collapse>
-                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                        
 
                         <!-- Tab Navigation -->
                         <div class="flex space-x-2 mb-4">
@@ -438,7 +437,7 @@
                 <!-- Button Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <button @click="open = !open"
-                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
+                        class="px-4 py-2 rounded-md button-accent  text-textPrimary text-sm transition hover:button-secondary-bg">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                     </button>
                 </div>
@@ -446,7 +445,7 @@
                 <!-- Card Content -->
                 <div class="mr-4">
                     <div x-show="open" x-collapse>
-                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                        
 
                         <!-- Tab Navigation -->
                         <div class="flex space-x-2 mb-4">
@@ -548,7 +547,7 @@
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <!-- Show/Hide Button -->
                     <button @click="open = !open"
-                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
+                        class="px-4 py-2 rounded-md button-accent  text-textPrimary text-sm transition hover:button-secondary-bg">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                     </button>
                 </div>
@@ -558,7 +557,7 @@
                     <!-- Content to Show/Hide -->
                     <!-- Tabs Container -->
                     <div x-show="open" x-collapse x-data="{ tab: 'total' }" class="w-full">
-                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                        
 
                         <!-- Tabs Navigation -->
                         <div class="flex space-x-2 mb-4">
@@ -661,7 +660,7 @@
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <!-- Show/Hide Button -->
                     <button @click="open = !open"
-                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
+                        class="px-4 py-2 rounded-md button-accent  text-textPrimary text-sm transition hover:button-secondary-bg">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                     </button>
                 </div>
@@ -669,7 +668,7 @@
                 <div class="mr-4">
                     <!-- Content to Show/Hide -->
                     <div x-show="open" x-collapse x-data="{ tab: 'all' }">
-                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                        
 
                         <!-- Tab Buttons -->
                         <div class="flex space-x-2 mb-4">
@@ -753,7 +752,7 @@
                 <div class="absolute top-4 right-4 flex space-x-2">
                     <!-- Show/Hide Button -->
                     <button @click="open = !open"
-                        class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
+                        class="px-4 py-2 rounded-md button-accent  text-textPrimary text-sm transition hover:button-secondary-bg">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                     </button>
                 </div>
@@ -761,7 +760,7 @@
                 <div class="mr-4">
                     <!-- Content to Show/Hide -->
                     <div x-show="open" x-collapse x-data="{ tab: 'all' }">
-                        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                        
 
                         <!-- Tab Buttons -->
                         <div class="flex space-x-2 mb-4">

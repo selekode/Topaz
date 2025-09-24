@@ -15,7 +15,7 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4">
+    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
 
 
         <!-- Logo Section -->
@@ -23,8 +23,7 @@
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
-        <!-- Horizontal Rule -->
-        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+        
 
         <div class="space-y-4 w-full flex flex-col items-center">
 
@@ -37,7 +36,7 @@
             </a>
             <a href="/journal/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-secondary-bg rounded-md transition-colors duration-300 hover:button-bg ">
+                    class="w-full text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent ">
                     Diario
                 </button>
             </a>
@@ -72,19 +71,19 @@
                 </button>
             </a>
 
-            <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+            
         </div>
     </div>
 
     <!-- Main content -->
     <div class="flex-grow bg-background p-6 main-content">
         <main class="container mx-auto mt-6 p-4">
-            <h1 class="text-2xl font-bold mb-4 text-textPrimary">Diario</h1>
+            <h1 class="text-3xl font-bold mb-4 text-textPrimary">Diario</h1>
 
             <div data-aos="fade-left" class="bg-surface p-6 rounded-xl shadow-md flex flex-col justify-between">
                 <div class="mb-4 relative flex justify-center items-center">
                     <a href="/journal/load"
-                        class="absolute left-0 text-textPrimary button-bg  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">
+                        class="absolute left-0 text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">
                         Atrás
                     </a>
                     <h2 class="text-xl text-textPrimary font-bold select-none">
@@ -92,7 +91,7 @@
                     </h2>
                 </div>
 
-                <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                
 
                 <!-- Form to handle the journal entry -->
                 <form id="journalForm" action="#" method="POST" th:action="@{/journal/saveEntry}"
@@ -104,13 +103,13 @@
                         placeholder="Título" th:value="${journalEntry.title}" />
 
                     <!-- General -->
-                    <label for="contentGeneral" class="text-[#23A3BB] text-lg font-semibold mb-2 block">General</label>
+                    <label for="contentGeneral" class="text-accent text-lg font-semibold mb-2 block">General</label>
                     <textarea name="contentGeneral" id="contentGeneral"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentGeneral}" placeholder="¿Qué has hecho hoy?"></textarea>
 
                     <!-- Salud Física -->
-                    <label for="contentSaludFisica" class="text-[#23A3BB] text-lg font-semibold mb-2 block">Salud
+                    <label for="contentSaludFisica" class="text-accent text-lg font-semibold mb-2 block">Salud
                         Física</label>
                     <textarea name="contentSaludFisica" id="contentSaludFisica"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
@@ -119,14 +118,14 @@
 
                     <!-- Bienestar Mental -->
                     <label for="contentBienestarMental"
-                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Bienestar Mental</label>
+                        class="text-accent text-lg font-semibold mb-2 block">Bienestar Mental</label>
                     <textarea name="contentBienestarMental" id="contentBienestarMental"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentBienestarMental}" placeholder="Hoy he meditado..."></textarea>
 
                     <!-- Relaciones Sociales -->
                     <label for="contentRelacionesSociales"
-                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Relaciones Sociales</label>
+                        class="text-accent text-lg font-semibold mb-2 block">Relaciones Sociales</label>
                     <textarea name="contentRelacionesSociales" id="contentRelacionesSociales"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentRelacionesSociales}"
@@ -134,7 +133,7 @@
 
                     <!-- Carrera Profesional -->
                     <label for="contentCarreraProfesional"
-                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Carrera Profesional</label>
+                        class="text-accent text-lg font-semibold mb-2 block">Carrera Profesional</label>
                     <textarea name="contentCarreraProfesional" id="contentCarreraProfesional"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentCarreraProfesional}"
@@ -142,7 +141,7 @@
 
                     <!-- Estabilidad Financiera -->
                     <label for="contentEstabilidadFinanciera"
-                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Estabilidad Financiera</label>
+                        class="text-accent text-lg font-semibold mb-2 block">Estabilidad Financiera</label>
                     <textarea name="contentEstabilidadFinanciera" id="contentEstabilidadFinanciera"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentEstabilidadFinanciera}"
@@ -150,14 +149,14 @@
 
                     <!-- Crecimiento Personal -->
                     <label for="contentCrecimientoPersonal"
-                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Crecimiento Personal</label>
+                        class="text-accent text-lg font-semibold mb-2 block">Crecimiento Personal</label>
                     <textarea name="contentCrecimientoPersonal" id="contentCrecimientoPersonal"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentCrecimientoPersonal}" placeholder="Hoy he leído..."></textarea>
 
                     <!-- Pasatiempos y Creatividad -->
                     <label for="contentPasatiemposCreatividad"
-                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Pasatiempos y Creatividad</label>
+                        class="text-accent text-lg font-semibold mb-2 block">Pasatiempos y Creatividad</label>
                     <textarea name="contentPasatiemposCreatividad" id="contentPasatiemposCreatividad"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentPasatiemposCreatividad}"
@@ -165,7 +164,7 @@
 
                     <!-- Espiritualidad y Propósito -->
                     <label for="contentEspiritualidadProposito"
-                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Espiritualidad y Propósito</label>
+                        class="text-accent text-lg font-semibold mb-2 block">Espiritualidad y Propósito</label>
                     <textarea name="contentEspiritualidadProposito" id="contentEspiritualidadProposito"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentEspiritualidadProposito}"
@@ -173,7 +172,7 @@
 
                     <!-- Recreación y Diversión -->
                     <label for="contentRecreacionDiversion"
-                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Recreación y Diversión</label>
+                        class="text-accent text-lg font-semibold mb-2 block">Recreación y Diversión</label>
                     <textarea name="contentRecreacionDiversion" id="contentRecreacionDiversion"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentRecreacionDiversion}"
@@ -181,14 +180,14 @@
 
                     <!-- Contribución y Legado -->
                     <label for="contentContribucionLegado"
-                        class="text-[#23A3BB] text-lg font-semibold mb-2 block">Contribución y Legado</label>
+                        class="text-accent text-lg font-semibold mb-2 block">Contribución y Legado</label>
                     <textarea name="contentContribucionLegado" id="contentContribucionLegado"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentContribucionLegado}"
                         placeholder="Hoy he ayudado a... Hoy he enseñado a..."></textarea>
 
                     <!-- Errores Cometidos -->
-                    <label for="contentErroresCometidos" class="text-[#23A3BB] text-lg font-semibold mb-2 block">Errores
+                    <label for="contentErroresCometidos" class="text-accent text-lg font-semibold mb-2 block">Errores
                         Cometidos</label>
                     <textarea name="contentErroresCometidos" id="contentErroresCometidos"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
@@ -201,7 +200,7 @@
                     <!-- Submit button -->
                     <div class="mt-6 flex">
                         <button type="submit" id="saveButton"
-                            class="ml-auto text-textPrimary button-bg  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">
+                            class="ml-auto text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">
                             Guardar
                         </button>
                     </div>
@@ -226,7 +225,7 @@
 
                         <!-- Show/Hide Button -->
                         <button @click="open = !open"
-                            class="px-4 py-2 rounded-md button-bg  text-textPrimary text-sm transition hover:button-secondary-bg">
+                            class="px-4 py-2 rounded-md button-accent  text-textPrimary text-sm transition hover:button-secondary-bg">
                             <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                         </button>
 

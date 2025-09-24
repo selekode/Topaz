@@ -14,7 +14,7 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4">
+    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
 
 
         <!-- Logo Section -->
@@ -22,15 +22,14 @@
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
-        <!-- Horizontal Rule -->
-        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+        
 
         <!-- Buttons Section -->
         <div class="space-y-4 w-full flex flex-col items-center">
             <!-- Rounded buttons for other actions -->
             <a href="/dashboard/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-secondary-bg rounded-md transition-colors duration-300 hover:button-bg  select-none">
+                    class="w-full text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent  select-none">
                     Inicio
                 </button>
             </a>
@@ -71,7 +70,7 @@
                 </button>
             </a>
 
-            <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+            
 
         </div>
     </div>
@@ -83,8 +82,8 @@
             <h1 data-aos="zoom-in" class="text-3xl font-bold mb-4 text-textPrimary">Inicio</h1>
 
             <div class="bg-surface p-6 rounded-xl shadow-md mb-4" data-aos="fade-up">
-                <p class="text-lg font-bold mb-4 text-[#23A3BB]">¡Bienvenido a Topaz!</p>
-                <p class="text-base mb-4 text-textPrimary mb-4">Sigue avanzando en tu viaje de desarollo personal. Aquí
+                <p class="text-lg font-bold mb-4 text-accent">¡Bienvenido a Topaz!</p>
+                <p class="text-base mb-4 text-textSecondary mb-4">Sigue avanzando en tu viaje de desarollo personal. Aquí
                     encontrarás tu racha actual, insights de tus entradas pasadas y recordatorios para seguir
                     escribiendo. ¡Sigue creciendo poco a poco, con constancia!</p>
             </div>
@@ -92,31 +91,31 @@
             <div class="flex justify-center">
                 <div class="bg-surface p-6 rounded-xl shadow-md mb-4 mx-2 flex-1">
                     <p class="text-lg font-bold mb-4 text-textPrimary">Cosas que podrías hacer</p>
-                    <p class="text-base mb-4 text-textPrimary" th:text="${dashboardDataMap['Journal'].strIsWrittenToday}"></p>
-                    <p class="text-base mb-4 text-textPrimary" th:text="${dashboardDataMap['Revision'].strIsWrittenToday}"></p>
-                    <p class="text-base mb-4 text-textPrimary" th:text="${dashboardDataMap['InnerWork'].strIsWrittenToday}"></p>
+                    <p class="text-base mb-4 text-textSecondary" th:text="${dashboardDataMap['Journal'].strIsWrittenToday}"></p>
+                    <p class="text-base mb-4 text-textSecondary" th:text="${dashboardDataMap['Revision'].strIsWrittenToday}"></p>
+                    <p class="text-base mb-4 text-textSecondary" th:text="${dashboardDataMap['InnerWork'].strIsWrittenToday}"></p>
                 </div>
 
                 <div class="bg-surface p-6 rounded-xl shadow-md mb-4 mx-2 flex-1">
                     <p class="text-lg font-bold mb-4 text-textPrimary">Racha actual en diario</p>
-                    <p class="text-base mb-4 text-textPrimary" th:text="${dashboardDataMap['Journal'].strCurrentStreak}"></p>
+                    <p class="text-base mb-4 text-textSecondary" th:text="${dashboardDataMap['Journal'].strCurrentStreak}"></p>
                 </div>
 
                 <div class="bg-surface p-6 rounded-xl shadow-md mb-4 mx-2 flex-1">
                     <p class="text-lg font-bold mb-4 text-textPrimary">Racha actual de revisiones</p>
-                    <p class="text-base mb-4 text-textPrimary" th:text="${dashboardDataMap['Revision'].strCurrentStreak}"></p>
+                    <p class="text-base mb-4 text-textSecondary" th:text="${dashboardDataMap['Revision'].strCurrentStreak}"></p>
                 </div>
             </div>
 
             <div class="flex justify-center">
                 <div class="bg-surface p-6 rounded-xl shadow-md mb-4 mx-2 flex-1">
                     <p class="text-lg font-bold mb-4 text-textPrimary">Racha más larga en diario</p>
-                    <p class="text-base mb-4 text-textPrimary" th:text="${dashboardDataMap['Journal'].strLongestStreak}"></p>
+                    <p class="text-base mb-4 text-textSecondary" th:text="${dashboardDataMap['Journal'].strLongestStreak}"></p>
                 </div>
 
                 <div class="bg-surface p-6 rounded-xl shadow-md mb-4 mx-2 flex-1">
                     <p class="text-lg font-bold mb-4 text-textPrimary">Racha más larga de revisiones</p>
-                    <p class="text-base text-textPrimary" th:text="${dashboardDataMap['Revision'].strLongestStreak}"></p>
+                    <p class="text-base text-textSecondary" th:text="${dashboardDataMap['Revision'].strLongestStreak}"></p>
                 </div>
             </div>
     </div>

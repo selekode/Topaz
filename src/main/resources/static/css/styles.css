@@ -39,7 +39,7 @@ main {
 }
 
 .modal-content {
-    background-color: #172E38;
+    background-color: #F2F2F5;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -105,16 +105,21 @@ color: #3C3C43;
 }
 
 .text-accent {
-color: #0d7373 ;
-
+color: #23A3BB ;
 }
 
-.button-bg {
+.bg-accent {
     background-color: #23A3BB;
 }
 
-.button-bg:hover {
+.button-accent {
+    background-color: #23A3BB;
+    color: white !important;
+}
+
+.button-accent:hover {
     background-color: #1A8F9A;
+    color: white !important;
 }
 
 .button-sidebar {
@@ -122,7 +127,8 @@ color: #0d7373 ;
 }
 
 .button-sidebar:hover {
-    background-color: #c3dadf;
+    background-color: #23A3BB;
+    color: white !important;
 }
 
 .button-secondary-bg {
@@ -145,7 +151,6 @@ color: #0d7373 ;
 
 .text-alert {
     color: #FF453A;
-
 }
 
 .text-success {

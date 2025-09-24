@@ -16,7 +16,7 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4">
+    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
 
 
         <!-- Logo Section -->
@@ -24,8 +24,7 @@
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
-        <!-- Horizontal Rule -->
-        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+        
 
         <div class="space-y-4 w-full flex flex-col items-center">
 
@@ -50,7 +49,7 @@
             </a>
             <a href="/innerwork/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-secondary-bg rounded-md transition-colors duration-300 hover:button-bg ">
+                    class="w-full text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent ">
                     Trabajo Interno
                 </button>
             </a>
@@ -73,19 +72,19 @@
                 </button>
             </a>
 
-            <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+            
         </div>
     </div>
 
     <!-- Main content -->
     <div class="flex-grow bg-background p-6 main-content">
         <main class="container mx-auto mt-6 p-4">
-            <h1 class="text-2xl font-bold mb-4 text-textPrimary selected-none">Trabajo Interno</h1>
+            <h1 class="text-3xl font-bold mb-4 text-textPrimary selected-none">Trabajo Interno</h1>
 
             <div data-aos="fade-left" class="bg-surface p-6 rounded-xl shadow-md flex flex-col justify-between">
                 <div class="mb-4 relative flex justify-center items-center">
                     <a href="/innerwork/load"
-                        class="absolute left-0 text-textPrimary button-bg  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">
+                        class="absolute left-0 text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">
                         Atrás
                     </a>
                     <h2 class="text-xl text-textPrimary font-bold select-none">
@@ -101,13 +100,13 @@
                         class="text-xl font-bold mb-4 w-full bg-background text-textPrimary p-2 rounded-lg"
                         placeholder="Título" th:value="${innerWorkEntry.title}" />
 
-                    <label for="contentGeneral" class="text-[#23A3BB] mb-4">Contenido</label>
+                    <label for="contentGeneral" class="text-accent mb-4">Contenido</label>
                     <textarea name="contentGeneral" id="contentGeneral"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-textPrimary mb-4"
                         th:field="${innerWorkEntry.content}"
                         placeholder="¿Qué has trabajo interior has realizado?"></textarea>
 
-                    <label for="tagSelect" class="text-[#23A3BB] mb-4">Etiqueta</label>
+                    <label for="tagSelect" class="text-accent mb-4">Etiqueta</label>
                     <br>
                     <select id="tagSelect" th:field="*{tagID}">
                         <option value="" disabled selected>Selecciona etiqueta</option>
@@ -122,11 +121,11 @@
 
                     <div class="mt-4 flex justify-between item">
                         <a href="/innerwork/tags/addTag"
-                            class="text-textPrimary button-bg  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">
+                            class="text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">
                             Añadir Etiqueta
                         </a>
                         <button type="submit" id="saveButton"
-                            class="ml-auto text-textPrimary button-bg  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">Guardar</button>
+                            class="ml-auto text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">Guardar</button>
                     </div>
                 </form>
             </div>

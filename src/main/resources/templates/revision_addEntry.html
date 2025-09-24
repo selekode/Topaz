@@ -29,7 +29,7 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4">
+    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
 
 
         <!-- Logo Section -->
@@ -37,8 +37,7 @@
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
-        <!-- Horizontal Rule -->
-        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+        
 
         <div class="space-y-4 w-full flex flex-col items-center">
 
@@ -57,7 +56,7 @@
             </a>
             <a href="/revision/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-secondary-bg rounded-md transition-colors duration-300 hover:button-secondary-bg select-none">
+                    class="w-full text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-secondary-bg select-none">
                     Revisión
                 </button>
             </a>
@@ -86,19 +85,19 @@
                 </button>
             </a>
 
-            <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+            
         </div>
     </div>
 
     <!-- Main content -->
     <div class="flex-grow bg-background p-6 main-content">
         <main class="container mx-auto mt-6 p-4">
-            <h1 class="text-2xl font-bold mb-4 text-textPrimary">Revisión</h1>
+            <h1 class="text-3xl font-bold mb-4 text-textPrimary">Revisión</h1>
 
             <div data-aos="fade-left" class="bg-surface p-6 rounded-xl shadow-md flex flex-col justify-between">
                 <div class="mb-4 relative flex justify-center items-center">
                     <a href="/revision/load"
-                        class="absolute left-0 text-textPrimary button-bg  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">
+                        class="absolute left-0 text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">
                         Atrás
                     </a>
                     <h2 class="text-xl text-textPrimary font-bold select-none">
@@ -106,7 +105,7 @@
                     </h2>
                 </div>
 
-                <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-4 mt-4">
+                
 
                 <!-- Form to handle the revision entry -->
                 <form method="POST" th:action="@{/revision/saveEntry}" th:object="${revisionEntry}">
@@ -117,46 +116,46 @@
                     <input type="hidden" th:field="*{date}" value="2" />
 
                     <div class="mb-4">
-                        <label for="estadoEmocional" class="text-[#23A3BB] text-lg font-semibold mb-2 block">Mi estado emocional ha sido:</label>
+                        <label for="estadoEmocional" class="text-accent text-lg font-semibold mb-2 block">Mi estado emocional ha sido:</label>
                         <textarea id="estadoEmocional" th:field="*{estadoEmocional}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-textPrimary"></textarea>
                     </div>
 
                     <!-- Multiple Mood Selection -->
                     <div class="mb-4">
-                        <label class="text-[#23A3BB] text-lg font-semibold mb-2 block">Selecciona las emociones que has sentido:</label>
+                        <label class="text-accent text-lg font-semibold mb-2 block">Selecciona las emociones que has sentido:</label>
                         <div class="grid grid-cols-1 gap-4 w-full">
 
                             <!-- Positive Emotions -->
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" th:field="*{emocionAlegria}"
-                                        class="form-checkbox text-[#23A3BB]">
+                                        class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Alegría</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" th:field="*{emocionAmor}"
-                                        class="form-checkbox text-[#23A3BB]">
+                                        class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Amor</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" th:field="*{emocionSatisfaccion}"
-                                        class="form-checkbox text-[#23A3BB]">
+                                        class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Satisfacción</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" th:field="*{emocionSerenidad}"
-                                        class="form-checkbox text-[#23A3BB]">
+                                        class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Serenidad</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" th:field="*{emocionConfianza}"
-                                        class="form-checkbox text-[#23A3BB]">
+                                        class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Confianza</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" th:field="*{emocionEsperanza}"
-                                        class="form-checkbox text-[#23A3BB]">
+                                        class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Esperanza</span>
                                 </label>
                             </div>
@@ -165,37 +164,37 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" th:field="*{emocionTristeza}"
-                                        class="form-checkbox text-[#23A3BB]">
+                                        class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Tristeza</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" th:field="*{emocionIra}"
-                                        class="form-checkbox text-[#23A3BB]">
+                                        class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Ira</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" th:field="*{emocionFrustracion}"
-                                        class="form-checkbox text-[#23A3BB]">
+                                        class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Frustración</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" th:field="*{emocionAnsiedad}"
-                                        class="form-checkbox text-[#23A3BB]">
+                                        class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Ansiedad</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" th:field="*{emocionVerguenza}"
-                                        class="form-checkbox text-[#23A3BB]">
+                                        class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Vergüenza</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" th:field="*{emocionMiedo}"
-                                        class="form-checkbox text-[#23A3BB]">
+                                        class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Miedo</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" th:field="*{emocionAbrumado}"
-                                        class="form-checkbox text-[#23A3BB]">
+                                        class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Abrumado</span>
                                 </label>
                             </div>
@@ -204,12 +203,12 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" th:field="*{emocionSorpresa}"
-                                        class="form-checkbox text-[#23A3BB]">
+                                        class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Sorpresa</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
                                     <input type="checkbox" th:field="*{emocionAburrimiento}"
-                                        class="form-checkbox text-[#23A3BB]">
+                                        class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Aburrimiento</span>
                                 </label>
                             </div>
@@ -217,26 +216,26 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="estadoEmocionalWhy" class="text-[#23A3BB] text-lg font-semibold mb-2 block">Explica por qué:</label>
+                        <label for="estadoEmocionalWhy" class="text-accent text-lg font-semibold mb-2 block">Explica por qué:</label>
                         <textarea id="estadoEmocionalWhy" th:field="*{estadoEmocionalWhy}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-textPrimary"></textarea>
                     </div>
 
                     <div class="mb-4">
-                        <label for="importanteParaMi" class="text-[#23A3BB] text-lg font-semibold mb-2 block">Lo más importante para mí ha
+                        <label for="importanteParaMi" class="text-accent text-lg font-semibold mb-2 block">Lo más importante para mí ha
                             sido:</label>
                         <textarea id="importanteParaMi" th:field="*{importanteParaMi}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-textPrimary"></textarea>
                     </div>
 
                     <div class="mb-4">
-                        <label for="aprendidoSobreMi" class="text-[#23A3BB] text-lg font-semibold mb-2 block">He aprendido acerca de mí qué:</label>
+                        <label for="aprendidoSobreMi" class="text-accent text-lg font-semibold mb-2 block">He aprendido acerca de mí qué:</label>
                         <textarea id="aprendidoSobreMi" th:field="*{aprendidoSobreMi}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-textPrimary"></textarea>
                     </div>
 
                     <div class="mb-4">
-                        <label class="text-[#23A3BB] text-lg font-semibold mb-2 block">Valoraciones:</label>
+                        <label class="text-accent text-lg font-semibold mb-2 block">Valoraciones:</label>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             <div class="flex items-center space-x-2">
                                 <button type="button" id="valoracionDisciplinaMinus"
@@ -343,20 +342,20 @@
 
 
                     <div class="mb-4">
-                        <label for="explicacionValoracion" class="text-[#23A3BB] text-lg font-semibold mb-2 block">Explicación Valoración:</label>
+                        <label for="explicacionValoracion" class="text-accent text-lg font-semibold mb-2 block">Explicación Valoración:</label>
                         <textarea id="explicacionValoracion" th:field="*{explicacionValoracion}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-textPrimary"></textarea>
                     </div>
 
                     <div class="mb-4">
-                        <label for="objetivosPersonales" class="text-[#23A3BB] text-lg font-semibold mb-2 block">Objetivos Personales:</label>
+                        <label for="objetivosPersonales" class="text-accent text-lg font-semibold mb-2 block">Objetivos Personales:</label>
                         <textarea id="objetivosPersonales" th:field="*{objetivosPersonales}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-textPrimary"></textarea>
                     </div>
 
                     <div class="mt-4 flex item">
                         <button type="submit" id="saveButton"
-                            class="ml-auto text-textPrimary button-bg  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">Guardar</button>
+                            class="ml-auto text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">Guardar</button>
                     </div>
                 </form>
 
@@ -378,7 +377,7 @@
 
                 <!--
                     <div class="mt-4 flex item">
-                        <button type="submit" id="saveButton" class="ml-auto text-textPrimary button-bg  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">Guardar</button>
+                        <button type="submit" id="saveButton" class="ml-auto text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">Guardar</button>
                     </div>   
                 -->
             </div>
