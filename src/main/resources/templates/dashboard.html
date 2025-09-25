@@ -14,7 +14,8 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
+    <div
+        class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
 
 
         <!-- Logo Section -->
@@ -22,56 +23,65 @@
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
-        
+
 
         <!-- Buttons Section -->
         <div class="space-y-4 w-full flex flex-col items-center">
-            <!-- Rounded buttons for other actions -->
+            <!-- Dashboard -->
             <a href="/dashboard/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent  select-none">
-                    Inicio
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent select-none">
+                    <i data-lucide="home" class="w-5 h-5"></i> Inicio
                 </button>
             </a>
+
+            <!-- Journal -->
             <a href="/journal/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Diario
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="book-open" class="w-5 h-5"></i> Diario
                 </button>
             </a>
+
+            <!-- Revision -->
             <a href="/revision/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Revisión
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="refresh-cw" class="w-5 h-5"></i> Revisión
                 </button>
             </a>
+
+            <!-- Inner Work -->
             <a href="/innerwork/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Trabajo Interno
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="brain" class="w-5 h-5"></i> Trabajo Interno
                 </button>
-            </a>			
+            </a>
+
+            <!-- Stats -->
             <a href="/stats/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Estadísticas
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="bar-chart-2" class="w-5 h-5"></i> Estadísticas
                 </button>
             </a>
+
+            <!-- Meditation -->
             <a href="/meditacion/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Meditación
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="moon" class="w-5 h-5"></i> Meditación
                 </button>
             </a>
+
+            <!-- About -->
             <a href="/about" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Sobre Topaz
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="info" class="w-5 h-5"></i> Sobre Topaz
                 </button>
             </a>
-
-            
-
         </div>
     </div>
 
@@ -83,7 +93,8 @@
 
             <div class="bg-surface p-6 rounded-xl shadow-md mb-4" data-aos="fade-up">
                 <p class="text-lg font-bold mb-4 text-accent">¡Bienvenido a Topaz!</p>
-                <p class="text-base mb-4 text-textSecondary mb-4">Sigue avanzando en tu viaje de desarollo personal. Aquí
+                <p class="text-base mb-4 text-textSecondary mb-4">Sigue avanzando en tu viaje de desarollo personal.
+                    Aquí
                     encontrarás tu racha actual, insights de tus entradas pasadas y recordatorios para seguir
                     escribiendo. ¡Sigue creciendo poco a poco, con constancia!</p>
             </div>
@@ -91,31 +102,144 @@
             <div class="flex justify-center">
                 <div class="bg-surface p-6 rounded-xl shadow-md mb-4 mx-2 flex-1">
                     <p class="text-lg font-bold mb-4 text-textPrimary">Cosas que podrías hacer</p>
-                    <p class="text-base mb-4 text-textSecondary" th:text="${dashboardDataMap['Journal'].strIsWrittenToday}"></p>
-                    <p class="text-base mb-4 text-textSecondary" th:text="${dashboardDataMap['Revision'].strIsWrittenToday}"></p>
-                    <p class="text-base mb-4 text-textSecondary" th:text="${dashboardDataMap['InnerWork'].strIsWrittenToday}"></p>
+                    <p class="text-base mb-4 text-textSecondary"
+                        th:text="${dashboardDataMap['Journal'].strIsWrittenToday}"></p>
+                    <p class="text-base mb-4 text-textSecondary"
+                        th:text="${dashboardDataMap['Revision'].strIsWrittenToday}"></p>
+                    <p class="text-base mb-4 text-textSecondary"
+                        th:text="${dashboardDataMap['InnerWork'].strIsWrittenToday}"></p>
                 </div>
 
                 <div class="bg-surface p-6 rounded-xl shadow-md mb-4 mx-2 flex-1">
                     <p class="text-lg font-bold mb-4 text-textPrimary">Racha actual en diario</p>
-                    <p class="text-base mb-4 text-textSecondary" th:text="${dashboardDataMap['Journal'].strCurrentStreak}"></p>
+                    <p class="text-base mb-4 text-textSecondary"
+                        th:text="${dashboardDataMap['Journal'].strCurrentStreak}"></p>
                 </div>
 
                 <div class="bg-surface p-6 rounded-xl shadow-md mb-4 mx-2 flex-1">
                     <p class="text-lg font-bold mb-4 text-textPrimary">Racha actual de revisiones</p>
-                    <p class="text-base mb-4 text-textSecondary" th:text="${dashboardDataMap['Revision'].strCurrentStreak}"></p>
+                    <p class="text-base mb-4 text-textSecondary"
+                        th:text="${dashboardDataMap['Revision'].strCurrentStreak}"></p>
                 </div>
             </div>
 
             <div class="flex justify-center">
                 <div class="bg-surface p-6 rounded-xl shadow-md mb-4 mx-2 flex-1">
                     <p class="text-lg font-bold mb-4 text-textPrimary">Racha más larga en diario</p>
-                    <p class="text-base mb-4 text-textSecondary" th:text="${dashboardDataMap['Journal'].strLongestStreak}"></p>
+                    <p class="text-base mb-4 text-textSecondary"
+                        th:text="${dashboardDataMap['Journal'].strLongestStreak}"></p>
                 </div>
 
                 <div class="bg-surface p-6 rounded-xl shadow-md mb-4 mx-2 flex-1">
                     <p class="text-lg font-bold mb-4 text-textPrimary">Racha más larga de revisiones</p>
-                    <p class="text-base text-textSecondary" th:text="${dashboardDataMap['Revision'].strLongestStreak}"></p>
+                    <p class="text-base text-textSecondary" th:text="${dashboardDataMap['Revision'].strLongestStreak}">
+                    </p>
+                </div>
+            </div>
+
+            <!-- Outer container with x-show -->
+            <div x-data="{ open: false }">
+                <!-- Content controlled by x-show -->
+                <div>
+                    <div class="bg-surface p-6 rounded-xl mt-4 shadow-md" data-aos="fade-up">
+                        <p class="text-lg font-bold mb-4" style="color: #23A3BB;">
+                            Áreas Claves para una Vida Equilibrada
+                        </p>
+                        <p class="text-base mb-4 text-textPrimary">
+                            Para encontrar el bienestar y mantener el equilibrio, es clave explorar y cuidar las
+                            distintas áreas de tu vida. Trata de dedicarle tiempo a cada una cada día, pero no te
+                            preocupes si no siempre lo consigues. Lo importante es el esfuerzo constante, no la
+                            perfección.
+                        </p>
+                        <p class="text-base mb-4 text-textPrimary">
+                            El journaling y la introspección te ayudan a entender tus emociones y a conocerte mejor. La
+                            planificación convierte tus sueños en metas alcanzables, dándole un propósito claro a tu
+                            vida.
+
+                            Al combinar estas prácticas, tomas el control de tu bienestar. Con el tiempo, logras una
+                            vida más equilibrada, consciente y plena.
+                        </p>
+
+                        <!-- Show/Hide Button -->
+                        <button @click="open = !open"
+                            class="px-3 py-2 rounded-md button-accent text-textPrimary text-sm transition hover:button-secondary-bg flex items-center justify-center">
+                            <i data-lucide="chevron-down" x-show="!open" class="w-4 h-4"></i>
+                            <i data-lucide="chevron-up" x-show="open" class="w-4 h-4"></i>
+                        </button>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4" x-show="open" x-collapse>
+                            <!-- Salud Física -->
+                            <div class="bg-background p-6 rounded-lg text-textPrimary">
+                                <p class="text-xl font-bold mb-4">Salud Física</p>
+                                <p class="text-base">Ejercicio regular, nutrición adecuada, descanso y bienestar físico.
+                                </p>
+                            </div>
+
+                            <!-- Bienestar Mental -->
+                            <div class="bg-background p-6 rounded-lg text-textPrimary">
+                                <p class="text-xl font-bold mb-4">Bienestar Mental</p>
+                                <p class="text-base">Mindfulness, meditación, manejo del estrés y desarrollo emocional.
+                                </p>
+                            </div>
+
+                            <!-- Relaciones Sociales -->
+                            <div class="bg-background p-6 rounded-lg text-textPrimary">
+                                <p class="text-xl font-bold mb-4">Relaciones Sociales</p>
+                                <p class="text-base">Construir amistades, fortalecer los lazos familiares y participar
+                                    en la comunidad.</p>
+                            </div>
+
+                            <!-- Carrera Profesional -->
+                            <div class="bg-background p-6 rounded-lg text-textPrimary">
+                                <p class="text-xl font-bold mb-4">Carrera Profesional</p>
+                                <p class="text-base">Desarrollo de habilidades, expansión de conocimientos, alcanzar
+                                    metas profesionales y mantener
+                                    una carrera satisfactoria.</p>
+                            </div>
+
+                            <!-- Estabilidad Financiera -->
+                            <div class="bg-background p-6 rounded-lg text-textPrimary">
+                                <p class="text-xl font-bold mb-4">Estabilidad Financiera</p>
+                                <p class="text-base">Presupuesto, ahorro e inversión para la seguridad y bienestar
+                                    financiero.</p>
+                            </div>
+
+                            <!-- Crecimiento Personal -->
+                            <div class="bg-background p-6 rounded-lg text-textPrimary">
+                                <p class="text-xl font-bold mb-4">Crecimiento Personal</p>
+                                <p class="text-base">Lectura, aprendizaje continuo y reflexión personal para el
+                                    auto-descubrimiento.</p>
+                            </div>
+
+                            <!-- Pasatiempos y Creatividad -->
+                            <div class="bg-background p-6 rounded-lg text-textPrimary">
+                                <p class="text-xl font-bold mb-4">Pasatiempos y Creatividad</p>
+                                <p class="text-base">Explorar intereses y actividades creativas que fomenten la
+                                    diversión y la relajación.</p>
+                            </div>
+
+                            <!-- Espiritualidad y Propósito -->
+                            <div class="bg-background p-6 rounded-lg text-textPrimary">
+                                <p class="text-xl font-bold mb-4">Espiritualidad y Propósito</p>
+                                <p class="text-base">Conectar con el sentido de vida, gratitud y reflexionar sobre el
+                                    propósito.</p>
+                            </div>
+
+                            <!-- Recreación y Diversión -->
+                            <div class="bg-background p-6 rounded-lg text-textPrimary">
+                                <p class="text-xl font-bold mb-4">Recreación y Diversión</p>
+                                <p class="text-base">Disfrutar de actividades recreativas, viajes y momentos de
+                                    diversión.</p>
+                            </div>
+
+                            <!-- Contribución y Legado -->
+                            <div class="bg-background p-6 rounded-lg text-textPrimary">
+                                <p class="text-xl font-bold mb-4">Contribución y Legado</p>
+                                <p class="text-base">Dejar un impacto positivo en los demás. Enseñar a los demás.
+                                    Ejercer mentoría.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
     </div>
@@ -130,6 +254,10 @@
         document.addEventListener("DOMContentLoaded", function () {
             AOS.init();
         });
+    </script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        lucide.createIcons();
     </script>
 </body>
 

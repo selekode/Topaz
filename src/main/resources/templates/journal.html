@@ -14,64 +14,82 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
+    <div
+        class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
 
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
-        
-
         <!-- Buttons Section -->
         <div class="space-y-4 w-full flex flex-col items-center">
-            <!-- Rounded buttons for other actions -->
+
+            <!-- Dashboard -->
             <a href="/dashboard/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Inicio
-                </button>
-            </a>
-            <a href="/journal/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent  select-none">
-                    Diario
-                </button>
-            </a>
-            <a href="/revision/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Revisión
-                </button>
-            </a>
-            <a href="/innerwork/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Trabajo Interno
-                </button>
-            </a>			
-            <a href="/stats/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Estadísticas
-                </button>
-            </a>
-            <a href="/meditacion/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Meditación
-                </button>
-            </a>
-            <a href="/about" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Sobre Topaz
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="home" class="w-5 h-5"></i> Inicio
                 </button>
             </a>
 
-            
+            <!-- Journal -->
+            <a href="/journal/load" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent select-none">
+                    <i data-lucide="book-open" class="w-5 h-5"></i> Diario
+                </button>
+            </a>
+
+            <!-- Revision -->
+            <a href="/revision/load" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="refresh-cw" class="w-5 h-5"></i> Revisión
+                </button>
+            </a>
+
+            <!-- Inner Work -->
+            <a href="/innerwork/load" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="brain" class="w-5 h-5"></i> Trabajo Interno
+                </button>
+            </a>
+
+            <!-- Stats -->
+            <a href="/stats/load" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="bar-chart-2" class="w-5 h-5"></i> Estadísticas
+                </button>
+            </a>
+
+            <!-- Meditation -->
+            <a href="/meditacion/load" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="moon" class="w-5 h-5"></i> Meditación
+                </button>
+            </a>
+
+            <!-- About -->
+            <a href="/about" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="info" class="w-5 h-5"></i> Sobre Topaz
+                </button>
+            </a>
+
         </div>
     </div>
+
+    <!-- Lucide Script -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
 
 
     <!-- Main content -->
@@ -79,34 +97,37 @@
         <main class="container mx-auto mt-6 p-4">
             <h1 data-aos="zoom-in" class="text-3xl font-bold mb-4 text-textPrimary select-none">Diario</h1>
             <div class="flex justify-end items-center mt-4 mb-4">
+                <!--Add new-->
                 <a href="/journal/addEntry" class="text-sm text-teal-600 font-medium hover:underline">
                     <button
-                        class="ml-auto text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">Añadir</button>
+                        class="ml-auto text-textPrimary button-accent transition-colors duration-300 hover:button-secondary-bg py-2 px-3 rounded-md select-none flex items-center justify-center">
+                        <i data-lucide="file-plus-2" class="w-4 h-4"></i>
+                    </button>
                 </a>
             </div>
-
 
             <!-- Iterate over journal entries -->
             <div data-aos="fade-up" th:each="journalEntry : ${journalEntries}" x-data="{ open: false }"
                 class="relative bg-surface p-6 rounded-xl shadow-md mb-6">
                 <!-- Buttons Positioned in the Top Right -->
                 <div class="absolute top-4 right-4 flex space-x-2">
-                        <!-- Show/Hide Button -->
-                        <button @click="open = !open"
-                            class="px-4 py-2 rounded-md button-accent  text-textPrimary text-sm transition hover:button-secondary-bg">
-                            <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
-                        </button>
+                    <!-- Show/Hide Button -->
+                    <button @click="open = !open"
+                        class="px-3 py-2 rounded-md button-accent text-textPrimary text-sm transition hover:button-secondary-bg flex items-center justify-center">
+                        <i data-lucide="chevron-down" x-show="!open" class="w-4 h-4"></i>
+                        <i data-lucide="chevron-up" x-show="open" class="w-4 h-4"></i>
+                    </button>
 
                     <!-- Edit button -->
                     <a th:href="@{/journal/editEntry/{id}(id=${journalEntry.id})}"
-                        class="px-4 py-2 rounded-md button-accent  text-textPrimary text-sm transition hover:button-secondary-bg">
-                        Editar
+                        class="px-3 py-2 rounded-md button-accent text-textPrimary text-sm transition hover:button-secondary-bg flex items-center justify-center">
+                        <i data-lucide="pencil" class="w-4 h-4"></i>
                     </a>
 
                     <!-- Delete button -->
                     <button th:attr="onclick='openModal(' + ${journalEntry.id} + ')'"
-                        class="px-4 py-2 rounded-md button-delete-bg text-textPrimary text-sm transition">
-                        Eliminar
+                        class="px-3 py-2 rounded-md button-delete-bg text-textPrimary text-sm transition flex items-center justify-center">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
                     </button>
                 </div>
 
@@ -120,18 +141,28 @@
                     <div x-show="open" x-collapse>
                         <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentGeneral}"></p>
                         <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentSaludFisica}"></p>
-                        <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentBienestarMental}"></p>
-                        <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentRelacionesSociales}"></p>
-                        <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentCarreraProfesional}"></p>
-                        <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentEstabilidadFinanciera}"></p>
-                        <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentCrecimientoPersonal}"></p>
-                        <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentPasatiemposCreatividad}">
+                        <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentBienestarMental}">
                         </p>
-                        <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentEspiritualidadProposito}">
+                        <p class="text-base mb-4 text-textSecondary"
+                            th:text="${journalEntry.contentRelacionesSociales}"></p>
+                        <p class="text-base mb-4 text-textSecondary"
+                            th:text="${journalEntry.contentCarreraProfesional}"></p>
+                        <p class="text-base mb-4 text-textSecondary"
+                            th:text="${journalEntry.contentEstabilidadFinanciera}"></p>
+                        <p class="text-base mb-4 text-textSecondary"
+                            th:text="${journalEntry.contentCrecimientoPersonal}"></p>
+                        <p class="text-base mb-4 text-textSecondary"
+                            th:text="${journalEntry.contentPasatiemposCreatividad}">
                         </p>
-                        <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentRecreacionDiversion}"></p>
-                        <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentContribucionLegado}"></p>
-                        <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentErroresCometidos}"></p>
+                        <p class="text-base mb-4 text-textSecondary"
+                            th:text="${journalEntry.contentEspiritualidadProposito}">
+                        </p>
+                        <p class="text-base mb-4 text-textSecondary"
+                            th:text="${journalEntry.contentRecreacionDiversion}"></p>
+                        <p class="text-base mb-4 text-textSecondary"
+                            th:text="${journalEntry.contentContribucionLegado}"></p>
+                        <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentErroresCometidos}">
+                        </p>
                     </div>
                 </div>
             </div>
@@ -140,7 +171,8 @@
             <div id="confirmModal"
                 class="modal hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
                 <div class="modal-content rounded-lg p-6">
-                    <h3 class="text-lg text-justify text-textPrimary font-bold mb-4 select-none">¿Seguro que quieres eliminar
+                    <h3 class="text-lg text-justify text-textPrimary font-bold mb-4 select-none">¿Seguro que quieres
+                        eliminar
                         está entrada del diario?</h3>
                     <form id="deleteForm" method="post" action="deleteEntry">
                         <input type="hidden" id="journalId" name="id" />
@@ -163,6 +195,10 @@
         document.addEventListener("DOMContentLoaded", function () {
             AOS.init();
         });
+    </script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        lucide.createIcons();
     </script>
 </body>
 

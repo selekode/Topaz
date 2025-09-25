@@ -15,7 +15,8 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
+    <div
+        class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
 
 
         <!-- Logo Section -->
@@ -23,55 +24,65 @@
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
-        
+
 
         <div class="space-y-4 w-full flex flex-col items-center">
 
-            <!-- Rounded buttons for other actions -->
+            <!-- Dashboard -->
             <a href="/dashboard/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 hover:button-secondary-bg">
-                    Inicio
-                </button>
-            </a>
-            <a href="/journal/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent ">
-                    Diario
-                </button>
-            </a>
-            <a href="/revision/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 hover:button-secondary-bg">
-                    Revisión
-                </button>
-            </a>
-            <a href="/innerwork/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 hover:button-secondary-bg">
-                    Trabajo Interno
-                </button>
-            </a>
-            <a href="/stats/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 hover:button-secondary-bg">
-                    Estadísticas
-                </button>
-            </a>
-            <a href="/meditacion/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 hover:button-secondary-bg">
-                    Meditación
-                </button>
-            </a>
-            <a href="/about" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 hover:button-secondary-bg">
-                    Sobre Topaz
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="home" class="w-5 h-5"></i> Inicio
                 </button>
             </a>
 
-            
+            <!-- Journal -->
+            <a href="/journal/load" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent select-none">
+                    <i data-lucide="book-open" class="w-5 h-5"></i> Diario
+                </button>
+            </a>
+
+            <!-- Revision -->
+            <a href="/revision/load" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="refresh-cw" class="w-5 h-5"></i> Revisión
+                </button>
+            </a>
+
+            <!-- Inner Work -->
+            <a href="/innerwork/load" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="brain" class="w-5 h-5"></i> Trabajo Interno
+                </button>
+            </a>
+
+            <!-- Stats -->
+            <a href="/stats/load" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="bar-chart-2" class="w-5 h-5"></i> Estadísticas
+                </button>
+            </a>
+
+            <!-- Meditation -->
+            <a href="/meditacion/load" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="moon" class="w-5 h-5"></i> Meditación
+                </button>
+            </a>
+
+            <!-- About -->
+            <a href="/about" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="info" class="w-5 h-5"></i> Sobre Topaz
+                </button>
+            </a>
         </div>
     </div>
 
@@ -83,15 +94,15 @@
             <div data-aos="fade-left" class="bg-surface p-6 rounded-xl shadow-md flex flex-col justify-between">
                 <div class="mb-4 relative flex justify-center items-center">
                     <a href="/journal/load"
-                        class="absolute left-0 text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">
-                        Atrás
+                        class="absolute left-0 text-textPrimary button-accent transition-colors duration-300 hover:button-secondary-bg py-2 px-3 rounded-md select-none flex items-center justify-center">
+                        <i data-lucide="arrow-big-left" class="w-4 h-4"></i>
                     </a>
-                    <h2 class="text-xl text-textPrimary font-bold select-none">
+                    <h2 class="text-xl text-accent font-bold select-none">
                         Añadir Entrada al Diario
                     </h2>
                 </div>
 
-                
+
 
                 <!-- Form to handle the journal entry -->
                 <form id="journalForm" action="#" method="POST" th:action="@{/journal/saveEntry}"
@@ -117,8 +128,8 @@
                         placeholder="Hoy he ido al gimnasio..."></textarea>
 
                     <!-- Bienestar Mental -->
-                    <label for="contentBienestarMental"
-                        class="text-accent text-lg font-semibold mb-2 block">Bienestar Mental</label>
+                    <label for="contentBienestarMental" class="text-accent text-lg font-semibold mb-2 block">Bienestar
+                        Mental</label>
                     <textarea name="contentBienestarMental" id="contentBienestarMental"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentBienestarMental}" placeholder="Hoy he meditado..."></textarea>
@@ -132,8 +143,8 @@
                         placeholder="Hoy he pasado tiempo con mi familia y amigos..."></textarea>
 
                     <!-- Carrera Profesional -->
-                    <label for="contentCarreraProfesional"
-                        class="text-accent text-lg font-semibold mb-2 block">Carrera Profesional</label>
+                    <label for="contentCarreraProfesional" class="text-accent text-lg font-semibold mb-2 block">Carrera
+                        Profesional</label>
                     <textarea name="contentCarreraProfesional" id="contentCarreraProfesional"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentCarreraProfesional}"
@@ -200,112 +211,15 @@
                     <!-- Submit button -->
                     <div class="mt-6 flex">
                         <button type="submit" id="saveButton"
-                            class="ml-auto text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">
-                            Guardar
+                            class="ml-auto text-textPrimary button-accent transition-colors duration-300 hover:button-secondary-bg py-2 px-3 rounded-md select-none flex items-center justify-center">
+                            <i data-lucide="save" class="w-4 h-4"></i>
+                            &nbsp;&nbsp;Guardar
                         </button>
+
                     </div>
                 </form>
 
             </div>
-
-            <!-- Outer container with x-show -->
-            <div x-data="{ open: false }">
-                <!-- Content controlled by x-show -->
-                <div>
-                    <div class="bg-surface p-6 rounded-xl mt-4 shadow-md" data-aos="fade-up">
-                        <p class="text-lg font-bold mb-4" style="color: #23A3BB;">
-                            Áreas Claves para una Vida Equilibrada
-                        </p>
-                        <p class="text-base mb-4 text-textPrimary">
-                            Para ser feliz y estar bien equilibrado, es importante explorar y
-                            equilibrar diferentes áreas de la vida. Intenta mejorar en todas las áreas cada día, pero no
-                            te
-                            preocupes si no lo logras siempre. Lo importante es avanzar poco a poco.
-                        </p>
-
-                        <!-- Show/Hide Button -->
-                        <button @click="open = !open"
-                            class="px-4 py-2 rounded-md button-accent  text-textPrimary text-sm transition hover:button-secondary-bg">
-                            <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
-                        </button>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4" x-show="open" x-collapse>
-                            <!-- Salud Física -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
-                                <p class="text-xl font-bold mb-4">Salud Física</p>
-                                <p class="text-base">Ejercicio regular, nutrición adecuada, descanso y bienestar físico.
-                                </p>
-                            </div>
-
-                            <!-- Bienestar Mental -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
-                                <p class="text-xl font-bold mb-4">Bienestar Mental</p>
-                                <p class="text-base">Mindfulness, meditación, manejo del estrés y desarrollo emocional.
-                                </p>
-                            </div>
-
-                            <!-- Relaciones Sociales -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
-                                <p class="text-xl font-bold mb-4">Relaciones Sociales</p>
-                                <p class="text-base">Construir amistades, fortalecer los lazos familiares y participar
-                                    en la comunidad.</p>
-                            </div>
-
-                            <!-- Carrera Profesional -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
-                                <p class="text-xl font-bold mb-4">Carrera Profesional</p>
-                                <p class="text-base">Desarrollo de habilidades, alcanzar metas profesionales y mantener
-                                    una carrera satisfactoria.</p>
-                            </div>
-
-                            <!-- Estabilidad Financiera -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
-                                <p class="text-xl font-bold mb-4">Estabilidad Financiera</p>
-                                <p class="text-base">Presupuesto, ahorro e inversión para la seguridad y bienestar
-                                    financiero.</p>
-                            </div>
-
-                            <!-- Crecimiento Personal -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
-                                <p class="text-xl font-bold mb-4">Crecimiento Personal</p>
-                                <p class="text-base">Lectura, aprendizaje continuo y reflexión personal para el
-                                    auto-descubrimiento.</p>
-                            </div>
-
-                            <!-- Pasatiempos y Creatividad -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
-                                <p class="text-xl font-bold mb-4">Pasatiempos y Creatividad</p>
-                                <p class="text-base">Explorar intereses y actividades creativas que fomenten la
-                                    diversión y la relajación.</p>
-                            </div>
-
-                            <!-- Espiritualidad y Propósito -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
-                                <p class="text-xl font-bold mb-4">Espiritualidad y Propósito</p>
-                                <p class="text-base">Conectar con el sentido de vida, gratitud y reflexionar sobre el
-                                    propósito.</p>
-                            </div>
-
-                            <!-- Recreación y Diversión -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
-                                <p class="text-xl font-bold mb-4">Recreación y Diversión</p>
-                                <p class="text-base">Disfrutar de actividades recreativas, viajes y momentos de
-                                    diversión.</p>
-                            </div>
-
-                            <!-- Contribución y Legado -->
-                            <div class="bg-[#1F3A44] p-6 rounded-lg text-textPrimary">
-                                <p class="text-xl font-bold mb-4">Contribución y Legado</p>
-                                <p class="text-base">Dejar un impacto positivo en los demás. Enseñar a los demás.
-                                    Ejercer mentoría.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
         </main>
     </div>
 
@@ -316,6 +230,10 @@
         document.addEventListener("DOMContentLoaded", function () {
             AOS.init();
         });
+    </script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        lucide.createIcons();
     </script>
 </body>
 

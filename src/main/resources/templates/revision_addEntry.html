@@ -29,7 +29,8 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
+    <div
+        class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
 
 
         <!-- Logo Section -->
@@ -37,55 +38,64 @@
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
-        
+
 
         <div class="space-y-4 w-full flex flex-col items-center">
-
-            <!-- Rounded buttons for other actions -->
+            <!-- Dashboard -->
             <a href="/dashboard/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Inicio
-                </button>
-            </a>
-            <a href="/journal/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Diario
-                </button>
-            </a>
-            <a href="/revision/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-secondary-bg select-none">
-                    Revisión
-                </button>
-            </a>
-            <a href="/innerwork/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Trabajo Interno
-                </button>
-            </a>			
-            <a href="/stats/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Estadísticas
-                </button>
-            </a>
-            <a href="/meditacion/load" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Meditación
-                </button>
-            </a>
-            <a href="/about" class="block w-full">
-                <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Sobre Topaz
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="home" class="w-5 h-5"></i> Inicio
                 </button>
             </a>
 
-            
+            <!-- Journal -->
+            <a href="/journal/load" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="book-open" class="w-5 h-5"></i> Diario
+                </button>
+            </a>
+
+            <!-- Revision -->
+            <a href="/revision/load" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent select-none">
+                    <i data-lucide="refresh-cw" class="w-5 h-5"></i> Revisión
+                </button>
+            </a>
+
+            <!-- Inner Work -->
+            <a href="/innerwork/load" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="brain" class="w-5 h-5"></i> Trabajo Interno
+                </button>
+            </a>
+
+            <!-- Stats -->
+            <a href="/stats/load" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="bar-chart-2" class="w-5 h-5"></i> Estadísticas
+                </button>
+            </a>
+
+            <!-- Meditation -->
+            <a href="/meditacion/load" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="moon" class="w-5 h-5"></i> Meditación
+                </button>
+            </a>
+
+            <!-- About -->
+            <a href="/about" class="block w-full">
+                <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="info" class="w-5 h-5"></i> Sobre Topaz
+                </button>
+            </a>
         </div>
     </div>
 
@@ -97,15 +107,15 @@
             <div data-aos="fade-left" class="bg-surface p-6 rounded-xl shadow-md flex flex-col justify-between">
                 <div class="mb-4 relative flex justify-center items-center">
                     <a href="/revision/load"
-                        class="absolute left-0 text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">
-                        Atrás
+                        class="absolute left-0 text-textPrimary button-accent transition-colors duration-300 hover:button-secondary-bg py-2 px-3 rounded-md select-none flex items-center justify-center">
+                        <i data-lucide="arrow-big-left" class="w-4 h-4"></i>
                     </a>
-                    <h2 class="text-xl text-textPrimary font-bold select-none">
+                    <h2 class="text-xl text-accent font-bold select-none">
                         Añadir Revisión
                     </h2>
                 </div>
 
-                
+
 
                 <!-- Form to handle the revision entry -->
                 <form method="POST" th:action="@{/revision/saveEntry}" th:object="${revisionEntry}">
@@ -116,14 +126,16 @@
                     <input type="hidden" th:field="*{date}" value="2" />
 
                     <div class="mb-4">
-                        <label for="estadoEmocional" class="text-accent text-lg font-semibold mb-2 block">Mi estado emocional ha sido:</label>
+                        <label for="estadoEmocional" class="text-accent text-lg font-semibold mb-2 block">Mi estado
+                            emocional ha sido:</label>
                         <textarea id="estadoEmocional" th:field="*{estadoEmocional}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-textPrimary"></textarea>
                     </div>
 
                     <!-- Multiple Mood Selection -->
                     <div class="mb-4">
-                        <label class="text-accent text-lg font-semibold mb-2 block">Selecciona las emociones que has sentido:</label>
+                        <label class="text-accent text-lg font-semibold mb-2 block">Selecciona las emociones que has
+                            sentido:</label>
                         <div class="grid grid-cols-1 gap-4 w-full">
 
                             <!-- Positive Emotions -->
@@ -134,8 +146,7 @@
                                     <span class="text-textPrimary">Alegría</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionAmor}"
-                                        class="form-checkbox text-accent">
+                                    <input type="checkbox" th:field="*{emocionAmor}" class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Amor</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
@@ -168,8 +179,7 @@
                                     <span class="text-textPrimary">Tristeza</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionIra}"
-                                        class="form-checkbox text-accent">
+                                    <input type="checkbox" th:field="*{emocionIra}" class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Ira</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
@@ -188,8 +198,7 @@
                                     <span class="text-textPrimary">Vergüenza</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
-                                    <input type="checkbox" th:field="*{emocionMiedo}"
-                                        class="form-checkbox text-accent">
+                                    <input type="checkbox" th:field="*{emocionMiedo}" class="form-checkbox text-accent">
                                     <span class="text-textPrimary">Miedo</span>
                                 </label>
                                 <label class="flex items-center space-x-2">
@@ -216,20 +225,23 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="estadoEmocionalWhy" class="text-accent text-lg font-semibold mb-2 block">Explica por qué:</label>
+                        <label for="estadoEmocionalWhy" class="text-accent text-lg font-semibold mb-2 block">Explica por
+                            qué:</label>
                         <textarea id="estadoEmocionalWhy" th:field="*{estadoEmocionalWhy}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-textPrimary"></textarea>
                     </div>
 
                     <div class="mb-4">
-                        <label for="importanteParaMi" class="text-accent text-lg font-semibold mb-2 block">Lo más importante para mí ha
+                        <label for="importanteParaMi" class="text-accent text-lg font-semibold mb-2 block">Lo más
+                            importante para mí ha
                             sido:</label>
                         <textarea id="importanteParaMi" th:field="*{importanteParaMi}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-textPrimary"></textarea>
                     </div>
 
                     <div class="mb-4">
-                        <label for="aprendidoSobreMi" class="text-accent text-lg font-semibold mb-2 block">He aprendido acerca de mí qué:</label>
+                        <label for="aprendidoSobreMi" class="text-accent text-lg font-semibold mb-2 block">He aprendido
+                            acerca de mí qué:</label>
                         <textarea id="aprendidoSobreMi" th:field="*{aprendidoSobreMi}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-textPrimary"></textarea>
                     </div>
@@ -342,20 +354,25 @@
 
 
                     <div class="mb-4">
-                        <label for="explicacionValoracion" class="text-accent text-lg font-semibold mb-2 block">Explicación Valoración:</label>
+                        <label for="explicacionValoracion"
+                            class="text-accent text-lg font-semibold mb-2 block">Explicación Valoración:</label>
                         <textarea id="explicacionValoracion" th:field="*{explicacionValoracion}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-textPrimary"></textarea>
                     </div>
 
                     <div class="mb-4">
-                        <label for="objetivosPersonales" class="text-accent text-lg font-semibold mb-2 block">Objetivos Personales:</label>
+                        <label for="objetivosPersonales" class="text-accent text-lg font-semibold mb-2 block">Objetivos
+                            Personales:</label>
                         <textarea id="objetivosPersonales" th:field="*{objetivosPersonales}"
                             class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-textPrimary"></textarea>
                     </div>
 
                     <div class="mt-4 flex item">
                         <button type="submit" id="saveButton"
-                            class="ml-auto text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">Guardar</button>
+                            class="ml-auto text-textPrimary button-accent transition-colors duration-300 hover:button-secondary-bg py-2 px-3 rounded-md select-none flex items-center justify-center">
+                            <i data-lucide="save" class="w-4 h-4"></i>
+                            &nbsp;&nbsp;Guardar
+                        </button>
                     </div>
                 </form>
 
@@ -400,6 +417,10 @@
         document.addEventListener("DOMContentLoaded", function () {
             AOS.init();
         });
+    </script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        lucide.createIcons();
     </script>
 </body>
 

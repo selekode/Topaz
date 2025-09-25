@@ -6,22 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topaz</title>
     <link th:href="@{/css/output.css}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
     <script th:src="@{/js/tailwind.js}" defer></script>
+    <script th:src="@{/js/chart.js}" defer></script>
+    <script th:src="@{/js/flatpickr.js}" defer></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
-    <script>
-        function openModal(id) {
-            console.log("Opening modal for entry with ID: " + id);  // Debug log
-            document.getElementById('journalId').value = id;
-            document.getElementById('confirmModal').classList.remove('hidden');
-            console.log("Modal should now be visible");
-        }
-
-        function closeModal() {
-            console.log("Closing modal");  // Debug log
-            document.getElementById('confirmModal').classList.add('hidden');
-        }
-    </script>
+    <link rel="stylesheet" th:href="@{/css/flatpickr.min.css}">
 </head>
 
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
@@ -75,7 +68,7 @@
             <!-- Stats -->
             <a href="/stats/load" class="block w-full">
                 <button
-                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent select-none">
                     <i data-lucide="bar-chart-2" class="w-5 h-5"></i> Estadísticas
                 </button>
             </a>
@@ -91,7 +84,7 @@
             <!-- About -->
             <a href="/about" class="block w-full">
                 <button
-                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent select-none">
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
                     <i data-lucide="info" class="w-5 h-5"></i> Sobre Topaz
                 </button>
             </a>
@@ -100,37 +93,54 @@
 
 
     <!-- Main content -->
-    <div class="main-content  flex-grow bg-background p-6 select-none">
+    <div class="main-content  flex-grow bg-background p-6  select-none">
         <main class="container mx-auto mt-6 p-4">
-            <h1 data-aos="zoom-in" class="text-3xl font-bold mb-4 text-textPrimary">Sobre Topaz</h1>
+            <h1 data-aos="zoom-in" class="text-3xl font-bold mb-4 text-textPrimary">Estadísticas</h1>
 
             <div class="bg-surface p-6 rounded-xl shadow-md" data-aos="fade-up">
-                <p class="text-lg font-bold text-accent">Desarrollado por Sean Leitch / Selekode</p>
-                <p class="text-xl mb-4 text-accent">Versión 25.09</p>
-                <p class="text-base mb-4 text-textPrimary">Topaz es una aplicación diseñada para ayudarte a registrar
-                    tus pensamientos, emociones y objetivos personales de manera sencilla. Se ha desarrollado siguiendo
-                    principios científicos orientados a mejorar el bienestar integral, basándose en evidencia empírica
-                    que respalda su eficacia en la promoción del bienestar emocional y psicológico de los usuarios.</p>
-                <p class="text-base mb-4 text-textPrimary">A través de entradas de diario y revisiones emocionales,
-                    puedes reflexionar sobre tu día y hacer un seguimiento de tu bienestar.</p>
-                <p class="text-base mb-4 text-textPrimary">La función de Trabajo interno te guía en ejercicios de
-                    autoconocimiento y desarrollo personal, con preguntas introspectivas diseñadas para profundizar en
-                    tus experiencias, valores y creencias, fomentando una mayor claridad y equilibrio emocional.</p>
-                <p class="text-base mb-4 text-textPrimary">Además, Topaz ofrece estadísticas que analizan tus entradas
-                    de diario, mostrando patrones en tus emociones y productividad, lo que te permite comprender mejor
-                    tu progreso y tomar decisiones informadas para tu desarrollo personal.</p>
-                <p class="text-base mb-4 text-textPrimary">Finalmente, Topaz incluye una función de meditación con un
-                    temporizador ajustable, ayudándote a encontrar momentos de calma y concentración a lo largo del día.
-                </p>
+                <p class="text-lg  font-bold mb-4" style="color: #23A3BB;">Descubre el data sobre tu diario y
+                    revisiones</p>
+
+                <form th:action="@{/stats/calculate}" th:object="${statsDateRange}" method="POST" class="space-y-4">
+                    <div class="flex space-x-4">
+                        <div class="w-1/2">
+                            <label for="startDate" class="block text-base text-textPrimary">Fecha de Inicio</label>
+                            <input th:field="*{startDate}" type="text" name="startDate" id="startDate" required
+                                class="date-picker mt-1 block w-full p-2 border border-gray-600 rounded-lg bg-background text-textPrimary focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+
+                        <div class="w-1/2">
+                            <label for="endDate" class="block text-base text-textPrimary">Fecha de Fin</label>
+                            <input th:field="*{endDate}" type="text" name="endDate" id="endDate" required
+                                class="date-picker mt-1 block w-full p-2 border border-gray-600 rounded-lg bg-background text-textPrimary focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end mt-4">
+                        <button type="submit"
+                            class="button-accent  transition hover:button-secondary-bg text-textPrimary text-sm py-2 px-6 rounded-md">Calcular</button>
+                    </div>
+                </form>
             </div>
-    </div>
-    </main>
+
+            <script>
+                // Initialize Flatpickr for all date inputs
+                flatpickr(".date-picker", {
+                    enableTime: false,
+                    weekStart: 1, // Start the week on Monday
+                    dateFormat: "d-M-Y", // Format YYYY-MM-DD
+                    defaultDate: "1-Ene-2025",
+                    locale: "es" // Spanish locale
+                });
+            </script>
+
+        </main>
     </div>
 
-    </div>
     <script th:src="@{/js/deleteFeature_openModal.js}" defer></script>
     <script th:src="@{/js/aos.js}" defer></script>
     <script th:src="@{/js/alpine.js}" defer></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             AOS.init();

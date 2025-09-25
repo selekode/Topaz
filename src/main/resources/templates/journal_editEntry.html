@@ -24,7 +24,8 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
+    <div
+        class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
 
 
         <!-- Logo Section -->
@@ -32,55 +33,62 @@
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
-        
-
         <div class="space-y-4 w-full flex flex-col items-center">
-            <!-- Rounded buttons for other actions -->
+            <!-- Dashboard -->
             <a href="/dashboard/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Inicio
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="home" class="w-5 h-5"></i> Inicio
                 </button>
             </a>
+
+            <!-- Journal -->
             <a href="/journal/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent  select-none">
-                    Diario
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent select-none">
+                    <i data-lucide="book-open" class="w-5 h-5"></i> Diario
                 </button>
             </a>
+
+            <!-- Revision -->
             <a href="/revision/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Revisión
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="refresh-cw" class="w-5 h-5"></i> Revisión
                 </button>
             </a>
+
+            <!-- Inner Work -->
             <a href="/innerwork/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Trabajo Interno
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="brain" class="w-5 h-5"></i> Trabajo Interno
                 </button>
             </a>
+
+            <!-- Stats -->
             <a href="/stats/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Estadísticas
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="bar-chart-2" class="w-5 h-5"></i> Estadísticas
                 </button>
             </a>
+
+            <!-- Meditation -->
             <a href="/meditacion/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Meditación
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="moon" class="w-5 h-5"></i> Meditación
                 </button>
             </a>
+
+            <!-- About -->
             <a href="/about" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
-                    Sobre Topaz
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="info" class="w-5 h-5"></i> Sobre Topaz
                 </button>
             </a>
-
-            
-
         </div>
     </div>
 
@@ -92,15 +100,15 @@
             <div data-aos="fade-left" class="bg-surface p-6 rounded-xl shadow-md flex flex-col justify-between">
                 <div class="mb-4 relative flex justify-center items-center">
                     <a href="/journal/load"
-                        class="absolute left-0 text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none">
-                        Atrás
+                        class="absolute left-0 text-textPrimary button-accent transition-colors duration-300 hover:button-secondary-bg py-2 px-3 rounded-md select-none flex items-center justify-center">
+                        <i data-lucide="arrow-big-left" class="w-4 h-4"></i>
                     </a>
-                    <h2 class="text-xl text-textPrimary font-bold select-none">
+                    <h2 class="text-xl text-accent font-bold select-none">
                         Editar Entrada al Diario
                     </h2>
                 </div>
 
-                
+
 
                 <!-- Form to handle the journal entry -->
                 <form id="journalForm" action="#" method="POST"
@@ -135,8 +143,8 @@
                         th:text="${journalEntry.contentBienestarMental}" placeholder="Hoy he meditado..."></textarea>
 
                     <!-- Relaciones Sociales -->
-                    <label for="contentRelacionesSociales"
-                        class="block text-lg font-medium text-accent mb-2">Relaciones Sociales</label>
+                    <label for="contentRelacionesSociales" class="block text-lg font-medium text-accent mb-2">Relaciones
+                        Sociales</label>
                     <textarea name="contentRelacionesSociales" id="contentRelacionesSociales"
                         class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
                         th:text="${journalEntry.contentRelacionesSociales}"
@@ -207,8 +215,9 @@
                     <!-- Save Button -->
                     <div class="mt-4 flex">
                         <button type="submit" id="saveButton"
-                            class="ml-auto text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-6 rounded-md select-none text-base font-medium">
-                            Editar
+                            class="ml-auto text-textPrimary button-accent transition-colors duration-300 hover:button-secondary-bg py-2 px-3 rounded-md select-none flex items-center justify-center">
+                            <i data-lucide="save" class="w-4 h-4"></i>
+                            &nbsp;&nbsp;Guardar
                         </button>
                     </div>
 
@@ -225,6 +234,10 @@
         document.addEventListener("DOMContentLoaded", function () {
             AOS.init();
         });
+    </script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        lucide.createIcons();
     </script>
 </body>
 
