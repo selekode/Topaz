@@ -183,7 +183,7 @@ public class StatsUtils {
 		}
 
 		mostActiveDayN = maxEntries;
-
+		
 		return mostActiveDayN;
 	}
 

@@ -175,7 +175,7 @@
                             </button>
                         </div>
 
-                        <!-- Entradas en Última Semana Tab -->
+                        <!-- Entradas en Última Semana Tab statsEntryCountWeek -->
                         <div x-show="tab === 'lastWeek'" x-transition class="w-full">
                             <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entradas en el periodo entre ' + ${statsDateRangeLastWeek.startDate} + ' y ' + ${statsDateRangeLastWeek.endDate}">
@@ -186,7 +186,7 @@
                             </div>
                         </div>
 
-                        <!-- Entradas en Último Mes Tab -->
+                        <!-- Entradas en Último Mes Tab statsEntryCountMonth -->
                         <div x-show="tab === 'lastMonth'" x-transition class="w-full">
                             <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entradas en el periodo entre ' + ${statsDateRangeLastMonth.startDate} + ' y ' + ${statsDateRangeLastMonth.endDate}">
@@ -196,7 +196,7 @@
                             </div>
                         </div>
 
-                        <!-- Entradas en el Periodo Tab -->
+                        <!-- Entradas en el Periodo Tab statsEntryCountDateRange -->
                         <div x-show="tab === 'range'" x-transition class="w-full">
                             <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entradas en el periodo entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
@@ -206,7 +206,7 @@
                                     class="absolute top-0 left-0 w-full h-full"></canvas>
                             </div>
                         </div>
-                        <!-- Entradas Totales Tab -->
+                        <!-- Entradas Totales Tab statsEntryCountAlltime -->
                         <div x-show="tab === 'all'" x-transition class="w-full">
                             <p class="text-lg text-textPrimary font-bold mb-4">
                                 Entradas Totales</p>
@@ -265,7 +265,7 @@
                             </button>
                         </div>
 
-                        <!-- Diario (7d) -->
+                        <!-- Diario (7d) statsActivitiesPerDayOfWeekWeek -->
                         <div x-show="tab === 'journalLastWeek'" x-transition class="w-full">
                             <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entre ' + ${statsDateRangeLastWeek.startDate} + ' y ' + ${statsDateRangeLastWeek.endDate}">
@@ -282,16 +282,16 @@
                             </div>
                         </div>
 
-                        <!-- Diario (1m) -->
+                        <!-- Diario (1m) statsActivitiesPerDayOfWeekMonth -->
                         <div x-show="tab === 'journalLastMonth'" x-transition class="w-full">
                             <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entre ' + ${statsDateRangeLastMonth.startDate} + ' y ' + ${statsDateRangeLastMonth.endDate}">
                             </p>
                             <p class="text-base text-textPrimary mb-4"
-                                th:text="'- En el último més, el día en el que más has escrito en el diario es el ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDay}">
+                                th:text="'- En el último més, el día en el que más has escrito en el diario es el ' + ${statsActivitiesPerDayOfWeekMonth[0].mostActiveDay}">
                             </p>
                             <p class="text-base text-textPrimary mb-4"
-                                th:text="'- En el último més, has escrito ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDayN} + ' entradas en el diario un ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDay}">
+                                th:text="'- En el último més, has escrito ' + ${statsActivitiesPerDayOfWeekMonth[0].mostActiveDayN} + ' entradas en el diario un ' + ${statsActivitiesPerDayOfWeekMonth[0].mostActiveDay}">
                             </p>
 
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
@@ -300,16 +300,16 @@
                             </div>
                         </div>
 
-                        <!-- Diario (Rango) -->
+                        <!-- Diario (Rango) statsActivitiesPerDayOfWeekDateRange -->
                         <div x-show="tab === 'journalDateRange'" x-transition class="w-full">
                             <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
                             <p class="text-base text-textPrimary mb-4"
-                                th:text="'- El día en el que más has escrito en el diario es el ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDay}">
+                                th:text="'- El día en el que más has escrito en el diario es el ' + ${statsActivitiesPerDayOfWeekDateRange[0].mostActiveDay}">
                             </p>
                             <p class="text-base text-textPrimary mb-4"
-                                th:text="'- Has escrito ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDayN} + ' entradas en el diario un ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDay}">
+                                th:text="'- Has escrito ' + ${statsActivitiesPerDayOfWeekDateRange[0].mostActiveDayN} + ' entradas en el diario un ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDay}">
                             </p>
 
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
@@ -318,13 +318,13 @@
                             </div>
                         </div>
 
-                        <!-- Diario (Total) -->
+                        <!-- Diario (Total) statsActivitiesPerDayOfWeekAllTime -->
                         <div x-show="tab === 'journalAllTime'" x-transition class="w-full">
                             <p class="text-base text-textPrimary mb-4"
-                                th:text="'- El día en el que más escribes en el diario es el ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDay}">
+                                th:text="'- El día en el que más escribes en el diario es el ' + ${statsActivitiesPerDayOfWeekAllTime[0].mostActiveDay}">
                             </p>
                             <p class="text-base text-textPrimary mb-4"
-                                th:text="'- Has escrito ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDayN} + ' entradas en el diario un ' + ${statsActivitiesPerDayOfWeekWeek[0].mostActiveDay}">
+                                th:text="'- Has escrito ' + ${statsActivitiesPerDayOfWeekAllTime[0].mostActiveDayN} + ' entradas en el diario un ' + ${statsActivitiesPerDayOfWeekAllTime[0].mostActiveDay}">
                             </p>
 
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
@@ -356,7 +356,6 @@
                 <div class="mr-4">
                     <div x-show="open" x-collapse>
 
-
                         <!-- Tab Navigation -->
                         <div class="flex space-x-2 mb-4">
                             <button @click="tab = 'revisionLastWeek'"
@@ -381,7 +380,7 @@
                             </button>
                         </div>
 
-                        <!-- Revisiones (7d) -->
+                        <!-- Revisiones (7d) statsActivitiesPerDayOfWeekWeek -->
                         <div x-show="tab === 'revisionLastWeek'" x-transition>
                             <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entre ' + ${statsDateRangeLastWeek.startDate} + ' y ' + ${statsDateRangeLastWeek.endDate}">
@@ -398,7 +397,7 @@
                             </div>
                         </div>
 
-                        <!-- Revisiones (1m) -->
+                        <!-- Revisiones (1m) statsActivitiesPerDayOfWeekMonth -->
                         <div x-show="tab === 'revisionLastMonth'" x-transition>
                             <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entre ' + ${statsDateRangeLastMonth.startDate} + ' y ' + ${statsDateRangeLastMonth.endDate}">
@@ -415,7 +414,7 @@
                             </div>
                         </div>
 
-                        <!-- Revisiones (Rango) -->
+                        <!-- Revisiones (Rango) statsActivitiesPerDayOfWeekDateRange -->
                         <div x-show="tab === 'revisionDateRange'" x-transition>
                             <p class="text-lg text-textPrimary font-bold mb-4"
                                 th:text="'Entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
@@ -432,7 +431,7 @@
                             </div>
                         </div>
 
-                        <!-- Revisiones (Total) -->
+                        <!-- Revisiones (Total) statsActivitiesPerDayOfWeekAllTime -->
                         <div x-show="tab === 'revisionAllTime'" x-transition>
                             <p class="text-base text-textPrimary mb-4"
                                 th:text="'- El día en el que más revisiones escribes es el ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDay}">
