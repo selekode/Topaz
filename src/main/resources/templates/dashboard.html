@@ -242,6 +242,75 @@
                     </div>
                 </div>
             </div>
+
+
+            <!-- Outer container with x-show -->
+            <div x-data="{ open: false }">
+                <!-- Content controlled by x-show -->
+                <div>
+                    <div class="bg-surface p-6 rounded-xl mt-4 shadow-md" data-aos="fade-up">
+                        <p class="text-lg font-bold mb-4" style="color: #23A3BB;">
+                            Hábitos que deterioran la motivación y el bienestar integral
+                        </p>
+                        <p class="text-base mb-4 text-textPrimary">
+                            Para impulsar nuestra felicidad, productividad y estabilidad, es crucial identificar y
+                            eliminar activamente los hábitos y comportamientos que dañan nuestro bienestar.
+                        </p>
+                        <p class="text-base mb-4 text-textPrimary">
+                            Para cuidar tu bienestar, es esencial moderar el tiempo frente a la pantalla —incluyendo el
+                            uso excesivo de dispositivos y redes sociales—, así como evitar el abuso de sustancias, los
+                            comportamientos adictivos (como las apuestas y el exceso de videojuegos) y cualquier
+                            relación o estímulo tóxico que degrade tu salud mental,
+                        </p>
+
+                        <!-- Show/Hide Button -->
+                        <button @click="open = !open"
+                            class="px-3 py-2 rounded-md button-accent text-textPrimary text-sm transition hover:button-secondary-bg flex items-center justify-center">
+                            <i data-lucide="chevron-down" x-show="!open" class="w-4 h-4"></i>
+                            <i data-lucide="chevron-up" x-show="open" class="w-4 h-4"></i>
+                        </button>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4" x-show="open" x-collapse>
+                            <!-- Salud Básica -->
+                            <div class="bg-background p-6 rounded-lg text-textPrimary">
+                                <p class="text-xl font-bold mb-4">Salud Básica</p>
+                                <p class="text-base">Falta de sueño, falta de ejercicio, mala nutrición</p>
+                            </div>
+
+                            <!-- Pantallas -->
+                            <div class="bg-background p-6 rounded-lg text-textPrimary">
+                                <p class="text-xl font-bold mb-4">Pantallas</p>
+                                <p class="text-base">Uso excesivo de dispositivos y redes sociales,
+                                    reels/shorts/tiktoks, etc</p>
+                            </div>
+
+                            <!-- Pornografía -->
+                            <div class="bg-background p-6 rounded-lg text-textPrimary">
+                                <p class="text-xl font-bold mb-4">Pornografía</p>
+                                <p class="text-base">Moderar o eliminar su consumo</p>
+                            </div>
+
+                            <!-- Relaciones Tóxicas -->
+                            <div class="bg-background p-6 rounded-lg text-textPrimary">
+                                <p class="text-xl font-bold mb-4">Relaciones Tóxicas</p>
+                                <p class="text-base">Amistades, parejas o familiares tóxicos</p>
+                            </div>
+
+                            <!-- Conductas de escape -->
+                            <div class="bg-background p-6 rounded-lg text-textPrimary">
+                                <p class="text-xl font-bold mb-4">Conductas de escape</p>
+                                <p class="text-base">Videojuegos, apuestas en exceso y otras conductas de escape</p>
+                            </div>
+
+                            <!-- Abuso de sustancias -->
+                            <div class="bg-background p-6 rounded-lg text-textPrimary">
+                                <p class="text-xl font-bold mb-4">Sustancias</p>
+                                <p class="text-base">Abuso de alcohol y otras sustancias</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
     </main>
     </div>
