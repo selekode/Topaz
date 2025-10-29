@@ -14,54 +14,21 @@ Finalmente, Topaz incluye una función de **meditación** con un temporizador aj
 
 ## Funcionalidades
 
-- 📝 Registro de diario libre o estructurado (modo revisión)
+- 📝 Diario general
+- 📝 Revisiones emocionales
 - 📈 Estadísticas visuales sobre emociones y hábitos
-- 💡 Ejercicios de trabajo interno con preguntas reflexivas
-- 🧘‍♀️ Temporizador de meditación con música integrada
+- 💡 Escribir ensayos para realizar trabajo interno
+- 🧘‍♀️ Temporizador de meditación
 - 🔁 Seguimiento de rachas y recordatorios diarios
-- 🌐 Interfaz web embebida usando JavaFX + WebView
 
 ## Tecnologías utilizadas
 
 - **Lenguaje principal**: Java 21
 - **Framework backend**: Spring Boot 3.4.1
 - **Base de datos**: SQLite
-- **Frontend**: Thymeleaf + Tailwind CSS
-- **Gráficos**: Chart.js
-- **Integración de interfaz**: JavaFX (WebView)
-
-## Estructura del proyecto
-
-- `topaz/`
-  - `controller/`  
-    Controladores Spring MVC que manejan las rutas y la lógica de las peticiones del usuario.
-
-  - `model/`  
-    Clases de dominio que representan las entidades del sistema.
-    
-  - `database/`  
-    Lógica de inicialización de la base de datos. Contiene `DatabaseCreator`, que crea automáticamente el archivo `.db` en `C:/Topaz/data`.
-
-  - `repository/`  
-    Interfaces para el acceso a datos usando `SQLite`.
-
-  - `service/`  
-    Lógica de negocio de la aplicación.
-
-  - `utils/`  
-    Métodos de utilidad como formateadores.
-
-  - `webview/`  
-    Código JavaFX para cargar la interfaz web dentro de un WebView.
-
-  - `templates/`  
-    Archivos HTML Thymeleaf que componen la interfaz de usuario.
-
-  - `static/`  
-    Archivos estáticos como hojas de estilo, scripts, etc.
-
-  - `TopazApplication.java`  
-    Clase principal que lanza la aplicación Spring Boot.
+- **Frontend**: Thymeleaf SSR + Tailwind CSS. Además, utiliza WebView de JavaFX para que parezca una app nativa de windows, a pesar de ser una web app.
+- **Gráficas**: Chart.js
+- **Encriptación AES**: La información se guarda de manera segura en la BBDD
 
 ## Estado del proyecto
 
