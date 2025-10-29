@@ -66,10 +66,7 @@ Finalmente, Topaz incluye una función de **meditación** con un temporizador aj
 ## Estado del proyecto
 
 🔧 Actualmente en desarrollo.  
-📌 Versión: `25.6.alpha`  
-🔍 Nota: La nomenclatura hace referencia a la versión del desarrollo en curso. En este caso:  
-- **25.6** → Año 2025, mes 6 (junio)  
-- **alpha** → Primera versión funcional, aún sin pulir ni publicada oficialmente.
+📌 Versión: `25.9.1`  
 
 ## Persistencia de datos
 
