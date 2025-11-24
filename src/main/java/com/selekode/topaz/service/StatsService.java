@@ -82,14 +82,19 @@ public class StatsService {
 				.findEntryCountPerDayAllTime(Table.INNER_WORK_ENTRY);
 
 		activityPerDayOfWeekJournal = StatsUtils.calculateActivityPerDayOfWeek(activityPerDayOfWeekJournal);
+		activityPerDayOfWeekJournal.setMostActiveDayN(StatsUtils.calculateDayWithHighestCountN(activityPerDayOfWeekJournal));
+		
 		activityPerDayOfWeekRevision = StatsUtils.calculateActivityPerDayOfWeek(activityPerDayOfWeekRevision);
+		activityPerDayOfWeekRevision.setMostActiveDayN(StatsUtils.calculateDayWithHighestCountN(activityPerDayOfWeekRevision));
+
 		activityPerDayOfWeekInnerWork = StatsUtils.calculateActivityPerDayOfWeek(activityPerDayOfWeekInnerWork);
+		activityPerDayOfWeekInnerWork.setMostActiveDayN(StatsUtils.calculateDayWithHighestCountN(activityPerDayOfWeekInnerWork));
+		
+		System.out.println("Journal acitivty per day of week highest N count: " + activityPerDayOfWeekJournal.getMostActiveDayN());
 
 		activitiesPerDayOfWeek.add(activityPerDayOfWeekJournal);
 		activitiesPerDayOfWeek.add(activityPerDayOfWeekRevision);
 		activitiesPerDayOfWeek.add(activityPerDayOfWeekInnerWork);
-
-		System.out.println(activitiesPerDayOfWeek);
 
 		return activitiesPerDayOfWeek;
 	}
@@ -108,15 +113,18 @@ public class StatsService {
 				.findEntryCountPerDayGenericDateRange(dateStart, dateEnd, Table.INNER_WORK_ENTRY);
 
 		activityPerDayOfWeekJournal = StatsUtils.calculateActivityPerDayOfWeek(activityPerDayOfWeekJournal);
+		activityPerDayOfWeekJournal.setMostActiveDayN(StatsUtils.calculateDayWithHighestCountN(activityPerDayOfWeekJournal));
+		
 		activityPerDayOfWeekRevision = StatsUtils.calculateActivityPerDayOfWeek(activityPerDayOfWeekRevision);
+		activityPerDayOfWeekRevision.setMostActiveDayN(StatsUtils.calculateDayWithHighestCountN(activityPerDayOfWeekRevision));
+
 		activityPerDayOfWeekInnerWork = StatsUtils.calculateActivityPerDayOfWeek(activityPerDayOfWeekInnerWork);
+		activityPerDayOfWeekInnerWork.setMostActiveDayN(StatsUtils.calculateDayWithHighestCountN(activityPerDayOfWeekInnerWork));
 
 		activitiesPerDayOfWeek.add(activityPerDayOfWeekJournal);
 		activitiesPerDayOfWeek.add(activityPerDayOfWeekRevision);
 		activitiesPerDayOfWeek.add(activityPerDayOfWeekInnerWork);
 		
-		System.out.println(activitiesPerDayOfWeek);
-
 		return activitiesPerDayOfWeek;
 	}
 
@@ -133,15 +141,18 @@ public class StatsService {
 				.findEntryCountPerDayGenericDateRange(dateStart, dateEnd, Table.INNER_WORK_ENTRY);
 
 		activityPerDayOfWeekJournal = StatsUtils.calculateActivityPerDayOfWeek(activityPerDayOfWeekJournal);
+		activityPerDayOfWeekJournal.setMostActiveDayN(StatsUtils.calculateDayWithHighestCountN(activityPerDayOfWeekJournal));
+		
 		activityPerDayOfWeekRevision = StatsUtils.calculateActivityPerDayOfWeek(activityPerDayOfWeekRevision);
+		activityPerDayOfWeekRevision.setMostActiveDayN(StatsUtils.calculateDayWithHighestCountN(activityPerDayOfWeekRevision));
+
 		activityPerDayOfWeekInnerWork = StatsUtils.calculateActivityPerDayOfWeek(activityPerDayOfWeekInnerWork);
+		activityPerDayOfWeekInnerWork.setMostActiveDayN(StatsUtils.calculateDayWithHighestCountN(activityPerDayOfWeekInnerWork));
 		
 		activitiesPerDayOfWeek.add(activityPerDayOfWeekJournal);
 		activitiesPerDayOfWeek.add(activityPerDayOfWeekRevision);
 		activitiesPerDayOfWeek.add(activityPerDayOfWeekInnerWork);
 		
-		System.out.println(activitiesPerDayOfWeek);
-
 		return activitiesPerDayOfWeek;
 	}
 
@@ -158,15 +169,20 @@ public class StatsService {
 				.findEntryCountPerDayGenericDateRange(dateStart, dateEnd, Table.INNER_WORK_ENTRY);
 
 		activityPerDayOfWeekJournal = StatsUtils.calculateActivityPerDayOfWeek(activityPerDayOfWeekJournal);
+		activityPerDayOfWeekJournal.setMostActiveDayN(StatsUtils.calculateDayWithHighestCountN(activityPerDayOfWeekJournal));
+		
 		activityPerDayOfWeekRevision = StatsUtils.calculateActivityPerDayOfWeek(activityPerDayOfWeekRevision);
+		activityPerDayOfWeekRevision.setMostActiveDayN(StatsUtils.calculateDayWithHighestCountN(activityPerDayOfWeekRevision));
+
 		activityPerDayOfWeekInnerWork = StatsUtils.calculateActivityPerDayOfWeek(activityPerDayOfWeekInnerWork);
+		activityPerDayOfWeekInnerWork.setMostActiveDayN(StatsUtils.calculateDayWithHighestCountN(activityPerDayOfWeekInnerWork));
 
 		activitiesPerDayOfWeek.add(activityPerDayOfWeekJournal);
 		activitiesPerDayOfWeek.add(activityPerDayOfWeekRevision);
 		activitiesPerDayOfWeek.add(activityPerDayOfWeekInnerWork);
 		
-		System.out.println(activitiesPerDayOfWeek);
-
+		System.out.println("Most active day per day of week month: " + activityPerDayOfWeekJournal);
+		
 		return activitiesPerDayOfWeek;
 	}
 

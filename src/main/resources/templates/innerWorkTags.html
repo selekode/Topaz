@@ -14,102 +14,108 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
+    <div
+        class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
+
+
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
-        <!-- Horizontal Rule -->
-        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+
 
         <!-- Buttons Section -->
         <div class="space-y-4 w-full flex flex-col items-center">
             <!-- Rounded buttons for other actions -->
             <a href="/dashboard/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Inicio
                 </button>
             </a>
             <a href="/journal/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Diario
                 </button>
             </a>
             <a href="/revision/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Revisión
                 </button>
             </a>
             <a href="/innerwork/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
+                    class="w-full text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent ">
                     Trabajo Interno
                 </button>
             </a>
-			<a href="/stats/load" class="block w-full">
+            <a href="/stats/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Estadísticas
                 </button>
             </a>
             <a href="/meditacion/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Meditación
                 </button>
             </a>
             <a href="/about" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
+                    class="w-full text-left py-2 px-4 button-sidebar  rounded-md transition-colors duration-300 select-none">
                     Sobre Topaz
                 </button>
             </a>
-
-            <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
         </div>
     </div>
 
 
     <!-- Main content -->
-    <div class="main-content  flex-grow bg-[#0F2529] p-6">
+    <div class="main-content  flex-grow bg-background p-6">
         <main class="container mx-auto mt-6 p-4">
-            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white selected-none">Trabajo Interno</h1>
+            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-textPrimary selected-none">Trabajo Interno</h1>
 
-            <div data-aos="fade-left" class="bg-[#172E38] p-6 rounded-2xl shadow-xl flex flex-col justify-between">
+            <div data-aos="fade-left" class="bg-surface p-6 rounded-xl shadow-md flex flex-col justify-between">
                 <div class="mb-4 flex items-center justify-between">
                     <a href="/innerwork/load"
-                        class="text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Atrás</a>
-                    <h2 class="text-xl text-white font-bold select-none">Etiquetas</h2>
+                        class="text-textPrimary button-accent  transition-colors duration-300 hover:button-secondary-bg py-2 px-4 rounded-md select-none"><i
+                            data-lucide="arrow-big-left" class="w-4 h-4"></i></a>
 
-                    <a href="/innerwork/tags/addTag"
-                        class="text-white bg-[#23A3BB] transition-colors duration-300 hover:bg-[#1A8F9A] py-2 px-4 rounded-full select-none">Añadir</a>
+                    <h2 class="text-xl text-accent font-bold select-none">Etiquetas</h2>
+
+                    <a href="/innerwork/tags/addTag">
+                        <button
+                            class="ml-auto text-textPrimary button-accent transition-colors duration-300 hover:button-secondary-bg py-2 px-3 rounded-md select-none flex items-center justify-center">
+                            <i data-lucide="file-plus-2" class="w-4 h-4"></i>
+                        </button>
+                    </a>
                 </div>
 
                 <!-- Iterate over inner work entries -->
                 <div data-aos="fade-up" th:each="InnerWorkTag : ${innerWorkTags}" x-data="{ open: false }"
-                    class="relative bg-[#234554] p-6 rounded-2xl shadow-xl mb-6">
+                    class="relative bg-background p-6 rounded-xl shadow-md mb-6">
 
                     <div class="absolute top-4 right-4 flex space-x-2">
                         <!-- Edit button -->
                         <a th:href="@{/innerwork/tags/editTag/{id}(id=${InnerWorkTag.id})}"
-                            class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
-                            Editar
+                            class="px-3 py-2 rounded-md button-accent text-textPrimary text-sm transition hover:button-secondary-bg flex items-center justify-center">
+                            <i data-lucide="pencil" class="w-4 h-4"></i>
                         </a>
 
                         <!-- Delete button -->
                         <button th:attr="onclick='openModal(' + ${InnerWorkTag.id} + ')'"
-                            class="px-4 py-2 rounded-full bg-[#E74C3C] text-white text-sm transition hover:bg-[#D63C2D]">
-                            Eliminar
+                            class="px-3 py-2 rounded-md button-delete-bg text-textPrimary text-sm transition flex items-center justify-center">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
                         </button>
                     </div>
 
                     <!-- Inner Work Entry Content -->
                     <div class="mr-4">
-                        <p class="text-base mb-4 text-white" th:text="${InnerWorkTag.name}"></p>
+                        <p class="text-base mb-4 text-textPrimary" th:text="${InnerWorkTag.name}"></p>
                     </div>
                 </div>
             </div>
@@ -118,15 +124,16 @@
             <div id="confirmModal"
                 class="modal hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
                 <div class="modal-content rounded-lg p-6">
-                    <h3 class="text-lg text-justify text-white font-bold mb-4 select-none">¿Seguro que quieres eliminar
+                    <h3 class="text-lg text-justify text-textPrimary font-bold mb-4 select-none">¿Seguro que quieres
+                        eliminar
                         esta etiqueta?</h3>
                     <form id="deleteForm" method="post" action="/innerwork/tags/deleteTag">
                         <input type="hidden" id="journalId" name="id" />
                         <button type="submit"
-                            class="w-28 h-10 bg-[#23A3BB] text-white rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">Si,
+                            class="w-28 h-10 button-accent  text-textPrimary rounded-md transition-colors duration-300 hover:button-secondary-bg select-none">Si,
                             Eliminar</button>
                         <button type="button"
-                            class="ml-4 w-28 h-10 bg-gray-500 text-white rounded-full transition-colors duration-300 hover:bg-gray-600 select-none"
+                            class="ml-4 w-28 h-10 bg-gray-500 text-white rounded-md transition-colors duration-300 hover:bg-gray-600 select-none"
                             onclick="closeModal()">Cancelar</button>
                     </form>
                 </div>
@@ -140,6 +147,10 @@
         document.addEventListener("DOMContentLoaded", function () {
             AOS.init();
         });
+    </script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        lucide.createIcons();
     </script>
 </body>
 

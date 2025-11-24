@@ -27,144 +27,155 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
+    <div
+        class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
+
+
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
-        <!-- Horizontal Rule -->
-        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
-
         <!-- Buttons Section -->
         <div class="space-y-4 w-full flex flex-col items-center">
-            <!-- Rounded buttons for other actions -->
+            <!-- Dashboard -->
             <a href="/dashboard/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
-                    Inicio
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="home" class="w-5 h-5"></i> Inicio
                 </button>
             </a>
+
+            <!-- Journal -->
             <a href="/journal/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
-                    Diario
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="book-open" class="w-5 h-5"></i> Diario
                 </button>
             </a>
+
+            <!-- Revision -->
             <a href="/revision/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
-                    Revisión
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="refresh-cw" class="w-5 h-5"></i> Revisión
                 </button>
             </a>
+
+            <!-- Inner Work -->
             <a href="/innerwork/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
-                    Trabajo Interno
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="brain" class="w-5 h-5"></i> Trabajo Interno
                 </button>
             </a>
+
+            <!-- Stats -->
             <a href="/stats/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
-                    Estadísticas
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="bar-chart-2" class="w-5 h-5"></i> Estadísticas
                 </button>
             </a>
+
+            <!-- Meditation -->
             <a href="/meditacion/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
-                    Meditación
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent select-none">
+                    <i data-lucide="moon" class="w-5 h-5"></i> Meditación
                 </button>
             </a>
+
+            <!-- About -->
             <a href="/about" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
-                    Sobre Topaz
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="info" class="w-5 h-5"></i> Sobre Topaz
                 </button>
             </a>
-            <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
-
         </div>
     </div>
 
-
     <!-- Main content -->
-    <div class="main-content  flex-grow bg-[#0F2529] p-6 select-none">
+    <div class="main-content  flex-grow bg-background p-6 select-none">
         <main class="container mx-auto mt-6 p-4">
-            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Meditación</h1>
+            <h1 data-aos="zoom-in" class="text-3xl font-bold mb-4 text-textPrimary">Meditación</h1>
 
-
-            <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl" data-aos="fade-up">
-                <p class="text-lg  font-bold mb-4 text-[#23A3BB] text-left">Temporizador de Meditación</p>
-                <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+            <div class="bg-surface p-6 rounded-xl shadow-md" data-aos="fade-up">
+                <p class="text-lg  font-bold mb-4 text-accent text-left">Temporizador de Meditación</p>
 
                 <!-- Time input -->
                 <div class="flex flex-col items-center justify-center gap-2 mb-4">
-                    <span class="text-white">Introduce el tiempo:</span>
+                    <span class="text-textPrimary">Introduce el tiempo:</span>
 
                     <div class="flex items-center gap-2">
                         <input id="timeInput" type="number" min="1" max="120" value="15"
-                            class="w-16 bg-[#1E4A57] text-white text-center rounded-lg px-2 py-1 outline-none" />
-                        <span class="text-white">minutos</span>
+                            class="w-16 button-accent text-textPrimary text-center rounded-lg px-2 py-1 outline-none" />
+                        <span class="text-textPrimary">minutos</span>
                     </div>
                 </div>
 
                 <!-- Buttons -->
                 <div class="flex gap-2 justify-center mb-6">
                     <button id="customStartBtn"
-                        class="bg-[#1E4A57] text-white px-4 py-2 rounded-lg transition-all duration-300 hover:bg-[#23A3BB]">
+                        class="button-accent text-textPrimary px-4 py-2 rounded-lg transition-all duration-300 hover:button-accent ">
                         Iniciar
                     </button>
                     <button id="customRestartBtn"
-                        class="bg-[#1E4A57] text-white px-4 py-2 rounded-lg transition-all duration-300 hover:bg-[#23A3BB]">
+                        class="button-accent text-textPrimary px-4 py-2 rounded-lg transition-all duration-300 hover:button-accent ">
                         Reiniciar
                     </button>
                 </div>
 
                 <!-- Progress bar -->
-                <div class="w-full bg-gray-700 rounded-full h-4 mb-4 overflow-hidden">
-                    <div id="customProgress" class="h-full bg-[#23A3BB] transition-all duration-1000"
-                        style="width: 0%;"></div>
+                <div class="w-full bg-surface border rounded-md h-4 mb-4 overflow-hidden">
+                    <div id="customProgress" class="h-full bg-accent  transition-all duration-1000" style="width: 0%;">
+                    </div>
                 </div>
 
                 <!-- Timer display -->
-                <p id="customTimer" class="text-center text-white text-2xl mb-4">15:00</p>
+                <p id="customTimer" class="text-center text-textPrimary text-2xl mb-4">15:00</p>
             </div>
 
-            <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl mt-4" data-aos="fade-up" x-data="{ open: false }">
+            <div class="bg-surface p-6 rounded-xl shadow-md mt-4" data-aos="fade-up" x-data="{ open: false }">
                 <!-- Mindfulness Instructions -->
-                <div class="text-white text-base space-y-2">
-                    <p class="text-lg  font-bold mb-4 text-[#23A3BB] text-left">Cómo Practicar la Atención Plena</p>
+                <div class="text-textPrimary text-base space-y-2">
+                    <p class="text-lg  font-bold mb-4 text-accent text-left">Cómo Practicar la Atención Plena</p>
 
-                    <!-- Show/Hide Button -->
+                    <!-- Show/Hide Button 
                     <button @click="open = !open"
-                        class="px-4 py-2 rounded-full bg-[#23A3BB] text-white text-sm transition hover:bg-[#1A8F9A]">
+                        class="px-4 py-2 rounded-md button-accent  text-textPrimary text-sm transition hover:button-secondary-bg">
                         <span x-text="open ? 'Ocultar' : 'Mostrar'"></span>
                     </button>
+-->
+                    <div x-data="{ step: 1, max: 6 }" class="w-full max-w-3xl mx-auto text-lg text-textSecondary">
 
-                    <div x-show="open" x-collapse class="mt-2">
+                        <!-- Slides -->
+                        <template x-for="i in max" :key="i">
+                            <p x-show="step === i" class="transition-all duration-500 ease-in-out w-full">
+                                <span x-text="{
+                1: '1 - Encuentra un lugar tranquilo: Siéntate cómodo, con la espalda recta y las manos relajadas.',
+                2: '2 - Cierra los ojos y respira: Inhala profundamente por la nariz y exhala lentamente por la boca.',
+                3: '3 - Observa tu mente: No intentes vaciarla; simplemente nota los pensamientos sin juzgarlos.',
+                4: '4 - Usa un ancla: Enfócate en tu respiración, los sonidos o las sensaciones de tu cuerpo.',
+                5: '5 - Sé amable contigo mismo: Si te distraes, regresa a tu respiración con suavidad.',
+                6: '6 - Finaliza con gratitud: Antes de abrir los ojos, agradece este momento de calma.'
+            }[i]"></span>
+                            </p>
+                        </template>
 
-                        <p><strong>1 - Encuentra un lugar tranquilo:</strong> Siéntate cómodo, con la espalda recta y
-                            las
-                            manos relajadas.</p>
+                        <!-- Navigation Buttons -->
+                        <div class="flex justify-center mt-4 gap-4">
+                            <button @click="step = step > 1 ? step - 1 : max"
+                                class="px-4 py-2 bg-accent text-white rounded-lg hover:bg-[#1d828f] transition">
+                                <i data-lucide="arrow-big-left" class="w-4 h-4"></i>
+                            </button>
+                            <button @click="step = step < max ? step + 1 : 1"
+                                class="px-4 py-2 bg-accent text-white rounded-lg hover:bg-[#1d828f] transition">
+                                <i data-lucide="arrow-big-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
 
-                        <p><strong>2 - Cierra los ojos y respira:</strong> Inhala profundamente por la nariz y exhala
-                            lentamente por la boca.</p>
-
-                        <p><strong>3 - Observa tu mente:</strong> No intentes vaciarla; simplemente nota los
-                            pensamientos
-                            sin juzgarlos.</p>
-
-                        <p><strong>4 - Usa un ancla:</strong> Enfócate en tu respiración, los sonidos o las sensaciones
-                            de
-                            tu cuerpo.</p>
-
-                        <p><strong>5 - Sé amable contigo mismo:</strong> Si te distraes, regresa a tu respiración con
-                            suavidad.</p>
-
-                        <p><strong>6 - Finaliza con gratitud:</strong> Antes de abrir los ojos, agradece este momento de
-                            calma.</p>
-
-                        <p class="text-center text-[#23A3BB] font-bold">Disfruta el presente</p>
                     </div>
                 </div>
 
@@ -250,6 +261,10 @@
         document.addEventListener("DOMContentLoaded", function () {
             AOS.init();
         });
+    </script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        lucide.createIcons();
     </script>
 </body>
 

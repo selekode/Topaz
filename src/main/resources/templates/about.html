@@ -27,82 +27,123 @@
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
     <!-- Sidebar -->
-    <div class="w-64 bg-[#1E3D48] text-white p-4 flex flex-col items-center sidebar">
+    <div
+        class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
+
+
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
 
-        <!-- Horizontal Rule -->
-        <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
+
 
         <!-- Buttons Section -->
         <div class="space-y-4 w-full flex flex-col items-center">
-            <!-- Rounded buttons for other actions -->
+            <!-- Dashboard -->
             <a href="/dashboard/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
-                    Inicio
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="home" class="w-5 h-5"></i> Inicio
                 </button>
             </a>
+
+            <!-- Journal -->
             <a href="/journal/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
-                    Diario
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="book-open" class="w-5 h-5"></i> Diario
                 </button>
             </a>
+
+            <!-- Revision -->
             <a href="/revision/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
-                    Revisión
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="refresh-cw" class="w-5 h-5"></i> Revisión
                 </button>
             </a>
+
+            <!-- Inner Work -->
             <a href="/innerwork/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
-                    Trabajo Interno
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="brain" class="w-5 h-5"></i> Trabajo Interno
                 </button>
-            </a>			
+            </a>
+
+            <!-- Stats -->
             <a href="/stats/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
-                    Estadísticas
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="bar-chart-2" class="w-5 h-5"></i> Estadísticas
                 </button>
             </a>
+
+            <!-- Meditation -->
             <a href="/meditacion/load" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#23A3BB] rounded-full transition-colors duration-300 hover:bg-[#1A8F9A] select-none">
-                    Meditación
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                    <i data-lucide="moon" class="w-5 h-5"></i> Meditación
                 </button>
             </a>
+
+            <!-- About -->
             <a href="/about" class="block w-full">
                 <button
-                    class="w-full text-left py-2 px-4 bg-[#1A8F9A] rounded-full transition-colors duration-300 hover:bg-[#23A3BB]">
-                    Sobre Topaz
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent select-none">
+                    <i data-lucide="info" class="w-5 h-5"></i> Sobre Topaz
                 </button>
             </a>
-
-            <hr class="w-full border-t-[1px] border-[#1A8F9A] mb-6">
-
         </div>
     </div>
 
 
     <!-- Main content -->
-    <div class="main-content  flex-grow bg-[#0F2529] p-6 select-none">
+    <div class="main-content  flex-grow bg-background p-6 select-none">
         <main class="container mx-auto mt-6 p-4">
-            <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-white">Sobre Topaz</h1>
+            <h1 data-aos="zoom-in" class="text-3xl font-bold mb-4 text-textPrimary">Sobre Topaz</h1>
 
-            <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl" data-aos="fade-up">
-                <p class="text-lg font-bold text-[#23A3BB]">Desarrollado por Sean Leitch / Selekode</p>
-                <p class="text-xl mb-4 text-[#23A3BB]">Versión 25.06</p>
-                <p class="text-base mb-4 text-white">Topaz es una aplicación diseñada para ayudarte a registrar tus pensamientos, emociones y objetivos personales de manera sencilla. A través de entradas de diario y revisiones emocionales, puedes reflexionar sobre tu día y hacer un seguimiento de tu bienestar.</p>
-                <p class="text-base mb-4 text-white">Además, Topaz ofrece estadísticas que analizan tus entradas de diario, mostrando patrones en tus emociones y productividad, lo que te permite comprender mejor tu progreso y tomar decisiones informadas para tu crecimiento personal.</p>
-                <p class="text-base mb-4 text-white">La función de Trabajo interno te guía en ejercicios de autoconocimiento y desarrollo personal, con preguntas introspectivas diseñadas para profundizar en tus experiencias, valores y creencias, fomentando una mayor claridad y equilibrio emocional.</p>
-                <p class="text-base mb-4 text-white">Finalmente, Topaz incluye una función de meditación con un temporizador ajustable, ayudándote a encontrar momentos de calma y concentración a lo largo del día.</p>
+            <div class="bg-surface p-6 rounded-xl shadow-md" data-aos="fade-up">
+                <p class="text-lg font-bold text-accent">Desarrollado por Sean Leitch / Selekode</p>
+                <p class="text-xl mb-4 text-accent">Versión 25.10.1-SNAPSHOT</p>
+
+                <p class="text-base mb-4 text-textPrimary">
+                    Topaz es una aplicación creada para ayudarte a registrar tus pensamientos, emociones y objetivos
+                    personales de forma sencilla.
+                    Su desarrollo se basa en principios científicos respaldados por evidencia empírica, con el propósito
+                    de fortalecer el bienestar
+                    emocional y psicológico de quienes la utilizan.
+                </p>
+
+                <p class="text-base mb-4 text-textPrimary">
+                    A través de las entradas de diario y las revisiones emocionales, puedes reflexionar sobre tu día, hacer introspección y hacer un seguimiento de tu estado emocional.
+                </p>
+
+                <p class="text-base mb-4 text-textPrimary">
+                    La función de Trabajo Interno te invita a escribir ensayos en los
+                    que exploras las áreas de tu vida
+                    o de tu personalidad en las que estás trabajando, ayudándote a profundizar en tus experiencias,
+                    valores y creencias, y a ganar
+                    mayor claridad y equilibrio emocional.
+                </p>
+
+                <p class="text-base mb-4 text-textPrimary">
+                    Además, Topaz ofrece estadísticas que analizan tus entradas de diario, revelando patrones en tus
+                    emociones y productividad.
+                    Esto te brinda una mejor comprensión de tu progreso y te ayuda a tomar decisiones informadas para tu
+                    crecimiento personal.
+                </p>
+
+                <p class="text-base mb-4 text-textPrimary">
+                    Finalmente, Topaz incluye una función de meditación con temporizador ajustable, pensada para que
+                    encuentres momentos de calma
+                    y concentración a lo largo del día.
+                </p>
+
             </div>
-            </div>
-        </main>
+    </div>
+    </main>
     </div>
 
     </div>
@@ -113,6 +154,10 @@
         document.addEventListener("DOMContentLoaded", function () {
             AOS.init();
         });
+    </script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        lucide.createIcons();
     </script>
 </body>
 

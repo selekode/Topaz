@@ -9,60 +9,49 @@
     <script th:src="@{/js/tailwind.js}" defer></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
-    <script>
-        function openModal(id) {
-            console.log("Opening modal for entry with ID: " + id);  // Debug log
-            document.getElementById('journalId').value = id;
-            document.getElementById('confirmModal').classList.remove('hidden');
-            console.log("Modal should now be visible");
-        }
-
-        function closeModal() {
-            console.log("Closing modal");  // Debug log
-            document.getElementById('confirmModal').classList.add('hidden');
-        }
-    </script>
 </head>
 
-<body class=" font-sans leading-normal tracking-normal flex min-h-screen">
-    <div class="flex-grow bg-[#0F2529] p-6 select-none">
-        <main class="container mx-auto mt-6 p-4 flex justify-center items-center min-h-screen">
-            <div class="bg-[#172E38] p-6 rounded-2xl shadow-xl w-full max-w-md" data-aos="fade-up">
-            <h1 class="text-2xl font-bold mb-6 text-white text-center">Bienvenido a Topaz</h1>
-
-            <!-- Login Form -->
-            <form th:action="@{/login}" method="post" class="flex flex-col gap-4">               
-                <div>
-                    <label class="text-[#23A3BB] font-bold text-sm mb-1 block" for="password">Contraseña</label>
-                    <input id="password" name="password" type="password" placeholder="Ingresa tu contraseña" 
-                           class="w-full p-3 rounded-xl bg-[#0F2529] border border-[#23A3BB] text-white focus:outline-none focus:ring-2 focus:ring-[#23A3BB]" required>
-                </div>
-
-                <button type="submit" 
-                        class="mt-4 bg-[#23A3BB] hover:bg-[#1C8FA1] text-white font-bold py-3 rounded-xl transition-colors duration-300">
-                    Iniciar sesión
-                </button>
-            </form>
-
-            <!-- Change Password Link -->
-            <div class="mt-4 text-center">
-                <a th:href="@{/changePassword}" 
-                   class="text-sm text-[#23A3BB] hover:text-[#1C8FA1] transition-colors duration-300">
-                    Cambiar contraseña
-                </a>
-            </div>
-
-            <!-- Optional error message -->
-            <div th:if="${param.error}" class="mt-4 text-red-500 text-center text-sm">
-                La contraseña es incorrecta
-            </div>
-
-            <!-- Optional error message -->
-            <div th:if="${param.changed}" class="mt-4 text-yellow-500 text-center text-sm">
-                La contraseña se ha modificado correctamente
-            </div>
+<body class="font-sans leading-normal tracking-normal flex items-center justify-center min-h-screen bg-background">
+    <div class="bg-surface p-6 rounded-xl shadow-md w-full max-w-md" data-aos="fade-up">
+        <!-- Logo Section -->
+        <div class="flex items-center mb-6 mt-2 flex-col">
+            <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
-    </main>
+        <!-- Login Form -->
+        <form th:action="@{/login}" method="post" class="flex flex-col gap-4">
+            <div>
+                <label class="text-accent font-bold text-sm mb-1 block" for="password">Contraseña</label>
+                <input id="password" name="password" type="password" placeholder="Ingresa tu contraseña"
+                    class="w-full p-3 rounded-xl bg-background border border-[#23A3BB] text-textPrimary
+         focus:outline-none focus:ring-2 focus:ring-[#23A3BB]
+         transition-all duration-300 ease-in-out
+         transform focus:scale-102"
+                    required>
+            </div>
+
+            <button type="submit"
+                class="mt-4 button-accent hover:bg-[#1C8FA1] text-[#fff] font-bold py-3 rounded-xl transition-colors duration-300">
+                Iniciar sesión
+            </button>
+        </form>
+
+        <!-- Change Password Link -->
+        <div class="mt-4 text-center">
+            <a th:href="@{/changePassword}"
+                class="text-sm text-accent hover:text-[#1C8FA1] transition-colors duration-300">
+                Cambiar contraseña
+            </a>
+        </div>
+
+        <!-- Optional error messages -->
+        <div th:if="${param.error}" class="mt-4 text-red-500 text-center text-sm">
+            La contraseña es incorrecta
+        </div>
+
+        <div th:if="${param.changed}" class="mt-4 text-yellow-500 text-center text-sm">
+            La contraseña se ha modificado correctamente
+        </div>
+    </div>
 
     <script th:src="@{/js/deleteFeature_openModal.js}" defer></script>
     <script th:src="@{/js/aos.js}" defer></script>
@@ -72,6 +61,11 @@
             AOS.init();
         });
     </script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
+
 
 </html>

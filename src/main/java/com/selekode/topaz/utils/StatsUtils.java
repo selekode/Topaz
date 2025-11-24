@@ -5,9 +5,11 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,6 +23,12 @@ import com.selekode.topaz.model.UnixDateRange;
 
 public class StatsUtils {
 	private StatsUtils() {
+	}
+	
+	public static DateRange calculateDateRangeDDmmmYYYY(DateRange statsDateRange) {
+		statsDateRange = DatesUtils.convertYYYYmmDDtoDDmmmYYYY(statsDateRange);
+		
+		return statsDateRange;
 	}
 
 	public static DateRange calculateDateRangeLastWeek() {
@@ -65,12 +73,35 @@ public class StatsUtils {
 	}
 
 	public static long convertDateStrToLong(String dateStr) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy");
-		LocalDate date = LocalDate.parse(dateStr, formatter);
-		Long unixTime = date.atStartOfDay().toEpochSecond(ZoneOffset.UTC);
+	    if (dateStr == null || dateStr.isBlank()) {
+	        return 0L; // fallback for null or empty strings
+	    }
 
-		return unixTime;
+	    dateStr = dateStr.trim(); // remove whitespace/newlines
+
+	    try {
+	        LocalDate date;
+	        // Detect the format
+	        if (dateStr.matches("\\d{4}-\\d{2}-\\d{2}")) { // yyyy-MM-dd
+	            date = LocalDate.parse(dateStr, DateTimeFormatter.ISO_LOCAL_DATE);
+	        } else if (dateStr.matches("\\d{2}-[a-zA-Z]{3}-\\d{4}")) { // dd-MMM-yyyy
+	            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy", Locale.ENGLISH);
+	            date = LocalDate.parse(dateStr, formatter);
+	        } else if (dateStr.matches("\\d{8}")) { // yyyyMMdd
+	            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+	            date = LocalDate.parse(dateStr, formatter);
+	        } else {
+	            throw new DateTimeParseException("Unknown date format", dateStr, 0);
+	        }
+
+	        // Convert to Unix timestamp (seconds since epoch)
+	        return date.atStartOfDay(ZoneOffset.UTC).toEpochSecond();
+	    } catch (DateTimeParseException e) {
+	        e.printStackTrace();
+	        return 0L;
+	    }
 	}
+
 
 	public static String convertDateLongToStr(long dateLong) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy").withZone(ZoneId.systemDefault());
@@ -152,7 +183,7 @@ public class StatsUtils {
 		}
 
 		mostActiveDayN = maxEntries;
-
+		
 		return mostActiveDayN;
 	}
 

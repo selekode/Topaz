@@ -17,49 +17,54 @@ import com.selekode.topaz.model.EntryEncryptionKey;
 public class EntryEncryptionService {
 	private final EntryEncryptionRepository entryEncryptionRepository;
 
-    public EntryEncryptionService(EntryEncryptionRepository entryEncryptionRepository) {
-        this.entryEncryptionRepository = entryEncryptionRepository;
-    }
-    
-    public void generateKey() throws NoSuchAlgorithmException {
-        KeyGenerator keyGen = KeyGenerator.getInstance("AES");
-        keyGen.init(256); // 128, 192, or 256 depending on JDK/crypto policy
-        SecretKey secretKey = keyGen.generateKey();
+	public EntryEncryptionService(EntryEncryptionRepository entryEncryptionRepository) {
+		this.entryEncryptionRepository = entryEncryptionRepository;
+	}
 
-        // Encode key to Base64 string
-        String encodedKey = Base64.getEncoder().encodeToString(secretKey.getEncoded());
+	public void generateKey() throws NoSuchAlgorithmException {
+		KeyGenerator keyGen = KeyGenerator.getInstance("AES");
+		keyGen.init(256); 
+		SecretKey secretKey = keyGen.generateKey();
 
-        // Save to DB (assuming you have an entity KeyEntity with a 'key' field)
-        EntryEncryptionKey keyEntity = new EntryEncryptionKey();
-        keyEntity.setKey(encodedKey);
-        entryEncryptionRepository.save(keyEntity);
-    }
-    
-    public String encryptText(String plainText) throws Exception {
-        EntryEncryptionKey keyEntity = entryEncryptionRepository.findById(1L)
-                .orElseThrow(() -> new IllegalStateException("Encryption key not found"));
+		String encodedKey = Base64.getEncoder().encodeToString(secretKey.getEncoded());
+		
+		EntryEncryptionKey keyEntity = new EntryEncryptionKey();
+		keyEntity.setKey(encodedKey);
+		saveKey(keyEntity);
+	}
 
-        byte[] decodedKey = Base64.getDecoder().decode(keyEntity.getKey());
-        SecretKey secretKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+	public EntryEncryptionKey saveKey(EntryEncryptionKey keyEntity) {
+		if (entryEncryptionRepository.count() > 0) {
+            throw new IllegalStateException("Only one row is allowed in entry_encryption_key");
+        }
+		return entryEncryptionRepository.save(keyEntity);
+	}
 
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+	public String encryptText(String plainText) throws Exception {
+		EntryEncryptionKey keyEntity = entryEncryptionRepository.findById(1L)
+				.orElseThrow(() -> new IllegalStateException("Encryption key not found"));
 
-        byte[] encryptedBytes = cipher.doFinal(plainText.getBytes("UTF-8"));
-        return Base64.getEncoder().encodeToString(encryptedBytes);
-    }
+		byte[] decodedKey = Base64.getDecoder().decode(keyEntity.getKey());
+		SecretKey secretKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
 
-    public String decryptText(String cipherText) throws Exception {
-        EntryEncryptionKey keyEntity = entryEncryptionRepository.findById(1L)
-                .orElseThrow(() -> new IllegalStateException("Encryption key not found"));
+		Cipher cipher = Cipher.getInstance("AES");
+		cipher.init(Cipher.ENCRYPT_MODE, secretKey);
 
-        byte[] decodedKey = Base64.getDecoder().decode(keyEntity.getKey());
-        SecretKey secretKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+		byte[] encryptedBytes = cipher.doFinal(plainText.getBytes("UTF-8"));
+		return Base64.getEncoder().encodeToString(encryptedBytes);
+	}
 
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+	public String decryptText(String cipherText) throws Exception {
+		EntryEncryptionKey keyEntity = entryEncryptionRepository.findById(1L)
+				.orElseThrow(() -> new IllegalStateException("Encryption key not found"));
 
-        byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(cipherText));
-        return new String(decryptedBytes, "UTF-8");
-    }
+		byte[] decodedKey = Base64.getDecoder().decode(keyEntity.getKey());
+		SecretKey secretKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+
+		Cipher cipher = Cipher.getInstance("AES");
+		cipher.init(Cipher.DECRYPT_MODE, secretKey);
+
+		byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(cipherText));
+		return new String(decryptedBytes, "UTF-8");
+	}
 }

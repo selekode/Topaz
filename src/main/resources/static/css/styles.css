@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 /* Hide AOS elements until they're initialized */
 [data-aos] {
     opacity: 0;
@@ -7,7 +6,8 @@
 }
 
 html {
-    background-color: #0F2529 !important;
+    background-color: #F5F5F5;
+
 }
 
 /* Show elements once AOS is initialized */
@@ -16,8 +16,8 @@ html {
 }
 
 body {
-    font-family: "Roboto", sans-serif !important;
-    background-color: #0F2529 !important;
+    font-family: "Ubuntu", sans-serif !important;
+    background-color: #F5F5F5 !important;
 }
 
 
@@ -39,7 +39,7 @@ main {
 }
 
 .modal-content {
-    background-color: #172E38;
+    background-color: #F2F2F5;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -78,6 +78,90 @@ canvas {
 
 
 @font-face {
-  font-family: 'Inter';
-  src: url('./fonts/Inter.ttf') format('truetype');
+    font-family: 'Inter';
+    src: url('./fonts/Inter.ttf') format('truetype');
+}
+
+.bg-surface {
+    background-color: #fff;
+}
+
+.bg-background {
+    background-color: #F5F5F7;
+}
+
+.border {
+    border-color: #D1D1D6;
+}
+
+.text-textPrimary {
+    color: #1C1C1E;
+
+}
+
+.text-textSecondary {
+    color: #3C3C43;
+
+}
+
+.text-accent {
+    color: #23A3BB;
+}
+
+.bg-accent {
+    background-color: #23A3BB;
+}
+
+.button-accent {
+    background-color: #23A3BB;
+    color: white !important;
+}
+
+.button-accent:hover {
+    background-color: #1A8F9A;
+    color: white !important;
+}
+
+.button-sidebar {
+    background-color: transparent;
+}
+
+.button-sidebar:hover {
+    background-color: #23A3BB;
+    color: white !important;
+}
+
+.button-secondary-bg {
+    background-color: #c3dadf;
+    border: #D1D1D6;
+}
+
+.button-secondary-bg:hover {
+    background-color: #E5E5EA;
+}
+
+.button-delete-bg {
+    background-color: transparent;
+    border: 1px solid #FF3B30;
+    /* added border width and style */
+    border-radius: 4px;
+    /* slightly more visible */
+    color: #FF3B30;
+    /* optional: match text color to border */
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    cursor: pointer;
+}
+
+.button-delete-bg:hover {
+    background-color: #FFECEC;
+    border-color: #FF3B30;
+}
+
+.text-alert {
+    color: #FF453A;
+}
+
+.text-success {
+    color: #32D74B;
+
 }
