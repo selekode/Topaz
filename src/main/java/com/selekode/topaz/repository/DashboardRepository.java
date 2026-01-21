@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import com.selekode.topaz.database.DatabaseConstants;
 import com.selekode.topaz.model.Table;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class DashboardRepository {
 	public static final String DB_URL = DatabaseConstants.DB_URL;
