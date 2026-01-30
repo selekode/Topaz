@@ -116,7 +116,14 @@
                     <label for="contentGeneral" class="text-accent text-lg font-semibold mb-2 block">General</label>
                     <textarea name="contentGeneral" id="contentGeneral"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
-                        th:value="${journalEntry.contentGeneral}" placeholder="¿Qué has hecho hoy?"></textarea>
+                        th:value="${journalEntry.contentGeneral}" placeholder="Escribe un resumen general de lo que ha pasado hoy"></textarea>
+
+                    <!-- Errores Cometidos -->
+                    <label for="contentErroresCometidos" class="text-accent text-lg font-semibold mb-2 block">Errores
+                        Cometidos</label>
+                    <textarea name="contentErroresCometidos" id="contentErroresCometidos"
+                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
+                        th:value="${journalEntry.contentErroresCometidos}" placeholder="Escribe los errores que has cometido y el aprendizaje que te llevas de ellos"></textarea>
 
                     <!-- Salud Física -->
                     <label for="contentSaludFisica" class="text-accent text-lg font-semibold mb-2 block">Salud
@@ -124,14 +131,14 @@
                     <textarea name="contentSaludFisica" id="contentSaludFisica"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentSaludFisica}"
-                        placeholder="Hoy he ido al gimnasio..."></textarea>
+                        placeholder="Escribe sobre temas como tu sueño, nutrición, deporte, consumo de tóxicos, etc"></textarea>
 
                     <!-- Bienestar Mental -->
                     <label for="contentBienestarMental" class="text-accent text-lg font-semibold mb-2 block">Bienestar
                         Mental</label>
                     <textarea name="contentBienestarMental" id="contentBienestarMental"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
-                        th:value="${journalEntry.contentBienestarMental}" placeholder="Hoy he meditado..."></textarea>
+                        th:value="${journalEntry.contentBienestarMental}" placeholder="Escribe sobre lo que has hecho para tu bienestar mental, como ir a terapia, meditar, limitar el uso de pantallas, etc"></textarea>
 
                     <!-- Relaciones Sociales -->
                     <label for="contentRelacionesSociales"
@@ -139,7 +146,7 @@
                     <textarea name="contentRelacionesSociales" id="contentRelacionesSociales"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentRelacionesSociales}"
-                        placeholder="Hoy he pasado tiempo con mi familia y amigos..."></textarea>
+                        placeholder="Escribe sobre lo que has hecho con tu familia, amigos, pareja, etc"></textarea>
 
                     <!-- Carrera Profesional -->
                     <label for="contentCarreraProfesional" class="text-accent text-lg font-semibold mb-2 block">Carrera
@@ -147,7 +154,7 @@
                     <textarea name="contentCarreraProfesional" id="contentCarreraProfesional"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentCarreraProfesional}"
-                        placeholder="Hoy he trabajado en..."></textarea>
+                        placeholder="Escribe sobre las cosas en las que has trabajado hoy, lo que has hecho para tu trayectoria profesional, etc"></textarea>
 
                     <!-- Estabilidad Financiera -->
                     <label for="contentEstabilidadFinanciera"
@@ -155,14 +162,14 @@
                     <textarea name="contentEstabilidadFinanciera" id="contentEstabilidadFinanciera"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentEstabilidadFinanciera}"
-                        placeholder="Hoy he ganado... Hoy he gastado..."></textarea>
+                        placeholder="Escribe sobre tus ingresos, gastos, ahorros, inversiones, etc"></textarea>
 
                     <!-- Crecimiento Personal -->
                     <label for="contentCrecimientoPersonal"
                         class="text-accent text-lg font-semibold mb-2 block">Crecimiento Personal</label>
                     <textarea name="contentCrecimientoPersonal" id="contentCrecimientoPersonal"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
-                        th:value="${journalEntry.contentCrecimientoPersonal}" placeholder="Hoy he leído..."></textarea>
+                        th:value="${journalEntry.contentCrecimientoPersonal}" placeholder="Escribe sobre tus aprendizajes, nuevas habilidades y momentos de autoconocimiento para crecer como persona"></textarea>
 
                     <!-- Pasatiempos y Creatividad -->
                     <label for="contentPasatiemposCreatividad"
@@ -170,7 +177,7 @@
                     <textarea name="contentPasatiemposCreatividad" id="contentPasatiemposCreatividad"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentPasatiemposCreatividad}"
-                        placeholder="Hoy he hecho música... Hoy he dibujado..."></textarea>
+                        placeholder="Escribe sobre los hobbies que has practicado"></textarea>
 
                     <!-- Espiritualidad y Propósito -->
                     <label for="contentEspiritualidadProposito"
@@ -178,7 +185,7 @@
                     <textarea name="contentEspiritualidadProposito" id="contentEspiritualidadProposito"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentEspiritualidadProposito}"
-                        placeholder="Hoy he reflexionado sobre..."></textarea>
+                        placeholder="Reflexiona sobre tus valores, cultiva gratitud y conéctate con algo más grande para encontrar propósito"></textarea>
 
                     <!-- Recreación y Diversión -->
                     <label for="contentRecreacionDiversion"
@@ -186,7 +193,7 @@
                     <textarea name="contentRecreacionDiversion" id="contentRecreacionDiversion"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentRecreacionDiversion}"
-                        placeholder="Hoy he jugado a..."></textarea>
+                        placeholder="Escribe sobre lo que has hecho para tu entretenimiento / recreación hoy"></textarea>
 
                     <!-- Contribución y Legado -->
                     <label for="contentContribucionLegado"
@@ -194,14 +201,7 @@
                     <textarea name="contentContribucionLegado" id="contentContribucionLegado"
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentContribucionLegado}"
-                        placeholder="Hoy he ayudado a... Hoy he enseñado a..."></textarea>
-
-                    <!-- Errores Cometidos -->
-                    <label for="contentErroresCometidos" class="text-accent text-lg font-semibold mb-2 block">Errores
-                        Cometidos</label>
-                    <textarea name="contentErroresCometidos" id="contentErroresCometidos"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
-                        th:value="${journalEntry.contentErroresCometidos}" placeholder="Hoy he hecho mal..."></textarea>
+                        placeholder="Escribe sobre como has contribuido al mundo"></textarea>
 
                     <!-- Hidden fields -->
                     <input type="hidden" th:field="*{id}" />

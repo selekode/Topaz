@@ -62,10 +62,9 @@ public class LoginController {
         String hash = PasswordUtils.hashPassword(password);
         settingsRepo.save(new Settings("passwordHash", hash));
 
-        entryEncryptionService.generateKey();
-        
         //Generate entries Encryption Key
-        
+        entryEncryptionService.generateKey();
+
         return "redirect:/login";
     }
 

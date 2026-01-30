@@ -21,18 +21,23 @@ import com.selekode.topaz.model.ActivityPerDayOfWeekDTO;
 import com.selekode.topaz.model.EmotionFrequencyDTO;
 import com.selekode.topaz.model.Table;
 import com.selekode.topaz.utils.StatsUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 
-public interface StatsRepository {
-	public static final String DB_URL = DatabaseConstants.DB_URL;
+@Repository
+public class StatsRepository {
 
-	public static int findJournalEntryCountAllTime() {
+	@Value("${spring.datasource.url}")
+	private String datasourceUrl;
+
+	public int findJournalEntryCountAllTime() {
 		int journalEntryCount = 0;
 
 		// SQL query to count rows in the 'journal' table
 		String sql = "SELECT COUNT(*) FROM journal";
 
 		// Database connection
-		try (Connection conn = DriverManager.getConnection(DB_URL);
+		try (Connection conn = DriverManager.getConnection(datasourceUrl);
 				PreparedStatement stmt = conn.prepareStatement(sql);
 				ResultSet rs = stmt.executeQuery()) {
 
@@ -50,14 +55,14 @@ public interface StatsRepository {
 		return journalEntryCount;
 	}
 
-	public static int findRevisionEntryCountAllTime() {
+	public int findRevisionEntryCountAllTime() {
 		int revisionEntryCount = 0;
 
 		// SQL query to count rows in the 'journal' table
 		String sql = "SELECT COUNT(*) FROM revision";
 
 		// Database connection
-		try (Connection conn = DriverManager.getConnection(DB_URL);
+		try (Connection conn = DriverManager.getConnection(datasourceUrl);
 				PreparedStatement stmt = conn.prepareStatement(sql);
 				ResultSet rs = stmt.executeQuery()) {
 
@@ -75,14 +80,14 @@ public interface StatsRepository {
 		return revisionEntryCount;
 	}
 
-	public static int findInnerWorkEntryCountAllTime() {
+	public int findInnerWorkEntryCountAllTime() {
 		int innerWorkEntryCount = 0;
 
 		// SQL query to count rows in the 'journal' table
 		String sql = "SELECT COUNT(*) FROM inner_work_entry";
 
 		// Database connection
-		try (Connection conn = DriverManager.getConnection(DB_URL);
+		try (Connection conn = DriverManager.getConnection(datasourceUrl);
 				PreparedStatement stmt = conn.prepareStatement(sql);
 				ResultSet rs = stmt.executeQuery()) {
 
@@ -100,7 +105,7 @@ public interface StatsRepository {
 		return innerWorkEntryCount;
 	}
 
-	public static int findJournalEntryCountDateRange(long dateStart, long dateEnd) {
+	public int findJournalEntryCountDateRange(long dateStart, long dateEnd) {
 		int journalEntryCount = 0;
 		System.out.println("Searching for rows in journal between:" + dateStart + " and " + dateEnd);
 
@@ -108,7 +113,7 @@ public interface StatsRepository {
 		String sql = "SELECT COUNT(*) FROM journal WHERE date BETWEEN ? AND ?";
 
 		// Database connection
-		try (Connection connection = DriverManager.getConnection(DB_URL);
+		try (Connection connection = DriverManager.getConnection(datasourceUrl);
 				PreparedStatement stmt = connection.prepareStatement(sql)) {
 
 			stmt.setLong(1, dateStart);
@@ -129,7 +134,7 @@ public interface StatsRepository {
 		return journalEntryCount;
 	}
 
-	public static int findRevisionEntryCountDateRange(long dateStart, long dateEnd) {
+	public int findRevisionEntryCountDateRange(long dateStart, long dateEnd) {
 		int revisionEntryCount = 0;
 		System.out.println("Searching for rows in revision between:" + dateStart + " and " + dateEnd);
 
@@ -137,7 +142,7 @@ public interface StatsRepository {
 		String sql = "SELECT COUNT(*) FROM revision WHERE date BETWEEN ? AND ?";
 
 		// Database connection
-		try (Connection connection = DriverManager.getConnection(DB_URL);
+		try (Connection connection = DriverManager.getConnection(datasourceUrl);
 				PreparedStatement stmt = connection.prepareStatement(sql)) {
 
 			stmt.setLong(1, dateStart);
@@ -158,7 +163,7 @@ public interface StatsRepository {
 		return revisionEntryCount;
 	}
 
-	public static int findInnerWorkEntryCountDateRange(long dateStart, long dateEnd) {
+	public int findInnerWorkEntryCountDateRange(long dateStart, long dateEnd) {
 		int innerWorkEntryCount = 0;
 		System.out.println("Searching for rows in inner_work_entry between:" + dateStart + " and " + dateEnd);
 
@@ -166,7 +171,7 @@ public interface StatsRepository {
 		String sql = "SELECT COUNT(*) FROM inner_work_entry WHERE date BETWEEN ? AND ?";
 
 		// Database connection
-		try (Connection connection = DriverManager.getConnection(DB_URL);
+		try (Connection connection = DriverManager.getConnection(datasourceUrl);
 				PreparedStatement stmt = connection.prepareStatement(sql)) {
 
 			stmt.setLong(1, dateStart);
@@ -188,7 +193,7 @@ public interface StatsRepository {
 	}
 
 
-	public static ActivityPerDayOfWeekDTO findEntryCountPerDayGenericDateRange(long dateStart, long dateEnd, Table table) {
+	public ActivityPerDayOfWeekDTO findEntryCountPerDayGenericDateRange(long dateStart, long dateEnd, Table table) {
 		int mondayEntryCount = 0;
 		int tuesdayEntryCount = 0;
 		int wednesdayEntryCount = 0;
@@ -196,31 +201,31 @@ public interface StatsRepository {
 		int fridayEntryCount = 0;
 		int saturdayEntryCount = 0;
 		int sundayEntryCount = 0;
-		
+
 		ActivityPerDayOfWeekDTO entryCountPerDay = null;
-		
+
 		String sql = "SELECT date, strftime('%w', date, 'unixepoch') AS weekday, COUNT(*) AS entry_count "
 				+ "FROM " + table.getDbName() + " WHERE date BETWEEN ? AND ? " + "GROUP BY date, weekday " + // Group by date as well
 				// to retain individual
 				// dates
 				"ORDER BY date, weekday;";
-		
-		try (Connection conn = DriverManager.getConnection(DB_URL);
+
+		try (Connection conn = DriverManager.getConnection(datasourceUrl);
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			
+
 			// Set dateStart and dateEnd parameters (assuming they are in Unix timestamp
 			// format)
 			pstmt.setLong(1, dateStart);
 			pstmt.setLong(2, dateEnd);
-			
+
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
 					long entryDate = rs.getLong("date"); // Retrieve the date
 					int weekday = rs.getInt("weekday");
 					int count = rs.getInt("entry_count");
-					
+
 					System.out.println("Date: " + entryDate + ", Weekday: " + weekday + ", Count: " + count);
-					
+
 					switch (weekday) {
 					case 0 -> sundayEntryCount += count;
 					case 1 -> mondayEntryCount += count;
@@ -235,16 +240,16 @@ public interface StatsRepository {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		entryCountPerDay = new ActivityPerDayOfWeekDTO(mondayEntryCount, tuesdayEntryCount,
 				wednesdayEntryCount, thursdayEntryCount, fridayEntryCount,
 				saturdayEntryCount, sundayEntryCount, "", 0);
-		
+
 		return entryCountPerDay;
-		
+
 	}
-	
-	public static ActivityPerDayOfWeekDTO findEntryCountPerDayAllTime(Table table) {
+
+	public ActivityPerDayOfWeekDTO findEntryCountPerDayAllTime(Table table) {
 		int mondayEntryCount = 0;
 		int tuesdayEntryCount = 0;
 		int wednesdayEntryCount = 0;
@@ -254,10 +259,10 @@ public interface StatsRepository {
 		int sundayEntryCount = 0;
 
 		ActivityPerDayOfWeekDTO entryCountPerDay = null;
-		
+
 		String sql = "SELECT strftime('%w', date, 'unixepoch') AS weekday, COUNT(*) AS entry_count FROM " + table.getDbName() +" GROUP BY weekday ORDER BY weekday;";
 
-		try (Connection conn = DriverManager.getConnection(DB_URL);
+		try (Connection conn = DriverManager.getConnection(datasourceUrl);
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				ResultSet rs = pstmt.executeQuery()) {
 
@@ -287,7 +292,7 @@ public interface StatsRepository {
 
 	}
 
-	public static EmotionFrequencyDTO findEmotionCountAllTime() {
+	public EmotionFrequencyDTO findEmotionCountAllTime() {
 	    String sql = """
 	                SELECT
 	                    SUM(CASE WHEN emocion_alegria = 1 THEN 1 ELSE 0 END) AS emocionAlegriaCount,
@@ -313,7 +318,7 @@ public interface StatsRepository {
 	            "", 0, "", 0, "", 0, "", 0
 	    );
 
-	    try (Connection conn = DriverManager.getConnection(DB_URL);
+	    try (Connection conn = DriverManager.getConnection(datasourceUrl);
 	         PreparedStatement pstmt = conn.prepareStatement(sql);
 	         ResultSet rs = pstmt.executeQuery()) {
 
@@ -343,7 +348,7 @@ public interface StatsRepository {
 	}
 
 
-	public static EmotionFrequencyDTO findEmotionCountDateRange(Long startDate, Long endDate) {
+	public EmotionFrequencyDTO findEmotionCountDateRange(Long startDate, Long endDate) {
     String sql = """
             SELECT
                 SUM(CASE WHEN emocion_alegria = 1 THEN 1 ELSE 0 END) AS emocionAlegriaCount,
@@ -370,7 +375,7 @@ public interface StatsRepository {
             "", 0, "", 0, "", 0, "", 0
     );
 
-    try (Connection conn = DriverManager.getConnection(DB_URL);
+    try (Connection conn = DriverManager.getConnection(datasourceUrl);
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
         pstmt.setLong(1, startDate);
@@ -403,7 +408,7 @@ public interface StatsRepository {
     return emotionFrequency;
 }
 
-	public static List<PersonalRatings> findPersonalRatingsAllTime() {
+	public List<PersonalRatings> findPersonalRatingsAllTime() {
 	    List<PersonalRatings> personalRatings = new ArrayList<>();
 
 	    // SQL query with snake_case column names
@@ -412,7 +417,7 @@ public interface StatsRepository {
 	               + "valoracion_honestidad, valoracion_aceptacion, valoracion_consecucion_objetivos "
 	               + "FROM revision";
 
-	    try (Connection conn = DriverManager.getConnection(DB_URL);
+	    try (Connection conn = DriverManager.getConnection(datasourceUrl);
 	         Statement stmt = conn.createStatement();
 	         ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -442,7 +447,7 @@ public interface StatsRepository {
 	    return personalRatings;
 	}
 
-	public static List<PersonalRatings> findPersonalRatingsDateRange(long dateStart, long dateEnd) {
+	public List<PersonalRatings> findPersonalRatingsDateRange(long dateStart, long dateEnd) {
 	    List<PersonalRatings> personalRatings = new ArrayList<>();
 
 	    // SQL query with snake_case column names and date column
@@ -452,7 +457,7 @@ public interface StatsRepository {
 	               + "FROM revision "
 	               + "WHERE date >= ? AND date <= ?";
 
-	    try (Connection conn = DriverManager.getConnection(DB_URL);
+	    try (Connection conn = DriverManager.getConnection(datasourceUrl);
 	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
 	        // Set the parameters for the date range
@@ -488,7 +493,7 @@ public interface StatsRepository {
 	    return personalRatings;
 	}
 
-	public static Map<String, PersonalRatings> findRatingsDatedAllTime() {
+	public Map<String, PersonalRatings> findRatingsDatedAllTime() {
 	    Map<String, PersonalRatings> personalRatingsMap = new LinkedHashMap<>();
 
 	    // SQL query with snake_case column names and date column
@@ -498,7 +503,7 @@ public interface StatsRepository {
 	               + "FROM revision "
 	               + "ORDER BY date ASC";
 
-	    try (Connection conn = DriverManager.getConnection(DB_URL);
+	    try (Connection conn = DriverManager.getConnection(datasourceUrl);
 	         Statement stmt = conn.createStatement();
 	         ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -530,7 +535,7 @@ public interface StatsRepository {
 	    return personalRatingsMap;
 	}
 
-	public static Map<String, PersonalRatings> findRatingsDatedDateRange(long dateStart, long dateEnd) {
+	public Map<String, PersonalRatings> findRatingsDatedDateRange(long dateStart, long dateEnd) {
     Map<String, PersonalRatings> personalRatingsMap = new LinkedHashMap<>();
 
     // SQL query with snake_case column names and date column
@@ -541,7 +546,7 @@ public interface StatsRepository {
                + "WHERE date >= ? AND date <= ? "
                + "ORDER BY date ASC";
 
-    try (Connection conn = DriverManager.getConnection(DB_URL);
+    try (Connection conn = DriverManager.getConnection(datasourceUrl);
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
         // Set the parameters for the date range
