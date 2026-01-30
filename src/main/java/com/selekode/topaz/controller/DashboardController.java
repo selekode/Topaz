@@ -11,7 +11,6 @@ import com.selekode.topaz.service.DashboardService;
 @Controller
 public class DashboardController {
 	public final DashboardService dashboardService;
-	
 	public DashboardController(DashboardService dashboardService) {
 		this.dashboardService = dashboardService;
 	}

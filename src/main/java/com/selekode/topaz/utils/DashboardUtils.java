@@ -69,7 +69,7 @@ public class DashboardUtils {
 			paragraph = "¡Escribe varios dias seguidos para empezar una nueva racha!";
 		} else if (streak > 1) {
 			paragraph = "Llevas " + streak
-					+ " días seguidos escribiendo revisiones. ¡Sigue así!";
+					+ " días seguidos escribiendo en tu diario. ¡Sigue así!";
 		}
 		
 		return paragraph;

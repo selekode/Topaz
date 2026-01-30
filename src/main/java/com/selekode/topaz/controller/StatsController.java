@@ -1,5 +1,6 @@
 package com.selekode.topaz.controller;
 
+import com.selekode.topaz.repository.StatsRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,8 +17,13 @@ import org.springframework.ui.Model;
 @RequestMapping("/stats")
 @Controller
 public class StatsController {
+	StatsService statsService;
 
-	@GetMapping("/load")
+	public StatsController(StatsService statsService){
+		this.statsService = statsService;
+	}
+
+    @GetMapping("/load")
 	public String loadStats(Model model) {
 		// Default date range
 		DateRange statsDateRange = new DateRange("2000-01-01", "2100-01-01");
@@ -26,31 +32,31 @@ public class StatsController {
 		model.addAttribute("statsDateRangeLastWeek", StatsUtils.calculateDateRangeLastWeek());
 		model.addAttribute("statsDateRangeLastMonth", StatsUtils.calculateDateRangeLastMonth());
 
-		model.addAttribute("statsEntryCountWeek", StatsService.getEntryCountWeek());
-		model.addAttribute("statsEntryCountMonth", StatsService.getEntryCountMonth());
-		model.addAttribute("statsEntryCountDateRange", StatsService.getEntryCountDateRange(statsDateRange));
-		model.addAttribute("statsEntryCountAlltime", StatsService.getEntryCountAllTime());
+		model.addAttribute("statsEntryCountWeek", statsService.getEntryCountWeek());
+		model.addAttribute("statsEntryCountMonth", statsService.getEntryCountMonth());
+		model.addAttribute("statsEntryCountDateRange", statsService.getEntryCountDateRange(statsDateRange));
+		model.addAttribute("statsEntryCountAlltime", statsService.getEntryCountAllTime());
 
-		model.addAttribute("statsActivitiesPerDayOfWeekWeek", StatsService.getActivityPerDayOfWeekWeek());
-		model.addAttribute("statsActivitiesPerDayOfWeekMonth", StatsService.getActivityPerDayOfWeekMonth());
+		model.addAttribute("statsActivitiesPerDayOfWeekWeek", statsService.getActivityPerDayOfWeekWeek());
+		model.addAttribute("statsActivitiesPerDayOfWeekMonth", statsService.getActivityPerDayOfWeekMonth());
 		model.addAttribute("statsActivitiesPerDayOfWeekDateRange",
-				StatsService.getActivityPerDayOfWeekDateRange(statsDateRange));
-		model.addAttribute("statsActivitiesPerDayOfWeekAllTime", StatsService.getActivityPerDayOfWeekAllTime());
+				statsService.getActivityPerDayOfWeekDateRange(statsDateRange));
+		model.addAttribute("statsActivitiesPerDayOfWeekAllTime", statsService.getActivityPerDayOfWeekAllTime());
 
-		model.addAttribute("statsEmotionFrequencyWeek", StatsService.getEmotionFrequencyWeek());
-		model.addAttribute("statsEmotionFrequencyMonth", StatsService.getEmotionFrequencyMonth());
-		model.addAttribute("statsEmotionFrequencyDateRange", StatsService.getEmotionFrequencyDateRange(statsDateRange));
-		model.addAttribute("statsEmotionFrequencyAllTime", StatsService.getEmotionFrequencyAllTime());
+		model.addAttribute("statsEmotionFrequencyWeek", statsService.getEmotionFrequencyWeek());
+		model.addAttribute("statsEmotionFrequencyMonth", statsService.getEmotionFrequencyMonth());
+		model.addAttribute("statsEmotionFrequencyDateRange", statsService.getEmotionFrequencyDateRange(statsDateRange));
+		model.addAttribute("statsEmotionFrequencyAllTime", statsService.getEmotionFrequencyAllTime());
 
-		model.addAttribute("statsRatingsAverageWeek", StatsService.getRatingsAverageWeek());
-		model.addAttribute("statsRatingsAverageMonth", StatsService.getRatingsAverageMonth());
-		model.addAttribute("statsRatingsAverageDateRange", StatsService.getRatingsAverageDateRange(statsDateRange));
-		model.addAttribute("statsRatingsAverageAllTime", StatsService.getRatingsAverageAllTime());
+		model.addAttribute("statsRatingsAverageWeek", statsService.getRatingsAverageWeek());
+		model.addAttribute("statsRatingsAverageMonth", statsService.getRatingsAverageMonth());
+		model.addAttribute("statsRatingsAverageDateRange", statsService.getRatingsAverageDateRange(statsDateRange));
+		model.addAttribute("statsRatingsAverageAllTime", statsService.getRatingsAverageAllTime());
 
-		model.addAttribute("statsRatingsTrendWeek", StatsService.getRatingsTrendWeek());
-		model.addAttribute("statsRatingsTrendMonth", StatsService.getRatingsTrendMonth());
-		model.addAttribute("statsRatingsTrendDateRange", StatsService.getRatingsTrendDateRange(statsDateRange));
-		model.addAttribute("statsRatingsTrendAllTime", StatsService.getRatingsTrendAllTime());
+		model.addAttribute("statsRatingsTrendWeek", statsService.getRatingsTrendWeek());
+		model.addAttribute("statsRatingsTrendMonth", statsService.getRatingsTrendMonth());
+		model.addAttribute("statsRatingsTrendDateRange", statsService.getRatingsTrendDateRange(statsDateRange));
+		model.addAttribute("statsRatingsTrendAllTime", statsService.getRatingsTrendAllTime());
 
 		return "stats";
 	}
@@ -67,31 +73,31 @@ public class StatsController {
 		model.addAttribute("statsDateRangeLastWeek", StatsUtils.calculateDateRangeLastWeek());
 		model.addAttribute("statsDateRangeLastMonth", StatsUtils.calculateDateRangeLastMonth());
 
-		model.addAttribute("statsEntryCountWeek", StatsService.getEntryCountWeek());
-		model.addAttribute("statsEntryCountMonth", StatsService.getEntryCountMonth());
-		model.addAttribute("statsEntryCountDateRange", StatsService.getEntryCountDateRange(statsDateRange));
-		model.addAttribute("statsEntryCountAlltime", StatsService.getEntryCountAllTime());
+		model.addAttribute("statsEntryCountWeek", statsService.getEntryCountWeek());
+		model.addAttribute("statsEntryCountMonth", statsService.getEntryCountMonth());
+		model.addAttribute("statsEntryCountDateRange", statsService.getEntryCountDateRange(statsDateRange));
+		model.addAttribute("statsEntryCountAlltime", statsService.getEntryCountAllTime());
 
-		model.addAttribute("statsActivitiesPerDayOfWeekWeek", StatsService.getActivityPerDayOfWeekWeek());
-		model.addAttribute("statsActivitiesPerDayOfWeekMonth", StatsService.getActivityPerDayOfWeekMonth());
+		model.addAttribute("statsActivitiesPerDayOfWeekWeek", statsService.getActivityPerDayOfWeekWeek());
+		model.addAttribute("statsActivitiesPerDayOfWeekMonth", statsService.getActivityPerDayOfWeekMonth());
 		model.addAttribute("statsActivitiesPerDayOfWeekDateRange",
-				StatsService.getActivityPerDayOfWeekDateRange(statsDateRange));
-		model.addAttribute("statsActivitiesPerDayOfWeekAllTime", StatsService.getActivityPerDayOfWeekAllTime());
+				statsService.getActivityPerDayOfWeekDateRange(statsDateRange));
+		model.addAttribute("statsActivitiesPerDayOfWeekAllTime", statsService.getActivityPerDayOfWeekAllTime());
 
-		model.addAttribute("statsEmotionFrequencyWeek", StatsService.getEmotionFrequencyWeek());
-		model.addAttribute("statsEmotionFrequencyMonth", StatsService.getEmotionFrequencyMonth());
-		model.addAttribute("statsEmotionFrequencyDateRange", StatsService.getEmotionFrequencyDateRange(statsDateRange));
-		model.addAttribute("statsEmotionFrequencyAllTime", StatsService.getEmotionFrequencyAllTime());
+		model.addAttribute("statsEmotionFrequencyWeek", statsService.getEmotionFrequencyWeek());
+		model.addAttribute("statsEmotionFrequencyMonth", statsService.getEmotionFrequencyMonth());
+		model.addAttribute("statsEmotionFrequencyDateRange", statsService.getEmotionFrequencyDateRange(statsDateRange));
+		model.addAttribute("statsEmotionFrequencyAllTime", statsService.getEmotionFrequencyAllTime());
 
-		model.addAttribute("statsRatingsAverageWeek", StatsService.getRatingsAverageWeek());
-		model.addAttribute("statsRatingsAverageMonth", StatsService.getRatingsAverageMonth());
-		model.addAttribute("statsRatingsAverageDateRange", StatsService.getRatingsAverageDateRange(statsDateRange));
-		model.addAttribute("statsRatingsAverageAllTime", StatsService.getRatingsAverageAllTime());
+		model.addAttribute("statsRatingsAverageWeek", statsService.getRatingsAverageWeek());
+		model.addAttribute("statsRatingsAverageMonth", statsService.getRatingsAverageMonth());
+		model.addAttribute("statsRatingsAverageDateRange", statsService.getRatingsAverageDateRange(statsDateRange));
+		model.addAttribute("statsRatingsAverageAllTime", statsService.getRatingsAverageAllTime());
 
-		model.addAttribute("statsRatingsTrendWeek", StatsService.getRatingsTrendWeek());
-		model.addAttribute("statsRatingsTrendMonth", StatsService.getRatingsTrendMonth());
-		model.addAttribute("statsRatingsTrendDateRange", StatsService.getRatingsTrendDateRange(statsDateRange));
-		model.addAttribute("statsRatingsTrendAllTime", StatsService.getRatingsTrendAllTime());
+		model.addAttribute("statsRatingsTrendWeek", statsService.getRatingsTrendWeek());
+		model.addAttribute("statsRatingsTrendMonth", statsService.getRatingsTrendMonth());
+		model.addAttribute("statsRatingsTrendDateRange", statsService.getRatingsTrendDateRange(statsDateRange));
+		model.addAttribute("statsRatingsTrendAllTime", statsService.getRatingsTrendAllTime());
 
 		
 		System.out.println("Going to load stats between selected dates");

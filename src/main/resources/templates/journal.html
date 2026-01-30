@@ -140,6 +140,8 @@
                     <!-- Content to Show/Hide -->
                     <div x-show="open" x-collapse>
                         <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentGeneral}"></p>
+                        <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentErroresCometidos}">
+
                         <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentSaludFisica}"></p>
                         <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentBienestarMental}">
                         </p>
@@ -161,7 +163,6 @@
                             th:text="${journalEntry.contentRecreacionDiversion}"></p>
                         <p class="text-base mb-4 text-textSecondary"
                             th:text="${journalEntry.contentContribucionLegado}"></p>
-                        <p class="text-base mb-4 text-textSecondary" th:text="${journalEntry.contentErroresCometidos}">
                         </p>
                     </div>
                 </div>
