@@ -14,12 +14,12 @@ Finalmente, Topaz incluye una función de **meditación** con un temporizador aj
 
 ## Funcionalidades
 
-- 📝 Diario general
-- 📝 Revisiones emocionales
-- 📈 Estadísticas visuales sobre emociones y hábitos
-- 💡 Escribir ensayos para realizar trabajo interno
-- 🧘‍♀️ Temporizador de meditación
-- 🔁 Seguimiento de rachas y recordatorios diarios
+- Diario general
+- Revisiones emocionales
+- Estadísticas visuales sobre emociones y hábitos
+- Escribir ensayos para realizar trabajo interno
+- Temporizador de meditación
+- Seguimiento de rachas y recordatorios diarios
 
 ## Tecnologías utilizadas
 
@@ -33,14 +33,7 @@ Finalmente, Topaz incluye una función de **meditación** con un temporizador aj
 ## Estado del proyecto
 
 🔧 Actualmente en desarrollo.  
-📌 Versión: `25.9.1`  
-
-## Persistencia de datos
-
-Topaz utiliza SQLite para guardar tus datos de forma local.  
-Está **pensado para funcionar en sistemas Windows**.
-
-- Al iniciar la aplicación por primera vez, se crea automáticamente el archivo de base de datos en: 'C:\Topaz\data\topazdatabase.db'
+📌 Versión: `26.1`  
 
 ## Autor
 
