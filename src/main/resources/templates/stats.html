@@ -101,11 +101,8 @@
             <h1 data-aos="zoom-in" class="text-2xl font-bold mb-4 text-textPrimary">
                 Estadísticas</h1>
             <div class="bg-surface p-6 rounded-xl shadow-md mb-4" data-aos="fade-up">
-                <p class="text-lg  font-bold mb-4" style="color: #23A3BB;">Descubre el data sobre tu diario y
-                    revisiones</p>
-                <p class="text-base text-textPrimary mb-4">A continuación aparece el data
-                    extraido de las entradas en tu diario y
-                    revisiones</p>
+                <p class="text-lg  font-bold mb-4" style="color: #23A3BB;">Descubre el data sobre tus registros</p>
+                <p class="text-base text-textPrimary mb-4">A continuación se muestran visualizaciones de los datos extraídos de lo que has ido escribiendo</p>
 
                 <div class="flex justify-between mt-2 mb-4">
                     <div>
@@ -393,10 +390,10 @@
                                 th:text="'Entre ' + ${statsDateRangeLastMonth.startDate} + ' y ' + ${statsDateRangeLastMonth.endDate}">
                             </p>
                             <p class="text-base text-textPrimary mb-4"
-                                th:text="'- En el último més, el día en el que más revisiones has escrito es el ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDay}">
+                                th:text="'- En el último més, el día en el que más revisiones has escrito es el ' + ${statsActivitiesPerDayOfWeekMonth[1].mostActiveDay}">
                             </p>
                             <p class="text-base text-textPrimary mb-4"
-                                th:text="'- En el último més, has escrito ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDayN} + ' revisiones un ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDay}">
+                                th:text="'- En el último més, has escrito ' + ${statsActivitiesPerDayOfWeekMonth[1].mostActiveDayN} + ' revisiones un ' + ${statsActivitiesPerDayOfWeekMonth[1].mostActiveDay}">
                             </p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
                                 <canvas id="chartActivityPerDayRevisionMonth"
@@ -410,10 +407,10 @@
                                 th:text="'Entre ' + ${statsDateRange.startDate} + ' y ' + ${statsDateRange.endDate}">
                             </p>
                             <p class="text-base text-textPrimary mb-4"
-                                th:text="'- El día en el que más revisiones has escrito es el ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDay}">
+                                th:text="'- El día en el que más revisiones has escrito es el ' + ${statsActivitiesPerDayOfWeekDateRange[1].mostActiveDay}">
                             </p>
                             <p class="text-base text-textPrimary mb-4"
-                                th:text="'- Has escrito ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDayN} + ' revisiones un ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDay}">
+                                th:text="'- Has escrito ' + ${statsActivitiesPerDayOfWeekDateRange[1].mostActiveDayN} + ' revisiones un ' + ${statsActivitiesPerDayOfWeekDateRange[1].mostActiveDay}">
                             </p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
                                 <canvas id="chartActivityPerDayRevisionDateRange"
@@ -424,10 +421,10 @@
                         <!-- Revisiones (Total) statsActivitiesPerDayOfWeekAllTime -->
                         <div x-show="tab === 'revisionAllTime'" x-transition>
                             <p class="text-base text-textPrimary mb-4"
-                                th:text="'- El día en el que más revisiones escribes es el ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDay}">
+                                th:text="'- El día en el que más revisiones escribes es el ' + ${statsActivitiesPerDayOfWeekAllTime[1].mostActiveDay}">
                             </p>
                             <p class="text-base text-textPrimary mb-4"
-                                th:text="'- Has escrito ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDayN} + ' revisiones un ' + ${statsActivitiesPerDayOfWeekWeek[1].mostActiveDay}">
+                                th:text="'- Has escrito ' + ${statsActivitiesPerDayOfWeekAllTime[1].mostActiveDayN} + ' revisiones un ' + ${statsActivitiesPerDayOfWeekAllTime[1].mostActiveDay}">
                             </p>
                             <div class="max-w-4xl mx-auto w-full h-80 relative rounded">
                                 <canvas id="chartActivityPerDayRevisionAllTime"
@@ -1183,7 +1180,7 @@
         });
     </script>
 
-    <!-- ACTIVITY PER DAY OF WEEK (REVISION) (ALLTIME)-->
+    <!-- ACTIVITY PER DAY OF WEEK (JOURNAL) (ALLTIME)-->
     <script>
         var mondayEntryCount = [[${ statsActivitiesPerDayOfWeekAllTime[1].mondayEntryCount }]];
         var tuesdayEntryCount = [[${ statsActivitiesPerDayOfWeekAllTime[1].tuesdayEntryCount }]];
@@ -1246,7 +1243,7 @@
         });
     </script>
 
-    <!-- ACTIVITY PER DAY OF WEEK (INNERWORK) (ALLTIME)-->
+    <!-- ACTIVITY PER DAY OF WEEK (INNERWORK) (ALLTIME) -->
     <script>
         var mondayEntryCount = [[${ statsActivitiesPerDayOfWeekAllTime[2].mondayEntryCount }]];
         var tuesdayEntryCount = [[${ statsActivitiesPerDayOfWeekAllTime[2].tuesdayEntryCount }]];
