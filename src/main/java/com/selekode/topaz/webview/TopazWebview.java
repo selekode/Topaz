@@ -1,5 +1,6 @@
 package com.selekode.topaz.webview;
 
+import javafx.application.Platform;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -37,5 +38,10 @@ public class TopazWebview extends Application {
 		stage.setScene(scene);
 		stage.setMinWidth(1010);
 		stage.show();
+		stage.setOnCloseRequest(event -> {
+			System.out.println("PROCESS: Closing Topaz...");
+			Platform.exit();
+			System.exit(0);
+		});
 	}
 }
