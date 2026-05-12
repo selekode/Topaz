@@ -1,4 +1,4 @@
-package com.selekode.topaz;
+package com.selekode.topaz.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
