@@ -55,17 +55,17 @@
 			<version>21</version>
 			<type>pom</type>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-web -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-web</artifactId>
 			<version>23</version>
+			<classifier>win</classifier>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-graphics</artifactId>
 			<version>21</version>
+			<classifier>win</classifier>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
 		<dependency>

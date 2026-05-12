@@ -2,8 +2,18 @@ package com.selekode.topaz.bootstrap;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.net.ServerSocket;
 
 public class PortManager {
+    public static int findAvailablePort() {
+        try (ServerSocket socket = new ServerSocket(0)) {
+            return socket.getLocalPort();
+        } catch (IOException e) {
+            return 8080;
+        }
+    }
+
+    /*
     public static void killPortIfOccupied(int port) {
         try {
             Process process = Runtime.getRuntime().exec("cmd /c netstat -ano | find \":" + port + "\"");
@@ -23,4 +33,5 @@ public class PortManager {
             e.printStackTrace();
         }
     }
+    */
 }

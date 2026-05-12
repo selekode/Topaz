@@ -16,18 +16,20 @@ public class TopazWebview extends Application {
 	}
 
 	public void start(Stage stage) {
-		System.out.println("Launched Website");
-		stage.setTitle("Topaz");
+		System.out.println("PROCESS: Initializing JavaFX WebView");
 
+		String activePort = System.getProperty("app.active.port", "8080");
 		Image icon = new Image(getClass().getResourceAsStream("/static/images/topaz-logo.png"));
 
+		stage.setTitle("Topaz");
 		stage.getIcons().add(icon);
 
 		WebView webView = new WebView();
-		webView.setZoom(1.0); // or tweak to match your screen scaling
+		webView.setZoom(1.0);
 		webView.setStyle("-fx-font-smoothing-type: lcd;");
-		webView.setZoom(1.05); // small scale adjustment
-		webView.getEngine().load("http://localhost:8080/login");
+		webView.setZoom(1.05);
+
+		webView.getEngine().load("http://localhost:" + activePort + "/login");
 
 		VBox vBox = new VBox(webView);
 		VBox.setVgrow(webView, javafx.scene.layout.Priority.ALWAYS);
@@ -38,6 +40,8 @@ public class TopazWebview extends Application {
 		stage.setScene(scene);
 		stage.setMinWidth(1010);
 		stage.show();
+		System.out.println("PROCESS: Opened JavaFX WebView on " + "http://localhost:" + activePort + "/login");
+
 		stage.setOnCloseRequest(event -> {
 			System.out.println("PROCESS: Closing Topaz...");
 			Platform.exit();
