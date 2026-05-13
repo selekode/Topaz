@@ -105,7 +105,7 @@
             <h1 data-aos="zoom-in" class="text-3xl font-bold mb-4 text-textPrimary">Sobre Topaz</h1>
 
             <div class="bg-surface p-6 rounded-xl shadow-md mb-6" data-aos="fade-up">
-                <p class="text-lg font-bold text-accent">Desarrollado por Sean Leitch / selekode</p>
+                <p class="text-lg font-bold text-accent">Desarrollado por Sean Leitch para Selekode Software</p>
                 <p class="text-xl mb-4 text-accent">Versión 26.2</p>
 
                 <p class="text-base mb-4 text-textPrimary">
@@ -113,7 +113,7 @@
                     personales de forma sencilla.
                     Su desarrollo se basa en principios científicos respaldados por evidencia empírica, con el propósito
                     de fortalecer el bienestar
-                    emocional y psicológico de quienes la utilizan.
+                    emocional y psicológico del usuario.
                 </p>
 
                 <p class="text-base mb-4 text-textPrimary">
@@ -148,7 +148,18 @@
 
                 <p class="text-base mb-4 text-textPrimary" th:text="${databasePath}"></p>
             </div>
+
+            <div class="bg-surface p-6 rounded-xl shadow-md" data-aos="fade-up" th:if="${updateInfo.updateAvailable}">
+            <p>
+                <i data-lucide="arrow-up-circle"></i>
+                Nueva versión disponible: <strong th:text="${updateInfo.latestVersion}"></strong>
+                (Tienes la <span th:text="${updateInfo.currentVersion}"></span>).
+                <a href="https://selekode.github.io/TopazApp" target="_blank" class="btn-update">
+                    Actualizar ahora
+                </a>
+            </p>
     </div>
+
     </main>
     </div>
 
