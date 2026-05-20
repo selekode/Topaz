@@ -9,34 +9,17 @@
     <script th:src="@{/js/tailwind.js}" defer></script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
-    <script>
-        function openModal(id) {
-            console.log("Opening modal for entry with ID: " + id);  // Debug log
-            document.getElementById('journalId').value = id;
-            document.getElementById('confirmModal').classList.remove('hidden');
-            console.log("Modal should now be visible");
-        }
-
-        function closeModal() {
-            console.log("Closing modal");  // Debug log
-            document.getElementById('confirmModal').classList.add('hidden');
-        }
-    </script>
 </head>
 
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
-
     <!-- Sidebar -->
     <div
         class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
-
 
         <!-- Logo Section -->
         <div class="flex items-center mb-6 mt-2 flex-col">
             <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
         </div>
-
-
 
         <!-- Buttons Section -->
         <div class="space-y-4 w-full flex flex-col items-center">
@@ -100,11 +83,11 @@
 
 
     <!-- Main content -->
-    <div class="main-content  flex-grow bg-background p-6 select-none">
+    <div class="main-content  flex-grow bg-background p-6">
         <main class="container mx-auto mt-6 p-4">
-            <h1 data-aos="zoom-in" class="text-3xl font-bold mb-4 text-textPrimary">Sobre Topaz</h1>
+            <h1 data-aos="zoom-in" class="text-3xl font-bold mb-4 text-textPrimary select-none">Sobre Topaz</h1>
 
-            <div class="bg-surface p-6 rounded-xl shadow-md mb-6" data-aos="fade-up">
+            <div class="bg-surface p-6 rounded-xl shadow-md mb-6 select-none" data-aos="fade-up">
                 <p class="text-lg font-bold text-accent">Desarrollado por Sean Leitch para Selekode Software</p>
                 <p class="text-xl mb-4 text-accent">Versión 26.2</p>
 
@@ -144,20 +127,22 @@
             </div>
 
             <div class="bg-surface p-6 rounded-xl shadow-md" data-aos="fade-up">
-                <p class="text-lg font-bold text-accent">Ruta de la BBDD</p>
+                <p class="text-lg font-bold text-accent select-none">Ruta de la BBDD</p>
 
-                <p class="text-base mb-4 text-textPrimary" th:text="${databasePath}"></p>
+                <p class="text-base mb-4 text-textPrimary select-all" th:text="${databasePath}"></p>
             </div>
 
             <div class="bg-surface p-6 rounded-xl shadow-md" data-aos="fade-up" th:if="${updateInfo.updateAvailable}">
-            <p>
-                <i data-lucide="arrow-up-circle"></i>
-                Nueva versión disponible: <strong th:text="${updateInfo.latestVersion}"></strong>
-                (Tienes la <span th:text="${updateInfo.currentVersion}"></span>).
-                <a href="https://selekode.github.io/TopazApp" target="_blank" class="btn-update">
-                    Actualizar ahora
-                </a>
-            </p>
+                <p>
+                    <i data-lucide="arrow-up-circle"></i>
+                    Nueva versión disponible: <strong th:text="${updateInfo.latestVersion}"></strong>
+                    (Tienes la <span th:text="${updateInfo.currentVersion}"></span>).
+                    <a href="https://selekode.github.io/TopazApp" target="_blank" class="btn-update">
+                        Actualizar ahora
+                    </a>
+                </p>
+            </div>
+        </main>
     </div>
 
     </main>

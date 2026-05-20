@@ -1876,265 +1876,220 @@
         });
     </script>
 
-    <!-- FRECUENCIA EMOCIONAL (ALLTIME)-->
-    <script>
-        // FRECUENCIA EMOCIONAL (All Time)
-        const emotionCounts = [
+    <!-- FRECUENCIA EMOCIONAL (ALL TIME) - 31 emociones con colores -->
+    <script th:inline="javascript">
+        const emotionCountsAllTime = [
             [[${ statsEmotionFrequencyAllTime.emocionAlegriaCount }]],
             [[${ statsEmotionFrequencyAllTime.emocionTristezaCount }]],
             [[${ statsEmotionFrequencyAllTime.emocionIraCount }]],
             [[${ statsEmotionFrequencyAllTime.emocionMiedoCount }]],
-            [[${ statsEmotionFrequencyAllTime.emocionAnsiedadCount }]],
-            [[${ statsEmotionFrequencyAllTime.emocionAmorCount }]],
-            [[${ statsEmotionFrequencyAllTime.emocionSorpresaCount }]],
-            [[${ statsEmotionFrequencyAllTime.emocionVerguenzaCount }]],
-            [[${ statsEmotionFrequencyAllTime.emocionFrustracionCount }]],
-            [[${ statsEmotionFrequencyAllTime.emocionSatisfaccionCount }]],
-            [[${ statsEmotionFrequencyAllTime.emocionAburrimientoCount }]],
-            [[${ statsEmotionFrequencyAllTime.emocionSerenidadCount }]],
             [[${ statsEmotionFrequencyAllTime.emocionConfianzaCount }]],
-            [[${ statsEmotionFrequencyAllTime.emocionAbrumadoCount }]],
-            [[${ statsEmotionFrequencyAllTime.emocionEsperanzaCount }]]
+            [[${ statsEmotionFrequencyAllTime.emocionSorpresaCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionAnticipacionCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionRechazoCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionSerenidadCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionMelancoliaCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionFastidioCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionAprensionCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionAceptacionCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionDistraccionCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionInteresCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionAburrimientoCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionExtasisCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionPenaDolorCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionFuriaCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionTerrorCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionAdmiracionCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionAsombroCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionVigilanciaCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionAscoCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionAnsiedadCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionFrustracionCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionVerguenzaCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionEsperanzaCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionOrgulloCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionAgobioCount }]],
+            [[${ statsEmotionFrequencyAllTime.emocionNeutralCount }]]
         ];
-
-        const emotionLabels = [
-            "Alegría", "Tristeza", "Ira", "Miedo", "Ansiedad", "Amor", "Sorpresa",
-            "Vergüenza", "Frustración", "Satisfacción", "Aburrimiento", "Serenidad",
-            "Confianza", "Abrumado", "Esperanza"
+        const emotionLabelsAllTime = [
+            "Alegría", "Tristeza", "Ira", "Miedo", "Confianza", "Sorpresa", "Anticipación", "Rechazo",
+            "Serenidad", "Melancolía", "Fastidio", "Aprensión", "Aceptación", "Distracción", "Interés", "Aburrimiento",
+            "Éxtasis", "Pena/Dolor", "Furia", "Terror", "Admiración", "Asombro", "Vigilancia", "Asco",
+            "Ansiedad", "Frustración", "Vergüenza", "Esperanza", "Orgullo", "Agobio", "Neutral"
         ];
-
-        const ctx_emotionFrequencyPieChartAllTime = document.getElementById('emotionFrequencyPieChartAllTime').getContext('2d');
-
-        const emotionFrequencyPieChartAllTime = new Chart(ctx_emotionFrequencyPieChartAllTime, {
+        const emotionColorsAllTime = [
+            "#22c55e", // Alegría - green-500
+            "#3b82f6", // Tristeza - blue-500
+            "#ef4444", // Ira - red-500
+            "#f97316", // Miedo - orange-500
+            "#06b6d4", // Confianza - cyan-500
+            "#eab308", // Sorpresa - yellow-500
+            "#0ea5e9", // Anticipación - sky-500
+            "#d946ef", // Rechazo - fuchsia-500
+            "#10b981", // Serenidad - emerald-500
+            "#6366f1", // Melancolía - indigo-500
+            "#f43f5e", // Fastidio - rose-500
+            "#facc15", // Aprensión - yellow-400
+            "#14b8a6", // Aceptación - teal-500
+            "#fb923c", // Distracción - orange-400
+            "#0ea5e9", // Interés - sky-500
+            "#a855f7", // Aburrimiento - purple-500
+            "#84cc16", // Éxtasis - lime-500
+            "#64748b", // Pena/Dolor - slate-500
+            "#dc2626", // Furia - red-600
+            "#ea580c", // Terror - orange-600
+            "#38bdf8", // Admiración - sky-400
+            "#fbbf24", // Asombro - amber-400
+            "#2563eb", // Vigilancia - blue-600
+            "#a21caf", // Asco - purple-700
+            "#f59e0b", // Ansiedad - amber-500
+            "#e11d48", // Frustración - rose-600
+            "#ec4899", // Vergüenza - pink-500
+            "#14b8a6", // Esperanza - teal-500
+            "#8b5cf6", // Orgullo - violet-500
+            "#d97706", // Agobio - amber-600
+            "#9ca3af"  // Neutral - gray-500
+        ];
+        const ctx_all = document.getElementById('emotionFrequencyPieChartAllTime').getContext('2d');
+        new Chart(ctx_all, {
             type: 'pie',
-            data: {
-                labels: emotionLabels,
-                datasets: [{
-                    label: 'Emotion Frequency',
-                    data: emotionCounts,
-                    backgroundColor: [
-                        '#FFEB3B', '#120966', '#940c3e', '#f77225', '#eb63d2', '#cf44b7', '#1f807c',
-                        '#D32F2F', '#824633', '#4CAF50', '#9E9E9E', '#4dd1e3',
-                        '#146b11', '#330505', '#89d134'
-                    ],
-                    borderColor: '#fff',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: false,  // Hide the legend
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (tooltipItem) {
-                                const percentage = tooltipItem.raw / tooltipItem.chart.data.datasets[0].data.reduce((a, b) => a + b, 0) * 100;
-                                return tooltipItem.label + ': ' + tooltipItem.raw + ' (' + percentage.toFixed(2) + '%)';
-                            }
-                        }
-                    }
-                }
-            }
+            data: { labels: emotionLabelsAllTime, datasets: [{ data: emotionCountsAllTime, backgroundColor: emotionColorsAllTime, borderColor: '#fff', borderWidth: 1 }] },
+            options: { responsive: true, plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(tooltipItem) { const total = tooltipItem.chart.data.datasets[0].data.reduce((a,b)=>a+b,0); const percentage = total === 0 ? 0 : (tooltipItem.raw / total * 100).toFixed(2); return tooltipItem.label + ': ' + tooltipItem.raw + ' (' + percentage + '%)'; } } } } }
         });
     </script>
 
-    <!-- FRECUENCIA EMOCIONAL (DATERANGE)-->
-    <script>
-        // FRECUENCIA EMOCIONAL (Date Range)
-        const emotionFrequencyCountsDateRange = [
+    <!-- FRECUENCIA EMOCIONAL (DATE RANGE) -->
+    <script th:inline="javascript">
+        const emotionCountsDateRange = [
             [[${ statsEmotionFrequencyDateRange.emocionAlegriaCount }]],
             [[${ statsEmotionFrequencyDateRange.emocionTristezaCount }]],
             [[${ statsEmotionFrequencyDateRange.emocionIraCount }]],
             [[${ statsEmotionFrequencyDateRange.emocionMiedoCount }]],
-            [[${ statsEmotionFrequencyDateRange.emocionAnsiedadCount }]],
-            [[${ statsEmotionFrequencyDateRange.emocionAmorCount }]],
-            [[${ statsEmotionFrequencyDateRange.emocionSorpresaCount }]],
-            [[${ statsEmotionFrequencyDateRange.emocionVerguenzaCount }]],
-            [[${ statsEmotionFrequencyDateRange.emocionFrustracionCount }]],
-            [[${ statsEmotionFrequencyDateRange.emocionSatisfaccionCount }]],
-            [[${ statsEmotionFrequencyDateRange.emocionAburrimientoCount }]],
-            [[${ statsEmotionFrequencyDateRange.emocionSerenidadCount }]],
             [[${ statsEmotionFrequencyDateRange.emocionConfianzaCount }]],
-            [[${ statsEmotionFrequencyDateRange.emocionAbrumadoCount }]],
-            [[${ statsEmotionFrequencyDateRange.emocionEsperanzaCount }]]
+            [[${ statsEmotionFrequencyDateRange.emocionSorpresaCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionAnticipacionCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionRechazoCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionSerenidadCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionMelancoliaCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionFastidioCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionAprensionCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionAceptacionCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionDistraccionCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionInteresCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionAburrimientoCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionExtasisCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionPenaDolorCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionFuriaCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionTerrorCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionAdmiracionCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionAsombroCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionVigilanciaCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionAscoCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionAnsiedadCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionFrustracionCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionVerguenzaCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionEsperanzaCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionOrgulloCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionAgobioCount }]],
+            [[${ statsEmotionFrequencyDateRange.emocionNeutralCount }]]
         ];
-
-        const emotionLabels_dr = [
-            "Alegría", "Tristeza", "Ira", "Miedo", "Ansiedad", "Amor", "Sorpresa",
-            "Vergüenza", "Frustración", "Satisfacción", "Aburrimiento", "Serenidad",
-            "Confianza", "Abrumado", "Esperanza"
-        ];
-
-        const ctx_emotionFrequencyPieChartDateRange = document.getElementById('emotionFrequencyPieChartDateRange').getContext('2d');
-
-        const emotionFrequencyPieChartDateRange = new Chart(ctx_emotionFrequencyPieChartDateRange, {
+        const emotionColorsDateRange = emotionColorsAllTime; // same color array
+        const ctx_dr = document.getElementById('emotionFrequencyPieChartDateRange').getContext('2d');
+        new Chart(ctx_dr, {
             type: 'pie',
-            data: {
-                labels: emotionLabels_dr,
-                datasets: [{
-                    label: 'Emotion Frequency',
-                    data: emotionFrequencyCountsDateRange,
-                    backgroundColor: [
-                        '#FFEB3B', '#120966', '#940c3e', '#f77225', '#eb63d2', '#cf44b7', '#1f807c',
-                        '#D32F2F', '#824633', '#4CAF50', '#9E9E9E', '#4dd1e3',
-                        '#146b11', '#330505', '#89d134'
-                    ],
-                    borderColor: '#fff',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: false,  // Hide the legend
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (tooltipItem) {
-                                const percentage = tooltipItem.raw / tooltipItem.chart.data.datasets[0].data.reduce((a, b) => a + b, 0) * 100;
-                                return tooltipItem.label + ': ' + tooltipItem.raw + ' (' + percentage.toFixed(2) + '%)';
-                            }
-                        }
-                    }
-                }
-            }
+            data: { labels: emotionLabelsAllTime, datasets: [{ data: emotionCountsDateRange, backgroundColor: emotionColorsDateRange, borderColor: '#fff', borderWidth: 1 }] },
+            options: { responsive: true, plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(tooltipItem) { const total = tooltipItem.chart.data.datasets[0].data.reduce((a,b)=>a+b,0); const percentage = total === 0 ? 0 : (tooltipItem.raw / total * 100).toFixed(2); return tooltipItem.label + ': ' + tooltipItem.raw + ' (' + percentage + '%)'; } } } } }
         });
     </script>
 
-    <!-- FRECUENCIA EMOCIONAL (7D)-->
-    <script>
-        // FRECUENCIA EMOCIONAL (7d)
-        const emotionFrequencyCountsLastWeek = [
+    <!-- FRECUENCIA EMOCIONAL (7D) -->
+    <script th:inline="javascript">
+        const emotionCountsWeek = [
             [[${ statsEmotionFrequencyWeek.emocionAlegriaCount }]],
             [[${ statsEmotionFrequencyWeek.emocionTristezaCount }]],
             [[${ statsEmotionFrequencyWeek.emocionIraCount }]],
             [[${ statsEmotionFrequencyWeek.emocionMiedoCount }]],
-            [[${ statsEmotionFrequencyWeek.emocionAnsiedadCount }]],
-            [[${ statsEmotionFrequencyWeek.emocionAmorCount }]],
-            [[${ statsEmotionFrequencyWeek.emocionSorpresaCount }]],
-            [[${ statsEmotionFrequencyWeek.emocionVerguenzaCount }]],
-            [[${ statsEmotionFrequencyWeek.emocionFrustracionCount }]],
-            [[${ statsEmotionFrequencyWeek.emocionSatisfaccionCount }]],
-            [[${ statsEmotionFrequencyWeek.emocionAburrimientoCount }]],
-            [[${ statsEmotionFrequencyWeek.emocionSerenidadCount }]],
             [[${ statsEmotionFrequencyWeek.emocionConfianzaCount }]],
-            [[${ statsEmotionFrequencyWeek.emocionAbrumadoCount }]],
-            [[${ statsEmotionFrequencyWeek.emocionEsperanzaCount }]]
+            [[${ statsEmotionFrequencyWeek.emocionSorpresaCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionAnticipacionCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionRechazoCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionSerenidadCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionMelancoliaCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionFastidioCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionAprensionCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionAceptacionCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionDistraccionCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionInteresCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionAburrimientoCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionExtasisCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionPenaDolorCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionFuriaCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionTerrorCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionAdmiracionCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionAsombroCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionVigilanciaCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionAscoCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionAnsiedadCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionFrustracionCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionVerguenzaCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionEsperanzaCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionOrgulloCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionAgobioCount }]],
+            [[${ statsEmotionFrequencyWeek.emocionNeutralCount }]]
         ];
-
-        const emotionLabels_w = [
-            "Alegría", "Tristeza", "Ira", "Miedo", "Ansiedad", "Amor", "Sorpresa",
-            "Vergüenza", "Frustración", "Satisfacción", "Aburrimiento", "Serenidad",
-            "Confianza", "Abrumado", "Esperanza"
-        ];
-
-        const ctx_emotionFrequencyPieChartLastWeek = document.getElementById('emotionFrequencyPieChartLastWeek').getContext('2d');
-
-        const emotionFrequencyPieChartLastWeek = new Chart(ctx_emotionFrequencyPieChartLastWeek, {
+        const ctx_w = document.getElementById('emotionFrequencyPieChartLastWeek').getContext('2d');
+        new Chart(ctx_w, {
             type: 'pie',
-            data: {
-                labels: emotionLabels_w,
-                datasets: [{
-                    label: 'Emotion Frequency',
-                    data: emotionFrequencyCountsLastWeek,
-                    backgroundColor: [
-                        '#FFEB3B', '#120966', '#940c3e', '#f77225', '#eb63d2', '#cf44b7', '#1f807c',
-                        '#D32F2F', '#824633', '#4CAF50', '#9E9E9E', '#4dd1e3',
-                        '#146b11', '#330505', '#89d134'
-                    ],
-                    borderColor: '#fff',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: false,  // Hide the legend
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (tooltipItem) {
-                                const percentage = tooltipItem.raw / tooltipItem.chart.data.datasets[0].data.reduce((a, b) => a + b, 0) * 100;
-                                return tooltipItem.label + ': ' + tooltipItem.raw + ' (' + percentage.toFixed(2) + '%)';
-                            }
-                        }
-                    }
-                }
-            }
+            data: { labels: emotionLabelsAllTime, datasets: [{ data: emotionCountsWeek, backgroundColor: emotionColorsAllTime, borderColor: '#fff', borderWidth: 1 }] },
+            options: { responsive: true, plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(tooltipItem) { const total = tooltipItem.chart.data.datasets[0].data.reduce((a,b)=>a+b,0); const percentage = total === 0 ? 0 : (tooltipItem.raw / total * 100).toFixed(2); return tooltipItem.label + ': ' + tooltipItem.raw + ' (' + percentage + '%)'; } } } } }
         });
     </script>
-
-    <!-- FRECUENCIA EMOCIONAL (1M)-->
-    <script>
-        // FRECUENCIA EMOCIONAL (1m)
-        const emotionFrequencyCountsLastMonth = [
+    <!-- FRECUENCIA EMOCIONAL (1M) -->
+    <script th:inline="javascript">
+        const emotionCountsMonth = [
             [[${ statsEmotionFrequencyMonth.emocionAlegriaCount }]],
             [[${ statsEmotionFrequencyMonth.emocionTristezaCount }]],
             [[${ statsEmotionFrequencyMonth.emocionIraCount }]],
             [[${ statsEmotionFrequencyMonth.emocionMiedoCount }]],
-            [[${ statsEmotionFrequencyMonth.emocionAnsiedadCount }]],
-            [[${ statsEmotionFrequencyMonth.emocionAmorCount }]],
-            [[${ statsEmotionFrequencyMonth.emocionSorpresaCount }]],
-            [[${ statsEmotionFrequencyMonth.emocionVerguenzaCount }]],
-            [[${ statsEmotionFrequencyMonth.emocionFrustracionCount }]],
-            [[${ statsEmotionFrequencyMonth.emocionSatisfaccionCount }]],
-            [[${ statsEmotionFrequencyMonth.emocionAburrimientoCount }]],
-            [[${ statsEmotionFrequencyMonth.emocionSerenidadCount }]],
             [[${ statsEmotionFrequencyMonth.emocionConfianzaCount }]],
-            [[${ statsEmotionFrequencyMonth.emocionAbrumadoCount }]],
-            [[${ statsEmotionFrequencyMonth.emocionEsperanzaCount }]]
+            [[${ statsEmotionFrequencyMonth.emocionSorpresaCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionAnticipacionCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionRechazoCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionSerenidadCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionMelancoliaCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionFastidioCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionAprensionCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionAceptacionCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionDistraccionCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionInteresCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionAburrimientoCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionExtasisCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionPenaDolorCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionFuriaCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionTerrorCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionAdmiracionCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionAsombroCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionVigilanciaCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionAscoCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionAnsiedadCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionFrustracionCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionVerguenzaCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionEsperanzaCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionOrgulloCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionAgobioCount }]],
+            [[${ statsEmotionFrequencyMonth.emocionNeutralCount }]]
         ];
-
-        const emotionLabels_m = [
-            "Alegría", "Tristeza", "Ira", "Miedo", "Ansiedad", "Amor", "Sorpresa",
-            "Vergüenza", "Frustración", "Satisfacción", "Aburrimiento", "Serenidad",
-            "Confianza", "Abrumado", "Esperanza"
-        ];
-
-        const ctx_emotionFrequencyPieChartLastMonth = document.getElementById('emotionFrequencyPieChartLastMonth').getContext('2d');
-
-        const emotionFrequencyPieChartLastMonth = new Chart(ctx_emotionFrequencyPieChartLastMonth, {
+        const ctx_m = document.getElementById('emotionFrequencyPieChartLastMonth').getContext('2d');
+        new Chart(ctx_m, {
             type: 'pie',
-            data: {
-                labels: emotionLabels_m,
-                datasets: [{
-                    label: 'Emotion Frequency',
-                    data: emotionFrequencyCountsLastWeek,
-                    backgroundColor: [
-                        '#FFEB3B', '#120966', '#940c3e', '#f77225', '#eb63d2', '#cf44b7', '#1f807c',
-                        '#D32F2F', '#824633', '#4CAF50', '#9E9E9E', '#4dd1e3',
-                        '#146b11', '#330505', '#89d134'
-                    ],
-                    borderColor: '#fff',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: false,  // Hide the legend
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (tooltipItem) {
-                                const percentage = tooltipItem.raw / tooltipItem.chart.data.datasets[0].data.reduce((a, b) => a + b, 0) * 100;
-                                return tooltipItem.label + ': ' + tooltipItem.raw + ' (' + percentage.toFixed(2) + '%)';
-                            }
-                        }
-                    }
-                }
-            }
+            data: { labels: emotionLabelsAllTime, datasets: [{ data: emotionCountsMonth, backgroundColor: emotionColorsAllTime, borderColor: '#fff', borderWidth: 1 }] },
+            options: { responsive: true, plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(tooltipItem) { const total = tooltipItem.chart.data.datasets[0].data.reduce((a,b)=>a+b,0); const percentage = total === 0 ? 0 : (tooltipItem.raw / total * 100).toFixed(2); return tooltipItem.label + ': ' + tooltipItem.raw + ' (' + percentage + '%)'; } } } } }
         });
     </script>
 
     <!-- ANÁLISIS PERSONAL: MEDIA DE VALORACIONES (ALLTIME)-->
     <script>
-        // ANÁLISIS PERSONAL: MEDIA DE VALORACIONES (AllTime) 
+        // ANÁLISIS PERSONAL: MEDIA DE VALORACIONES (AllTime)
         var averageRatingsAllTime = [
             [[${ statsRatingsAverageAllTime.valoracionDisciplina } != null ? ${ statsRatingsAverageAllTime.valoracionDisciplina } : 0]],
             [[${ statsRatingsAverageAllTime.valoracionOrden } != null ? ${ statsRatingsAverageAllTime.valoracionOrden } : 0]],
@@ -2196,7 +2151,7 @@
 
     <!-- ANÁLISIS PERSONAL: MEDIA DE VALORACIONES (7D)-->
     <script>
-        // ANÁLISIS PERSONAL: MEDIA DE VALORACIONES (7d) 
+        // ANÁLISIS PERSONAL: MEDIA DE VALORACIONES (7d)
         var averageRatings7d = [
             [[${ statsRatingsAverageWeek.valoracionDisciplina } != null ? ${ statsRatingsAverageWeek.valoracionDisciplina } : 0]],
             [[${ statsRatingsAverageWeek.valoracionOrden } != null ? ${ statsRatingsAverageWeek.valoracionOrden } : 0]],
@@ -2256,7 +2211,7 @@
 
     <!-- ANÁLISIS PERSONAL: MEDIA DE VALORACIONES (1M)-->
     <script>
-        // ANÁLISIS PERSONAL: MEDIA DE VALORACIONES (1m) 
+        // ANÁLISIS PERSONAL: MEDIA DE VALORACIONES (1m)
         var averageRatings1m = [
             [[${ statsRatingsAverageMonth.valoracionDisciplina } != null ? ${ statsRatingsAverageMonth.valoracionDisciplina } : 0]],
             [[${ statsRatingsAverageMonth.valoracionOrden } != null ? ${ statsRatingsAverageMonth.valoracionOrden } : 0]],

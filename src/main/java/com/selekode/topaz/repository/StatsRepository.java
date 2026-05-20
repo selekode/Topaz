@@ -192,7 +192,6 @@ public class StatsRepository {
 		return innerWorkEntryCount;
 	}
 
-
 	public ActivityPerDayOfWeekDTO findEntryCountPerDayGenericDateRange(long dateStart, long dateEnd, Table table) {
 		int mondayEntryCount = 0;
 		int tuesdayEntryCount = 0;
@@ -293,120 +292,175 @@ public class StatsRepository {
 	}
 
 	public EmotionFrequencyDTO findEmotionCountAllTime() {
-	    String sql = """
-	                SELECT
-	                    SUM(CASE WHEN emocion_alegria = 1 THEN 1 ELSE 0 END) AS emocionAlegriaCount,
-	                    SUM(CASE WHEN emocion_tristeza = 1 THEN 1 ELSE 0 END) AS emocionTristezaCount,
-	                    SUM(CASE WHEN emocion_ira = 1 THEN 1 ELSE 0 END) AS emocionIraCount,
-	                    SUM(CASE WHEN emocion_miedo = 1 THEN 1 ELSE 0 END) AS emocionMiedoCount,
-	                    SUM(CASE WHEN emocion_ansiedad = 1 THEN 1 ELSE 0 END) AS emocionAnsiedadCount,
-	                    SUM(CASE WHEN emocion_amor = 1 THEN 1 ELSE 0 END) AS emocionAmorCount,
-	                    SUM(CASE WHEN emocion_sorpresa = 1 THEN 1 ELSE 0 END) AS emocionSorpresaCount,
-	                    SUM(CASE WHEN emocion_verguenza = 1 THEN 1 ELSE 0 END) AS emocionVerguenzaCount,
-	                    SUM(CASE WHEN emocion_frustracion = 1 THEN 1 ELSE 0 END) AS emocionFrustracionCount,
-	                    SUM(CASE WHEN emocion_satisfaccion = 1 THEN 1 ELSE 0 END) AS emocionSatisfaccionCount,
-	                    SUM(CASE WHEN emocion_aburrimiento = 1 THEN 1 ELSE 0 END) AS emocionAburrimientoCount,
-	                    SUM(CASE WHEN emocion_serenidad = 1 THEN 1 ELSE 0 END) AS emocionSerenidadCount,
-	                    SUM(CASE WHEN emocion_confianza = 1 THEN 1 ELSE 0 END) AS emocionConfianzaCount,
-	                    SUM(CASE WHEN emocion_abrumado = 1 THEN 1 ELSE 0 END) AS emocionAbrumadoCount,
-	                    SUM(CASE WHEN emocion_esperanza = 1 THEN 1 ELSE 0 END) AS emocionEsperanzaCount
-	                FROM revision;
-	            """;
+		String sql = """
+        SELECT
+            SUM(CASE WHEN emocion_alegria = 1 THEN 1 ELSE 0 END) AS emocionAlegriaCount,
+            SUM(CASE WHEN emocion_tristeza = 1 THEN 1 ELSE 0 END) AS emocionTristezaCount,
+            SUM(CASE WHEN emocion_ira = 1 THEN 1 ELSE 0 END) AS emocionIraCount,
+            SUM(CASE WHEN emocion_miedo = 1 THEN 1 ELSE 0 END) AS emocionMiedoCount,
+            SUM(CASE WHEN emocion_confianza = 1 THEN 1 ELSE 0 END) AS emocionConfianzaCount,
+            SUM(CASE WHEN emocion_sorpresa = 1 THEN 1 ELSE 0 END) AS emocionSorpresaCount,
+            SUM(CASE WHEN emocion_anticipacion = 1 THEN 1 ELSE 0 END) AS emocionAnticipacionCount,
+            SUM(CASE WHEN emocion_rechazo = 1 THEN 1 ELSE 0 END) AS emocionRechazoCount,
+            SUM(CASE WHEN emocion_serenidad = 1 THEN 1 ELSE 0 END) AS emocionSerenidadCount,
+            SUM(CASE WHEN emocion_melancolia = 1 THEN 1 ELSE 0 END) AS emocionMelancoliaCount,
+            SUM(CASE WHEN emocion_fastidio = 1 THEN 1 ELSE 0 END) AS emocionFastidioCount,
+            SUM(CASE WHEN emocion_aprension = 1 THEN 1 ELSE 0 END) AS emocionAprensionCount,
+            SUM(CASE WHEN emocion_aceptacion = 1 THEN 1 ELSE 0 END) AS emocionAceptacionCount,
+            SUM(CASE WHEN emocion_distraccion = 1 THEN 1 ELSE 0 END) AS emocionDistraccionCount,
+            SUM(CASE WHEN emocion_interes = 1 THEN 1 ELSE 0 END) AS emocionInteresCount,
+            SUM(CASE WHEN emocion_aburrimiento = 1 THEN 1 ELSE 0 END) AS emocionAburrimientoCount,
+            SUM(CASE WHEN emocion_extasis = 1 THEN 1 ELSE 0 END) AS emocionExtasisCount,
+            SUM(CASE WHEN emocion_pena_dolor = 1 THEN 1 ELSE 0 END) AS emocionPenaDolorCount,
+            SUM(CASE WHEN emocion_furia = 1 THEN 1 ELSE 0 END) AS emocionFuriaCount,
+            SUM(CASE WHEN emocion_terror = 1 THEN 1 ELSE 0 END) AS emocionTerrorCount,
+            SUM(CASE WHEN emocion_admiracion = 1 THEN 1 ELSE 0 END) AS emocionAdmiracionCount,
+            SUM(CASE WHEN emocion_asombro = 1 THEN 1 ELSE 0 END) AS emocionAsombroCount,
+            SUM(CASE WHEN emocion_vigilancia = 1 THEN 1 ELSE 0 END) AS emocionVigilanciaCount,
+            SUM(CASE WHEN emocion_asco = 1 THEN 1 ELSE 0 END) AS emocionAscoCount,
+            SUM(CASE WHEN emocion_ansiedad = 1 THEN 1 ELSE 0 END) AS emocionAnsiedadCount,
+            SUM(CASE WHEN emocion_frustracion = 1 THEN 1 ELSE 0 END) AS emocionFrustracionCount,
+            SUM(CASE WHEN emocion_verguenza = 1 THEN 1 ELSE 0 END) AS emocionVerguenzaCount,
+            SUM(CASE WHEN emocion_esperanza = 1 THEN 1 ELSE 0 END) AS emocionEsperanzaCount,
+            SUM(CASE WHEN emocion_orgullo = 1 THEN 1 ELSE 0 END) AS emocionOrgulloCount,
+            SUM(CASE WHEN emocion_agobio = 1 THEN 1 ELSE 0 END) AS emocionAgobioCount,
+            SUM(CASE WHEN emocion_neutral = 1 THEN 1 ELSE 0 END) AS emocionNeutralCount
+        FROM revision;
+    """;
 
-	    EmotionFrequencyDTO emotionFrequency = new EmotionFrequencyDTO(
-	            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-	            "", 0, "", 0, "", 0, "", 0
-	    );
-
-	    try (Connection conn = DriverManager.getConnection(datasourceUrl);
-	         PreparedStatement pstmt = conn.prepareStatement(sql);
-	         ResultSet rs = pstmt.executeQuery()) {
-
-	        if (rs.next()) {
-	            emotionFrequency.setEmocionAlegriaCount(rs.getInt("emocionAlegriaCount"));
-	            emotionFrequency.setEmocionTristezaCount(rs.getInt("emocionTristezaCount"));
-	            emotionFrequency.setEmocionIraCount(rs.getInt("emocionIraCount"));
-	            emotionFrequency.setEmocionMiedoCount(rs.getInt("emocionMiedoCount"));
-	            emotionFrequency.setEmocionAnsiedadCount(rs.getInt("emocionAnsiedadCount"));
-	            emotionFrequency.setEmocionAmorCount(rs.getInt("emocionAmorCount"));
-	            emotionFrequency.setEmocionSorpresaCount(rs.getInt("emocionSorpresaCount"));
-	            emotionFrequency.setEmocionVerguenzaCount(rs.getInt("emocionVerguenzaCount"));
-	            emotionFrequency.setEmocionFrustracionCount(rs.getInt("emocionFrustracionCount"));
-	            emotionFrequency.setEmocionSatisfaccionCount(rs.getInt("emocionSatisfaccionCount"));
-	            emotionFrequency.setEmocionAburrimientoCount(rs.getInt("emocionAburrimientoCount"));
-	            emotionFrequency.setEmocionSerenidadCount(rs.getInt("emocionSerenidadCount"));
-	            emotionFrequency.setEmocionConfianzaCount(rs.getInt("emocionConfianzaCount"));
-	            emotionFrequency.setEmocionAbrumadoCount(rs.getInt("emocionAbrumadoCount"));
-	            emotionFrequency.setEmocionEsperanzaCount(rs.getInt("emocionEsperanzaCount"));
-	        }
-
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-
-	    return emotionFrequency;
+		EmotionFrequencyDTO emotionFrequency = new EmotionFrequencyDTO(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"",0,"",0,"",0,"",0);
+		try (Connection conn = DriverManager.getConnection(datasourceUrl);
+			 PreparedStatement pstmt = conn.prepareStatement(sql);
+			 ResultSet rs = pstmt.executeQuery()) {
+			if (rs.next()) {
+				emotionFrequency.setEmocionAlegriaCount(rs.getInt("emocionAlegriaCount"));
+				emotionFrequency.setEmocionTristezaCount(rs.getInt("emocionTristezaCount"));
+				emotionFrequency.setEmocionIraCount(rs.getInt("emocionIraCount"));
+				emotionFrequency.setEmocionMiedoCount(rs.getInt("emocionMiedoCount"));
+				emotionFrequency.setEmocionConfianzaCount(rs.getInt("emocionConfianzaCount"));
+				emotionFrequency.setEmocionSorpresaCount(rs.getInt("emocionSorpresaCount"));
+				emotionFrequency.setEmocionAnticipacionCount(rs.getInt("emocionAnticipacionCount"));
+				emotionFrequency.setEmocionRechazoCount(rs.getInt("emocionRechazoCount"));
+				emotionFrequency.setEmocionSerenidadCount(rs.getInt("emocionSerenidadCount"));
+				emotionFrequency.setEmocionMelancoliaCount(rs.getInt("emocionMelancoliaCount"));
+				emotionFrequency.setEmocionFastidioCount(rs.getInt("emocionFastidioCount"));
+				emotionFrequency.setEmocionAprensionCount(rs.getInt("emocionAprensionCount"));
+				emotionFrequency.setEmocionAceptacionCount(rs.getInt("emocionAceptacionCount"));
+				emotionFrequency.setEmocionDistraccionCount(rs.getInt("emocionDistraccionCount"));
+				emotionFrequency.setEmocionInteresCount(rs.getInt("emocionInteresCount"));
+				emotionFrequency.setEmocionAburrimientoCount(rs.getInt("emocionAburrimientoCount"));
+				emotionFrequency.setEmocionExtasisCount(rs.getInt("emocionExtasisCount"));
+				emotionFrequency.setEmocionPenaDolorCount(rs.getInt("emocionPenaDolorCount"));
+				emotionFrequency.setEmocionFuriaCount(rs.getInt("emocionFuriaCount"));
+				emotionFrequency.setEmocionTerrorCount(rs.getInt("emocionTerrorCount"));
+				emotionFrequency.setEmocionAdmiracionCount(rs.getInt("emocionAdmiracionCount"));
+				emotionFrequency.setEmocionAsombroCount(rs.getInt("emocionAsombroCount"));
+				emotionFrequency.setEmocionVigilanciaCount(rs.getInt("emocionVigilanciaCount"));
+				emotionFrequency.setEmocionAscoCount(rs.getInt("emocionAscoCount"));
+				emotionFrequency.setEmocionAnsiedadCount(rs.getInt("emocionAnsiedadCount"));
+				emotionFrequency.setEmocionFrustracionCount(rs.getInt("emocionFrustracionCount"));
+				emotionFrequency.setEmocionVerguenzaCount(rs.getInt("emocionVerguenzaCount"));
+				emotionFrequency.setEmocionEsperanzaCount(rs.getInt("emocionEsperanzaCount"));
+				emotionFrequency.setEmocionOrgulloCount(rs.getInt("emocionOrgulloCount"));
+				emotionFrequency.setEmocionAgobioCount(rs.getInt("emocionAgobioCount"));
+				emotionFrequency.setEmocionNeutralCount(rs.getInt("emocionNeutralCount"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return emotionFrequency;
 	}
 
-
 	public EmotionFrequencyDTO findEmotionCountDateRange(Long startDate, Long endDate) {
-    String sql = """
-            SELECT
-                SUM(CASE WHEN emocion_alegria = 1 THEN 1 ELSE 0 END) AS emocionAlegriaCount,
-                SUM(CASE WHEN emocion_tristeza = 1 THEN 1 ELSE 0 END) AS emocionTristezaCount,
-                SUM(CASE WHEN emocion_ira = 1 THEN 1 ELSE 0 END) AS emocionIraCount,
-                SUM(CASE WHEN emocion_miedo = 1 THEN 1 ELSE 0 END) AS emocionMiedoCount,
-                SUM(CASE WHEN emocion_ansiedad = 1 THEN 1 ELSE 0 END) AS emocionAnsiedadCount,
-                SUM(CASE WHEN emocion_amor = 1 THEN 1 ELSE 0 END) AS emocionAmorCount,
-                SUM(CASE WHEN emocion_sorpresa = 1 THEN 1 ELSE 0 END) AS emocionSorpresaCount,
-                SUM(CASE WHEN emocion_verguenza = 1 THEN 1 ELSE 0 END) AS emocionVerguenzaCount,
-                SUM(CASE WHEN emocion_frustracion = 1 THEN 1 ELSE 0 END) AS emocionFrustracionCount,
-                SUM(CASE WHEN emocion_satisfaccion = 1 THEN 1 ELSE 0 END) AS emocionSatisfaccionCount,
-                SUM(CASE WHEN emocion_aburrimiento = 1 THEN 1 ELSE 0 END) AS emocionAburrimientoCount,
-                SUM(CASE WHEN emocion_serenidad = 1 THEN 1 ELSE 0 END) AS emocionSerenidadCount,
-                SUM(CASE WHEN emocion_confianza = 1 THEN 1 ELSE 0 END) AS emocionConfianzaCount,
-                SUM(CASE WHEN emocion_abrumado = 1 THEN 1 ELSE 0 END) AS emocionAbrumadoCount,
-                SUM(CASE WHEN emocion_esperanza = 1 THEN 1 ELSE 0 END) AS emocionEsperanzaCount
-            FROM revision
-            WHERE date BETWEEN ? AND ?;
-            """;
+		String sql = """
+        SELECT
+            SUM(CASE WHEN emocion_alegria = 1 THEN 1 ELSE 0 END) AS emocionAlegriaCount,
+            SUM(CASE WHEN emocion_tristeza = 1 THEN 1 ELSE 0 END) AS emocionTristezaCount,
+            SUM(CASE WHEN emocion_ira = 1 THEN 1 ELSE 0 END) AS emocionIraCount,
+            SUM(CASE WHEN emocion_miedo = 1 THEN 1 ELSE 0 END) AS emocionMiedoCount,
+            SUM(CASE WHEN emocion_confianza = 1 THEN 1 ELSE 0 END) AS emocionConfianzaCount,
+            SUM(CASE WHEN emocion_sorpresa = 1 THEN 1 ELSE 0 END) AS emocionSorpresaCount,
+            SUM(CASE WHEN emocion_anticipacion = 1 THEN 1 ELSE 0 END) AS emocionAnticipacionCount,
+            SUM(CASE WHEN emocion_rechazo = 1 THEN 1 ELSE 0 END) AS emocionRechazoCount,
+            SUM(CASE WHEN emocion_serenidad = 1 THEN 1 ELSE 0 END) AS emocionSerenidadCount,
+            SUM(CASE WHEN emocion_melancolia = 1 THEN 1 ELSE 0 END) AS emocionMelancoliaCount,
+            SUM(CASE WHEN emocion_fastidio = 1 THEN 1 ELSE 0 END) AS emocionFastidioCount,
+            SUM(CASE WHEN emocion_aprension = 1 THEN 1 ELSE 0 END) AS emocionAprensionCount,
+            SUM(CASE WHEN emocion_aceptacion = 1 THEN 1 ELSE 0 END) AS emocionAceptacionCount,
+            SUM(CASE WHEN emocion_distraccion = 1 THEN 1 ELSE 0 END) AS emocionDistraccionCount,
+            SUM(CASE WHEN emocion_interes = 1 THEN 1 ELSE 0 END) AS emocionInteresCount,
+            SUM(CASE WHEN emocion_aburrimiento = 1 THEN 1 ELSE 0 END) AS emocionAburrimientoCount,
+            SUM(CASE WHEN emocion_extasis = 1 THEN 1 ELSE 0 END) AS emocionExtasisCount,
+            SUM(CASE WHEN emocion_pena_dolor = 1 THEN 1 ELSE 0 END) AS emocionPenaDolorCount,
+            SUM(CASE WHEN emocion_furia = 1 THEN 1 ELSE 0 END) AS emocionFuriaCount,
+            SUM(CASE WHEN emocion_terror = 1 THEN 1 ELSE 0 END) AS emocionTerrorCount,
+            SUM(CASE WHEN emocion_admiracion = 1 THEN 1 ELSE 0 END) AS emocionAdmiracionCount,
+            SUM(CASE WHEN emocion_asombro = 1 THEN 1 ELSE 0 END) AS emocionAsombroCount,
+            SUM(CASE WHEN emocion_vigilancia = 1 THEN 1 ELSE 0 END) AS emocionVigilanciaCount,
+            SUM(CASE WHEN emocion_asco = 1 THEN 1 ELSE 0 END) AS emocionAscoCount,
+            SUM(CASE WHEN emocion_ansiedad = 1 THEN 1 ELSE 0 END) AS emocionAnsiedadCount,
+            SUM(CASE WHEN emocion_frustracion = 1 THEN 1 ELSE 0 END) AS emocionFrustracionCount,
+            SUM(CASE WHEN emocion_verguenza = 1 THEN 1 ELSE 0 END) AS emocionVerguenzaCount,
+            SUM(CASE WHEN emocion_esperanza = 1 THEN 1 ELSE 0 END) AS emocionEsperanzaCount,
+            SUM(CASE WHEN emocion_orgullo = 1 THEN 1 ELSE 0 END) AS emocionOrgulloCount,
+            SUM(CASE WHEN emocion_agobio = 1 THEN 1 ELSE 0 END) AS emocionAgobioCount,
+            SUM(CASE WHEN emocion_neutral = 1 THEN 1 ELSE 0 END) AS emocionNeutralCount
+        FROM revision
+        WHERE date BETWEEN ? AND ?;
+    """;
 
-    EmotionFrequencyDTO emotionFrequency = new EmotionFrequencyDTO(
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            "", 0, "", 0, "", 0, "", 0
-    );
+		EmotionFrequencyDTO emotionFrequency = new EmotionFrequencyDTO(
+				0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+				"",0,"",0,"",0,"",0
+		);
 
-    try (Connection conn = DriverManager.getConnection(datasourceUrl);
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		try (Connection conn = DriverManager.getConnection(datasourceUrl);
+			 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        pstmt.setLong(1, startDate);
-        pstmt.setLong(2, endDate);
+			pstmt.setLong(1, startDate);
+			pstmt.setLong(2, endDate);
 
-        try (ResultSet rs = pstmt.executeQuery()) {
-            if (rs.next()) {
-                emotionFrequency.setEmocionAlegriaCount(rs.getInt("emocionAlegriaCount"));
-                emotionFrequency.setEmocionTristezaCount(rs.getInt("emocionTristezaCount"));
-                emotionFrequency.setEmocionIraCount(rs.getInt("emocionIraCount"));
-                emotionFrequency.setEmocionMiedoCount(rs.getInt("emocionMiedoCount"));
-                emotionFrequency.setEmocionAnsiedadCount(rs.getInt("emocionAnsiedadCount"));
-                emotionFrequency.setEmocionAmorCount(rs.getInt("emocionAmorCount"));
-                emotionFrequency.setEmocionSorpresaCount(rs.getInt("emocionSorpresaCount"));
-                emotionFrequency.setEmocionVerguenzaCount(rs.getInt("emocionVerguenzaCount"));
-                emotionFrequency.setEmocionFrustracionCount(rs.getInt("emocionFrustracionCount"));
-                emotionFrequency.setEmocionSatisfaccionCount(rs.getInt("emocionSatisfaccionCount"));
-                emotionFrequency.setEmocionAburrimientoCount(rs.getInt("emocionAburrimientoCount"));
-                emotionFrequency.setEmocionSerenidadCount(rs.getInt("emocionSerenidadCount"));
-                emotionFrequency.setEmocionConfianzaCount(rs.getInt("emocionConfianzaCount"));
-                emotionFrequency.setEmocionAbrumadoCount(rs.getInt("emocionAbrumadoCount"));
-                emotionFrequency.setEmocionEsperanzaCount(rs.getInt("emocionEsperanzaCount"));
-            }
-        }
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					emotionFrequency.setEmocionAlegriaCount(rs.getInt("emocionAlegriaCount"));
+					emotionFrequency.setEmocionTristezaCount(rs.getInt("emocionTristezaCount"));
+					emotionFrequency.setEmocionIraCount(rs.getInt("emocionIraCount"));
+					emotionFrequency.setEmocionMiedoCount(rs.getInt("emocionMiedoCount"));
+					emotionFrequency.setEmocionConfianzaCount(rs.getInt("emocionConfianzaCount"));
+					emotionFrequency.setEmocionSorpresaCount(rs.getInt("emocionSorpresaCount"));
+					emotionFrequency.setEmocionAnticipacionCount(rs.getInt("emocionAnticipacionCount"));
+					emotionFrequency.setEmocionRechazoCount(rs.getInt("emocionRechazoCount"));
+					emotionFrequency.setEmocionSerenidadCount(rs.getInt("emocionSerenidadCount"));
+					emotionFrequency.setEmocionMelancoliaCount(rs.getInt("emocionMelancoliaCount"));
+					emotionFrequency.setEmocionFastidioCount(rs.getInt("emocionFastidioCount"));
+					emotionFrequency.setEmocionAprensionCount(rs.getInt("emocionAprensionCount"));
+					emotionFrequency.setEmocionAceptacionCount(rs.getInt("emocionAceptacionCount"));
+					emotionFrequency.setEmocionDistraccionCount(rs.getInt("emocionDistraccionCount"));
+					emotionFrequency.setEmocionInteresCount(rs.getInt("emocionInteresCount"));
+					emotionFrequency.setEmocionAburrimientoCount(rs.getInt("emocionAburrimientoCount"));
+					emotionFrequency.setEmocionExtasisCount(rs.getInt("emocionExtasisCount"));
+					emotionFrequency.setEmocionPenaDolorCount(rs.getInt("emocionPenaDolorCount"));
+					emotionFrequency.setEmocionFuriaCount(rs.getInt("emocionFuriaCount"));
+					emotionFrequency.setEmocionTerrorCount(rs.getInt("emocionTerrorCount"));
+					emotionFrequency.setEmocionAdmiracionCount(rs.getInt("emocionAdmiracionCount"));
+					emotionFrequency.setEmocionAsombroCount(rs.getInt("emocionAsombroCount"));
+					emotionFrequency.setEmocionVigilanciaCount(rs.getInt("emocionVigilanciaCount"));
+					emotionFrequency.setEmocionAscoCount(rs.getInt("emocionAscoCount"));
+					emotionFrequency.setEmocionAnsiedadCount(rs.getInt("emocionAnsiedadCount"));
+					emotionFrequency.setEmocionFrustracionCount(rs.getInt("emocionFrustracionCount"));
+					emotionFrequency.setEmocionVerguenzaCount(rs.getInt("emocionVerguenzaCount"));
+					emotionFrequency.setEmocionEsperanzaCount(rs.getInt("emocionEsperanzaCount"));
+					emotionFrequency.setEmocionOrgulloCount(rs.getInt("emocionOrgulloCount"));
+					emotionFrequency.setEmocionAgobioCount(rs.getInt("emocionAgobioCount"));
+					emotionFrequency.setEmocionNeutralCount(rs.getInt("emocionNeutralCount"));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-
-    return emotionFrequency;
-}
+		return emotionFrequency;
+	}
 
 	public List<PersonalRatings> findPersonalRatingsAllTime() {
 	    List<PersonalRatings> personalRatings = new ArrayList<>();

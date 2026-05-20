@@ -6,11 +6,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -187,50 +183,64 @@ public class StatsUtils {
 		return mostActiveDayN;
 	}
 
-	public static EmotionFrequencyDTO calculateEmotionFrequency(EmotionFrequencyDTO emotionFrequency) {
-		// Create a map to store emotion counts with their names
-		Map<String, Integer> emotionCounts = new HashMap<>();
-		emotionCounts.put("Alegría", emotionFrequency.getEmocionAlegriaCount());
-		emotionCounts.put("Tristeza", emotionFrequency.getEmocionTristezaCount());
-		emotionCounts.put("Ira", emotionFrequency.getEmocionIraCount());
-		emotionCounts.put("Miedo", emotionFrequency.getEmocionMiedoCount());
-		emotionCounts.put("Ansiedad", emotionFrequency.getEmocionAnsiedadCount());
-		emotionCounts.put("Amor", emotionFrequency.getEmocionAmorCount());
-		emotionCounts.put("Sorpresa", emotionFrequency.getEmocionSorpresaCount());
-		emotionCounts.put("Vergüenza", emotionFrequency.getEmocionVerguenzaCount());
-		emotionCounts.put("Frustración", emotionFrequency.getEmocionFrustracionCount());
-		emotionCounts.put("Satisfacción", emotionFrequency.getEmocionSatisfaccionCount());
-		emotionCounts.put("Aburrimiento", emotionFrequency.getEmocionAburrimientoCount());
-		emotionCounts.put("Serenidad", emotionFrequency.getEmocionSerenidadCount());
-		emotionCounts.put("Confianza", emotionFrequency.getEmocionConfianzaCount());
-		emotionCounts.put("Abrumado", emotionFrequency.getEmocionAbrumadoCount());
-		emotionCounts.put("Esperanza", emotionFrequency.getEmocionEsperanzaCount());
+	public static EmotionFrequencyDTO calculateEmotionFrequency(EmotionFrequencyDTO rawDto) {
+		// Map of emotion names to their count values
+		Map<String, Integer> emotionMap = new LinkedHashMap<>();
+		emotionMap.put("Alegría", rawDto.getEmocionAlegriaCount());
+		emotionMap.put("Tristeza", rawDto.getEmocionTristezaCount());
+		emotionMap.put("Ira", rawDto.getEmocionIraCount());
+		emotionMap.put("Miedo", rawDto.getEmocionMiedoCount());
+		emotionMap.put("Confianza", rawDto.getEmocionConfianzaCount());
+		emotionMap.put("Sorpresa", rawDto.getEmocionSorpresaCount());
+		emotionMap.put("Anticipación", rawDto.getEmocionAnticipacionCount());
+		emotionMap.put("Rechazo", rawDto.getEmocionRechazoCount());
+		emotionMap.put("Serenidad", rawDto.getEmocionSerenidadCount());
+		emotionMap.put("Melancolía", rawDto.getEmocionMelancoliaCount());
+		emotionMap.put("Fastidio", rawDto.getEmocionFastidioCount());
+		emotionMap.put("Aprensión", rawDto.getEmocionAprensionCount());
+		emotionMap.put("Aceptación", rawDto.getEmocionAceptacionCount());
+		emotionMap.put("Distracción", rawDto.getEmocionDistraccionCount());
+		emotionMap.put("Interés", rawDto.getEmocionInteresCount());
+		emotionMap.put("Aburrimiento", rawDto.getEmocionAburrimientoCount());
+		emotionMap.put("Éxtasis", rawDto.getEmocionExtasisCount());
+		emotionMap.put("Pena/Dolor", rawDto.getEmocionPenaDolorCount());
+		emotionMap.put("Furia", rawDto.getEmocionFuriaCount());
+		emotionMap.put("Terror", rawDto.getEmocionTerrorCount());
+		emotionMap.put("Admiración", rawDto.getEmocionAdmiracionCount());
+		emotionMap.put("Asombro", rawDto.getEmocionAsombroCount());
+		emotionMap.put("Vigilancia", rawDto.getEmocionVigilanciaCount());
+		emotionMap.put("Asco", rawDto.getEmocionAscoCount());
+		emotionMap.put("Ansiedad", rawDto.getEmocionAnsiedadCount());
+		emotionMap.put("Frustración", rawDto.getEmocionFrustracionCount());
+		emotionMap.put("Vergüenza", rawDto.getEmocionVerguenzaCount());
+		emotionMap.put("Esperanza", rawDto.getEmocionEsperanzaCount());
+		emotionMap.put("Orgullo", rawDto.getEmocionOrgulloCount());
+		emotionMap.put("Agobio", rawDto.getEmocionAgobioCount());
+		emotionMap.put("Neutral", rawDto.getEmocionNeutralCount());
 
-		List<Map.Entry<String, Integer>> sortedEmotionList = new ArrayList<>(emotionCounts.entrySet());
-		sortedEmotionList.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+		// Find top 4 emotions
+		List<Map.Entry<String, Integer>> sortedEntries = new ArrayList<>(emotionMap.entrySet());
+		sortedEntries.sort((a, b) -> b.getValue().compareTo(a.getValue()));
 
-		// Set the top 4 emotions
-		if (!sortedEmotionList.isEmpty()) {
-			emotionFrequency.setTopEmotion1(sortedEmotionList.get(0).getKey());
-			emotionFrequency.setTopEmotion1Count(sortedEmotionList.get(0).getValue());
-
-			if (sortedEmotionList.size() > 1) {
-				emotionFrequency.setTopEmotion2(sortedEmotionList.get(1).getKey());
-				emotionFrequency.setTopEmotion2Count(sortedEmotionList.get(1).getValue());
-			}
-
-			if (sortedEmotionList.size() > 2) {
-				emotionFrequency.setTopEmotion3(sortedEmotionList.get(2).getKey());
-				emotionFrequency.setTopEmotion3Count(sortedEmotionList.get(2).getValue());
-			}
-
-			if (sortedEmotionList.size() > 3) {
-				emotionFrequency.setTopEmotion4(sortedEmotionList.get(3).getKey());
-				emotionFrequency.setTopEmotion4Count(sortedEmotionList.get(3).getValue());
-			}
+		// Set top 4
+		if (sortedEntries.size() > 0) {
+			rawDto.setTopEmotion1(sortedEntries.get(0).getKey());
+			rawDto.setTopEmotion1Count(sortedEntries.get(0).getValue());
+		}
+		if (sortedEntries.size() > 1) {
+			rawDto.setTopEmotion2(sortedEntries.get(1).getKey());
+			rawDto.setTopEmotion2Count(sortedEntries.get(1).getValue());
+		}
+		if (sortedEntries.size() > 2) {
+			rawDto.setTopEmotion3(sortedEntries.get(2).getKey());
+			rawDto.setTopEmotion3Count(sortedEntries.get(2).getValue());
+		}
+		if (sortedEntries.size() > 3) {
+			rawDto.setTopEmotion4(sortedEntries.get(3).getKey());
+			rawDto.setTopEmotion4Count(sortedEntries.get(3).getValue());
 		}
 
-		return emotionFrequency;
+		return rawDto;
 	}
 
 	public static PersonalRatings calculateRatingsAverage(List<PersonalRatings> personalRatings) {
