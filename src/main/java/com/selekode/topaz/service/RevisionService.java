@@ -54,19 +54,13 @@ public class RevisionService {
 		return revision;
 	}
 
-	/*
-	 * public List<Revision> getAll() { return revisionRepository.findAll(); }
-	 */
 
 	public List<Revision> getAll() {
 		return revisionRepository.findAll().stream().map(this::decryptRevision)
 				.sorted((r1, r2) -> r2.getDate().compareTo(r1.getDate())) // newest first
 				.toList();
 	}
-	/*
-	 * public Revision getById(Long id) { return
-	 * revisionRepository.findById(id).orElse(null); }
-	 */
+
 	public Revision getById(Long id) {
 		return revisionRepository.findById(id).map(this::decryptRevision).orElse(null);
 	}
@@ -75,13 +69,11 @@ public class RevisionService {
 		if (revisionEntry.getDate() == null) {
 			revisionEntry.setDate(LocalDate.now());
 		}
-		// Encrypt sensitive fields before saving
 		revisionRepository.save(encryptRevision(revisionEntry));
 	}
 
 	public Revision update(Long id, Revision updatedEntry) {
 		return revisionRepository.findById(id).map(existing -> {
-			// Update fields
 			existing.setDate(updatedEntry.getDate());
 
 			existing.setEstadoEmocional(updatedEntry.getEstadoEmocional());
@@ -91,7 +83,6 @@ public class RevisionService {
 			existing.setExplicacionValoracion(updatedEntry.getExplicacionValoracion());
 			existing.setObjetivosPersonales(updatedEntry.getObjetivosPersonales());
 
-			// Update numeric ratings
 			existing.setValoracionDisciplina(updatedEntry.getValoracionDisciplina());
 			existing.setValoracionOrden(updatedEntry.getValoracionOrden());
 			existing.setValoracionImpulsividad(updatedEntry.getValoracionImpulsividad());
@@ -102,26 +93,49 @@ public class RevisionService {
 			existing.setValoracionAceptacion(updatedEntry.getValoracionAceptacion());
 			existing.setValoracionConsecucionObjetivos(updatedEntry.getValoracionConsecucionObjetivos());
 
-			// Update emotions
+			// 1. Core Emotions
 			existing.setEmocionAlegria(updatedEntry.isEmocionAlegria());
 			existing.setEmocionTristeza(updatedEntry.isEmocionTristeza());
 			existing.setEmocionIra(updatedEntry.isEmocionIra());
 			existing.setEmocionMiedo(updatedEntry.isEmocionMiedo());
-			existing.setEmocionAnsiedad(updatedEntry.isEmocionAnsiedad());
-			existing.setEmocionAmor(updatedEntry.isEmocionAmor());
-			existing.setEmocionSorpresa(updatedEntry.isEmocionSorpresa());
-			existing.setEmocionVerguenza(updatedEntry.isEmocionVerguenza());
-			existing.setEmocionFrustracion(updatedEntry.isEmocionFrustracion());
-			existing.setEmocionSatisfaccion(updatedEntry.isEmocionSatisfaccion());
-			existing.setEmocionAburrimiento(updatedEntry.isEmocionAburrimiento());
-			existing.setEmocionSerenidad(updatedEntry.isEmocionSerenidad());
 			existing.setEmocionConfianza(updatedEntry.isEmocionConfianza());
-			existing.setEmocionAbrumado(updatedEntry.isEmocionAbrumado());
-			existing.setEmocionEsperanza(updatedEntry.isEmocionEsperanza());
+			existing.setEmocionSorpresa(updatedEntry.isEmocionSorpresa());
+			existing.setEmocionAnticipacion(updatedEntry.isEmocionAnticipacion());
+			existing.setEmocionRechazo(updatedEntry.isEmocionRechazo());
 
-			// Encrypt all sensitive text fields before saving
+			// 2. Mild Emotions
+			existing.setEmocionSerenidad(updatedEntry.isEmocionSerenidad());
+			existing.setEmocionMelancolia(updatedEntry.isEmocionMelancolia());
+			existing.setEmocionFastidio(updatedEntry.isEmocionFastidio());
+			existing.setEmocionAprension(updatedEntry.isEmocionAprension());
+			existing.setEmocionAceptacion(updatedEntry.isEmocionAceptacion());
+			existing.setEmocionDistraccion(updatedEntry.isEmocionDistraccion());
+			existing.setEmocionInteres(updatedEntry.isEmocionInteres());
+			existing.setEmocionAburrimiento(updatedEntry.isEmocionAburrimiento());
+
+			// 3. Intense Emotions
+			existing.setEmocionExtasis(updatedEntry.isEmocionExtasis());
+			existing.setEmocionPenaDolor(updatedEntry.isEmocionPenaDolor());
+			existing.setEmocionFuria(updatedEntry.isEmocionFuria());
+			existing.setEmocionTerror(updatedEntry.isEmocionTerror());
+			existing.setEmocionAdmiracion(updatedEntry.isEmocionAdmiracion());
+			existing.setEmocionAsombro(updatedEntry.isEmocionAsombro());
+			existing.setEmocionVigilancia(updatedEntry.isEmocionVigilancia());
+			existing.setEmocionAsco(updatedEntry.isEmocionAsco());
+
+			// 4. Complex / Reflective States
+			existing.setEmocionAnsiedad(updatedEntry.isEmocionAnsiedad());
+			existing.setEmocionFrustracion(updatedEntry.isEmocionFrustracion());
+			existing.setEmocionVerguenza(updatedEntry.isEmocionVerguenza());
+			existing.setEmocionEsperanza(updatedEntry.isEmocionEsperanza());
+			existing.setEmocionOrgullo(updatedEntry.isEmocionOrgullo());
+			existing.setEmocionAgobio(updatedEntry.isEmocionAgobio());
+
+			// 5. Baseline State
+			existing.setEmocionNeutral(updatedEntry.isEmocionNeutral());
+
 			return revisionRepository.save(encryptRevision(existing));
-		}).orElse(null); // or throw an exception if entry doesn't exist
+		}).orElse(null);
 	}
 
 	public void delete(Long id) {

@@ -24,7 +24,6 @@ public class RevisionController {
 	@GetMapping("/load")
 	public String loadPageRevision(Model model) {
 		model.addAttribute("revisionEntries", revisionService.getAll());
-		
 		return "revision";
 	}
 
@@ -32,14 +31,12 @@ public class RevisionController {
 	public String loadPageAddEntry(Model model) {
 		Revision revisionEntry = new Revision();
 		model.addAttribute("revisionEntry", revisionEntry);
-
 		return "revision_addEntry";
 	}
 
 	@PostMapping("/saveEntry")
 	public String saveNewEntry(@ModelAttribute Revision revisionEntry) {
 		revisionService.save(revisionEntry);
-
 		return "redirect_revision";
 	}
 
@@ -47,22 +44,18 @@ public class RevisionController {
 	public String loadPageEditEntry(@PathVariable("id") Long id, Model model) {
 		Revision revisionEntry = revisionService.getById(id);
 		model.addAttribute("revisionEntry", revisionEntry);
-
 		return "revision_editEntry";
 	}
 
 	@PostMapping("/updateEntry/{id}")
 	public String updateEntry(@PathVariable("id") Long id, @ModelAttribute Revision revisionEntry) {
 		revisionService.update(id, revisionEntry);
-
 		return "redirect_revision";
 	}
 
-	// DELETE ENTRY FEATURE
 	@PostMapping("/deleteEntry")
 	public String deleteEntry(@RequestParam("id") Long id) {
 		revisionService.delete(id);
-
 		return "redirect_revision";
 	}
 }
