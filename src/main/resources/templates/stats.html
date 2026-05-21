@@ -2,9 +2,25 @@
 <html lang="es">
 
 <head>
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topaz</title>
+    <link th:href="@{/css/output.css}" rel="stylesheet">
+    <script th:src="@{/js/tailwind.js}" defer></script>
+    <script>
+        window.tailwind = window.tailwind || {};
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/aos.css}">
+
     <link th:href="@{/css/output.css}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -16,8 +32,7 @@
     <script th:src="@{/js/aos.js}" defer></script>
     <script th:src="@{/js/alpine.js}" defer></script>
     <script th:src="@{/js/chart.js}" defer></script>
-    <!--
-    <script th:src="@{/js/stats_calculated_charts.js}"></script>-->
+
 </head>
 
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">

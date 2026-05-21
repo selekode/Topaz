@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html lang="es">
-
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topaz</title>
     <link th:href="@{/css/output.css}" rel="stylesheet">
     <script th:src="@{/js/tailwind.js}" defer></script>
+    <script>
+        window.tailwind = window.tailwind || {};
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/aos.css}">
 </head>
@@ -126,10 +136,19 @@
 
             </div>
 
-            <div class="bg-surface p-6 rounded-xl shadow-md" data-aos="fade-up">
+            <div class="bg-surface p-6 rounded-xl shadow-md mb-6" data-aos="fade-up">
                 <p class="text-lg font-bold text-accent select-none">Ruta de la BBDD</p>
 
                 <p class="text-base mb-4 text-textPrimary select-all" th:text="${databasePath}"></p>
+            </div>
+
+            <div class="bg-surface p-6 rounded-xl shadow-md mb-6" data-aos="fade-up">
+                <p class="text-lg font-bold text-accent select-none">Seleccionar tema:</p>
+                <button id="theme-toggle" class="mt-4 flex items-center gap-2 py-2 px-4 border rounded-md transition-colors duration-300 select-none button-theme-toggle">
+                    <span class="theme-icon-sun hidden"><i data-lucide="sun" class="w-5 h-5 text-accent"></i></span>
+                    <span class="theme-icon-moon"><i data-lucide="moon" class="w-5 h-5 text-textSecondary"></i></span>
+                    <span id="theme-toggle-text" class="text-textPrimary font-medium">Modo Oscuro</span>
+                </button>
             </div>
 
             <div class="bg-surface p-6 rounded-xl shadow-md" data-aos="fade-up" th:if="${updateInfo.updateAvailable}">
@@ -149,7 +168,7 @@
     </div>
 
     </div>
-    <script th:src="@{/js/deleteFeature_openModal.js}" defer></script>
+    <script th:src="@{/js/theme.js}" defer></script>
     <script th:src="@{/js/aos.js}" defer></script>
     <script th:src="@{/js/alpine.js}" defer></script>
     <script>

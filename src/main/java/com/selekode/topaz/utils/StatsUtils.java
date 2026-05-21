@@ -183,40 +183,40 @@ public class StatsUtils {
 		return mostActiveDayN;
 	}
 
-	public static EmotionFrequencyDTO calculateEmotionFrequency(EmotionFrequencyDTO rawDto) {
+	public static EmotionFrequencyDTO calculateEmotionFrequency(EmotionFrequencyDTO emotionFrequency) {
 		// Map of emotion names to their count values
 		Map<String, Integer> emotionMap = new LinkedHashMap<>();
-		emotionMap.put("Alegría", rawDto.getEmocionAlegriaCount());
-		emotionMap.put("Tristeza", rawDto.getEmocionTristezaCount());
-		emotionMap.put("Ira", rawDto.getEmocionIraCount());
-		emotionMap.put("Miedo", rawDto.getEmocionMiedoCount());
-		emotionMap.put("Confianza", rawDto.getEmocionConfianzaCount());
-		emotionMap.put("Sorpresa", rawDto.getEmocionSorpresaCount());
-		emotionMap.put("Anticipación", rawDto.getEmocionAnticipacionCount());
-		emotionMap.put("Rechazo", rawDto.getEmocionRechazoCount());
-		emotionMap.put("Serenidad", rawDto.getEmocionSerenidadCount());
-		emotionMap.put("Melancolía", rawDto.getEmocionMelancoliaCount());
-		emotionMap.put("Fastidio", rawDto.getEmocionFastidioCount());
-		emotionMap.put("Aprensión", rawDto.getEmocionAprensionCount());
-		emotionMap.put("Aceptación", rawDto.getEmocionAceptacionCount());
-		emotionMap.put("Distracción", rawDto.getEmocionDistraccionCount());
-		emotionMap.put("Interés", rawDto.getEmocionInteresCount());
-		emotionMap.put("Aburrimiento", rawDto.getEmocionAburrimientoCount());
-		emotionMap.put("Éxtasis", rawDto.getEmocionExtasisCount());
-		emotionMap.put("Pena/Dolor", rawDto.getEmocionPenaDolorCount());
-		emotionMap.put("Furia", rawDto.getEmocionFuriaCount());
-		emotionMap.put("Terror", rawDto.getEmocionTerrorCount());
-		emotionMap.put("Admiración", rawDto.getEmocionAdmiracionCount());
-		emotionMap.put("Asombro", rawDto.getEmocionAsombroCount());
-		emotionMap.put("Vigilancia", rawDto.getEmocionVigilanciaCount());
-		emotionMap.put("Asco", rawDto.getEmocionAscoCount());
-		emotionMap.put("Ansiedad", rawDto.getEmocionAnsiedadCount());
-		emotionMap.put("Frustración", rawDto.getEmocionFrustracionCount());
-		emotionMap.put("Vergüenza", rawDto.getEmocionVerguenzaCount());
-		emotionMap.put("Esperanza", rawDto.getEmocionEsperanzaCount());
-		emotionMap.put("Orgullo", rawDto.getEmocionOrgulloCount());
-		emotionMap.put("Agobio", rawDto.getEmocionAgobioCount());
-		emotionMap.put("Neutral", rawDto.getEmocionNeutralCount());
+		emotionMap.put("Alegría", emotionFrequency.getEmocionAlegriaCount());
+		emotionMap.put("Tristeza", emotionFrequency.getEmocionTristezaCount());
+		emotionMap.put("Ira", emotionFrequency.getEmocionIraCount());
+		emotionMap.put("Miedo", emotionFrequency.getEmocionMiedoCount());
+		emotionMap.put("Confianza", emotionFrequency.getEmocionConfianzaCount());
+		emotionMap.put("Sorpresa", emotionFrequency.getEmocionSorpresaCount());
+		emotionMap.put("Anticipación", emotionFrequency.getEmocionAnticipacionCount());
+		emotionMap.put("Rechazo", emotionFrequency.getEmocionRechazoCount());
+		emotionMap.put("Serenidad", emotionFrequency.getEmocionSerenidadCount());
+		emotionMap.put("Melancolía", emotionFrequency.getEmocionMelancoliaCount());
+		emotionMap.put("Fastidio", emotionFrequency.getEmocionFastidioCount());
+		emotionMap.put("Aprensión", emotionFrequency.getEmocionAprensionCount());
+		emotionMap.put("Aceptación", emotionFrequency.getEmocionAceptacionCount());
+		emotionMap.put("Distracción", emotionFrequency.getEmocionDistraccionCount());
+		emotionMap.put("Interés", emotionFrequency.getEmocionInteresCount());
+		emotionMap.put("Aburrimiento", emotionFrequency.getEmocionAburrimientoCount());
+		emotionMap.put("Éxtasis", emotionFrequency.getEmocionExtasisCount());
+		emotionMap.put("Pena/Dolor", emotionFrequency.getEmocionPenaDolorCount());
+		emotionMap.put("Furia", emotionFrequency.getEmocionFuriaCount());
+		emotionMap.put("Terror", emotionFrequency.getEmocionTerrorCount());
+		emotionMap.put("Admiración", emotionFrequency.getEmocionAdmiracionCount());
+		emotionMap.put("Asombro", emotionFrequency.getEmocionAsombroCount());
+		emotionMap.put("Vigilancia", emotionFrequency.getEmocionVigilanciaCount());
+		emotionMap.put("Asco", emotionFrequency.getEmocionAscoCount());
+		emotionMap.put("Ansiedad", emotionFrequency.getEmocionAnsiedadCount());
+		emotionMap.put("Frustración", emotionFrequency.getEmocionFrustracionCount());
+		emotionMap.put("Vergüenza", emotionFrequency.getEmocionVerguenzaCount());
+		emotionMap.put("Esperanza", emotionFrequency.getEmocionEsperanzaCount());
+		emotionMap.put("Orgullo", emotionFrequency.getEmocionOrgulloCount());
+		emotionMap.put("Agobio", emotionFrequency.getEmocionAgobioCount());
+		emotionMap.put("Neutral", emotionFrequency.getEmocionNeutralCount());
 
 		// Find top 4 emotions
 		List<Map.Entry<String, Integer>> sortedEntries = new ArrayList<>(emotionMap.entrySet());
@@ -224,23 +224,23 @@ public class StatsUtils {
 
 		// Set top 4
 		if (sortedEntries.size() > 0) {
-			rawDto.setTopEmotion1(sortedEntries.get(0).getKey());
-			rawDto.setTopEmotion1Count(sortedEntries.get(0).getValue());
+			emotionFrequency.setTopEmotion1(sortedEntries.get(0).getKey());
+			emotionFrequency.setTopEmotion1Count(sortedEntries.get(0).getValue());
 		}
 		if (sortedEntries.size() > 1) {
-			rawDto.setTopEmotion2(sortedEntries.get(1).getKey());
-			rawDto.setTopEmotion2Count(sortedEntries.get(1).getValue());
+			emotionFrequency.setTopEmotion2(sortedEntries.get(1).getKey());
+			emotionFrequency.setTopEmotion2Count(sortedEntries.get(1).getValue());
 		}
 		if (sortedEntries.size() > 2) {
-			rawDto.setTopEmotion3(sortedEntries.get(2).getKey());
-			rawDto.setTopEmotion3Count(sortedEntries.get(2).getValue());
+			emotionFrequency.setTopEmotion3(sortedEntries.get(2).getKey());
+			emotionFrequency.setTopEmotion3Count(sortedEntries.get(2).getValue());
 		}
 		if (sortedEntries.size() > 3) {
-			rawDto.setTopEmotion4(sortedEntries.get(3).getKey());
-			rawDto.setTopEmotion4Count(sortedEntries.get(3).getValue());
+			emotionFrequency.setTopEmotion4(sortedEntries.get(3).getKey());
+			emotionFrequency.setTopEmotion4Count(sortedEntries.get(3).getValue());
 		}
 
-		return rawDto;
+		return emotionFrequency;
 	}
 
 	public static PersonalRatings calculateRatingsAverage(List<PersonalRatings> personalRatings) {

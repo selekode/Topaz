@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
 /* Hide AOS elements until they're initialized */
 [data-aos] {
     opacity: 0;
@@ -7,6 +8,7 @@
 
 html {
     background-color: #F5F5F5;
+    transition: background-color 0.2s ease; /* Smooth transition when toggling */
 }
 
 /* Show elements once AOS is initialized */
@@ -17,8 +19,8 @@ html {
 body {
     font-family: "Ubuntu", sans-serif !important;
     background-color: #F5F5F5 !important;
+    transition: background-color 0.2s ease, color 0.2s ease; /* Smooth transition */
 }
-
 
 main {
     max-width: 1000px !important;
@@ -62,7 +64,6 @@ main {
     /* This matches the sidebar width */
 }
 
-
 .chart-container {
     width: 100%;
     max-width: 60%;
@@ -75,11 +76,12 @@ canvas {
     height: auto;
 }
 
-
 @font-face {
     font-family: 'Inter';
     src: url('./fonts/Inter.ttf') format('truetype');
 }
+
+/* LIGHT MODE STYLES */
 
 .bg-surface {
     background-color: #fff;
@@ -95,12 +97,10 @@ canvas {
 
 .text-textPrimary {
     color: #1C1C1E;
-
 }
 
 .text-textSecondary {
     color: #3C3C43;
-
 }
 
 .text-accent {
@@ -142,11 +142,8 @@ canvas {
 .button-delete-bg {
     background-color: transparent;
     border: 1px solid #FF3B30;
-    /* added border width and style */
     border-radius: 4px;
-    /* slightly more visible */
     color: #FF3B30;
-    /* optional: match text color to border */
     transition: background-color 0.2s ease, border-color 0.2s ease;
     cursor: pointer;
 }
@@ -162,5 +159,91 @@ canvas {
 
 .text-success {
     color: #32D74B;
+}
 
+.button-theme-toggle:hover #theme-toggle-text,
+.button-theme-toggle:hover .theme-icon-moon i,
+.button-theme-toggle:hover .theme-icon-sun i {
+    color: #FFFFFF !important;
+}
+
+/* DARK MODE OVERRIDES (Triggered when <html> has the "dark" class) */
+html.dark,
+html.dark body {
+    background-color: #121214 !important; /* Deep dark background */
+}
+
+html.dark .bg-background {
+    background-color: #121214;
+}
+
+html.dark .bg-surface {
+    background-color: #1C1C1E; /* Slightly lighter surface for cards/containers */
+}
+
+html.dark .modal-content {
+    background-color: #2C2C2E;
+}
+
+html.dark .border {
+    border-color: #3A3A3C; /* Darker borders so they don't pop out too harsh */
+}
+
+html.dark .text-textPrimary {
+    color: #F2F2F7; /* Soft white for readability */
+}
+
+html.dark .text-textSecondary {
+    color: #AEAEB2; /* Muted gray for subtitles/secondary text */
+}
+
+/* Accent adjustments for dark mode readability */
+html.dark .text-accent {
+    color: #34BDD7; /* Slightly brighter cyan so it stands out on dark backdrops */
+}
+
+html.dark .bg-accent,
+html.dark .button-accent {
+    background-color: #34BDD7;
+}
+
+html.dark .button-accent:hover,
+html.dark .button-sidebar:hover {
+    background-color: #23A3BB;
+    color: white !important;
+}
+
+html.dark .button-secondary-bg {
+    background-color: #2C3E42;
+    border-color: #3A3A3C;
+    color: #F2F2F7;
+}
+
+html.dark .button-secondary-bg:hover {
+    background-color: #3A5257;
+}
+
+html.dark .button-delete-bg:hover {
+    background-color: #3D1414; /* Dark red subtle fill on hover */
+}
+
+/* Estilos específicos para el botón selector de tema corporativo */
+.button-theme-toggle {
+    background-color: #E5E5EA; /* Un gris muy suave de fondo base en modo claro */
+    border-color: #D1D1D6;
+}
+
+.button-theme-toggle:hover {
+    background-color: #23A3BB !important;
+    border-color: #23A3BB;
+}
+
+html.dark .button-theme-toggle {
+    background-color: #2C2C2E;
+    border-color: #3A3A3C;
+}
+
+html.dark .button-theme-toggle:hover {
+    background-color: #34BDD7 !important;
+    border-color: #34BDD7;
 }
