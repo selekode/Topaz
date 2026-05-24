@@ -150,21 +150,13 @@
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentBienestarMental}" placeholder="Escribe sobre lo que has hecho para tu bienestar mental, como ir a terapia, meditar, limitar el uso de pantallas, etc"></textarea>
 
-                    <!-- Relaciones Sociales -->
-                    <label for="contentRelacionesSociales"
-                        class="text-accent text-lg font-semibold mb-2 block">Relaciones Sociales</label>
-                    <textarea name="contentRelacionesSociales" id="contentRelacionesSociales"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
-                        th:value="${journalEntry.contentRelacionesSociales}"
-                        placeholder="Escribe sobre lo que has hecho con tu familia, amigos, pareja, etc"></textarea>
-
                     <!-- Carrera Profesional -->
                     <label for="contentCarreraProfesional" class="text-accent text-lg font-semibold mb-2 block">Carrera
                         Profesional</label>
                     <textarea name="contentCarreraProfesional" id="contentCarreraProfesional"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
-                        th:value="${journalEntry.contentCarreraProfesional}"
-                        placeholder="Escribe sobre las cosas en las que has trabajado hoy, lo que has hecho para tu trayectoria profesional, etc"></textarea>
+                              class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
+                              th:value="${journalEntry.contentCarreraProfesional}"
+                              placeholder="Escribe sobre las cosas en las que has trabajado hoy, lo que has hecho para tu trayectoria profesional, etc"></textarea>
 
                     <!-- Estabilidad Financiera -->
                     <label for="contentEstabilidadFinanciera"
@@ -176,10 +168,18 @@
 
                     <!-- Crecimiento Personal -->
                     <label for="contentCrecimientoPersonal"
-                        class="text-accent text-lg font-semibold mb-2 block">Crecimiento Personal</label>
+                           class="text-accent text-lg font-semibold mb-2 block">Crecimiento Personal</label>
                     <textarea name="contentCrecimientoPersonal" id="contentCrecimientoPersonal"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
-                        th:value="${journalEntry.contentCrecimientoPersonal}" placeholder="Escribe sobre tus aprendizajes, nuevas habilidades y momentos de autoconocimiento para crecer como persona"></textarea>
+                              class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
+                              th:value="${journalEntry.contentCrecimientoPersonal}" placeholder="Escribe sobre tus aprendizajes, nuevas habilidades y momentos de autoconocimiento para crecer como persona"></textarea>
+
+                    <!-- Relaciones Sociales -->
+                    <label for="contentRelacionesSociales"
+                           class="text-accent text-lg font-semibold mb-2 block">Relaciones Sociales</label>
+                    <textarea name="contentRelacionesSociales" id="contentRelacionesSociales"
+                              class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
+                              th:value="${journalEntry.contentRelacionesSociales}"
+                              placeholder="Escribe sobre lo que has hecho con tu familia, amigos, pareja, etc"></textarea>
 
                     <!-- Pasatiempos y Creatividad -->
                     <label for="contentPasatiemposCreatividad"
@@ -189,6 +189,14 @@
                         th:value="${journalEntry.contentPasatiemposCreatividad}"
                         placeholder="Escribe sobre los hobbies que has practicado"></textarea>
 
+                    <!-- Recreación y Diversión -->
+                    <label for="contentRecreacionDiversion"
+                           class="text-accent text-lg font-semibold mb-2 block">Recreación y Diversión</label>
+                    <textarea name="contentRecreacionDiversion" id="contentRecreacionDiversion"
+                              class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
+                              th:value="${journalEntry.contentRecreacionDiversion}"
+                              placeholder="Escribe sobre lo que has hecho para tu entretenimiento / recreación hoy"></textarea>
+
                     <!-- Espiritualidad y Propósito -->
                     <label for="contentEspiritualidadProposito"
                         class="text-accent text-lg font-semibold mb-2 block">Espiritualidad y Propósito</label>
@@ -196,14 +204,6 @@
                         class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
                         th:value="${journalEntry.contentEspiritualidadProposito}"
                         placeholder="Reflexiona sobre tus valores, cultiva gratitud y conéctate con algo más grande para encontrar propósito"></textarea>
-
-                    <!-- Recreación y Diversión -->
-                    <label for="contentRecreacionDiversion"
-                        class="text-accent text-lg font-semibold mb-2 block">Recreación y Diversión</label>
-                    <textarea name="contentRecreacionDiversion" id="contentRecreacionDiversion"
-                        class="w-full h-[150px] resize-y p-4 rounded-lg bg-background text-base text-textPrimary mb-6"
-                        th:value="${journalEntry.contentRecreacionDiversion}"
-                        placeholder="Escribe sobre lo que has hecho para tu entretenimiento / recreación hoy"></textarea>
 
                     <!-- Contribución y Legado -->
                     <label for="contentContribucionLegado"

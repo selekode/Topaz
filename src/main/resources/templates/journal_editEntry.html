@@ -33,222 +33,224 @@
 
 <body class=" font-sans leading-normal tracking-normal flex min-h-screen">
 
-    <!-- Sidebar -->
-    <div
+<!-- Sidebar -->
+<div
         class="w-64 bg-background rounded-xl shadow-2xl text-textPrimary p-4 flex flex-col items-center sidebar m-4 h-[90vh]">
 
 
-        <!-- Logo Section -->
-        <div class="flex items-center mb-6 mt-2 flex-col">
-            <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
-        </div>
-
-        <div class="space-y-4 w-full flex flex-col items-center">
-            <!-- Dashboard -->
-            <a href="/dashboard/load" class="block w-full">
-                <button
-                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
-                    <i data-lucide="home" class="w-5 h-5"></i> Inicio
-                </button>
-            </a>
-
-            <!-- Journal -->
-            <a href="/journal/load" class="block w-full">
-                <button
-                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent select-none">
-                    <i data-lucide="book-open" class="w-5 h-5"></i> Diario
-                </button>
-            </a>
-
-            <!-- Revision -->
-            <a href="/revision/load" class="block w-full">
-                <button
-                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
-                    <i data-lucide="refresh-cw" class="w-5 h-5"></i> Revisión
-                </button>
-            </a>
-
-            <!-- Inner Work -->
-            <a href="/innerwork/load" class="block w-full">
-                <button
-                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
-                    <i data-lucide="brain" class="w-5 h-5"></i> Trabajo Interno
-                </button>
-            </a>
-
-            <!-- Stats -->
-            <a href="/stats/load" class="block w-full">
-                <button
-                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
-                    <i data-lucide="bar-chart-2" class="w-5 h-5"></i> Estadísticas
-                </button>
-            </a>
-
-            <!-- Meditation -->
-            <a href="/meditacion/load" class="block w-full">
-                <button
-                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
-                    <i data-lucide="moon" class="w-5 h-5"></i> Meditación
-                </button>
-            </a>
-
-            <!-- About -->
-            <a href="/about" class="block w-full">
-                <button
-                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
-                    <i data-lucide="info" class="w-5 h-5"></i> Sobre Topaz
-                </button>
-            </a>
-        </div>
+    <!-- Logo Section -->
+    <div class="flex items-center mb-6 mt-2 flex-col">
+        <img th:src="@{/images/topaz-logo-text.svg}" alt="Logo" class="w-[120px] select-none">
     </div>
 
-    <!-- Main content -->
-    <div class="flex-grow bg-background p-6 main-content">
-        <main class="container mx-auto mt-6 p-4">
-            <h1 class="text-3xl font-bold mb-4 text-textPrimary">Diario</h1>
+    <div class="space-y-4 w-full flex flex-col items-center">
+        <!-- Dashboard -->
+        <a href="/dashboard/load" class="block w-full">
+            <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                <i data-lucide="home" class="w-5 h-5"></i> Inicio
+            </button>
+        </a>
 
-            <div data-aos="fade-left" class="bg-surface p-6 rounded-xl shadow-md flex flex-col justify-between">
-                <div class="mb-4 relative flex justify-center items-center">
-                    <a href="/journal/load"
-                        class="absolute left-0 text-textPrimary button-accent transition-colors duration-300 hover:button-secondary-bg py-2 px-3 rounded-md select-none flex items-center justify-center">
-                        <i data-lucide="arrow-big-left" class="w-4 h-4"></i>
-                    </a>
-                    <h2 class="text-xl text-accent font-bold select-none">
-                        Editar Entrada al Diario
-                    </h2>
+        <!-- Journal -->
+        <a href="/journal/load" class="block w-full">
+            <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-accent rounded-md transition-colors duration-300 hover:button-accent select-none">
+                <i data-lucide="book-open" class="w-5 h-5"></i> Diario
+            </button>
+        </a>
+
+        <!-- Revision -->
+        <a href="/revision/load" class="block w-full">
+            <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                <i data-lucide="refresh-cw" class="w-5 h-5"></i> Revisión
+            </button>
+        </a>
+
+        <!-- Inner Work -->
+        <a href="/innerwork/load" class="block w-full">
+            <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                <i data-lucide="brain" class="w-5 h-5"></i> Trabajo Interno
+            </button>
+        </a>
+
+        <!-- Stats -->
+        <a href="/stats/load" class="block w-full">
+            <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                <i data-lucide="bar-chart-2" class="w-5 h-5"></i> Estadísticas
+            </button>
+        </a>
+
+        <!-- Meditation -->
+        <a href="/meditacion/load" class="block w-full">
+            <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                <i data-lucide="moon" class="w-5 h-5"></i> Meditación
+            </button>
+        </a>
+
+        <!-- About -->
+        <a href="/about" class="block w-full">
+            <button
+                    class="w-full flex items-center gap-2 text-left py-2 px-4 button-sidebar rounded-md transition-colors duration-300 select-none">
+                <i data-lucide="info" class="w-5 h-5"></i> Sobre Topaz
+            </button>
+        </a>
+    </div>
+</div>
+
+<!-- Main content -->
+<div class="flex-grow bg-background p-6 main-content">
+    <main class="container mx-auto mt-6 p-4">
+        <h1 class="text-3xl font-bold mb-4 text-textPrimary">Diario</h1>
+
+        <div data-aos="fade-left" class="bg-surface p-6 rounded-xl shadow-md flex flex-col justify-between">
+            <div class="mb-4 relative flex justify-center items-center">
+                <a href="/journal/load"
+                   class="absolute left-0 text-textPrimary button-accent transition-colors duration-300 hover:button-secondary-bg py-2 px-3 rounded-md select-none flex items-center justify-center">
+                    <i data-lucide="arrow-big-left" class="w-4 h-4"></i>
+                </a>
+                <h2 class="text-xl text-accent font-bold select-none">
+                    Editar Entrada al Diario
+                </h2>
+            </div>
+
+
+            <!-- Form to handle the journal entry -->
+            <form id="journalForm" action="#" method="POST"
+                  th:action="@{/journal/updateEntry/{id}(id=${journalEntry.id})}" th:object="${journalEntry}">
+
+                <!-- hidden date -->
+                <input type="text" name="date" id="date" class="hidden" th:value="${journalEntry.date}"/>
+
+                <!-- Title -->
+                <input type="text" name="title" id="title"
+                       class="text-lg font-semibold mb-4 w-full bg-background text-textPrimary p-3 rounded-lg"
+                       placeholder="Título" th:value="${journalEntry.title}"/>
+
+                <!-- General -->
+                <label for="contentGeneral" class="block text-lg font-medium text-accent mb-2">General</label>
+                <textarea name="contentGeneral" id="contentGeneral"
+                          class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
+                          th:text="${journalEntry.contentGeneral}" placeholder="¿Qué has hecho hoy?"></textarea>
+
+                <!-- Errores Cometidos -->
+                <label for="contentErroresCometidos" class="block text-lg font-medium text-accent mb-2">Errores
+                    Cometidos</label>
+                <textarea name="contentErroresCometidos" id="contentErroresCometidos"
+                          class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-6 text-base"
+                          th:text="${journalEntry.contentErroresCometidos}"
+                          placeholder="Hoy he hecho mal..."></textarea>
+
+                <!-- Salud Física -->
+                <label for="contentSaludFisica" class="block text-lg font-medium text-accent mb-2">Salud
+                    Física</label>
+                <textarea name="contentSaludFisica" id="contentSaludFisica"
+                          class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
+                          th:text="${journalEntry.contentSaludFisica}"
+                          placeholder="Hoy he ido al gimnasio..."></textarea>
+
+                <!-- Bienestar Mental -->
+                <label for="contentBienestarMental" class="block text-lg font-medium text-accent mb-2">Bienestar
+                    Mental</label>
+                <textarea name="contentBienestarMental" id="contentBienestarMental"
+                          class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
+                          th:text="${journalEntry.contentBienestarMental}" placeholder="Hoy he meditado..."></textarea>
+
+                <!-- Carrera Profesional -->
+                <label for="contentCarreraProfesional" class="block text-lg font-medium text-accent mb-2">Carrera
+                    Profesional</label>
+                <textarea name="contentCarreraProfesional" id="contentCarreraProfesional"
+                          class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
+                          th:text="${journalEntry.contentCarreraProfesional}"
+                          placeholder="Hoy he trabajado en..."></textarea>
+
+                <!-- Estabilidad Financiera -->
+                <label for="contentEstabilidadFinanciera"
+                       class="block text-lg font-medium text-accent mb-2">Estabilidad Financiera</label>
+                <textarea name="contentEstabilidadFinanciera" id="contentEstabilidadFinanciera"
+                          class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
+                          th:text="${journalEntry.contentEstabilidadFinanciera}"
+                          placeholder="Hoy he ganado...Hoy he gastado..."></textarea>
+
+                <!-- Crecimiento Personal -->
+                <label for="contentCrecimientoPersonal"
+                       class="block text-lg font-medium text-accent mb-2">Crecimiento Personal</label>
+                <textarea name="contentCrecimientoPersonal" id="contentCrecimientoPersonal"
+                          class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
+                          th:text="${journalEntry.contentCrecimientoPersonal}" placeholder="Hoy he leído..."></textarea>
+
+                <!-- Relaciones Sociales -->
+                <label for="contentRelacionesSociales" class="block text-lg font-medium text-accent mb-2">Relaciones
+                    Sociales</label>
+                <textarea name="contentRelacionesSociales" id="contentRelacionesSociales"
+                          class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
+                          th:text="${journalEntry.contentRelacionesSociales}"
+                          placeholder="Hoy he pasado tiempo con mi familia y amigos..."></textarea>
+
+                <!-- Pasatiempos y Creatividad -->
+                <label for="contentPasatiemposCreatividad"
+                       class="block text-lg font-medium text-accent mb-2">Pasatiempos y Creatividad</label>
+                <textarea name="contentPasatiemposCreatividad" id="contentPasatiemposCreatividad"
+                          class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
+                          th:text="${journalEntry.contentPasatiemposCreatividad}"
+                          placeholder="Hoy he hecho música...Hoy he dibujado..."></textarea>
+
+                <!-- Recreación y Diversión -->
+                <label for="contentRecreacionDiversion"
+                       class="block text-lg font-medium text-accent mb-2">Recreación y Diversión</label>
+                <textarea name="contentRecreacionDiversion" id="contentRecreacionDiversion"
+                          class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
+                          th:text="${journalEntry.contentRecreacionDiversion}"
+                          placeholder="Hoy he jugado a..."></textarea>
+
+
+                <!-- Espiritualidad y Propósito -->
+                <label for="contentEspiritualidadProposito"
+                       class="block text-lg font-medium text-accent mb-2">Espiritualidad y Propósito</label>
+                <textarea name="contentEspiritualidadProposito" id="contentEspiritualidadProposito"
+                          class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
+                          th:text="${journalEntry.contentEspiritualidadProposito}"
+                          placeholder="Hoy he reflexionado sobre..."></textarea>
+
+                <!-- Contribución y Legado -->
+                <label for="contentContribucionLegado"
+                       class="block text-lg font-medium text-accent mb-2">Contribución y Legado</label>
+                <textarea name="contentContribucionLegado" id="contentContribucionLegado"
+                          class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
+                          th:text="${journalEntry.contentContribucionLegado}"
+                          placeholder="Hoy he ayudado a...Hoy he enseñado a..."></textarea>
+
+                <!-- Save Button -->
+                <div class="mt-4 flex">
+                    <button type="submit" id="saveButton"
+                            class="ml-auto text-textPrimary button-accent transition-colors duration-300 hover:button-secondary-bg py-2 px-3 rounded-md select-none flex items-center justify-center">
+                        <i data-lucide="save" class="w-4 h-4"></i>
+                        &nbsp;&nbsp;Guardar
+                    </button>
                 </div>
 
+            </form>
 
+        </div>
+    </main>
+</div>
 
-                <!-- Form to handle the journal entry -->
-                <form id="journalForm" action="#" method="POST"
-                    th:action="@{/journal/updateEntry/{id}(id=${journalEntry.id})}" th:object="${journalEntry}">
-
-                    <!-- hidden date -->
-                    <input type="text" name="date" id="date" class="hidden" th:value="${journalEntry.date}" />
-
-                    <!-- Title -->
-                    <input type="text" name="title" id="title"
-                        class="text-lg font-semibold mb-4 w-full bg-background text-textPrimary p-3 rounded-lg"
-                        placeholder="Título" th:value="${journalEntry.title}" />
-
-                    <!-- General -->
-                    <label for="contentGeneral" class="block text-lg font-medium text-accent mb-2">General</label>
-                    <textarea name="contentGeneral" id="contentGeneral"
-                        class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
-                        th:text="${journalEntry.contentGeneral}" placeholder="¿Qué has hecho hoy?"></textarea>
-
-                    <!-- Errores Cometidos -->
-                    <label for="contentErroresCometidos" class="block text-lg font-medium text-accent mb-2">Errores
-                        Cometidos</label>
-                    <textarea name="contentErroresCometidos" id="contentErroresCometidos"
-                        class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-6 text-base"
-                        th:text="${journalEntry.contentErroresCometidos}" placeholder="Hoy he hecho mal..."></textarea>
-
-                    <!-- Salud Física -->
-                    <label for="contentSaludFisica" class="block text-lg font-medium text-accent mb-2">Salud
-                        Física</label>
-                    <textarea name="contentSaludFisica" id="contentSaludFisica"
-                        class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
-                        th:text="${journalEntry.contentSaludFisica}" placeholder="Hoy he ido al gimnasio..."></textarea>
-
-                    <!-- Bienestar Mental -->
-                    <label for="contentBienestarMental" class="block text-lg font-medium text-accent mb-2">Bienestar
-                        Mental</label>
-                    <textarea name="contentBienestarMental" id="contentBienestarMental"
-                        class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
-                        th:text="${journalEntry.contentBienestarMental}" placeholder="Hoy he meditado..."></textarea>
-
-                    <!-- Relaciones Sociales -->
-                    <label for="contentRelacionesSociales" class="block text-lg font-medium text-accent mb-2">Relaciones
-                        Sociales</label>
-                    <textarea name="contentRelacionesSociales" id="contentRelacionesSociales"
-                        class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
-                        th:text="${journalEntry.contentRelacionesSociales}"
-                        placeholder="Hoy he pasado tiempo con mi familia y amigos..."></textarea>
-
-                    <!-- Carrera Profesional -->
-                    <label for="contentCarreraProfesional" class="block text-lg font-medium text-accent mb-2">Carrera
-                        Profesional</label>
-                    <textarea name="contentCarreraProfesional" id="contentCarreraProfesional"
-                        class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
-                        th:text="${journalEntry.contentCarreraProfesional}"
-                        placeholder="Hoy he trabajado en..."></textarea>
-
-                    <!-- Estabilidad Financiera -->
-                    <label for="contentEstabilidadFinanciera"
-                        class="block text-lg font-medium text-accent mb-2">Estabilidad Financiera</label>
-                    <textarea name="contentEstabilidadFinanciera" id="contentEstabilidadFinanciera"
-                        class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
-                        th:text="${journalEntry.contentEstabilidadFinanciera}"
-                        placeholder="Hoy he ganado...Hoy he gastado..."></textarea>
-
-                    <!-- Crecimiento Personal -->
-                    <label for="contentCrecimientoPersonal"
-                        class="block text-lg font-medium text-accent mb-2">Crecimiento Personal</label>
-                    <textarea name="contentCrecimientoPersonal" id="contentCrecimientoPersonal"
-                        class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
-                        th:text="${journalEntry.contentCrecimientoPersonal}" placeholder="Hoy he leído..."></textarea>
-
-                    <!-- Pasatiempos y Creatividad -->
-                    <label for="contentPasatiemposCreatividad"
-                        class="block text-lg font-medium text-accent mb-2">Pasatiempos y Creatividad</label>
-                    <textarea name="contentPasatiemposCreatividad" id="contentPasatiemposCreatividad"
-                        class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
-                        th:text="${journalEntry.contentPasatiemposCreatividad}"
-                        placeholder="Hoy he hecho música...Hoy he dibujado..."></textarea>
-
-                    <!-- Espiritualidad y Propósito -->
-                    <label for="contentEspiritualidadProposito"
-                        class="block text-lg font-medium text-accent mb-2">Espiritualidad y Propósito</label>
-                    <textarea name="contentEspiritualidadProposito" id="contentEspiritualidadProposito"
-                        class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
-                        th:text="${journalEntry.contentEspiritualidadProposito}"
-                        placeholder="Hoy he reflexionado sobre..."></textarea>
-
-                    <!-- Recreación y Diversión -->
-                    <label for="contentRecreacionDiversion"
-                        class="block text-lg font-medium text-accent mb-2">Recreación y Diversión</label>
-                    <textarea name="contentRecreacionDiversion" id="contentRecreacionDiversion"
-                        class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
-                        th:text="${journalEntry.contentRecreacionDiversion}"
-                        placeholder="Hoy he jugado a..."></textarea>
-
-                    <!-- Contribución y Legado -->
-                    <label for="contentContribucionLegado"
-                        class="block text-lg font-medium text-accent mb-2">Contribución y Legado</label>
-                    <textarea name="contentContribucionLegado" id="contentContribucionLegado"
-                        class="w-full h-[150px] resize-y p-3 rounded-lg bg-background text-textPrimary mb-4 text-base"
-                        th:text="${journalEntry.contentContribucionLegado}"
-                        placeholder="Hoy he ayudado a...Hoy he enseñado a..."></textarea>
-
-                    <!-- Save Button -->
-                    <div class="mt-4 flex">
-                        <button type="submit" id="saveButton"
-                            class="ml-auto text-textPrimary button-accent transition-colors duration-300 hover:button-secondary-bg py-2 px-3 rounded-md select-none flex items-center justify-center">
-                            <i data-lucide="save" class="w-4 h-4"></i>
-                            &nbsp;&nbsp;Guardar
-                        </button>
-                    </div>
-
-                </form>
-
-            </div>
-        </main>
-    </div>
-
-    <script th:src="@{/js/deleteFeature_openModal.js}" defer></script>
-    <script th:src="@{/js/aos.js}" defer></script>
-    <script th:src="@{/js/alpine.js}" defer></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            AOS.init();
-        });
-    </script>
-    <script th:src="@{/js/lucide.js}"></script>
-    <script>
-        lucide.createIcons();
-    </script>
+<script th:src="@{/js/deleteFeature_openModal.js}" defer></script>
+<script th:src="@{/js/aos.js}" defer></script>
+<script th:src="@{/js/alpine.js}" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        AOS.init();
+    });
+</script>
+<script th:src="@{/js/lucide.js}"></script>
+<script>
+    lucide.createIcons();
+</script>
 </body>
 
 </html>

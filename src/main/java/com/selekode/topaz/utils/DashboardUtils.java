@@ -34,7 +34,7 @@ public class DashboardUtils {
 	            streak++;
 	            expected = expected.minusDays(1);
 	        } else if (entryDate.isBefore(expected)) {
-	            break; // streak broken
+	            break;
 	        }
 	    }
 	    return streak;
@@ -66,9 +66,9 @@ public class DashboardUtils {
 		String paragraph = "";
 
 		if (streak <= 1) {
-			paragraph = "¡Escribe varios dias seguidos para empezar una nueva racha!";
+			paragraph = "• Escribe varios dias seguidos para empezar una nueva racha";
 		} else if (streak > 1) {
-			paragraph = "Llevas " + streak
+			paragraph = "• Llevas " + streak
 					+ " días seguidos escribiendo en tu diario. ¡Sigue así!";
 		}
 		
@@ -78,9 +78,9 @@ public class DashboardUtils {
 	public static String getRevisionStreakParagraph(int streak) {
 		String paragraph = null;
 		if (streak <= 1) {
-			paragraph = "¡Escribe varios dias seguidos para empezar una nueva racha!";
+			paragraph = "• Escribe varios dias seguidos para empezar una nueva racha";
 		} else if (streak > 1) {
-			paragraph = "Llevas " + streak
+			paragraph = "• Llevas " + streak
 					+ " días seguidos escribiendo revisiones. ¡Sigue así!";
 		}
 		return paragraph;
@@ -89,10 +89,10 @@ public class DashboardUtils {
 	public static String getLongestJournalStreakParagraph(int streak) {
 		String paragraph = null;
 		if (streak <= 1) {
-			paragraph = "Aún no has conseguido una racha escribiendo en tu diario";
+			paragraph = "• Aún no has conseguido una racha escribiendo en tu diario";
 		}
 		if (streak > 1) {
-			paragraph = "Tu racha más larga escribiendo en tu diario ha sido de "
+			paragraph = "• Tu racha más larga escribiendo en tu diario ha sido de "
 					+ streak + " días";
 		}
 		return paragraph;
@@ -101,10 +101,10 @@ public class DashboardUtils {
 	public static String getLongestRevisionStreakParagraph(int streak) {
 		String paragraph = null;
 		if (streak <= 1) {
-			paragraph = "Aún no has conseguido una racha de revisiones";
+			paragraph = "• Aún no has conseguido una racha de revisiones";
 		}
 		if (streak > 1) {
-			paragraph = "Tu racha más larga escribiendo revisiones ha sido de "
+			paragraph = "• Tu racha más larga escribiendo revisiones ha sido de "
 					+ streak + " días";
 		}
 		return paragraph;
@@ -115,7 +115,7 @@ public class DashboardUtils {
 		if (isWritten == true) {
 			paragraph = " ";
 		} else {
-			paragraph = "• Aún no has escrito en tu diario hoy";
+			paragraph = "• Escribir en tu diario";
 		}
 		return paragraph;
 	}
@@ -125,7 +125,7 @@ public class DashboardUtils {
 		if (isWritten == true) {
 			paragraph = "";
 		} else {
-			paragraph = "• Aún no has escrito una revisión hoy";
+			paragraph = "• Escribir una revisión";
 		}
 		return paragraph;
 	}
@@ -136,7 +136,7 @@ public class DashboardUtils {
 		if (isWritten == true) {
 			paragraph = "";
 		} else {
-			paragraph = "• Podrías escribir un trabajo interno";
+			paragraph = "• Escribir un trabajo interno";
 		}
 		
 		return paragraph;
